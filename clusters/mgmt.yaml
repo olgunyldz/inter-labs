@@ -1,0 +1,16 @@
+# Mgmt: yönetim araçları için ayrılmış cluster; tüm zone network'lerine bağlı
+# Host'a 9080/9443'ten açık (VPN/iç ağ erişimini temsil eder)
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: mgmt
+networking:
+  podSubnet: 10.50.0.0/16
+  serviceSubnet: 10.51.0.0/16
+nodes:
+  - role: control-plane
+    labels:
+      ingress-ready: "true"
+      lab.zone: mgmt
+    extraPortMappings:
+      - { containerPort: 80, hostPort: 9080, listenAddress: "127.0.0.1" }
+      - { containerPort: 443, hostPort: 9443, listenAddress: "127.0.0.1" }

@@ -1,0 +1,33 @@
+# Tüm cluster'lardaki ingress-nginx için ortak ayarlar (kind: hostPort ile node'a bağlanır)
+controller:
+  replicaCount: 1
+  hostPort:
+    enabled: true
+  service:
+    type: ClusterIP
+  publishService:
+    enabled: false
+  extraArgs:
+    publish-status-address: localhost
+  nodeSelector:
+    ingress-ready: "true"
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+  # tek node + hostPort: yeni pod eskisi silinmeden port alamaz
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  ingressClassResource:
+    name: nginx
+    default: true
+  watchIngressWithoutClass: true
+  metrics:
+    enabled: true
+  config:
+    server-tokens: "false"
+    log-format-escape-json: "true"
+    log-format-upstream: '{"time":"$time_iso8601","remote_addr":"$remote_addr","xff":"$http_x_forwarded_for","host":"$host","request":"$request","status":$status,"upstream":"$upstream_addr","upstream_status":"$upstream_status","request_time":$request_time}'

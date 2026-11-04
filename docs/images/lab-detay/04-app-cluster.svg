@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1230" viewBox="0 0 2200 1230">
+<defs><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#b3b3ad" stroke-width="1.4"/></marker><marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2f7bd8"/></marker><marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker></defs>
+<rect width="2200" height="1230" fill="#ffffff"/>
+<text x="40" y="46" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" fill="#1f1f1f">04 · Uygulama cluster'ları (cluster-a, cluster-b): namespace'ler, pod'lar, veri servisleri</text>
+<text x="40" y="78" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#5f5f5a">her kutu bir namespace · demo-app ve veri servis nesneleri · kırmızı kesikli = bankacılık hedefinde olması gereken servisler</text>
+<g transform="translate(0,40)">
+<path d="M 14,108 L 2186,108 L 2186,860 L 14,860 Z" fill="#e4eefc" fill-opacity="0.0" stroke="#6d9fe4" stroke-width="3" stroke-dasharray="14 8"/>
+<rect x="40" y="180" width="680" height="80" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#6d9fe4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="40" y="180" width="680" height="28" rx="9" fill="#e4eefc"/>
+<text x="52" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1e4b8f" text-anchor="start">ns ingress-nginx</text>
+<text x="710" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5f5f5a" text-anchor="end">hostPort :80</text>
+<rect x="40" y="274" width="680" height="80" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#6d9fe4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="40" y="274" width="680" height="28" rx="9" fill="#e4eefc"/>
+<text x="52" y="293" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1e4b8f" text-anchor="start">ns demo</text>
+<rect x="40" y="364" width="680" height="176" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#6d9fe4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="40" y="364" width="680" height="28" rx="9" fill="#e4eefc"/>
+<text x="52" y="383" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1e4b8f" text-anchor="start">ns demo (nesneler)</text>
+<text x="710" y="383" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5f5f5a" text-anchor="end">up.sh data IP'sini yazar</text>
+<rect x="760" y="180" width="680" height="200" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#6abd6a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="760" y="180" width="680" height="28" rx="9" fill="#e5f4e5"/>
+<text x="772" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f5f1f" text-anchor="start">ns kube-system</text>
+<rect x="760" y="394" width="680" height="80" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#6abd6a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="760" y="394" width="680" height="28" rx="9" fill="#e5f4e5"/>
+<text x="772" y="413" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f5f1f" text-anchor="start">ns local-path-storage</text>
+<path d="M 360,156 L 360,216" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 380,540 L 380,840 L 380,880" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<rect x="52" y="216" width="656" height="34" rx="8" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="62" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ ingress-nginx-controller</text>
+<text x="700" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment ×1</text>
+<rect x="52" y="310" width="656" height="34" rx="8" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="62" y="329" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ demo-app</text>
+<text x="700" y="329" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment ×2</text>
+<rect x="772" y="216" width="656" height="34" rx="8" fill="#ffffff" stroke="#6abd6a" stroke-width="1.8"/>
+<text x="782" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ coredns ×2</text>
+<text x="1420" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="772" y="256" width="656" height="34" rx="8" fill="#ffffff" stroke="#6abd6a" stroke-width="1.8" stroke-dasharray="4 3"/>
+<text x="782" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">⬡ kube-proxy</text>
+<text x="1420" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">DaemonSet</text>
+<rect x="772" y="296" width="656" height="34" rx="8" fill="#ffffff" stroke="#6abd6a" stroke-width="1.8" stroke-dasharray="4 3"/>
+<text x="782" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">⬡ kindnet</text>
+<text x="1420" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">DaemonSet</text>
+<rect x="772" y="336" width="656" height="34" rx="8" fill="#ffffff" stroke="#6abd6a" stroke-width="1.8"/>
+<text x="782" y="355" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ kontrol düzlemi</text>
+<text x="1420" y="355" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">static pod</text>
+<rect x="772" y="430" width="656" height="34" rx="8" fill="#ffffff" stroke="#6abd6a" stroke-width="1.8"/>
+<text x="782" y="449" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ local-path-provisioner</text>
+<text x="1420" y="449" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="1480" y="180" width="680" height="110" rx="9" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1492" y="201" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#b91c1c" text-anchor="start">ns channel-bff</text>
+<text x="2150" y="201" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#b91c1c" text-anchor="end">hedef · lab'da yok</text>
+<text x="1494" y="224" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ mobile-bff</text>
+<text x="1738.8" y="224" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">mobil kanala özel API birleştirme</text>
+<text x="1494" y="246" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ web-bff</text>
+<text x="1738.8" y="246" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">internet şubesi</text>
+<text x="1494" y="268" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ partner-bff</text>
+<text x="1738.8" y="268" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">açık bankacılık API'leri</text>
+<rect x="1480" y="300" width="680" height="110" rx="9" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1492" y="321" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#b91c1c" text-anchor="start">ns account · customer · card</text>
+<text x="2150" y="321" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#b91c1c" text-anchor="end">hedef · lab'da yok</text>
+<text x="1494" y="344" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ account-api</text>
+<text x="1738.8" y="344" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">hesap, bakiye, hareketler</text>
+<text x="1494" y="366" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ customer-api</text>
+<text x="1738.8" y="366" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">müşteri bilgisi, KYC</text>
+<text x="1494" y="388" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ card-api</text>
+<text x="1738.8" y="388" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">kart listesi, limit (PAN yok, token)</text>
+<rect x="1480" y="420" width="680" height="110" rx="9" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1492" y="441" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#b91c1c" text-anchor="start">ns transfer · payment</text>
+<text x="2150" y="441" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#b91c1c" text-anchor="end">hedef · lab'da yok</text>
+<text x="1494" y="464" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ transfer-api</text>
+<text x="1738.8" y="464" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">havale · EFT · FAST</text>
+<text x="1494" y="486" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ payment-api</text>
+<text x="1738.8" y="486" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">fatura, vergi, ödeme</text>
+<text x="1494" y="508" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ loan-api</text>
+<text x="1738.8" y="508" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">kredi başvurusu</text>
+<rect x="1480" y="540" width="680" height="88" rx="9" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1492" y="561" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#b91c1c" text-anchor="start">ns security</text>
+<text x="2150" y="561" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#b91c1c" text-anchor="end">hedef · lab'da yok</text>
+<text x="1494" y="584" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ tx-signing</text>
+<text x="1738.8" y="584" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">işlem imzası / OTP doğrulama</text>
+<text x="1494" y="606" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ fraud-scoring</text>
+<text x="1738.8" y="606" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">gerçek zamanlı risk skoru</text>
+<rect x="1480" y="638" width="680" height="88" rx="9" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1492" y="659" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#b91c1c" text-anchor="start">ns integration · notification</text>
+<text x="2150" y="659" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#b91c1c" text-anchor="end">hedef · lab'da yok</text>
+<text x="1494" y="682" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ core-adapter</text>
+<text x="1738.8" y="682" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">core banking (legacy) entegrasyonu</text>
+<text x="1494" y="704" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ notification</text>
+<text x="1738.8" y="704" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">SMS · push · e-posta</text>
+<rect x="1480" y="736" width="680" height="88" rx="9" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1492" y="757" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#b91c1c" text-anchor="start">ns egress · mesh</text>
+<text x="2150" y="757" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#b91c1c" text-anchor="end">hedef · lab'da yok</text>
+<text x="1494" y="780" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ istio-egressgateway</text>
+<text x="1738.8" y="780" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">veri / dış servis çıkışı tek kapıdan</text>
+<text x="1494" y="802" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2b2b2b" text-anchor="start">◻ ztunnel / waypoint</text>
+<text x="1738.8" y="802" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">servisler arası mTLS · iç JWT</text>
+<rect x="40" y="900" width="1060" height="108.0" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="52" y="922" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Bu resimde</text>
+<text x="52" y="944.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Lab'da uygulama zone'unda tek iş yükü demo-app: hangi cluster ve pod'un cevap verdiğini döner.</text>
+<text x="52" y="962.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Veri servislerine Kubernetes adıyla gidilir (postgres.demo.svc); adres data cluster'ının ingress'i.</text>
+<text x="52" y="981.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Hedefteki bankacılık servisleri (BFF, hesap, transfer, kart, fraud …) sağda kırmızı kesikli.</text>
+<text x="52" y="999.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">data → cluster-a :80 yolu yok (verify).</text>
+<rect x="1120" y="900" width="1060" height="212" rx="8" fill="#fafaf8" stroke="#c4c4bf" stroke-width="1.2"/>
+<text x="1134" y="924" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f1f1f" text-anchor="start">Lejant</text>
+<rect x="1134.0" y="934" width="30" height="17" rx="4" fill="#e4eefc" stroke="#6d9fe4" stroke-width="1.5"/>
+<text x="1174.0" y="947" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">uygulama</text>
+<rect x="1478.0" y="934" width="30" height="17" rx="4" fill="#e5f4e5" stroke="#6abd6a" stroke-width="1.5"/>
+<text x="1518.0" y="947" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">platform / node agent</text>
+<line x1="1822.0" y1="942" x2="1852.0" y2="942" stroke="#6d9fe4" stroke-width="3" stroke-dasharray="9 5"/>
+<text x="1862.0" y="947" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">güven sınırı (kalın kesikli)</text>
+<rect x="1134.0" y="962" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="1174.0" y="975" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">namespace</text>
+<rect x="1478.0" y="962" width="30" height="17" rx="3" fill="#fbfbfa" stroke="#55554f" stroke-width="2"/>
+<text x="1518.0" y="975" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">node (sunucu)</text>
+<rect x="1822.0" y="962" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="1862.0" y="975" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">pod (Deployment / StatefulSet)</text>
+<rect x="1134.0" y="990" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8" stroke-dasharray="4 3"/>
+<text x="1174.0" y="1003" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">DaemonSet pod (her node'da)</text>
+<rect x="1478.0" y="990" width="30" height="17" rx="3" fill="#eaf2fd" stroke="#6d9fe4" stroke-width="1.2"/>
+<text x="1518.0" y="1003" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: uygulama</text>
+<rect x="1822.0" y="990" width="30" height="17" rx="3" fill="#fff1e0" stroke="#e39b62" stroke-width="1.2"/>
+<text x="1862.0" y="1003" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: Envoy proxy</text>
+<rect x="1134.0" y="1018" width="30" height="17" rx="3" fill="#e8f5e8" stroke="#6abd6a" stroke-width="1.2"/>
+<text x="1174.0" y="1031" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: agent</text>
+<rect x="1478.0" y="1018" width="30" height="17" rx="3" fill="#f3ecfb" stroke="#a383e0" stroke-width="1.2"/>
+<text x="1518.0" y="1031" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: veri</text>
+<line x1="1822.0" y1="1026" x2="1852.0" y2="1026" stroke="#2f7bd8" stroke-width="3"/>
+<text x="1862.0" y="1031" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">ana akış (mTLS)</text>
+<line x1="1134.0" y1="1054" x2="1164.0" y2="1054" stroke="#b3b3ad" stroke-width="1.8"/>
+<text x="1174.0" y="1059" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">istek / bağlantı</text>
+<line x1="1478.0" y1="1054" x2="1508.0" y2="1054" stroke="#b3b3ad" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text x="1518.0" y="1059" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">yardımcı akış (log, metrik, kontrol)</text>
+<line x1="1822.0" y1="1054" x2="1852.0" y2="1054" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="1862.0" y="1059" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">yasak yol</text>
+<rect x="1134.0" y="1073" width="30" height="17" rx="8.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="1149.0" y="1086" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#1d7a46" text-anchor="middle">⇥</text>
+<text x="1174.0" y="1087" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">giriş: port / protokol</text>
+<rect x="1478.0" y="1073" width="30" height="17" rx="8.5" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="1493.0" y="1086" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c2410c" text-anchor="middle">↦</text>
+<text x="1518.0" y="1087" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">çıkış: hedef port / protokol</text>
+<circle cx="1837.0" cy="1082" r="9" fill="#1f1f1f"/>
+<text x="1837.0" y="1086" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="1862.0" y="1087" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">adım / ayrıntı numarası</text>
+<rect x="52" y="1028" width="30" height="17" rx="4" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="92" y="1041" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">hedef mimaride olması gereken · lab'da yok</text>
+<rect x="28" y="91" width="776.4" height="26" rx="13" fill="#6d9fe4"/>
+<text x="39" y="109" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" letter-spacing="0.6">kind cluster-a · cluster-b · tek node · aynı manifest (workloads/app), tek fark CLUSTER_NAME</text>
+<rect x="40" y="133" width="430.0" height="19" rx="9.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="48" y="147" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1d7a46">⇥ in ← dmz-a / dmz-b (172.28.20.4 / .6) → :80 · mgmt → :6443</text>
+<rect x="1764.5" y="133" width="395.5" height="19" rx="9.5" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="1772.5" y="147" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#c2410c">↦ out → data 172.28.30.2 :5432 / :6379 (TCP · lab-data)</text>
+<text x="288.15999999999997" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">XFF'ye yalnızca 172.28.20.0/24'ten güvenir</text>
+<text x="288.15999999999997" y="329" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">nginx:1.27-alpine :8080 · JSON cevap</text>
+<text x="54" y="418" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1e4b8f" text-anchor="start">Service</text>
+<text x="166" y="418" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start">demo-app</text>
+<text x="356" y="418" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">ClusterIP :80 → :8080</text>
+<text x="54" y="444" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1e4b8f" text-anchor="start">Ingress</text>
+<text x="166" y="444" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start">demo-app</text>
+<text x="356" y="444" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">app.localtest.me → demo-app:80</text>
+<text x="54" y="470" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1e4b8f" text-anchor="start">ConfigMap</text>
+<text x="166" y="470" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start">demo-app-nginx</text>
+<text x="356" y="470" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">default.conf.template (envsubst)</text>
+<text x="54" y="496" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1e4b8f" text-anchor="start">Service + ES</text>
+<text x="166" y="496" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start">postgres</text>
+<text x="356" y="496" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">selector yok → 172.28.30.2:5432</text>
+<text x="54" y="522" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1e4b8f" text-anchor="start">Service + ES</text>
+<text x="166" y="522" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start">redis</text>
+<text x="356" y="522" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">selector yok → 172.28.30.2:6379</text>
+<rect x="610" y="182" width="97.2" height="21" rx="10.5" fill="#1f1f1f"/>
+<text x="619" y="197" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#ffffff">Pod içi: 05</text>
+<text x="1008.16" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">küme DNS'i :53 (svc.cluster.local)</text>
+<text x="1008.16" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Service → pod (iptables)</text>
+<text x="1008.16" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">CNI · pod rotaları · ip-masq</text>
+<text x="1008.16" y="355" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">apiserver · etcd · ctrl-mgr · scheduler</text>
+<text x="1008.16" y="449" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">PVC → node diski (standard)</text>
+<text x="772" y="504" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#1f1f1f" text-anchor="start">cluster-a / cluster-b farkı</text>
+<text x="772" y="528" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#1f1f1f" text-anchor="start">· CLUSTER_NAME: cluster-a / cluster-b (kustomize overlay)</text>
+<text x="772" y="548" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#1f1f1f" text-anchor="start">· pod CIDR 10.20.0.0/16 · 10.30.0.0/16</text>
+<text x="772" y="568" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#1f1f1f" text-anchor="start">· service CIDR 10.21.0.0/16 · 10.31.0.0/16</text>
+<text x="772" y="588" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#1f1f1f" text-anchor="start">· lab-app 172.28.20.2 / .3 · lab-data 172.28.30.3 / .4</text>
+<text x="392" y="876" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">postgres.demo.svc / redis.demo.svc → data :5432 / :6379 (06)</text>
+</g>
+</svg>

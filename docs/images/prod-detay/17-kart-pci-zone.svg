@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="920" viewBox="0 0 2200 920">
+<defs><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#b3b3ad" stroke-width="1.4"/></marker><marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2f7bd8"/></marker><marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker></defs>
+<rect width="2200" height="920" fill="#ffffff"/>
+<text x="40" y="46" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" fill="#1f1f1f">17 · Kart (PCI) zone'u: atm-pos-fw, card-switch, HSM, tokenization, PCI kontrolleri</text>
+<text x="40" y="78" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#5f5f5a">ATM / POS ve kart şemalarının girdiği ayrı segment · teyitli: Kubernetes, ingress-nginx, .NET, monolith, Kafka, RabbitMQ, Couchbase, MSSQL, Oracle · diğer ürün adları öneri</text>
+<g transform="translate(0,40)">
+<path d="M 14,108 L 2186,108 L 2186,610 L 14,610 Z" fill="#fde3e3" fill-opacity="0.3" stroke="#dc6262" stroke-width="3" stroke-dasharray="14 8"/>
+<path d="M 300,124 L 300,180" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 560,260 L 580,260" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 1340,240 L 1360,240" fill="none" stroke="#b3b3ad" stroke-width="1.6" marker-end="url(#ag)"/>
+<path d="M 1740,240 L 1760,240" fill="none" stroke="#b3b3ad" stroke-width="1.6" marker-end="url(#ag)"/>
+<path d="M 960,353 L 960,390 L 1350,390 L 1350,630" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<rect x="40" y="180" width="520" height="126" rx="8" fill="#ffffff" stroke="#dc6262" stroke-width="1.6"/>
+<text x="50" y="200" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">atm-pos-fw (HA çift)</text>
+<text x="50" y="220" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">kaynak: kayıtlı ATM IP'leri · şema hatları</text>
+<text x="50" y="238" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">IPsec / TLS tünel sonlandırma</text>
+<text x="50" y="256" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">yalnızca switch portları</text>
+<text x="50" y="274" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">her bağlantı loglanır (PCI 10)</text>
+<text x="50" y="292" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">yönetim: ayrı OOB ağı</text>
+<rect x="580" y="180" width="760" height="173" rx="8" fill="#ffffff" stroke="#dc6262" stroke-width="1.8"/>
+<text x="590" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ card-switch</text>
+<text x="1332" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">×2 · aktif / aktif · ayrı cluster ya da VM</text>
+<rect x="588" y="208" width="744" height="90" rx="5" fill="#eaf2fd" stroke="#6d9fe4" stroke-width="1.2"/>
+<text x="596" y="223" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">switch uygulaması</text>
+<text x="596" y="240" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">ISO 8583 (şemalar) · NDC / DDC (ATM) mesaj işleme</text>
+<text x="596" y="257" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">yönlendirme: kendi kartımız → card-api · diğerleri → şema</text>
+<text x="596" y="274" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">stand-in: card-api'ye ulaşılamazsa limitli onay kuralları</text>
+<text x="596" y="291" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">reversal (ters kayıt) ve zaman aşımı yönetimi</text>
+<rect x="588" y="303" width="744" height="39" rx="5" fill="#e8f5e8" stroke="#6abd6a" stroke-width="1.2"/>
+<text x="596" y="318" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">HSM istemcisi</text>
+<text x="596" y="335" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">PIN çevirme / doğrulama · EMV ARQC / ARPC · anahtar türetme</text>
+<rect x="1360" y="180" width="380" height="108" rx="8" fill="#ffffff" stroke="#dc6262" stroke-width="1.6"/>
+<text x="1370" y="200" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">HSM (ağ HSM'i, HA)</text>
+<text x="1370" y="220" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">PIN doğrulama (PVV / offset)</text>
+<text x="1370" y="238" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">EMV kriptogram · MAC</text>
+<text x="1370" y="256" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">anahtar yönetimi (ZMK, ZPK)</text>
+<text x="1370" y="274" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">FIPS 140-2 L3 · PCI PIN</text>
+<rect x="1760" y="180" width="406" height="108" rx="8" fill="#ffffff" stroke="#dc6262" stroke-width="1.6"/>
+<text x="1770" y="200" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">tokenization ×2</text>
+<text x="1770" y="220" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">PAN ↔ token (format korumalı)</text>
+<text x="1770" y="238" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">kasa DB: PCI içinde, şifreli</text>
+<text x="1770" y="256" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">detokenize: yalnızca switch</text>
+<text x="1770" y="274" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">uygulama zone'u PAN görmez</text>
+<rect x="40" y="412" width="1300" height="26" rx="4" fill="#f1f3f6" stroke="#c4c4bf" stroke-width="0.8"/>
+<rect x="40" y="440" width="1300" height="24" rx="3" fill="#ffffff" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="40" y="466" width="1300" height="24" rx="3" fill="#f7f9fc" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="40" y="492" width="1300" height="24" rx="3" fill="#ffffff" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="40" y="518" width="1300" height="24" rx="3" fill="#f7f9fc" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="40" y="544" width="1300" height="24" rx="3" fill="#ffffff" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="40" y="570" width="1300" height="24" rx="3" fill="#f7f9fc" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="1360" y="473" width="806" height="89.5" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="1372" y="495" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Neden ayrı?</text>
+<text x="1372" y="517.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">PCI kapsamını daraltmak: kart verisi yalnızca bu zone'da.</text>
+<text x="1372" y="535.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">ATM / POS internetten ve edge'den gelmez.</text>
+<text x="1372" y="554.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Uygulama zone'u PCI kapsamı dışında kalır (yalnızca token).</text>
+<rect x="40" y="650" width="1060" height="89.5" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="52" y="672" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Bu resimde</text>
+<text x="52" y="694.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Kart (PCI) zone'u ATM ve POS trafiğini karşılar; kart verisi bu zone'dan çıkmaz.</text>
+<text x="52" y="712.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">card-switch PIN ve EMV'yi HSM'de doğrular, PAN'ı token'a çevirip card-api'ye gönderir.</text>
+<text x="52" y="731.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Ürün adları ve kontroller özet / öneri; uçtan uca akışlar: 13 (POS), 14 (ATM).</text>
+<rect x="1120" y="650" width="1060" height="72" rx="8" fill="#fafaf8" stroke="#c4c4bf" stroke-width="1.2"/>
+<text x="1134" y="674" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f1f1f" text-anchor="start">Lejant</text>
+<rect x="1134.0" y="684" width="30" height="17" rx="4" fill="#fde3e3" stroke="#dc6262" stroke-width="1.5"/>
+<text x="1174.0" y="697" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">kart / PCI</text>
+<rect x="1478.0" y="684" width="30" height="17" rx="4" fill="#e4eefc" stroke="#6d9fe4" stroke-width="1.5"/>
+<text x="1518.0" y="697" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">uygulama</text>
+<rect x="28" y="91" width="628.8" height="26" rx="13" fill="#dc6262"/>
+<text x="39" y="109" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" letter-spacing="0.6">KART ZONE · PCI DSS · ayrı segment (DC1, DR'da kopyası) · internete kapalı</text>
+<rect x="40" y="133" width="492.1" height="19" rx="9.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="48" y="147" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1d7a46">⇥ in ← ATM ağı (NDC / DDC) · kart şemaları / BKM (ISO 8583, özel hat)</text>
+<rect x="1633.4" y="133" width="526.6" height="19" rx="9.5" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="1641.4" y="147" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#c2410c">↦ out → uygulama zone'u card-api :443 (mTLS · yalnızca token) · log → SIEM</text>
+<text x="40" y="400" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">PCI DSS kontrolleri (özet)</text>
+<text x="48" y="430" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">gereksinim</text>
+<text x="334.0" y="430" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">bu zone'da</text>
+<text x="48" y="457" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">1 · ağ ayrımı</text>
+<text x="334.0" y="457" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">ayrı segment · yalnızca atm-pos-fw ve card-api bağlantısı · DMZ / internet yolu yok</text>
+<text x="48" y="483" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">3 · kart verisi</text>
+<text x="334.0" y="483" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">PAN yalnızca tokenization kasasında, şifreli · uygulama zone'u token görür</text>
+<text x="48" y="509" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">4 · iletim</text>
+<text x="334.0" y="509" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">tüm bağlantılar TLS / IPsec · şema hatları özel</text>
+<text x="48" y="535" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">7-8 · erişim</text>
+<text x="334.0" y="535" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">PAM üzerinden, MFA · kişi başına hesap · en az yetki</text>
+<text x="48" y="561" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">10 · log</text>
+<text x="334.0" y="561" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">tüm erişim ve işlem logları → SIEM · 1 yıl saklama</text>
+<text x="48" y="587" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">11 · test</text>
+<text x="334.0" y="587" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">çeyreklik zafiyet taraması · yıllık sızma testi</text>
+<text x="1362" y="626" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">→ card-api :443 (mTLS, token) · 13, 14</text>
+</g>
+</svg>

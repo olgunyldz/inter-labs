@@ -1,0 +1,13 @@
+# DMZ: edge LB'den PROXY protocol ile gelir, istemci IP'sini oradan alır.
+# Gelen X-Forwarded-* başlıklarına güvenmez.
+controller:
+  config:
+    use-proxy-protocol: "true"
+    proxy-real-ip-cidr: "172.28.10.0/24"   # sadece lab-dmz'deki edge LB'ye güven
+    use-forwarded-headers: "false"
+    compute-full-forwarded-for: "true"
+    hide-headers: "X-Powered-By,Server"
+    proxy-body-size: "10m"
+    limit-req-status-code: "429"
+    hsts: "false"   # demo: self-signed sertifika
+  # Hangi DMZ cluster'ının cevap verdiği (X-Dmz) up.sh'de --set ile eklenir

@@ -1,0 +1,12 @@
+# Data: Postgres/Redis; sadece app cluster'ları (ingress-nginx TCP portları) ulaşır
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: data
+networking:
+  podSubnet: 10.40.0.0/16
+  serviceSubnet: 10.41.0.0/16
+nodes:
+  - role: control-plane
+    labels:
+      ingress-ready: "true"
+      lab.zone: data

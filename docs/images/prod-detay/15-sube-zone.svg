@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="860" viewBox="0 0 2200 860">
+<defs><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#b3b3ad" stroke-width="1.4"/></marker><marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2f7bd8"/></marker><marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker></defs>
+<rect width="2200" height="860" fill="#ffffff"/>
+<text x="40" y="46" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" fill="#1f1f1f">15 · Şube zone'u: SD-WAN hub, branch-fw, branch-gateway (ingress-nginx), şube bazlı kurallar</text>
+<text x="40" y="78" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#5f5f5a">kurum WAN'dan gelen şube trafiği · cihaz sertifikası + personel kimliği · teyitli: Kubernetes, ingress-nginx, .NET, monolith, Kafka, RabbitMQ, Couchbase, MSSQL, Oracle · diğer ürün adları öneri</text>
+<g transform="translate(0,40)">
+<path d="M 14,108 L 2186,108 L 2186,560 L 14,560 Z" fill="#eef2f7" fill-opacity="0.3" stroke="#94a3b8" stroke-width="3" stroke-dasharray="14 8"/>
+<path d="M 300,124 L 300,180" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 560,260 L 580,260" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 1100,260 L 1120,260" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 1640,370 L 1640,580" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<rect x="40" y="180" width="520" height="126" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.6"/>
+<text x="50" y="200" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">SD-WAN hub ×2 (HA)</text>
+<text x="50" y="220" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">şube başına IPsec tüneli · MPLS yedek hat</text>
+<text x="50" y="238" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">şube başına VLAN / VRF ayrımı</text>
+<text x="50" y="256" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">QoS: gişe uygulaması öncelikli</text>
+<text x="50" y="274" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">şube cihaz envanteri (NAC)</text>
+<text x="50" y="292" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">yönetim: ayrı OOB ağı</text>
+<rect x="580" y="180" width="520" height="126" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.6"/>
+<text x="590" y="200" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">branch-fw (iç firewall, HA çift)</text>
+<text x="590" y="220" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">kaynak: şube VLAN'ları · hedef: branch-gateway :443</text>
+<text x="590" y="238" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">şubeden başka hedefe yol yok (internet, DMZ, veri)</text>
+<text x="590" y="256" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">IPS · uygulama tanıma</text>
+<text x="590" y="274" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">TLS'e dokunmaz (uçtan uca mTLS)</text>
+<text x="590" y="292" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">log → SIEM</text>
+<rect x="1120" y="180" width="1046" height="190" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.8"/>
+<text x="1130" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ branch-gateway (ingress-nginx · A/B)</text>
+<text x="2158" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment ×2 · ayrı küçük cluster ya da VM (öneri)</text>
+<rect x="1128" y="208" width="1030" height="107" rx="5" fill="#fff1e0" stroke="#e39b62" stroke-width="1.2"/>
+<text x="1136" y="223" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">ingress-nginx (nginx-branch)</text>
+<text x="1136" y="240" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">auth-tls-verify-client: on · auth-tls-secret: şube CA (cihaz sertifikası)</text>
+<text x="1136" y="257" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">sertifika CN → şube kodu (ör. 0001) · XFCC başlığı → uygulama</text>
+<text x="1136" y="274" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">auth-url: kimlik zone'u (personel token doğrulama → iç JWT)</text>
+<text x="1136" y="291" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">limit-rps (şube başına) · yalnızca /branch/v1/* yolları</text>
+<text x="1136" y="308" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">upstream: uygulama ingress :443 (proxy-ssl, mTLS)</text>
+<rect x="1128" y="320" width="1030" height="39" rx="5" fill="#e8f5e8" stroke="#6abd6a" stroke-width="1.2"/>
+<text x="1136" y="335" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">platform</text>
+<text x="1136" y="352" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">cert-manager (şube CA) · otel-collector · fluent-bit → mgmt</text>
+<rect x="40" y="432" width="1060" height="26" rx="4" fill="#f1f3f6" stroke="#c4c4bf" stroke-width="0.8"/>
+<rect x="40" y="460" width="1060" height="24" rx="3" fill="#ffffff" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="40" y="486" width="1060" height="24" rx="3" fill="#f7f9fc" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="40" y="512" width="1060" height="24" rx="3" fill="#ffffff" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="1120" y="390" width="1046" height="89.5" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="1132" y="412" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Kurallar</text>
+<text x="1132" y="434.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Şube personeli kimliği AD'den gelir; iç JWT'de rol (gişe, müdür) ve şube kodu taşınır.</text>
+<text x="1132" y="452.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Limit üstü işlemler 4 göz: ikinci onay branch-bff'te zorunlu.</text>
+<text x="1132" y="471.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Kayıp / çalınan cihaz: sertifika iptal (CRL / OCSP) → gateway bağlantıyı keser.</text>
+<rect x="40" y="600" width="1060" height="89.5" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="52" y="622" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Bu resimde</text>
+<text x="52" y="644.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Şube trafiği internete ve DMZ'ye uğramaz: kurum WAN → şube zone'u → uygulama.</text>
+<text x="52" y="662.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">branch-gateway şube cihaz sertifikasını ve personel kimliğini doğrular, iç JWT üretir.</text>
+<text x="52" y="681.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Ürün adları ve şube bilgileri örnek; uçtan uca akış: 11.</text>
+<rect x="1120" y="600" width="1060" height="72" rx="8" fill="#fafaf8" stroke="#c4c4bf" stroke-width="1.2"/>
+<text x="1134" y="624" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f1f1f" text-anchor="start">Lejant</text>
+<rect x="1134.0" y="634" width="30" height="17" rx="4" fill="#eef2f7" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="1174.0" y="647" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">şube / kurum WAN</text>
+<rect x="1478.0" y="634" width="30" height="17" rx="4" fill="#e4eefc" stroke="#6d9fe4" stroke-width="1.5"/>
+<text x="1518.0" y="647" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">uygulama</text>
+<rect x="28" y="91" width="514.0" height="26" rx="13" fill="#94a3b8"/>
+<text x="39" y="109" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" letter-spacing="0.6">ŞUBE ZONE · DC1 (DR'da kopyası) · internete ve DMZ'ye kapalı</text>
+<rect x="40" y="133" width="643.9" height="19" rx="9.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="48" y="147" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1d7a46">⇥ in ← şubeler: SD-WAN / MPLS tünelleri · yalnızca :443 (+ yazıcı / kuyruk sunucu portları)</text>
+<rect x="1571.3" y="133" width="588.7" height="19" rx="9.5" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="1579.3" y="147" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#c2410c">↦ out → uygulama ingress :443 (mTLS + iç JWT) · kimlik zone'u (AD SSO) · mgmt (log)</text>
+<text x="40" y="420" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">Şube başına bilgiler (örnek)</text>
+<text x="48" y="450" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">şube</text>
+<text x="175.2" y="450" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">cihaz sertifikası</text>
+<text x="493.2" y="450" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">VLAN / VRF</text>
+<text x="705.2" y="450" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">izinli kullanıcılar</text>
+<text x="48" y="477" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">0001</text>
+<text x="175.2" y="477" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">CN=sube-0001 · Branch CA</text>
+<text x="493.2" y="477" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">VLAN 101 / VRF şube</text>
+<text x="705.2" y="477" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">gişe · operasyon · şube müdürü (AD grupları)</text>
+<text x="48" y="503" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">0002</text>
+<text x="175.2" y="503" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">CN=sube-0002 · Branch CA</text>
+<text x="493.2" y="503" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">VLAN 102 / VRF şube</text>
+<text x="705.2" y="503" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">gişe · operasyon</text>
+<text x="48" y="529" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">genel müdürlük</text>
+<text x="175.2" y="529" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">CN=gm-ops · Branch CA</text>
+<text x="493.2" y="529" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">VLAN 900</text>
+<text x="705.2" y="529" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">merkez operasyon · denetim (salt okunur)</text>
+<text x="1652" y="576" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">→ uygulama ingress :443 (03, 11)</text>
+</g>
+</svg>

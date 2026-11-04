@@ -1,0 +1,12 @@
+# DMZ A: edge LB'nin arkasındaki iki DMZ cluster'ından biri (host'a doğrudan açık değil)
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: dmz-a
+networking:
+  podSubnet: 10.10.0.0/16
+  serviceSubnet: 10.11.0.0/16
+nodes:
+  - role: control-plane
+    labels:
+      ingress-ready: "true"
+      lab.zone: dmz

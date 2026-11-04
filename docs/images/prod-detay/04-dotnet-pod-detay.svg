@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="920" viewBox="0 0 2200 920">
+<defs><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#b3b3ad" stroke-width="1.4"/></marker><marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2f7bd8"/></marker><marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker></defs>
+<rect width="2200" height="920" fill="#ffffff"/>
+<text x="40" y="46" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" fill="#1f1f1f">04 · .NET mikroservis pod içi: transfer-api, outbox-relay, notification-worker</text>
+<text x="40" y="78" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#5f5f5a">pod → container → port, probe, güvenlik, bağlantılar · numaralar: bir transferin servis içindeki yolu · kütüphane adları öneri</text>
+<g transform="translate(0,40)">
+<path d="M 14,108 L 2186,108 L 2186,670 L 14,670 Z" fill="#e4eefc" fill-opacity="0.0" stroke="#6d9fe4" stroke-width="3" stroke-dasharray="14 8"/>
+<rect x="36" y="140" width="2128" height="510" rx="6" fill="#fbfbfa" stroke="#55554f" stroke-width="2"/>
+<rect x="36" y="140" width="123.2" height="26" rx="6" fill="#55554f"/>
+<text x="46" y="158" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="start">▣ worker-…</text>
+<text x="2154" y="158" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5f5f5a" text-anchor="end">uygulama havuzu · DC1 · topologySpread: zone / node</text>
+<path d="M 400,124 L 400,184" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 1116,260 L 1140,260" fill="none" stroke="#b3b3ad" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ag)"/>
+<rect x="56" y="184" width="1060" height="319" rx="8" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="66" y="203" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ transfer-api-…</text>
+<text x="1108" y="203" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment ×3 · HPA 3-12 · PDB minAvailable 2 · SA transfer-api</text>
+<rect x="64" y="212" width="1044" height="158" rx="5" fill="#eaf2fd" stroke="#6d9fe4" stroke-width="1.2"/>
+<text x="72" y="227" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">app · .NET 8 · ASP.NET Core (Kestrel :8080)</text>
+<text x="72" y="244" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">non-root · read-only root FS · capabilities drop ALL · seccomp RuntimeDefault</text>
+<text x="72" y="261" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">probe: /health/live · /health/ready (DB, Kafka bağımlılık kontrolü) · startup probe</text>
+<text x="72" y="278" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">EF Core → MSSQL AG listener (MultiSubnetFailover=True, Encrypt=True) · tek transaction: transfer + outbox</text>
+<text x="72" y="295" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">RabbitMQ: MassTransit (öneri) · publisher confirm · quorum queue · core.posting komutu</text>
+<text x="72" y="312" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Couchbase SDK: idempotency anahtarı (X-Idempotency-Key, 24 sa) · oturum okumaz</text>
+<text x="72" y="329" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Polly: timeout · retry (yalnızca okuma) · circuit breaker · bulkhead</text>
+<text x="72" y="346" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">iç JWT doğrulama (JwtBearer, IdP JWKS) · yetki: policy + scope</text>
+<text x="72" y="363" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">OpenTelemetry: iz + metrik → otel-collector · Serilog JSON → stdout</text>
+<rect x="64" y="375" width="1044" height="56" rx="5" fill="#f3ecfb" stroke="#a383e0" stroke-width="1.2"/>
+<text x="72" y="390" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">secret'lar (volume)</text>
+<text x="72" y="407" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">ExternalSecret → Vault: MSSQL login (dinamik), RabbitMQ kullanıcı, Couchbase RBAC kullanıcı</text>
+<text x="72" y="424" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">mTLS sertifikası: cert-manager (iç CA) · otomatik yenileme</text>
+<rect x="64" y="436" width="1044" height="56" rx="5" fill="#f2f2f2" stroke="#a3a3a3" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="72" y="451" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">config</text>
+<text x="72" y="468" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">ConfigMap: appsettings.Production.json · ortam: DC1 / DR</text>
+<text x="72" y="485" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">migration: ayrı Job (deploy öncesi) · pod içinde migration yok</text>
+<rect x="1140" y="184" width="1004" height="146" rx="8" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="1150" y="203" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ outbox-relay-…</text>
+<text x="2136" y="203" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment ×2 · tek aktif (lease)</text>
+<rect x="1148" y="212" width="988" height="107" rx="5" fill="#eaf2fd" stroke="#6d9fe4" stroke-width="1.2"/>
+<text x="1156" y="227" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">app · .NET 8 worker (BackgroundService)</text>
+<text x="1156" y="244" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">outbox tablosunu okur (ya da Debezium CDC)</text>
+<text x="1156" y="261" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Confluent.Kafka producer: acks=all · idempotent</text>
+<text x="1156" y="278" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">konu: banka.transfer.created.v1 · anahtar: hesap no</text>
+<text x="1156" y="295" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Schema Registry (Avro / JSON Schema)</text>
+<text x="1156" y="312" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">gönderilen satır işaretlenir · en az bir kez</text>
+<rect x="1140" y="346" width="1004" height="129" rx="8" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="1150" y="365" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ notification-worker-…</text>
+<text x="2136" y="365" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment · KEDA 1-20 (Kafka lag)</text>
+<rect x="1148" y="374" width="988" height="90" rx="5" fill="#eaf2fd" stroke="#6d9fe4" stroke-width="1.2"/>
+<text x="1156" y="389" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">app · .NET 8 worker</text>
+<text x="1156" y="406" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">consumer group: notification · manuel commit</text>
+<text x="1156" y="423" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">işlenen olay id'si Couchbase'te (tekrar koruması)</text>
+<text x="1156" y="440" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">→ RabbitMQ sms.send kuyruğu → SMS sağlayıcı (egress)</text>
+<text x="1156" y="457" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">zehirli mesaj → DLQ konusu</text>
+<rect x="56" y="553" width="2088" height="71.0" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="68" y="575" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">İstek yolu (numaralar)</text>
+<text x="68" y="597.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">1 ingress → transfer-api :8080 · iç JWT doğrulanır  ·  2 MSSQL'de tek transaction: transfer kaydı + outbox satırı  ·  3 RabbitMQ'ya core.posting komutu (core-adapter tüketir)</text>
+<text x="68" y="615.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">4 outbox-relay outbox'ı okur → Kafka banka.transfer.created.v1  ·  5 notification-worker olayı tüketir → SMS / push  ·  6 202 Accepted + işlem no (sonuç olayla gelir)</text>
+<rect x="40" y="700" width="2140" height="156" rx="8" fill="#fafaf8" stroke="#c4c4bf" stroke-width="1.2"/>
+<text x="54" y="724" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f1f1f" text-anchor="start">Lejant</text>
+<rect x="54.0" y="734" width="30" height="17" rx="4" fill="#e4eefc" stroke="#6d9fe4" stroke-width="1.5"/>
+<text x="94.0" y="747" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">uygulama (.NET)</text>
+<rect x="406.0" y="734" width="30" height="17" rx="4" fill="#f0e8fb" stroke="#a383e0" stroke-width="1.5"/>
+<text x="446.0" y="747" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">veri</text>
+<rect x="758.0" y="734" width="30" height="17" rx="4" fill="#e5f4e5" stroke="#6abd6a" stroke-width="1.5"/>
+<text x="798.0" y="747" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">platform</text>
+<line x1="1110.0" y1="742" x2="1140.0" y2="742" stroke="#6d9fe4" stroke-width="3" stroke-dasharray="9 5"/>
+<text x="1150.0" y="747" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">güven sınırı (kalın kesikli)</text>
+<rect x="1462.0" y="734" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="1502.0" y="747" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">namespace</text>
+<rect x="1814.0" y="734" width="30" height="17" rx="3" fill="#fbfbfa" stroke="#55554f" stroke-width="2"/>
+<text x="1854.0" y="747" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">node (sunucu)</text>
+<rect x="54.0" y="762" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="94.0" y="775" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">pod (Deployment / StatefulSet)</text>
+<rect x="406.0" y="762" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8" stroke-dasharray="4 3"/>
+<text x="446.0" y="775" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">DaemonSet pod (her node'da)</text>
+<rect x="758.0" y="762" width="30" height="17" rx="3" fill="#eaf2fd" stroke="#6d9fe4" stroke-width="1.2"/>
+<text x="798.0" y="775" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: uygulama</text>
+<rect x="1110.0" y="762" width="30" height="17" rx="3" fill="#fff1e0" stroke="#e39b62" stroke-width="1.2"/>
+<text x="1150.0" y="775" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: Envoy proxy</text>
+<rect x="1462.0" y="762" width="30" height="17" rx="3" fill="#e8f5e8" stroke="#6abd6a" stroke-width="1.2"/>
+<text x="1502.0" y="775" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: agent</text>
+<rect x="1814.0" y="762" width="30" height="17" rx="3" fill="#f3ecfb" stroke="#a383e0" stroke-width="1.2"/>
+<text x="1854.0" y="775" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: veri</text>
+<line x1="54.0" y1="798" x2="84.0" y2="798" stroke="#2f7bd8" stroke-width="3"/>
+<text x="94.0" y="803" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">ana akış (mTLS)</text>
+<line x1="406.0" y1="798" x2="436.0" y2="798" stroke="#b3b3ad" stroke-width="1.8"/>
+<text x="446.0" y="803" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">istek / bağlantı</text>
+<line x1="758.0" y1="798" x2="788.0" y2="798" stroke="#b3b3ad" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text x="798.0" y="803" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">yardımcı akış (log, metrik, kontrol)</text>
+<line x1="1110.0" y1="798" x2="1140.0" y2="798" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="1150.0" y="803" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">yasak yol</text>
+<rect x="1462.0" y="789" width="30" height="17" rx="8.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="1477.0" y="802" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#1d7a46" text-anchor="middle">⇥</text>
+<text x="1502.0" y="803" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">giriş: port / protokol</text>
+<rect x="1814.0" y="789" width="30" height="17" rx="8.5" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="1829.0" y="802" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c2410c" text-anchor="middle">↦</text>
+<text x="1854.0" y="803" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">çıkış: hedef port / protokol</text>
+<circle cx="69.0" cy="826" r="9" fill="#1f1f1f"/>
+<text x="69.0" y="830" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="94.0" y="831" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">adım / ayrıntı numarası</text>
+<rect x="28" y="91" width="399.2" height="26" rx="13" fill="#6d9fe4"/>
+<text x="39" y="109" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" letter-spacing="0.6">cluster-a · ns transfer · bir worker node'unda</text>
+<rect x="56" y="514" width="340.3" height="19" rx="9.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="64" y="528" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1d7a46">⇥ in ← ingress-nginx (iç) :8080 · mTLS + iç JWT</text>
+<rect x="630.8" y="514" width="485.20000000000005" height="19" rx="9.5" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="638.8" y="528" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#c2410c">↦ out → MSSQL :1433 · RabbitMQ :5671 · Couchbase :11207 · otel :4317</text>
+<rect x="1140" y="486" width="409.3" height="19" rx="9.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="1148" y="500" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1d7a46">⇥ in ← Kafka :9093 (mTLS / SASL) · out → Kafka · RabbitMQ</text>
+<circle cx="48" cy="230" r="13" fill="#2f7bd8"/>
+<text x="48" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<circle cx="48" cy="300" r="13" fill="#2f7bd8"/>
+<text x="48" y="305" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+<circle cx="48" cy="320" r="13" fill="#c2410c"/>
+<text x="48" y="325" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<circle cx="1132" cy="230" r="13" fill="#c2410c"/>
+<text x="1132" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+<circle cx="1132" cy="380" r="13" fill="#c2410c"/>
+<text x="1132" y="385" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+</g>
+</svg>

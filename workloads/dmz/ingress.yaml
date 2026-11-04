@@ -1,0 +1,63 @@
+# app.localtest.me -> A/B arası round-robin; biri düşerse diğerine geçer
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "2"
+    nginx.ingress.kubernetes.io/proxy-next-upstream: "error timeout http_502 http_503 http_504"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "2"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: [app.localtest.me]
+      secretName: edge-tls
+  rules:
+    - host: app.localtest.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: app-pool, port: { name: http } }
+---
+# app-a / app-b: belirli cluster'a sabitlenmiş giriş (test, canary, bakım için)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-a
+  annotations:
+    nginx.ingress.kubernetes.io/upstream-vhost: app.localtest.me
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: [app-a.localtest.me]
+      secretName: edge-tls
+  rules:
+    - host: app-a.localtest.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: cluster-a, port: { name: http } }
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-b
+  annotations:
+    nginx.ingress.kubernetes.io/upstream-vhost: app.localtest.me
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: [app-b.localtest.me]
+      secretName: edge-tls
+  rules:
+    - host: app-b.localtest.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: cluster-b, port: { name: http } }

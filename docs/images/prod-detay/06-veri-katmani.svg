@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1160" viewBox="0 0 2200 1160">
+<defs><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#b3b3ad" stroke-width="1.4"/></marker><marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2f7bd8"/></marker><marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker></defs>
+<rect width="2200" height="1160" fill="#ffffff"/>
+<text x="40" y="46" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" fill="#1f1f1f">06 · Veri katmanı: data cluster (Kafka, RabbitMQ, Couchbase) ve VM'deki Oracle, MSSQL</text>
+<text x="40" y="78" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#5f5f5a">her kutu bir namespace ya da sunucu grubu · kim nereye bağlanır · teyitli: Kubernetes, ingress-nginx, .NET, monolith, Kafka, RabbitMQ, Couchbase, MSSQL, Oracle · diğer ürün adları öneri</text>
+<g transform="translate(0,40)">
+<path d="M 14,108 L 1460,108 L 1460,800 L 14,800 Z" fill="#f0e8fb" fill-opacity="0.0" stroke="#a383e0" stroke-width="3" stroke-dasharray="14 8"/>
+<path d="M 1480,108 L 2186,108 L 2186,800 L 1480,800 Z" fill="#f0e8fb" fill-opacity="0.35" stroke="#a383e0" stroke-width="3" stroke-dasharray="14 8"/>
+<rect x="40" y="180" width="680" height="320" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#a383e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="40" y="180" width="680" height="28" rx="9" fill="#f0e8fb"/>
+<text x="52" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#4b2a85" text-anchor="start">ns kafka</text>
+<rect x="40" y="512" width="680" height="150" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#a383e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="40" y="512" width="680" height="28" rx="9" fill="#f0e8fb"/>
+<text x="52" y="531" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#4b2a85" text-anchor="start">ns kafka (giriş)</text>
+<rect x="760" y="180" width="680" height="160" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#a383e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="760" y="180" width="680" height="28" rx="9" fill="#f0e8fb"/>
+<text x="772" y="199" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#4b2a85" text-anchor="start">ns rabbitmq</text>
+<rect x="760" y="352" width="680" height="200" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#a383e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="760" y="352" width="680" height="28" rx="9" fill="#f0e8fb"/>
+<text x="772" y="371" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#4b2a85" text-anchor="start">ns couchbase</text>
+<rect x="760" y="564" width="680" height="80" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#a383e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="760" y="564" width="680" height="28" rx="9" fill="#f0e8fb"/>
+<text x="772" y="583" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#4b2a85" text-anchor="start">ns ingress-nginx</text>
+<rect x="52" y="216" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="62" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ strimzi-cluster-operator</text>
+<text x="700" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="52" y="256" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="62" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ kafka-broker ×3</text>
+<text x="700" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">StatefulSet / NodePool</text>
+<rect x="52" y="296" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="62" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ kafka-controller ×3</text>
+<text x="700" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">StatefulSet / NodePool</text>
+<rect x="52" y="336" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="62" y="355" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ schema-registry ×2</text>
+<text x="700" y="355" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="52" y="376" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="62" y="395" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ kafka-connect ×3</text>
+<text x="700" y="395" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="52" y="416" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="62" y="435" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ mirrormaker2 ×2</text>
+<text x="700" y="435" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="52" y="456" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="62" y="475" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ cruise-control</text>
+<text x="700" y="475" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="772" y="216" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="782" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ rabbitmq-cluster-operator</text>
+<text x="1420" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="772" y="256" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="782" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ rabbitmq-server ×3</text>
+<text x="1420" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">StatefulSet</text>
+<rect x="772" y="296" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="782" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ messaging-topology-operator</text>
+<text x="1420" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="772" y="388" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="782" y="407" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ couchbase-operator</text>
+<text x="1420" y="407" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment</text>
+<rect x="772" y="428" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="782" y="447" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ couchbase data ×3</text>
+<text x="1420" y="447" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">pod (operator)</text>
+<rect x="772" y="468" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="782" y="487" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ couchbase index / query ×2</text>
+<text x="1420" y="487" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">pod (operator)</text>
+<rect x="772" y="508" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="782" y="527" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ couchbase-backup</text>
+<text x="1420" y="527" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">CronJob</text>
+<rect x="772" y="600" width="656" height="34" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="782" y="619" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ ingress-nginx</text>
+<text x="1420" y="619" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment ×3</text>
+<rect x="1500" y="146" width="666" height="162" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.6"/>
+<text x="1510" y="166" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">Oracle RAC (2+ node) · ASM</text>
+<text x="1510" y="186" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">kim: core banking · legacy monolith</text>
+<text x="1510" y="204" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">erişim: monolith (ODP.NET) · core-adapter · Debezium</text>
+<text x="1510" y="222" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">port :1521 / TCPS :2484 · servis adı başına</text>
+<text x="1510" y="240" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">Data Guard → DR standby (Max Availability / async)</text>
+<text x="1510" y="258" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">TDE · Unified Audit → SIEM</text>
+<text x="1510" y="276" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">yedek: RMAN · DR'da test</text>
+<text x="1510" y="294" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">yeni servisler doğrudan bağlanmaz</text>
+<rect x="1500" y="330" width="666" height="162" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.6"/>
+<text x="1510" y="350" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="start">MSSQL Always On AG</text>
+<text x="1510" y="370" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">kim: yeni .NET mikroservisler (servis başına DB)</text>
+<text x="1510" y="388" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">primary + senkron secondary (DC1, otomatik failover)</text>
+<text x="1510" y="406" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">asenkron secondary (DR) · listener :1433</text>
+<text x="1510" y="424" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">MultiSubnetFailover=True · Encrypt=True</text>
+<text x="1510" y="442" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">login: Vault dinamik (öneri) · least privilege</text>
+<text x="1510" y="460" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">CDC açık (outbox / okuma modelleri)</text>
+<text x="1510" y="478" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#2b2b2b" text-anchor="start">TDE · Audit → SIEM</text>
+<rect x="1500" y="520" width="666" height="26" rx="4" fill="#f1f3f6" stroke="#c4c4bf" stroke-width="0.8"/>
+<rect x="1500" y="548" width="666" height="24" rx="3" fill="#ffffff" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="1500" y="574" width="666" height="24" rx="3" fill="#f7f9fc" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="1500" y="600" width="666" height="24" rx="3" fill="#ffffff" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="1500" y="626" width="666" height="24" rx="3" fill="#f7f9fc" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="1500" y="652" width="666" height="24" rx="3" fill="#ffffff" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="1500" y="678" width="666" height="24" rx="3" fill="#f7f9fc" stroke="#d8d8d3" stroke-width="0.7"/>
+<rect x="1500" y="720" width="666" height="89.5" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="1512" y="742" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Ağ kuralı (DATA FW)</text>
+<text x="1512" y="764.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">kaynak: yalnızca uygulama cluster'ları, legacy VM'ler,</text>
+<text x="1512" y="782.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">data cluster'ın kendisi (Connect, MM2) ve mgmt (yedek / izleme)</text>
+<text x="1512" y="801.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">DMZ ve edge'den yol yok</text>
+<rect x="40" y="830" width="1060" height="108.0" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="52" y="852" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Bu resimde</text>
+<text x="52" y="874.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Kafka, RabbitMQ ve Couchbase data cluster'ında operator ile; Oracle ve MSSQL VM'de.</text>
+<text x="52" y="892.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Kafka dışarı ingress-nginx TLS passthrough ile (broker başına host) açılır; RabbitMQ tcp-services ile.</text>
+<text x="52" y="911.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Operator adları (Strimzi, RabbitMQ Cluster Operator, Couchbase Operator) öneri.</text>
+<text x="52" y="929.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">DR tarafı ve replikasyon: 07.</text>
+<rect x="1120" y="830" width="1060" height="212" rx="8" fill="#fafaf8" stroke="#c4c4bf" stroke-width="1.2"/>
+<text x="1134" y="854" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f1f1f" text-anchor="start">Lejant</text>
+<rect x="1134.0" y="864" width="30" height="17" rx="4" fill="#f0e8fb" stroke="#a383e0" stroke-width="1.5"/>
+<text x="1174.0" y="877" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">veri</text>
+<rect x="1478.0" y="864" width="30" height="17" rx="4" fill="#e5f4e5" stroke="#6abd6a" stroke-width="1.5"/>
+<text x="1518.0" y="877" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">platform</text>
+<line x1="1822.0" y1="872" x2="1852.0" y2="872" stroke="#6d9fe4" stroke-width="3" stroke-dasharray="9 5"/>
+<text x="1862.0" y="877" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">güven sınırı (kalın kesikli)</text>
+<rect x="1134.0" y="892" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="1174.0" y="905" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">namespace</text>
+<rect x="1478.0" y="892" width="30" height="17" rx="3" fill="#fbfbfa" stroke="#55554f" stroke-width="2"/>
+<text x="1518.0" y="905" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">node (sunucu)</text>
+<rect x="1822.0" y="892" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="1862.0" y="905" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">pod (Deployment / StatefulSet)</text>
+<rect x="1134.0" y="920" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8" stroke-dasharray="4 3"/>
+<text x="1174.0" y="933" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">DaemonSet pod (her node'da)</text>
+<rect x="1478.0" y="920" width="30" height="17" rx="3" fill="#eaf2fd" stroke="#6d9fe4" stroke-width="1.2"/>
+<text x="1518.0" y="933" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: uygulama</text>
+<rect x="1822.0" y="920" width="30" height="17" rx="3" fill="#fff1e0" stroke="#e39b62" stroke-width="1.2"/>
+<text x="1862.0" y="933" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: Envoy proxy</text>
+<rect x="1134.0" y="948" width="30" height="17" rx="3" fill="#e8f5e8" stroke="#6abd6a" stroke-width="1.2"/>
+<text x="1174.0" y="961" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: agent</text>
+<rect x="1478.0" y="948" width="30" height="17" rx="3" fill="#f3ecfb" stroke="#a383e0" stroke-width="1.2"/>
+<text x="1518.0" y="961" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: veri</text>
+<line x1="1822.0" y1="956" x2="1852.0" y2="956" stroke="#2f7bd8" stroke-width="3"/>
+<text x="1862.0" y="961" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">ana akış (mTLS)</text>
+<line x1="1134.0" y1="984" x2="1164.0" y2="984" stroke="#b3b3ad" stroke-width="1.8"/>
+<text x="1174.0" y="989" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">istek / bağlantı</text>
+<line x1="1478.0" y1="984" x2="1508.0" y2="984" stroke="#b3b3ad" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text x="1518.0" y="989" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">yardımcı akış (log, metrik, kontrol)</text>
+<line x1="1822.0" y1="984" x2="1852.0" y2="984" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="1862.0" y="989" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">yasak yol</text>
+<rect x="1134.0" y="1003" width="30" height="17" rx="8.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="1149.0" y="1016" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#1d7a46" text-anchor="middle">⇥</text>
+<text x="1174.0" y="1017" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">giriş: port / protokol</text>
+<rect x="1478.0" y="1003" width="30" height="17" rx="8.5" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="1493.0" y="1016" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c2410c" text-anchor="middle">↦</text>
+<text x="1518.0" y="1017" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">çıkış: hedef port / protokol</text>
+<circle cx="1837.0" cy="1012" r="9" fill="#1f1f1f"/>
+<text x="1837.0" y="1016" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="1862.0" y="1017" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">adım / ayrıntı numarası</text>
+<rect x="28" y="91" width="514.0" height="26" rx="13" fill="#a383e0"/>
+<text x="39" y="109" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" letter-spacing="0.6">DATA CLUSTER · Kubernetes · DC1 (DR: data-dr) · operator'lar</text>
+<rect x="40" y="133" width="726.7" height="19" rx="9.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="48" y="147" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1d7a46">⇥ in ← uygulama cluster'ları + monolith VM'leri → Kafka :9093 · RabbitMQ :5671 · Couchbase :11207 (TLS)</text>
+<text x="288.15999999999997" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Kafka CR'larını yönetir (öneri)</text>
+<text x="288.15999999999997" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">TLS · mTLS / SCRAM · rack: node</text>
+<text x="288.15999999999997" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">KRaft (ZooKeeper yok)</text>
+<text x="288.15999999999997" y="355" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Avro / JSON Schema · uyumluluk</text>
+<text x="288.15999999999997" y="395" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Debezium: Oracle (LogMiner), MSSQL CDC</text>
+<text x="288.15999999999997" y="435" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">→ data-dr · offset senkronu</text>
+<text x="288.15999999999997" y="475" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">partition dengeleme</text>
+<text x="54" y="566" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#4b2a85" text-anchor="start">Listener</text>
+<text x="166" y="566" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start">tls :9093</text>
+<text x="356" y="566" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">type: ingress → ingress-nginx TLS passthrough</text>
+<text x="54" y="592" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#4b2a85" text-anchor="start"></text>
+<text x="166" y="592" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start"></text>
+<text x="356" y="592" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">broker başına host: b0 / b1 / b2.kafka.data.banka</text>
+<text x="54" y="618" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#4b2a85" text-anchor="start">KafkaUser</text>
+<text x="166" y="618" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start">servis başına</text>
+<text x="356" y="618" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">ACL: konu bazlı okuma / yazma</text>
+<text x="54" y="644" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#4b2a85" text-anchor="start">KafkaTopic</text>
+<text x="166" y="644" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="start">banka.*.v1</text>
+<text x="356" y="644" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">RF 3 · min.insync 2 · retention</text>
+<text x="1008.16" y="235" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">RabbitmqCluster CR (öneri)</text>
+<text x="1008.16" y="275" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">quorum queue · TLS :5671 · yönetim :15671</text>
+<text x="1008.16" y="315" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">vhost · kullanıcı · izin · shovel CR</text>
+<text x="1008.16" y="407" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">CouchbaseCluster CR</text>
+<text x="1008.16" y="447" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">oturum · önbellek · idempotency</text>
+<text x="1008.16" y="487" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">N1QL · GSI</text>
+<text x="1008.16" y="527" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">→ nesne depolama</text>
+<text x="1008.16" y="619" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">Kafka TLS passthrough · RabbitMQ tcp-services</text>
+<text x="772" y="674" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#1f1f1f" text-anchor="start">Couchbase SDK tüm node'lara bağlanır → ingress uygun değil:</text>
+<text x="772" y="694" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#1f1f1f" text-anchor="start">pod başına LoadBalancer + DNS (ya da istemci ağına yönlendirilmiş pod ağı).</text>
+<rect x="1494" y="91" width="284.4" height="26" rx="13" fill="#a383e0"/>
+<text x="1505" y="109" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" letter-spacing="0.6">VERİTABANI · VM / fiziksel · DC1</text>
+<text x="1508" y="538" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">kim</text>
+<text x="1747.76" y="538" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">nereye</text>
+<text x="1508" y="565" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">account · customer · transfer</text>
+<text x="1747.76" y="565" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">MSSQL (kendi DB'si)</text>
+<text x="1508" y="591" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">core-adapter · monolith</text>
+<text x="1747.76" y="591" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Oracle</text>
+<text x="1508" y="617" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">outbox-relay · fraud</text>
+<text x="1747.76" y="617" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Kafka</text>
+<text x="1508" y="643" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">core-adapter · notification</text>
+<text x="1747.76" y="643" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">RabbitMQ</text>
+<text x="1508" y="669" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">BFF · transfer · fraud</text>
+<text x="1747.76" y="669" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Couchbase</text>
+<text x="1508" y="695" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Debezium</text>
+<text x="1747.76" y="695" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Oracle + MSSQL → Kafka</text>
+</g>
+</svg>

@@ -1,0 +1,4 @@
+# Mgmt: yönetim UI'ları
+controller:
+  config:
+    proxy-body-size: "50m"

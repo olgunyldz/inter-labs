@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1080" viewBox="0 0 2200 1080">
+<defs><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#b3b3ad" stroke-width="1.4"/></marker><marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2f7bd8"/></marker><marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker></defs>
+<rect width="2200" height="1080" fill="#ffffff"/>
+<text x="40" y="46" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" fill="#1f1f1f">06 · Data cluster'ı: TCP girişi (tcp-services), PostgreSQL StatefulSet, Redis</text>
+<text x="40" y="78" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#5f5f5a">pod → container → port, probe, kaynak, depolama · kırmızı yazı = lab'ın açık noktası · kırmızı kesikli = hedefte olması gereken</text>
+<g transform="translate(0,40)">
+<path d="M 14,108 L 2186,108 L 2186,790 L 14,790 Z" fill="#f0e8fb" fill-opacity="0.0" stroke="#a383e0" stroke-width="3" stroke-dasharray="14 8"/>
+<rect x="36" y="170" width="2128" height="600" rx="6" fill="#fbfbfa" stroke="#55554f" stroke-width="2"/>
+<rect x="36" y="170" width="400.40000000000003" height="26" rx="6" fill="#55554f"/>
+<text x="46" y="188" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="start">▣ data-control-plane (kindest/node v1.37.0)</text>
+<text x="2154" y="188" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5f5f5a" text-anchor="end">lab-data 172.28.30.2 · pod CIDR 10.40.0.0/16 · service CIDR 10.41.0.0/16</text>
+<rect x="56" y="214" width="700" height="380" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#a383e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="56" y="214" width="700" height="28" rx="9" fill="#f0e8fb"/>
+<text x="68" y="233" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#4b2a85" text-anchor="start">ns ingress-nginx</text>
+<text x="746" y="233" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5f5f5a" text-anchor="end">L4 giriş</text>
+<rect x="780" y="214" width="1364" height="380" rx="9" fill="#ffffff" fill-opacity="0.82" stroke="#a383e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="780" y="214" width="1364" height="28" rx="9" fill="#f0e8fb"/>
+<text x="792" y="233" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#4b2a85" text-anchor="start">ns data</text>
+<path d="M 300,124 L 300,252" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 736,330 L 800,330" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 736,380 L 770,380 L 770,540 L 1800,540 L 1800,400" fill="none" stroke="#2f7bd8" stroke-width="3" marker-end="url(#ab)"/>
+<path d="M 2000,124 L 2000,170" fill="none" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ad)"/>
+<rect x="76" y="252" width="660" height="163" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="86" y="271" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ ingress-nginx-controller-…</text>
+<text x="728" y="271" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment ×1</text>
+<rect x="84" y="280" width="644" height="124" rx="5" fill="#fff1e0" stroke="#e39b62" stroke-width="1.2"/>
+<text x="92" y="295" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">controller · registry.k8s.io/ingress-nginx/controller:v1.15.1</text>
+<text x="92" y="312" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">hostPort :5432 · :6379 (+ :80 / :443 kullanılmıyor)</text>
+<text x="92" y="329" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">ConfigMap tcp-services (values-data.yaml):</text>
+<text x="92" y="346" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">  5432 → data/postgres:5432</text>
+<text x="92" y="363" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">  6379 → data/redis:6379</text>
+<text x="92" y="380" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">nginx stream modülü: düz TCP proxy · TLS yok</text>
+<text x="92" y="397" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">kaynak IP filtresi yok: segmentasyon ağ seviyesinde</text>
+<rect x="800" y="252" width="660" height="190" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="810" y="271" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ postgres-0</text>
+<text x="1452" y="271" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">StatefulSet ×1 · serviceName postgres</text>
+<rect x="808" y="280" width="644" height="90" rx="5" fill="#f3ecfb" stroke="#a383e0" stroke-width="1.2"/>
+<text x="816" y="295" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">postgres · postgres:16-alpine</text>
+<text x="816" y="312" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">:5432 · readiness pg_isready -U app (5 sn)</text>
+<text x="816" y="329" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">envFrom Secret postgres: POSTGRES_USER=app · DB=app</text>
+<text x="816" y="346" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">PGDATA /var/lib/postgresql/data/pgdata</text>
+<text x="816" y="363" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">requests cpu 50m · mem 128Mi · limits mem 512Mi</text>
+<rect x="808" y="375" width="644" height="56" rx="5" fill="#f2f2f2" stroke="#a3a3a3" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="816" y="390" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">PVC data-postgres-0</text>
+<text x="816" y="407" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">1Gi · RWO · StorageClass standard (local-path)</text>
+<text x="816" y="424" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">node diski: /var/local-path-provisioner/…</text>
+<rect x="1474" y="252" width="654" height="129" rx="8" fill="#ffffff" stroke="#a383e0" stroke-width="1.8"/>
+<text x="1484" y="271" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">◼ redis-…</text>
+<text x="2120" y="271" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5f5f5a" text-anchor="end">Deployment ×1</text>
+<rect x="1482" y="280" width="638" height="90" rx="5" fill="#f3ecfb" stroke="#a383e0" stroke-width="1.2"/>
+<text x="1490" y="295" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">redis · redis:7-alpine</text>
+<text x="1490" y="312" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">:6379 · readiness redis-cli ping</text>
+<text x="1490" y="329" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">requests cpu 25m · mem 32Mi · limits mem 256Mi</text>
+<text x="1490" y="346" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">kalıcılık yok (pod silinirse veri gider)</text>
+<text x="1490" y="363" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#3a3a3a" text-anchor="start">parola / ACL / TLS yok</text>
+<rect x="56" y="612" width="2088" height="98.5" rx="8" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="68" y="634" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#b91c1c" text-anchor="start">Data zone'da olması gereken (lab'da yok)</text>
+<text x="68" y="656.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">· core banking DB (Oracle / MSSQL) · PostgreSQL HA (Patroni, senkron replika) · DC1 ⇄ DC2 replikasyon · Kafka (olay akışı) · RabbitMQ</text>
+<text x="68" y="675.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">· TLS zorunlu bağlantı · servis başına DB rolü · kimlik bilgileri Vault'tan (dinamik) · disk / TDE şifreleme</text>
+<text x="68" y="695.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">· Valkey / Redis cluster: ACL + TLS + kalıcılık (AOF) · yedekleme ve geri dönüş testi (PITR) · erişim ve sorgu denetim logu → SIEM</text>
+<rect x="40" y="820" width="1060" height="108.0" rx="8" fill="#fffdf3" stroke="#d8cfa3" stroke-width="1.3"/>
+<text x="52" y="842" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1f1f1f" text-anchor="start">Bu resimde</text>
+<text x="52" y="864.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Data cluster'ı yalnızca lab-data ağında: DMZ ve edge'den ağ yolu yok.</text>
+<text x="52" y="882.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Uygulamalar data ingress'inin TCP portlarına gelir; ingress düz TCP olarak servise iletir.</text>
+<text x="52" y="901.0" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Kırmızı yazılar lab'ın bilinçli açık noktaları: düz metin parola, Redis'te ACL yok.</text>
+<text x="52" y="919.5" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#2b2b2b" text-anchor="start">Hedefteki veri katmanı kırmızı kesikli kutuda.</text>
+<rect x="1120" y="820" width="1060" height="212" rx="8" fill="#fafaf8" stroke="#c4c4bf" stroke-width="1.2"/>
+<text x="1134" y="844" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f1f1f" text-anchor="start">Lejant</text>
+<rect x="1134.0" y="854" width="30" height="17" rx="4" fill="#f0e8fb" stroke="#a383e0" stroke-width="1.5"/>
+<text x="1174.0" y="867" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">veri</text>
+<rect x="1478.0" y="854" width="30" height="17" rx="4" fill="#e5f4e5" stroke="#6abd6a" stroke-width="1.5"/>
+<text x="1518.0" y="867" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">platform</text>
+<line x1="1822.0" y1="862" x2="1852.0" y2="862" stroke="#6d9fe4" stroke-width="3" stroke-dasharray="9 5"/>
+<text x="1862.0" y="867" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">güven sınırı (kalın kesikli)</text>
+<rect x="1134.0" y="882" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="1174.0" y="895" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">namespace</text>
+<rect x="1478.0" y="882" width="30" height="17" rx="3" fill="#fbfbfa" stroke="#55554f" stroke-width="2"/>
+<text x="1518.0" y="895" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">node (sunucu)</text>
+<rect x="1822.0" y="882" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8"/>
+<text x="1862.0" y="895" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">pod (Deployment / StatefulSet)</text>
+<rect x="1134.0" y="910" width="30" height="17" rx="4" fill="#ffffff" stroke="#6d9fe4" stroke-width="1.8" stroke-dasharray="4 3"/>
+<text x="1174.0" y="923" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">DaemonSet pod (her node'da)</text>
+<rect x="1478.0" y="910" width="30" height="17" rx="3" fill="#eaf2fd" stroke="#6d9fe4" stroke-width="1.2"/>
+<text x="1518.0" y="923" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: uygulama</text>
+<rect x="1822.0" y="910" width="30" height="17" rx="3" fill="#fff1e0" stroke="#e39b62" stroke-width="1.2"/>
+<text x="1862.0" y="923" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: Envoy proxy</text>
+<rect x="1134.0" y="938" width="30" height="17" rx="3" fill="#e8f5e8" stroke="#6abd6a" stroke-width="1.2"/>
+<text x="1174.0" y="951" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: agent</text>
+<rect x="1478.0" y="938" width="30" height="17" rx="3" fill="#f3ecfb" stroke="#a383e0" stroke-width="1.2"/>
+<text x="1518.0" y="951" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">container: veri</text>
+<line x1="1822.0" y1="946" x2="1852.0" y2="946" stroke="#2f7bd8" stroke-width="3"/>
+<text x="1862.0" y="951" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">ana akış (mTLS)</text>
+<line x1="1134.0" y1="974" x2="1164.0" y2="974" stroke="#b3b3ad" stroke-width="1.8"/>
+<text x="1174.0" y="979" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">istek / bağlantı</text>
+<line x1="1478.0" y1="974" x2="1508.0" y2="974" stroke="#b3b3ad" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text x="1518.0" y="979" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">yardımcı akış (log, metrik, kontrol)</text>
+<line x1="1822.0" y1="974" x2="1852.0" y2="974" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="1862.0" y="979" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">yasak yol</text>
+<rect x="1134.0" y="993" width="30" height="17" rx="8.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="1149.0" y="1006" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#1d7a46" text-anchor="middle">⇥</text>
+<text x="1174.0" y="1007" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">giriş: port / protokol</text>
+<rect x="1478.0" y="993" width="30" height="17" rx="8.5" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="1493.0" y="1006" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c2410c" text-anchor="middle">↦</text>
+<text x="1518.0" y="1007" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">çıkış: hedef port / protokol</text>
+<circle cx="1837.0" cy="1002" r="9" fill="#1f1f1f"/>
+<text x="1837.0" y="1006" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="1862.0" y="1007" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">adım / ayrıntı numarası</text>
+<rect x="52" y="948" width="30" height="17" rx="4" fill="#fff7f6" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="92" y="961" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f1f1f" text-anchor="start">hedef mimaride olması gereken · lab'da yok</text>
+<rect x="28" y="91" width="604.1999999999999" height="26" rx="13" fill="#a383e0"/>
+<text x="39" y="109" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" letter-spacing="0.6">kind data · data-control-plane node'unun içi · yalnızca lab-data ağında</text>
+<rect x="40" y="133" width="671.5" height="19" rx="9.5" fill="#ffffff" stroke="#1d7a46" stroke-width="1.5"/>
+<text x="48" y="147" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1d7a46">⇥ in ← cluster-a 172.28.30.3 · cluster-b 172.28.30.4 → :5432 / :6379 · mgmt 172.28.30.5 → :6443</text>
+<text x="76" y="445" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5f5f5a" text-anchor="start">kube-system · local-path-storage: 02'deki ile aynı</text>
+<text x="800" y="466" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#1f1f1f" text-anchor="start">Service postgres :5432 · Service redis :6379 (ClusterIP)</text>
+<text x="800" y="488" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#b91c1c" text-anchor="start">Secret postgres: parola 'demo-pass' düz metin (yalnızca demo)</text>
+<text x="1988" y="140" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#b91c1c" text-anchor="end">dmz → data: yol yok (verify)</text>
+</g>
+</svg>

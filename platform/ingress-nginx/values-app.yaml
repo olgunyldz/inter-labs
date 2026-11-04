@@ -1,0 +1,6 @@
+# App cluster'ları: sadece DMZ'den (lab-app network) gelen X-Forwarded-For'a güvenilir
+controller:
+  config:
+    use-forwarded-headers: "true"
+    compute-full-forwarded-for: "true"
+    proxy-real-ip-cidr: "172.28.20.0/24"

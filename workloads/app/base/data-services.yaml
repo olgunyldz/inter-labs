@@ -1,0 +1,18 @@
+# Data cluster'ındaki servislerin yerel karşılıkları (selector'sız).
+# EndpointSlice'ları up.sh, data cluster'ının ingress IP'si ile oluşturur:
+#   postgres.demo.svc:5432 -> <data-ingress>:5432 -> data/postgres
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  ports:
+    - { name: postgres, port: 5432, targetPort: 5432 }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+    - { name: redis, port: 6379, targetPort: 6379 }

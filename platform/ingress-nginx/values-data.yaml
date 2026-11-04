@@ -1,0 +1,4 @@
+# Data: L4 (TCP) giriş — app cluster'ları Postgres/Redis'e bu portlardan ulaşır
+tcp:
+  "5432": "data/postgres:5432"
+  "6379": "data/redis:6379"

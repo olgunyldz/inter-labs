@@ -1,0 +1,27 @@
+# İç cluster'ların ingress'lerini temsil eden selector'sız servisler.
+# EndpointSlice'ları up.sh, cluster node'larının lab-app IP'leri ile oluşturur.
+#   app-pool  -> cluster-a + cluster-b (active-active)
+#   cluster-a -> sadece A,  cluster-b -> sadece B
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-pool
+spec:
+  ports:
+    - { name: http, port: 80, targetPort: 80 }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-a
+spec:
+  ports:
+    - { name: http, port: 80, targetPort: 80 }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-b
+spec:
+  ports:
+    - { name: http, port: 80, targetPort: 80 }

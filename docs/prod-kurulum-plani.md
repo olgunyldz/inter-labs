@@ -94,6 +94,12 @@ eklenecek.
 
 Her faz bir çıkış kriteriyle kapanır. Bir sonraki faz, bu kriter sağlanmadan trafiğe açılmaz.
 
+Her fazın kapanışında o fazın sonunu gösteren mimari resmi üretilir: `faz-NN-<faz>.png`. Bu resimde
+kurulan bileşenler işaretlenir, ertelenenler yazılır. Adımlar:
+[images/mimari/README.md](images/mimari/README.md#faz-bitiminde-yapılacaklar). Hedef mimari:
+
+[![Hedef mimari](images/mimari/00-hedef-mimari.png)](images/mimari/README.md)
+
 ### Faz 1 — Ağ ve güvenlik altyapısı
 
 - [ ] DC1 ve DC2'de zone segmentlerini (VLAN/VRF) ve zone'lar arası FW'leri kur
@@ -245,6 +251,7 @@ docs/runbooks/                           failover, sertifika yenileme, yedekten 
 | 3–8 | Zone başına values dosyaları, zone çıkış kriteri test raporu |
 | 9 | Failover runbook'u, tatbikat raporu (ölçülen RPO/RTO) |
 | 10 | `verify.sh` sonuçları, pentest ve PCI raporları, canlıya geçiş onayı |
+| her faz | Faz sonu mimari resmi: `docs/images/mimari/faz-NN-<faz>.png` |
 
 **Referans resimler** ([images/prod-detay](images/prod-detay/README.md)): 00 genel bakış · 01 giriş ·
 02 DMZ · 03 uygulama · 04 .NET pod · 05 legacy · 06 veri · 07 DR · 08 mgmt · 09–14 uçtan uca

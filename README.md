@@ -36,6 +36,14 @@ her cluster'ın girişi **ingress-nginx**.
 
 Kaynak: [docs/images/src/topo_inter_labs.py](docs/images/src/topo_inter_labs.py) · Prod hedef mimarisi (iki DC, .NET, monolith, Kafka, RabbitMQ, Couchbase, Oracle, MSSQL): [docs/images/prod-detay](docs/images/prod-detay/README.md) · Lab ortamının ayrıntıları: [docs/images/lab-detay](docs/images/lab-detay/README.md) · Hepsi draw.io'da (her resim ayrı sekme): [docs/images/inter-labs.drawio](docs/images/inter-labs.drawio) · Prod kurulum proje planı: [docs/prod-kurulum-plani.md](docs/prod-kurulum-plani.md)
 
+## Mimari genel bakış
+
+Prod hedef mimarisinin katmanları ve her katmanda kullanılan teknolojiler (logolarıyla, kurulacağı
+fazla birlikte): [docs/images/mimari](docs/images/mimari/README.md). Her faz bitiminde o fazın sonunu
+gösteren yeni bir resim (`faz-NN-<faz>.png`) eklenir; eskiler değişmez.
+
+[![Hedef mimari](docs/images/mimari/00-hedef-mimari.png)](docs/images/mimari/README.md)
+
 ## Prod kurulum planı
 
 Prod hedef mimarisinin ([prod-detay](docs/images/prod-detay/README.md)) nasıl kurulacağı
@@ -138,7 +146,8 @@ workloads/app/             demo-app (base + cluster-a/b overlay'leri)
 workloads/data/            Postgres, Redis
 scripts/                   up / verify / down
 docs/prod-kurulum-plani.md prod kurulum proje planı
-docs/images/               topoloji, lab-detay ve prod-detay resimleri, draw.io dosyası
+docs/images/               topoloji, mimari, lab-detay ve prod-detay resimleri, draw.io dosyası
+docs/images/logos/         mimari resimlerindeki teknoloji logoları (SVG)
 ```
 
 ## Prod'dan farkları / bilinen sınırlar

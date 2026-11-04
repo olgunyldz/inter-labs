@@ -351,11 +351,11 @@ PREFIX = ""
 
 
 def build():
-    """prod-detay, lab-detay ve lab özet topolojisini tek dosyada sayfalara çevir."""
+    """mimari (hedef), prod-detay, lab-detay ve lab özet topolojisini tek dosyada sayfalara çevir."""
     global PREFIX
     import topo_style
     PAGES.clear()
-    for prefix, modname in (("prod · ", "prod_detay"), ("lab · ", "lab_detay")):
+    for prefix, modname in (("mimari · ", "mimari"), ("prod · ", "prod_detay"), ("lab · ", "lab_detay")):
         mod = __import__(modname)
         mod.D = DX
         PREFIX = prefix

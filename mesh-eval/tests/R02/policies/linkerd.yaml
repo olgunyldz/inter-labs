@@ -1,0 +1,11 @@
+# Linkerd: yerleşik fault injection yok -> isteklerin %10'u sürekli 503 dönen, %10'u 200 ms gecikmeli backend'e
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata: { name: catalog-fault, namespace: shop }
+spec:
+  parentRefs: [{ group: core, kind: Service, name: catalog, port: 9090 }]
+  rules:
+    - backendRefs:
+        - { name: catalog, port: 9090, weight: 80 }
+        - { name: catalog-err, port: 9090, weight: 10 }
+        - { name: catalog-slow, port: 9090, weight: 10 }

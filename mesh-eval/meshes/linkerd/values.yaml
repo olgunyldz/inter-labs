@@ -1,0 +1,3 @@
+# Linkerd control plane. Varsayılanlardan sapmalar ve nedenleri:
+controllerReplicas: 1       # lab: tek replika (prod'da HA modu: --ha)
+# Proxy kaynak istekleri Linkerd varsayılanında bırakıldı (istek tanımlı değil).

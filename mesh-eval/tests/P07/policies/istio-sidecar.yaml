@@ -1,0 +1,8 @@
+# Istio sidecar: hedef pod'un sidecar'ı uygular (kimlik = ServiceAccount)
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: p07-deny-rogue, namespace: shop }
+spec:
+  selector: { matchLabels: { app: order } }
+  action: DENY
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/rogue"] } }] }]

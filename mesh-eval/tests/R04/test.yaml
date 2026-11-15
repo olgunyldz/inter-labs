@@ -1,0 +1,16 @@
+id: R04
+name: Mesh'in kendi arızası — kontrol düzlemi kaybı ve node proxy'si yeniden başlaması
+category: dayanıklılık
+purpose: >
+  "Mesh tek hata noktası mı?" sorusunu cevaplamak. (A) Kontrol düzlemi tamamen düştüğünde mevcut
+  trafik akıyor mu, yeni pod'lar açılabiliyor ve trafik alabiliyor mu? (B) Ambient'te node başına
+  paylaşılan ztunnel yeniden başlarsa o node'daki tüm pod'lar ne kadar etkilenir (arıza etki alanı)?
+method: >
+  150 RPS sabit yük. (A) Kontrol düzlemi deployment'ları 0'a indirilir (istiod / linkerd-destination,
+  -identity, -proxy-injector); 20 sn sonra catalog bir replika ölçeklenir; yeni pod'un oluşturulup
+  oluşturulmadığı, mesh'e girip girmediği ve trafik alıp alamadığı kontrol edilir; 45 sn sonra kontrol
+  düzlemi geri getirilir. (B, yalnızca ambient) app node'undaki ztunnel pod'u silinir; hata sayısı ölçülür.
+components: [istiod / linkerd kontrol düzlemi, ztunnel, mutating webhook'lar, k6]
+meshes: [istio-sidecar, istio-ambient, istio-ambient-l7, linkerd]
+outputs: [A.error_rate, A.new_pod_created, A.new_pod_meshed, A.new_pod_serving, B.failed_requests, B.error_rate]
+pass_criteria: Kontrol düzlemi kaybında mevcut trafikte hata oranı < %1

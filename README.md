@@ -66,6 +66,11 @@ sürümü).
 | 9 | DR (DC2): DR cluster'ları, replikasyon, failover tatbikatı | 10 |
 | 10 | Uçtan uca senaryolar, arıza/yük testi, pentest, PCI denetimi, kademeli canlıya geçiş | — |
 
+## Service mesh değerlendirmesi
+
+Bu lab üzerinde Istio ambient, Istio sidecar ve Linkerd'in yük, güvenlik (whitelisting), dayanıklılık
+ve maliyet açısından kıyaslanması: [docs/mesh-eval](docs/mesh-eval/README.md) (araçlar: `mesh-eval/bin/meval`).
+
 ## Gereksinimler
 
 Docker Desktop, `kind`, `kubectl`, `helm`, `openssl`, `curl` (Windows'ta Git Bash ile çalışır).

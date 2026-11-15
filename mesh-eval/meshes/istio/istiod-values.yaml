@@ -1,0 +1,12 @@
+# istiod (sidecar ve ambient için ortak). Varsayılanlardan sapmalar ve nedenleri:
+pilot:
+  autoscaleEnabled: false   # lab: tek replika (prod'da HPA + en az 2 replika)
+  replicaCount: 1
+meshConfig:
+  accessLogFile: ""         # erişim logu varsayılan kapalı (Linkerd'de de kapalı) -> adil kıyas
+  enableTracing: false      # trace yalnızca O01 testinde Telemetry API ile açılır
+  extensionProviders:
+    - name: tempo
+      zipkin: { service: tempo.observability.svc.cluster.local, port: 9411 }
+# Proxy kaynak istekleri (requests) Istio varsayılanında bırakıldı: cpu 100m, memory 128Mi.
+# Bu değer kapasite planlamasında "ayrılan" maliyettir ve raporda ayrıca gösterilir.

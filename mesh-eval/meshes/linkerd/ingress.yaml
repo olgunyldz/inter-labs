@@ -1,0 +1,4 @@
+# Linkerd: bench ingress-nginx pod'u "ingress" modunda mesh'e girer (Linkerd ingress-nginx önerisi).
+controller:
+  podAnnotations:
+    linkerd.io/inject: ingress

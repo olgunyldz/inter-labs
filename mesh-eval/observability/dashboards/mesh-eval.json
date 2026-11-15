@@ -1,0 +1,270 @@
+{
+ "uid": "mesh-eval",
+ "title": "mesh-eval — test izleme",
+ "schemaVersion": 39,
+ "time": {
+  "from": "now-30m",
+  "to": "now"
+ },
+ "refresh": "10s",
+ "tags": [
+  "mesh-eval"
+ ],
+ "panels": [
+  {
+   "id": 1,
+   "type": "timeseries",
+   "title": "k6 istek hızı (RPS)",
+   "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "reqps"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum by (mesh, test) (rate(k6_http_reqs_total[15s]))",
+     "legendFormat": "{{mesh}} {{test}}"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "type": "timeseries",
+   "title": "k6 p99 gecikme",
+   "gridPos": {
+    "x": 12,
+    "y": 0,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "max by (mesh, test) (k6_http_req_duration_p99)",
+     "legendFormat": "{{mesh}} {{test}}"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "type": "timeseries",
+   "title": "k6 hata oranı",
+   "gridPos": {
+    "x": 0,
+    "y": 8,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "percentunit"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "max by (mesh, test) (k6_http_req_failed_rate)",
+     "legendFormat": "{{mesh}} {{test}}"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "type": "timeseries",
+   "title": "Servis node'u CPU (toplam, 4 çekirdek)",
+   "gridPos": {
+    "x": 12,
+    "y": 8,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum by (mesh, instance) (rate(container_cpu_usage_seconds_total{cluster=\"cluster-a\",id=\"/\"}[30s]))",
+     "legendFormat": "{{mesh}} {{instance}}"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "type": "timeseries",
+   "title": "shop CPU — uygulama / proxy",
+   "gridPos": {
+    "x": 0,
+    "y": 16,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum by (mesh, container) (rate(container_cpu_usage_seconds_total{cluster=\"cluster-a\",namespace=\"shop\",container=~\"app|istio-proxy|linkerd-proxy\"}[30s]))",
+     "legendFormat": "{{mesh}} {{container}}"
+    },
+    {
+     "refId": "B",
+     "expr": "sum by (mesh) (rate(container_cpu_usage_seconds_total{cluster=\"cluster-a\",namespace=\"istio-system\",pod=~\"ztunnel.*\",container!=\"\"}[30s]))",
+     "legendFormat": "{{mesh}} ztunnel"
+    },
+    {
+     "refId": "C",
+     "expr": "sum by (mesh) (rate(container_cpu_usage_seconds_total{cluster=\"cluster-a\",namespace=\"shop\",pod=~\"waypoint.*\",container!=\"\"}[30s]))",
+     "legendFormat": "{{mesh}} waypoint"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "type": "timeseries",
+   "title": "shop bellek — uygulama / proxy",
+   "gridPos": {
+    "x": 12,
+    "y": 16,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "bytes"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum by (mesh, container) (container_memory_working_set_bytes{cluster=\"cluster-a\",namespace=\"shop\",container=~\"app|istio-proxy|linkerd-proxy\"})",
+     "legendFormat": "{{mesh}} {{container}}"
+    },
+    {
+     "refId": "B",
+     "expr": "sum by (mesh) (container_memory_working_set_bytes{cluster=\"cluster-a\",namespace=\"istio-system\",pod=~\"ztunnel.*\",container!=\"\"})",
+     "legendFormat": "{{mesh}} ztunnel"
+    },
+    {
+     "refId": "C",
+     "expr": "sum by (mesh) (container_memory_working_set_bytes{cluster=\"cluster-a\",namespace=\"shop\",pod=~\"waypoint.*\",container!=\"\"})",
+     "legendFormat": "{{mesh}} waypoint"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "type": "timeseries",
+   "title": "Kontrol düzlemi bellek",
+   "gridPos": {
+    "x": 0,
+    "y": 24,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "bytes"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum by (mesh, namespace) (container_memory_working_set_bytes{cluster=\"cluster-a\",namespace=~\"istio-system|linkerd\",pod!~\"ztunnel.*|istio-cni.*\",container!=\"\"})",
+     "legendFormat": "{{mesh}} {{namespace}}"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "type": "timeseries",
+   "title": "Mesh istek hızı (servis bazında)",
+   "gridPos": {
+    "x": 12,
+    "y": 24,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "reqps"
+    },
+    "overrides": []
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "expr": "sum by (mesh, destination_workload) (rate(istio_requests_total{cluster=\"cluster-a\",reporter=~\"destination|waypoint\"}[30s]))",
+     "legendFormat": "{{mesh}} {{destination_workload}}"
+    },
+    {
+     "refId": "B",
+     "expr": "sum by (mesh, app) (rate(request_total{cluster=\"cluster-a\",namespace=\"shop\",direction=\"inbound\"}[30s]))",
+     "legendFormat": "{{mesh}} {{app}}"
+    }
+   ]
+  }
+ ],
+ "templating": {
+  "list": []
+ },
+ "annotations": {
+  "list": []
+ }
+}

@@ -1,0 +1,10 @@
+# mgmt: dağıtık izleme (trace) deposu. Zipkin (9411) ve OTLP (4317/4318) kabul eder.
+tempo:
+  retention: 72h
+  receivers:
+    zipkin: { endpoint: "0.0.0.0:9411" }
+    otlp:
+      protocols:
+        grpc: { endpoint: "0.0.0.0:4317" }
+        http: { endpoint: "0.0.0.0:4318" }
+persistence: { enabled: true, size: 10Gi }

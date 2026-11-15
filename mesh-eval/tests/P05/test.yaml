@@ -1,0 +1,21 @@
+id: P05
+name: Kaynak tüketimi — kalem kalem maliyet
+category: performans
+purpose: >
+  Mesh'in her bileşeninin boşta ve sabit yük altında harcadığı CPU/belleği ve kapasite planlamasında
+  "ayrılan" kaynak isteklerini (requests) ölçmek. Ambient / sidecar / Linkerd maliyet tablosunun ve
+  prod projeksiyonunun ana girdisi.
+method: >
+  Önce boşta (yük yok) bir pencere, sonra tüm mesh'lerde aynı sabit hızda (250 RPS) yük penceresi
+  ölçülür. Roller: app, sidecar, ztunnel, waypoint, cni, control, node toplamı. Ayrıca kaynak
+  istekleri (kube-state-metrics) ve konteyner sayıları kaydedilir.
+components: [k6, cAdvisor, kube-state-metrics, Prometheus]
+meshes: [all]
+profiles:
+  quick: "boşta 45 sn, 250 RPS x 90 sn"
+  full: "boşta 120 sn, 250 RPS x 300 sn"
+outputs:
+  - idle.<rol>.cpu_cores/mem_mib, load.<rol>.cpu_cores/mem_mib
+  - req.<rol>.cpu_cores/mem_mib (ayrılan)
+  - dataplane.cpu_per_1k_rps, dataplane.mem_per_pod_mib, node_overhead_cores
+pass_criteria: Yük penceresinde hata oranı < %1

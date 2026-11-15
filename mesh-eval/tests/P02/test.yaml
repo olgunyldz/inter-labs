@@ -1,0 +1,16 @@
+id: P02
+name: Sabit uzun yük (soak) — kararlılık ve sızıntı
+category: performans
+purpose: >
+  Uzun süre sabit yük altında gecikmenin kayıp kaymadığını (drift) ve proxy'lerin bellek
+  kullanımının büyümediğini (sızıntı) göstermek.
+method: >
+  k6 sabit hızla yük verir; süre dört eşit çeyreğe bölünür. İlk ve son çeyreğin p99'u ile
+  rol bazında bellek kullanımı kıyaslanır.
+components: [k6, fake-service zinciri, cAdvisor, Prometheus]
+meshes: [all]
+profiles:
+  quick: "200 RPS x 2 dk"
+  full: "300 RPS x 20 dk"
+outputs: [p50_ms, p99_ms, error_rate, p99_drift (son/ilk çeyrek), <rol>.mem_growth_mib]
+pass_criteria: Hata oranı < %1 ve son çeyrek p99 <= max(1.5 x ilk çeyrek, ilk çeyrek + 10 ms)

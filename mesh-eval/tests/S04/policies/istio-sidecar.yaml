@@ -1,0 +1,9 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: order-endpoints, namespace: shop }
+spec:
+  selector: { matchLabels: { app: order } }
+  action: ALLOW
+  rules:
+    - from: [{ source: { principals: ["cluster.local/ns/shop/sa/gateway"] } }]
+      to: [{ operation: { methods: ["GET"], paths: ["/", "/api/*"] } }]

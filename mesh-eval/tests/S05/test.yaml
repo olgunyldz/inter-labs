@@ -1,0 +1,16 @@
+id: S05
+name: Giriş noktasında endpoint bazlı erişim kısıtı (DMZ ingress)
+category: güvenlik
+purpose: >
+  Dışarıya açık bir endpoint'in (ör. /admin) yalnızca izinli kaynak IP'lerinden erişilebilir olmasını
+  DMZ katmanında sağlamak; istemci IP'sinin sahte X-Forwarded-For başlığıyla taklit edilemediğini
+  kanıtlamak. Mesh'ten bağımsızdır (DMZ cluster'larında mesh yok); her profilde aynı sonuç beklenir.
+method: >
+  dmz-a ve dmz-b'de shop.localtest.me/admin için whitelist-source-range kuralı tanımlanır.
+  (1) İzinsiz aralık: /admin 403, / 200. (2) Sahte X-Forwarded-For ile /admin hâlâ 403.
+  (3) Edge segmenti (lab-edge) izinli yapılınca /admin 200. İstemci IP'si edge LB'den PROXY protocol
+  ile gelir.
+components: [HAProxy edge LB (PROXY protocol), DMZ ingress-nginx x2]
+meshes: [all]
+outputs: [matris kontrolleri]
+pass_criteria: Tüm kontroller beklendiği gibi

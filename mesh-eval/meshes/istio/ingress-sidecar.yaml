@@ -1,0 +1,8 @@
+# Istio sidecar: bench ingress-nginx pod'u mesh'e girer (yalnızca giden trafik sidecar'dan geçer).
+# Kaynak: Istio "ingress-nginx ile entegrasyon" önerisi.
+controller:
+  podLabels:
+    sidecar.istio.io/inject: "true"
+  podAnnotations:
+    traffic.sidecar.istio.io/includeInboundPorts: ""
+    traffic.sidecar.istio.io/excludeInboundPorts: "80,443,8443,10254"

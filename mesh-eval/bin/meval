@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# meval: service mesh değerlendirmesi komut satırı aracı. Ayrıntı: docs/mesh-eval/kullanim-kilavuzu.md
+source "$(dirname "$(readlink -f "$0")")/../lib/common.sh"
+for f in "$MEVAL_ROOT"/lib/*.sh; do [ "$f" = "$MEVAL_ROOT/lib/common.sh" ] || source "$f"; done
+
+usage() {
+  cat <<'EOF'
+Kullanım: meval <komut> [argümanlar]
+
+Kurulum
+  setup                     Node yerleşimi + gözlem + servis zinciri (idempotent)
+  verify                    Kurulumu uçtan uca doğrular (gözlem, zincir, aktif mesh)
+  reset                     Bench cluster'ını sıfırdan kurar (temiz ölçüm için) + setup
+  tools                     istioctl / linkerd CLI'larını .tools/ altına indirir
+
+Mesh
+  mesh list                 Profilleri ve aktif olanı gösterir
+  mesh use <profil> [--fresh]
+                            Profili kurar, diğerlerini kaldırır, uygulamayı yeniden başlatır.
+                            --fresh: önce bench cluster'ını sıfırlar (önerilen)
+  mesh verify               Aktif mesh'i doğrular (mTLS, zincir, metrik)
+  mesh status               Aktif mesh bileşenleri
+
+Test
+  test list                 Test kataloğu (id, ad, desteklenen mesh'ler)
+  test run <id...|all> [--profile quick|full] [--repeat N]
+                            Testleri aktif mesh üzerinde çalıştırır; her koşu results/ altına yazılır
+  suite [--meshes a,b] [--tests x,y] [--profile quick|full] [--repeat N] [--no-fresh]
+                            Mesh'leri sırayla kurup tüm testleri koşar (tam değerlendirme)
+  results [--last N]        Kayıtlı test koşularını listeler
+
+Rapor
+  report [--session ID] [--out DİZİN]
+                            Sonuçları toplayıp reports/ altına HTML + Markdown rapor üretir
+
+Dokümantasyon
+  docs                      docs/mesh-eval/test-senaryolari.md dosyasını test tanımlarından yeniden üretir
+
+Profiller: none istio-ambient istio-ambient-l7 istio-sidecar linkerd
+EOF
+}
+
+cmd_setup() {
+  bench_nodes
+  obs_install_mgmt
+  obs_install_agent "$(current_mesh)"
+  app_deploy
+  cmd_verify
+}
+
+cmd_verify() {
+  obs_verify
+  if [ "$(current_mesh)" != none ]; then mesh_verify; else app_verify; fi
+  log "Doğrulama tamam (aktif mesh: $(current_mesh))"
+}
+
+cmd_reset() {
+  log "Bench cluster'ı sıfırlanıyor: $BENCH_CLUSTER"
+  kind delete cluster --name "$BENCH_CLUSTER"
+  bash "$LAB_ROOT/scripts/up.sh"
+  set_current_mesh none
+  cmd_setup
+}
+
+main() {
+  local cmd=${1:-help}; shift || true
+  case $cmd in
+    setup)   cmd_setup ;;
+    verify)  cmd_verify ;;
+    reset)   cmd_reset ;;
+    tools)   tools_install ;;
+    mesh)    cmd_mesh "$@" ;;
+    test)    cmd_test "$@" ;;
+    suite)   cmd_suite "$@" ;;
+    results) cmd_results "$@" ;;
+    report)  cmd_report "$@" ;;
+    docs)    cmd_docs ;;
+    help|-h|--help) usage ;;
+    *) usage; exit 1 ;;
+  esac
+}
+main "$@"

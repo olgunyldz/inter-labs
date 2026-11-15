@@ -1,0 +1,13 @@
+id: R03
+name: Yük altında pod kaybı (failover)
+category: dayanıklılık
+purpose: >
+  Yük altındayken servis replikaları kaybedildiğinde (deploy, node bakımı, çökme) kullanıcıya yansıyan
+  hata sayısını ölçmek. Mesh'in bağlantı yönetimi / yeniden deneme davranışının etkisi.
+method: >
+  200 RPS sabit yük sürerken sırayla order (HTTP), catalog (zincirin sonu) ve fraud (gRPC) servislerinin
+  birer pod'u silinir. Toplam başarısız istek, hata oranı ve p99 ölçülür.
+components: [k6, kube-proxy / mesh uç nokta yönetimi, fake-service]
+meshes: [all]
+outputs: [failed_requests, error_rate, p99_ms]
+pass_criteria: Hata oranı < %1

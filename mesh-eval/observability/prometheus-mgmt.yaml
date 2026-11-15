@@ -1,0 +1,23 @@
+# mgmt: merkezi Prometheus. Diğer cluster'lardaki agent'lar remote-write ile buraya yazar.
+# Erişim: https://prometheus.localtest.me:9443 (UI/API), cluster'lardan <mgmt-ip>:9090 (remote-write)
+alertmanager: { enabled: false }
+prometheus-pushgateway: { enabled: false }
+prometheus-node-exporter: { enabled: false }
+kube-state-metrics: { enabled: false }
+server:
+  retention: 30d
+  extraFlags:
+    - web.enable-lifecycle
+    - web.enable-remote-write-receiver
+  persistentVolume: { enabled: true, size: 20Gi }
+  resources:
+    requests: { cpu: 100m, memory: 512Mi }
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts: [prometheus.localtest.me]
+serverFiles:
+  prometheus.yml:
+    rule_files: []
+# Not: chart'ın varsayılan işleri mgmt'nin kendi metriklerini toplar (cluster etiketi yok);
+# bench verisi her zaman cluster="cluster-a" etiketiyle gelir ve sorgular buna göre filtrelenir.

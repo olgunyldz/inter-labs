@@ -1,0 +1,14 @@
+id: O02
+name: Metrik maliyeti — seri sayısı ve alım hızı
+category: gözlem
+purpose: >
+  Mesh metriklerinin izleme altyapısına (Prometheus) getirdiği gizli maliyeti ölçmek: aktif zaman
+  serisi sayısı ve saniyede alınan örnek sayısı. Prod'da 3.000 servise projeksiyonun girdisi.
+method: >
+  60 sn 100 RPS yükten sonra bench cluster'ından (bu mesh profili etiketiyle) gelen aktif seri sayısı
+  toplam ve mesh'e ait metrik aileleri (istio_*, envoy_*, linkerd proxy işleri) olarak ayrılır;
+  agent'ın remote-write örnek hızı ölçülür. Mesh'siz profil referanstır.
+components: [Prometheus agent (bench), Prometheus (mgmt), mesh metrik uçları]
+meshes: [all]
+outputs: [series_total, series_mesh, series_mesh_per_pod, samples_per_s]
+pass_criteria: Ölçüm tamamlanır (bilgi amaçlı)

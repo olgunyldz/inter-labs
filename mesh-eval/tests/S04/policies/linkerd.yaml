@@ -1,0 +1,27 @@
+# Linkerd: Server + HTTPRoute (path/method eşleşmesi) + route'a bağlı AuthorizationPolicy
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: order, namespace: shop }
+spec: { podSelector: { matchLabels: { app: order } }, port: http, proxyProtocol: HTTP/1 }
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: HTTPRoute
+metadata: { name: order-api, namespace: shop }
+spec:
+  parentRefs: [{ group: policy.linkerd.io, kind: Server, name: order }]
+  rules:
+    - matches:
+        - { path: { type: Exact, value: / }, method: GET }
+        - { path: { type: PathPrefix, value: /api/ }, method: GET }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: order-gateway, namespace: shop }
+spec: { identities: ["gateway.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: order-api, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: HTTPRoute, name: order-api }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: order-gateway }]

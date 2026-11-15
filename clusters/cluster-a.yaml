@@ -1,12 +1,29 @@
-# Uygulama cluster'ı A: dışarıya açık değil, sadece DMZ ingress'i ulaşır
+# Uygulama cluster'ı A: dışarıya açık değil, sadece DMZ ingress'i ulaşır.
+# mesh-eval (service mesh değerlendirmesi) bu cluster'da çalışır:
+#   control-plane : ingress-nginx, demo-app, mesh kontrol düzlemi, Prometheus agent
+#   worker        : test servis zinciri (shop)   -> mesh-eval.role=app
+#   worker2       : yük üretici (k6)             -> mesh-eval.role=loadgen (taint'li)
+# Node'ların CPU'ları mesh-eval/bin/meval setup ile ayrı çekirdeklere sabitlenir.
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: cluster-a
 networking:
   podSubnet: 10.20.0.0/16
   serviceSubnet: 10.21.0.0/16
+kubeadmConfigPatches:
+  - |
+    kind: KubeletConfiguration
+    maxPods: 250
 nodes:
   - role: control-plane
     labels:
       ingress-ready: "true"
       lab.zone: app
+  - role: worker
+    labels:
+      lab.zone: app
+      mesh-eval.role: app
+  - role: worker
+    labels:
+      lab.zone: app
+      mesh-eval.role: loadgen

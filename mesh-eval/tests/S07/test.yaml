@@ -1,0 +1,17 @@
+id: S07
+name: Dış çıkış (egress) whitelisting
+category: güvenlik
+purpose: >
+  Servislerin yalnızca izinli dış adreslere (FQDN) çıkabilmesini sağlamak; prod'daki ayrı dış çıkış
+  zone'unun cluster içi karşılığı. Hangi mesh'in FQDN bazlı egress kısıtı yapabildiğini göstermek.
+method: >
+  Cluster dışında (lab-app segmenti) iki HTTPS sunucusu: izinli allowed.ext.test, izinsiz denied.ext.test
+  (adlar cluster DNS'inde; internet bağımlılığı yok). Mesh'e göre yöntem:
+  none: NetworkPolicy (yalnızca IP bazlı, DNS'ten çözülen IP'ler);
+  istio-sidecar: Sidecar kaynağı REGISTRY_ONLY + ServiceEntry;
+  istio-ambient(-l7): ServiceEntry (ztunnel'de REGISTRY_ONLY yok — gözlenen davranış kaydedilir);
+  linkerd: EgressNetwork (trafficPolicy: Deny) + TLSRoute.
+components: [NetworkPolicy, Istio Sidecar/ServiceEntry, Linkerd EgressNetwork, CoreDNS hosts, nginx dış hedefleri]
+meshes: [all]
+outputs: [allowed_ok, denied_blocked, method]
+pass_criteria: İzinli hedef açık, izinsiz hedef kapalı

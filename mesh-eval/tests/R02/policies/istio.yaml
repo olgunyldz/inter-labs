@@ -1,0 +1,10 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata: { name: catalog-fault, namespace: shop }
+spec:
+  hosts: [catalog.shop.svc.cluster.local]
+  http:
+    - fault:
+        abort: { httpStatus: 503, percentage: { value: 10 } }
+        delay: { fixedDelay: 200ms, percentage: { value: 10 } }
+      route: [{ destination: { host: catalog.shop.svc.cluster.local } }]

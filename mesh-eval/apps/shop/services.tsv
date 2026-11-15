@@ -1,0 +1,10 @@
+# Test servis zinciri (shop). Tek kaynak: render.sh bu tablodan manifest üretir.
+# ad	protokol	paralel	upstream'ler (virgülle)
+gateway	http	1	http://order.shop.svc:9090
+order	http	2	http://inventory.shop.svc:9090,http://payment.shop.svc:9090
+inventory	http	1	http://pricing.shop.svc:9090
+pricing	http	1	http://catalog.shop.svc:9090
+catalog	http	1	-
+payment	http	1	grpc://fraud.shop.svc:9090
+fraud	grpc	1	http://ledger.shop.svc:9090
+ledger	http	1	-

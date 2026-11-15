@@ -1,0 +1,68 @@
+# Puan kartı tanımı. Ağırlıklar eşit (yönetim önceliği belirtilmedi); değiştirilebilir.
+# Her kalem 0..1 puan üretir:
+#   status : test sonucu  (geçti=1, kısmen=geçen kontrol oranı, uygulanamaz=0 "yetenek yok", hata=hariç)
+#   metric : mesh'ler arası göreli; better: lower -> en iyi/değer, higher -> değer/en iyi
+# "none" (mesh yok) puanlanmaz, yalnızca referanstır.
+categories:
+  - id: performans
+    name: Performans
+    weight: 1
+    items:
+      - { test: P01, metric: knee_slo_rps, better: higher, label: "SLO kırılma noktası (RPS)" }
+      - { test: P01, metric: stage1.p99_ms, better: lower, label: "orta yükte p99" }
+      - { test: P04, metric: stage1.p99_ms, better: lower, label: "uçtan uca p99" }
+      - { test: P02, kind: status, label: "uzun yük kararlılığı" }
+      - { test: P03, kind: status, label: "ani yük" }
+      - { test: P06, metric: ready_p50_s, better: lower, label: "pod hazır olma süresi" }
+      - { test: P07, metric: base.deny_s, better: lower, label: "politika yayılma süresi" }
+  - id: maliyet
+    name: Kaynak maliyeti
+    weight: 1
+    items:
+      - { test: P05, metric: dataplane.cpu_per_1k_rps, better: lower, label: "1000 RPS başına veri düzlemi CPU" }
+      - { test: P05, metric: dataplane.mem_per_pod_mib, better: lower, label: "pod başına veri düzlemi belleği" }
+      - { test: P05, metric: derived.req_cpu_per_pod, better: lower, label: "pod başına ayrılan CPU (requests)" }
+      - { test: O02, metric: series_mesh_per_pod, better: lower, label: "pod başına metrik serisi" }
+      - { test: P07, metric: control.mem_growth_mib, better: lower, label: "servis sayısıyla kontrol düzlemi büyümesi" }
+  - id: guvenlik
+    name: Güvenlik
+    weight: 1
+    items:
+      - { test: S01, kind: status, label: "mTLS / şifreleme" }
+      - { test: S02, kind: status, label: "NetworkPolicy uyumu" }
+      - { test: S03, kind: status, label: "kimlik bazlı yetki" }
+      - { test: S04, kind: status, label: "endpoint (L7) yetki" }
+      - { test: S06, kind: status, label: "atlatma denemeleri" }
+      - { test: S07, kind: status, label: "egress kısıtı" }
+      - { test: S08, kind: status, label: "sertifika / CA rotasyonu" }
+  - id: dayaniklilik
+    name: Dayanıklılık
+    weight: 1
+    items:
+      - { test: R01, kind: status, label: "timeout / retry / outlier" }
+      - { test: R02, kind: status, label: "hata enjeksiyonu" }
+      - { test: R03, metric: failed_requests, better: lower, label: "pod kaybında başarısız istek" }
+      - { test: R04, kind: status, label: "kontrol düzlemi kaybı" }
+      - { test: R05, kind: status, label: "kesintisiz güncelleme" }
+      - { test: R05, metric: restarted_pods, better: lower, label: "güncellemede yeniden başlatılan pod" }
+  - id: trafik
+    name: Trafik yönetimi
+    weight: 1
+    items:
+      - { test: T01, kind: status, label: "kademeli yayın" }
+      - { test: T02, metric: grpc.max_share, better: lower, label: "gRPC yük dağılımı" }
+      - { test: T03, kind: status, label: "Gateway API ingress" }
+  - id: gozlem
+    name: Gözlemlenebilirlik
+    weight: 1
+    items:
+      - { test: O01, metric: services_l7_metrics, better: higher, label: "L7 metrikli servis" }
+      - { test: O01, kind: status, label: "trace / log" }
+  - id: operasyon
+    name: Operasyon
+    weight: 1
+    items:
+      - { test: O03, metric: crds, better: lower, label: "CRD sayısı" }
+      - { test: O03, metric: added_containers_per_pod, better: lower, label: "pod'a eklenen konteyner" }
+      - { test: O03, metric: privileged_components, better: lower, label: "ayrıcalıklı bileşen" }
+      - { test: O03, kind: status, label: "tanılama" }

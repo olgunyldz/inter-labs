@@ -1,4 +1,9 @@
-# Mgmt: yönetim UI'ları
+# Mgmt: yönetim UI'ları + diğer cluster'lardan gelen gözlem verisi (L4/TCP)
 controller:
   config:
     proxy-body-size: "50m"
+# mesh-eval gözlem: cluster'lar bu portlardan mgmt'ye yazar (bkz. mesh-eval/observability)
+tcp:
+  "9090": "observability/prometheus-server:80"   # Prometheus remote-write (agent'lar, k6)
+  "9411": "observability/tempo:9411"             # Zipkin trace
+  "4317": "observability/tempo:4317"             # OTLP gRPC trace

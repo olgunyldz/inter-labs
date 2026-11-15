@@ -1,0 +1,17 @@
+id: P06
+name: Pod başlangıç süresi ve ölçeklenme hızı
+category: performans
+purpose: >
+  Mesh'in yeni pod'ların hazır olma süresine etkisini ölçmek (sidecar enjeksiyonu, proxy başlatma,
+  sertifika alma). Ani ölçeklenmede (HPA) ne kadar gecikme eklediğini gösterir.
+method: >
+  shop namespace'inde (mesh'li) bağımsız bir test deployment'ı 0'dan N replikaya ölçeklenir.
+  Her pod için oluşturulma -> Ready süresi ve tüm pod'ların hazır olma süresi ölçülür.
+  İmajlar node'da önceden bulunur (indirme süresi ölçüme girmez).
+components: [kube-apiserver, kubelet, mesh enjektörü / CNI, fake-service]
+meshes: [all]
+profiles:
+  quick: "10 replika x 1 tur"
+  full: "30 replika x 3 tur"
+outputs: [ready_p50_s, ready_p95_s, ready_max_s, all_ready_s]
+pass_criteria: Tüm pod'lar 120 sn içinde hazır

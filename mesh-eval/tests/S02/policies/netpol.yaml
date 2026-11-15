@@ -1,0 +1,90 @@
+# shop: varsayılan RET + servis zinciri izin listesi (L3/L4, etiket bazlı: shop.role)
+# Portlar belirtilmez (izinli kaynaktan tüm portlar) -> en yaygın yazım şekli.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: default-deny, namespace: shop }
+spec: { podSelector: {}, policyTypes: [Ingress] }
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-monitoring, namespace: shop }
+spec:
+  podSelector: {}
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: observability } } }] }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-gateway, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: gateway } }
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: loadgen } }
+        - namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: ingress-nginx } }
+        - podSelector: { matchLabels: { shop.role: gateway } }
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-order, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: order } }
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ podSelector: { matchLabels: { shop.role: gateway } } }] }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-inventory, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: inventory } }
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ podSelector: { matchLabels: { shop.role: order } } }] }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-payment, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: payment } }
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ podSelector: { matchLabels: { shop.role: order } } }] }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-pricing, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: pricing } }
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ podSelector: { matchLabels: { shop.role: inventory } } }] }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-catalog, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: catalog } }
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ podSelector: { matchLabels: { shop.role: pricing } } }] }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-fraud, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: fraud } }
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ podSelector: { matchLabels: { shop.role: payment } } }] }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-ledger, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: ledger } }
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ podSelector: { matchLabels: { shop.role: fraud } } }] }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-banner, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: banner } }
+  policyTypes: [Ingress]
+  ingress: [{ from: [{ podSelector: { matchLabels: { shop.role: gateway } } }] }]

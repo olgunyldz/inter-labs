@@ -1,0 +1,20 @@
+id: P07
+name: Politika yayılma süresi ve kontrol düzlemi ölçeği
+category: performans
+purpose: >
+  Bir erişim kuralı değiştiğinde ne kadar sürede yürürlüğe girdiğini ölçmek; cluster'daki servis
+  sayısı arttığında kontrol düzleminin ve proxy'lerin kaynak tüketiminin nasıl büyüdüğünü göstermek
+  (3.000 servislik prod için ölçeklenme göstergesi).
+method: >
+  (1) probe-rogue -> order erişimini kesen kural uygulanır; erişimin kesildiği an (pod içinden 100 ms
+  aralıkla yoklama) ölçülür; kural kaldırılır, erişimin geri geldiği an ölçülür (3 tekrar, medyan).
+  Mesh yoksa NetworkPolicy, mesh'lerde mesh'in yetki politikası kullanılır.
+  (2) Ayrı bir mesh'li namespace'e N servis (1 replika) eklenir; kontrol düzlemi ve shop proxy'lerinin
+  belleği öncesi/sonrası kıyaslanır. (3) Ölçüm (1) N servis varken tekrarlanır.
+components: [mesh kontrol düzlemi (istiod / linkerd-destination), proxy'ler, kube-network-policies (none)]
+meshes: [all]
+profiles:
+  quick: "N = 30 servis"
+  full: "N = 120 servis"
+outputs: [deny_s, allow_s, scaled.deny_s, scaled.allow_s, control.mem_growth_mib, sidecar.mem_per_container_growth_mib]
+pass_criteria: Kural 30 sn içinde yürürlüğe girer ve kaldırıldığında erişim geri gelir

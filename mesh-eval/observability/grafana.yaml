@@ -1,0 +1,22 @@
+# mgmt: Grafana. https://grafana.localtest.me:9443 (admin / mesh-eval; anonim kullanıcı izleyici)
+adminUser: admin
+adminPassword: mesh-eval
+grafana.ini:
+  auth.anonymous: { enabled: true, org_role: Viewer }
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts: [grafana.localtest.me]
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - { name: Prometheus, uid: prom, type: prometheus, url: "http://prometheus-server.observability.svc", isDefault: true }
+      - { name: Tempo, uid: tempo, type: tempo, url: "http://tempo.observability.svc:3200" }
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - { name: mesh-eval, folder: mesh-eval, type: file, options: { path: /var/lib/grafana/dashboards/mesh-eval } }
+dashboardsConfigMaps:
+  mesh-eval: grafana-dashboards-mesh-eval

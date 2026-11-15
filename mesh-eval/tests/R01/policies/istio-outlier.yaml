@@ -1,0 +1,7 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata: { name: pricing, namespace: shop }
+spec:
+  host: pricing.shop.svc.cluster.local
+  trafficPolicy:
+    outlierDetection: { consecutive5xxErrors: 3, interval: 1s, baseEjectionTime: 30s, maxEjectionPercent: 50 }

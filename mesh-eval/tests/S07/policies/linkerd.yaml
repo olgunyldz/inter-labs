@@ -1,0 +1,16 @@
+# Linkerd egress: lab'daki dış hedefler 172.16.0.0/12 içinde olduğu için Linkerd'in varsayılan "cluster ağı"
+# tanımına düşer; EgressNetwork'te dış ağ açıkça belirtilir. Varsayılan ret, allowed.ext.test SNI'ına izin.
+apiVersion: policy.linkerd.io/v1alpha1
+kind: EgressNetwork
+metadata: { name: external, namespace: shop }
+spec:
+  networks: [{ cidr: 172.28.20.250/31 }]
+  trafficPolicy: Deny
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: TLSRoute
+metadata: { name: ext-allowed, namespace: shop }
+spec:
+  parentRefs: [{ name: external, kind: EgressNetwork, group: policy.linkerd.io, namespace: shop, port: 443 }]
+  hostnames: [allowed.ext.test]
+  rules: [{ backendRefs: [{ kind: EgressNetwork, group: policy.linkerd.io, name: external }] }]

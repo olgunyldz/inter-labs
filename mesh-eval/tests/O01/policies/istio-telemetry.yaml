@@ -1,0 +1,6 @@
+apiVersion: telemetry.istio.io/v1
+kind: Telemetry
+metadata: { name: o01, namespace: shop }
+spec:
+  tracing: [{ providers: [{ name: tempo }], randomSamplingPercentage: 100 }]
+  accessLogging: [{ providers: [{ name: envoy }] }]

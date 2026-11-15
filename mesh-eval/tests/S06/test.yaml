@@ -1,0 +1,14 @@
+id: S06
+name: Politika atlatma denemeleri
+category: güvenlik
+purpose: >
+  Yetki kurallarının (S03) yalnızca "doğru yoldan" gelen trafikte değil, kötü niyetli denemelerde de
+  geçerli olduğunu kanıtlamak: mesh dışı pod, mesh'ten çıkarılmış pod (aynı kimlikle), host ağı,
+  doğrudan pod IP'si, sahte kimlik başlıkları, proxy yönetim portları.
+method: >
+  S03'ün kimlik politikası uygulanır; ardından her deneme order servisine/pod'una yapılır.
+  Mesh yoksa (none) aynı denemeler politikasız ortamda yapılır (risk görünürlüğü).
+components: [mesh yetki politikası, mTLS, netshoot (hostNetwork dahil)]
+meshes: [all]
+outputs: [her deneme için izin/ret, admin_ports]
+pass_criteria: Tüm denemeler reddedilir

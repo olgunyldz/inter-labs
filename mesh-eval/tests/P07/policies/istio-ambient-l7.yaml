@@ -1,0 +1,9 @@
+# Istio ambient + waypoint: politika Service'e bağlanır, waypoint uygular.
+# (selector'lı politika ztunnel'de çalışır ve waypoint'ten gelen trafikte kaynağı göremez)
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: p07-deny-rogue, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: order }]
+  action: DENY
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/rogue"] } }] }]

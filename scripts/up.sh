@@ -40,11 +40,14 @@ create_cluster() {
     kind create cluster --config "$ROOT/clusters/$c.yaml" --wait 180s
 }
 
-# attach <cluster> <network>: node'u ek bir zone network'üne bağlar
+# attach <cluster> <network>: cluster'ın tüm node'larını ek bir zone network'üne bağlar
 attach() {
-  if [ -z "$(node_ip "$1" "$2")" ]; then
-    docker network connect "$2" "$(node_name "$1")"
-  fi
+  local n
+  for n in $(kind get nodes --name "$1"); do
+    if [ -z "$(docker inspect -f "{{with index .NetworkSettings.Networks \"$2\"}}{{.IPAddress}}{{end}}" "$n")" ]; then
+      docker network connect "$2" "$n"
+    fi
+  done
   ok "$1 -> $2 ($(node_ip "$1" "$2"))"
 }
 

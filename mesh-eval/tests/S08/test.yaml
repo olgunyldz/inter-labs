@@ -1,0 +1,16 @@
+id: S08
+name: Sertifika yönetimi — kurumsal CA, ömür, yük altında CA rotasyonu
+category: güvenlik
+purpose: >
+  İş yükü sertifikalarının bizim (kurumsal) CA'mızdan imzalandığını, kısa ömürlü olduğunu ve
+  otomatik yenilendiğini; ara CA (issuer) yük altında değiştirildiğinde trafik kesilmediğini göstermek.
+  Prod'da Vault gibi kurumsal CA ile entegrasyonun lab karşılığı.
+method: >
+  (1) order pod'unun iş yükü sertifikası mesh aracıyla alınır (istioctl / linkerd identity):
+  veren CA, geçerlilik süresi, SPIFFE kimliği. (2) 200 RPS sabit yük altında, aynı kök CA ile yeni bir
+  ara CA üretilip mesh'e verilir; order yeniden başlatılır. Yeni pod'un sertifikası yeni ara CA'dan
+  gelmeli, eski ve yeni sertifikalı pod'lar konuşabilmeli, yükte hata oluşmamalı.
+components: [mesh CA (istiod / linkerd-identity), plug-in CA (lib/pki.sh), k6]
+meshes: [istio-sidecar, istio-ambient, istio-ambient-l7, linkerd]
+outputs: [cert_ttl_h, issuer_cn, rotation.error_rate, rotation.new_issuer_ok, rotation.needed_restart]
+pass_criteria: Sertifika kurumsal ara CA'dan, ömür <= 24 sa, rotasyonda hata oranı < %1 ve yeni issuer

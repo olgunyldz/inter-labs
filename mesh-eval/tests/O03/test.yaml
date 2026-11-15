@@ -1,0 +1,12 @@
+id: O03
+name: Operasyon envanteri — karmaşıklık ve ayrıcalık
+category: operasyon
+purpose: >
+  Mesh'in işletme yükünü nesnel göstergelerle kaydetmek: CRD sayısı, kontrol düzlemi ve node ajanı
+  bileşenleri, kullanılan imajlar, webhook'lar, uygulama pod'una eklenen konteynerler, ayrıcalıklı
+  (NET_ADMIN / privileged) gereksinimler, kurulum süresi ve tanılama aracının sonucu.
+method: Kurulu mesh'in Kubernetes nesneleri sayılır; istioctl analyze / linkerd check çalıştırılır.
+components: [kubectl, istioctl, linkerd CLI]
+meshes: [istio-sidecar, istio-ambient, istio-ambient-l7, linkerd]
+outputs: [crds, control_plane_pods, node_agents, images, webhooks, added_containers_per_pod, privileged_components, install_s, diag_issues]
+pass_criteria: Tanılama aracında hata yok

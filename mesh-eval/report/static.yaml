@@ -1,0 +1,27 @@
+# Ölçülmeyen ama karar için gerekli bilgiler. Kaynaklardan derlenmiştir; rapor tarihinde
+# yeniden doğrulanmalıdır (lisans ve destek koşulları değişebilir).
+verified_on: "2026-11-16"
+meshes:
+  istio:
+    name: Istio
+    license: "Apache 2.0 (kaynak kod ve tüm sürümler)"
+    cncf: "CNCF graduated (Temmuz 2023)"
+    releases: "Yaklaşık 3 ayda bir minor sürüm; her minor sürüm yaklaşık 6 ay yama alır. Ambient modu 1.24 (Kasım 2024) ile GA."
+    support: "Topluluk + çok sayıda ticari destek sağlayıcısı (ör. Solo.io, Tetrate, Red Hat OpenShift Service Mesh, Google Cloud Service Mesh)."
+    risk: "Düşük lisans riski. Ambient modu sidecar'a göre daha yeni; bazı özellikler waypoint gerektirir."
+    sources:
+      - https://istio.io/latest/docs/releases/supported-releases/
+      - https://www.cncf.io/projects/istio/
+  linkerd:
+    name: Linkerd
+    license: "Kaynak kod Apache 2.0. Açık kaynak proje 2024'ten beri yalnızca 'edge' sürümleri yayınlıyor; 'stable' sürümler Buoyant Enterprise for Linkerd (BEL) dağıtımında."
+    cncf: "CNCF graduated (Temmuz 2021)"
+    releases: "Edge sürümleri haftalık / iki haftalık; sürüm başına uzun destek yok (bu değerlendirmede edge kullanıldı)."
+    support: "Ticari destek ve stable sürüm: Buoyant (BEL). BEL'in üretim kullanımı için belirli kurum büyüklüğünün üzerinde ücretli lisans gerekir."
+    risk: "Orta-yüksek lisans/destek riski: üretimde stable sürüm için tek tedarikçiye (Buoyant) bağımlılık ve lisans maliyeti; edge sürümlerle üretim, sık güncelleme yükü getirir."
+    sources:
+      - https://linkerd.io/releases/
+      - https://buoyant.io/pricing
+      - https://www.cncf.io/projects/linkerd/
+notes:
+  - "Lisans ve destek bilgileri test edilmez; karar öncesi tedarikçilerden güncel teklif ve koşullar alınmalıdır."

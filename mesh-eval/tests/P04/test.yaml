@@ -1,0 +1,16 @@
+id: P04
+name: Uçtan uca yol — edge -> DMZ -> ingress -> zincir
+category: performans
+purpose: >
+  Gerçek kullanıcı yolundaki toplam gecikmeyi ölçmek (edge LB, DMZ ingress A/B, cluster-a ingress,
+  mesh'li ingress -> gateway kenarı dahil) ve küme içi ölçümle (P01) kıyaslamak.
+method: >
+  k6 host'ta, "internet" segmentinde (lab-edge network'ü) bir container olarak çalışır ve
+  https://shop.localtest.me adresine edge LB üzerinden sabit hızlı aşamalarla yük verir.
+components: [k6 (docker, lab-edge), HAProxy edge LB, DMZ ingress-nginx x2, cluster-a ingress-nginx, fake-service zinciri]
+meshes: [all]
+profiles:
+  quick: "100, 250 RPS x 30 sn"
+  full: "100, 250, 400 RPS x 60 sn"
+outputs: [stage<i>.p50_ms/p95_ms/p99_ms/error_rate]
+pass_criteria: İlk aşamada hata oranı < %1

@@ -1,0 +1,58 @@
+# Bench cluster'ı (cluster-a): Prometheus agent modu, yerel sorgu yok, her şeyi mgmt'ye yazar.
+# global.external_labels.mesh, mesh profili değiştikçe `meval mesh use` tarafından güncellenir.
+alertmanager: { enabled: false }
+prometheus-pushgateway: { enabled: false }
+prometheus-node-exporter: { enabled: false }
+kube-state-metrics:
+  enabled: true
+  nodeSelector: { node-role.kubernetes.io/control-plane: "" }
+  tolerations: [{ key: node-role.kubernetes.io/control-plane, operator: Exists, effect: NoSchedule }]
+server:
+  defaultFlagsOverride:
+    - --agent
+    - --config.file=/etc/config/prometheus.yml
+    - --storage.agent.path=/data
+    - --web.enable-lifecycle
+  persistentVolume: { enabled: false }
+  global:
+    scrape_interval: 5s
+    scrape_timeout: 4s
+    evaluation_interval: 15s
+    external_labels: { cluster: cluster-a, mesh: none }
+  remoteWrite:
+    - url: http://prometheus.observability.svc:9090/api/v1/write
+      queue_config: { max_samples_per_send: 5000, batch_send_deadline: 2s }
+  nodeSelector: { node-role.kubernetes.io/control-plane: "" }
+  tolerations: [{ key: node-role.kubernetes.io/control-plane, operator: Exists, effect: NoSchedule }]
+  resources:
+    requests: { cpu: 100m, memory: 256Mi }
+serverFiles:
+  prometheus.yml:
+    rule_files: []
+# Varsayılan işler (cadvisor, annotation'lı pod/servisler) + mesh'e özel işler
+extraScrapeConfigs: |
+  # Linkerd proxy'leri ve kontrol düzlemi: linkerd-admin portu (4191) /metrics
+  - job_name: linkerd-proxy
+    kubernetes_sd_configs: [{ role: pod }]
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_container_port_name]
+        action: keep
+        regex: linkerd-admin
+      - source_labels: [__meta_kubernetes_namespace]
+        target_label: namespace
+      - source_labels: [__meta_kubernetes_pod_name]
+        target_label: pod
+      - source_labels: [__meta_kubernetes_pod_label_app]
+        target_label: app
+      - source_labels: [__meta_kubernetes_pod_container_name]
+        target_label: container
+  - job_name: linkerd-controller
+    kubernetes_sd_configs: [{ role: pod, namespaces: { names: [linkerd] } }]
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_container_port_name]
+        action: keep
+        regex: admin-http
+      - source_labels: [__meta_kubernetes_pod_name]
+        target_label: pod
+      - source_labels: [__meta_kubernetes_pod_container_name]
+        target_label: component

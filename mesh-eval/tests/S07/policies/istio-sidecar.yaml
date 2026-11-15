@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1
+kind: Sidecar
+metadata: { name: egress-registry-only, namespace: shop }
+spec:
+  outboundTrafficPolicy: { mode: REGISTRY_ONLY }
+  egress: [{ hosts: ["./*", "istio-system/*", "observability/*"] }]
+---
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata: { name: ext-allowed, namespace: shop }
+spec:
+  hosts: [allowed.ext.test]
+  location: MESH_EXTERNAL
+  resolution: DNS
+  ports: [{ number: 443, name: tls, protocol: TLS }]

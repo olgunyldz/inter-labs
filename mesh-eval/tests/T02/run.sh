@@ -32,14 +32,15 @@ banner_ms() { # <host> <port>
 }
 h=(); n=()
 for i in 1 2 3; do h+=("$(banner_ms banner.$SHOP_NS.svc 7000)"); n+=("$(banner_ms banner-raw.$SHOP_NS.svc 7001)"); done
-med() { printf '%s\n' "$@" | grep -v fail | sort -n | sed -n 2p; }
+med() { printf '%s\n' "$@" | { grep -v fail || true; } | sort -n | awk '{a[NR]=$1} END{if (NR) print a[int((NR+1)/2)]}'; }
 hm=$(med "${h[@]}"); nm=$(med "${n[@]}")
 echo "ipuçlu: ${h[*]}  ipuçsuz: ${n[*]}" > "$(raw banner.txt)"
 metric banner.hint_ms "${hm:-null}" ms "appProtocol: tcp ile ilk bayt süresi"
 metric banner.nohint_ms "${nm:-null}" ms "protokol ipucu olmadan ilk bayt süresi"
 check_le "server-first (ipuçlu) ilk bayt (ms)" "${hm:-99999}" 1000
 if [ -z "$nm" ] || awk -v v="$nm" 'BEGIN{exit !(v > 1000)}'; then
-  finding "$MESH: protokol ipucu olmayan server-first TCP bağlantısında ilk bayt ${nm:-gelmedi} ms (protokol algılama beklemesi). Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı."
+  if [ -z "$nm" ]; then w="sunucunun ilk baytı 20 sn içinde hiç gelmedi (bağlantı kullanılamaz)"; else w="ilk bayt $nm ms sonra geldi"; fi
+  finding "$MESH: protokol ipucu (appProtocol) olmayan server-first TCP portunda $w — mesh istemcinin önce veri göndermesini bekliyor (protokol algılama). İpucuyla ${hm:-?} ms. Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı (Oracle, MSSQL, SMTP vb.)."
 fi
 log "3) veri tabanı trafiği (data cluster)"
 r=$(kb -n "$SHOP_NS" exec deploy/probe-gateway -c probe -- bash -c "exec 3<>/dev/tcp/redis.$SHOP_NS.svc/6379; printf 'PING\r\n' >&3; read -t 5 -r l <&3; echo \$l" 2>/dev/null | tr -d '\r')

@@ -18,6 +18,8 @@ O="http://order.$SHOP_NS.svc:9090/"
 expect_access "mesh dışı namespace -> order"                       ret probe-outside "$OUTSIDE_NS" "$O"
 expect_access "mesh'ten çıkarılmış pod (gateway SA) -> order"      ret probe-optout  "$SHOP_NS" "$O"
 expect_access "host ağı (node) -> order pod IP"                    ret probe-host    "$OUTSIDE_NS" "http://$POD_IP:9090/"
+hc=$(http_code probe-host "$OUTSIDE_NS" "http://$POD_IP:9090/")
+is_2xx "$hc" && [ "$MESH" != none ] && finding "$MESH: aynı node'un host ağından pod IP'sine düz (mTLS'siz) istek, zorunlu mTLS ve yetki politikasına rağmen kabul edildi (HTTP $hc). Mesh, node'dan gelen trafiği (kubelet sağlık kontrolleri için) muaf tutuyor; hostNetwork pod'ları ve node üzerindeki ajanlar politikayı atlayabilir. Prod'da hostNetwork kullanımı Pod Security ile kısıtlanmalı."
 expect_access "rogue -> order pod IP (Service'i atlayarak)"        ret probe-rogue   "$SHOP_NS" "http://$POD_IP:9090/"
 expect_access "rogue + sahte Istio kimlik başlığı (XFCC) -> order" ret probe-rogue   "$SHOP_NS" "$O" \
   -H "X-Forwarded-Client-Cert: By=spiffe://cluster.local/ns/shop/sa/order;URI=spiffe://cluster.local/ns/shop/sa/gateway"

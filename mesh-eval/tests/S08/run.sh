@@ -50,7 +50,7 @@ check_le "sertifika ömrü (saat)" "$ttl" 24
 check "kimlik (SAN)" var "$(grep -qF "$want_san" <<<"$san" && echo var || echo yok)"
 
 log "Yük altında ara CA rotasyonu"
-POD=$(k6_start rotation load.js PHASES="200:100s" GAP=0)
+POD=$(k6_start rotation load.js PHASES="200:$( [[ "$MESH" == istio-ambient* ]] && echo 160 || echo 100 )s" GAP=0)
 sleep 20
 TS=$(date +%s); restart_needed=0
 case $MESH in
@@ -86,7 +86,19 @@ if [ "$aki2" != "$(ski_of "$N/ca-cert.pem")" ]; then
   IFS='|' read -r iss2 ttl2 san2 aki2 <<<"$(cert_info < "$(raw leaf-after.pem)")"
   finding "$MESH: yeni ara CA otomatik yüklenmedi; kontrol düzleminin yeniden başlatılması gerekti."
 fi
+# Ambient: sertifikalar kimlik başına node'daki ztunnel'de önbelleklidir; yeni pod aynı kimlik için eski
+# sertifikayı alır. Yeni CA için ztunnel'lerin yeniden başlatılması gerekir (DaemonSet, node node).
+zt_restart=0
+if [[ "$MESH" == istio-ambient* ]] && [ "$aki2" != "$(ski_of "$N/ca-cert.pem")" ]; then
+  zt_restart=1
+  log "ambient: ztunnel DaemonSet yeniden başlatılıyor (yük altında)"
+  kb -n istio-system rollout restart ds/ztunnel >/dev/null; kb -n istio-system rollout status ds/ztunnel --timeout=180s >/dev/null
+  sleep 5; NP=$(order_pod); leaf_pem "$NP" > "$(raw leaf-after.pem)"
+  IFS='|' read -r iss2 ttl2 san2 aki2 <<<"$(cert_info < "$(raw leaf-after.pem)")"
+  finding "$MESH: CA rotasyonunda yeni pod bile eski ara CA'nın sertifikasını kullandı (ztunnel kimlik başına önbellekte tutuyor). Yeni CA'nın devreye girmesi için ztunnel DaemonSet'inin yeniden başlatılması gerekti; bu sırada node'daki tüm pod'ların trafiği etkilenir."
+fi
 metric rotation.needed_restart "$restart_needed" bool "yeni CA için kontrol düzlemi yeniden başlatıldı mı"
+metric rotation.ztunnel_restart "$zt_restart" bool "yeni CA için ztunnel yeniden başlatıldı mı (ambient)"
 check "rotasyon: yeni pod yeni ara CA'dan sertifika aldı" "$(ski_of "$N/ca-cert.pem")" "$aki2"
 check_true "rotasyon: eski ve yeni sertifikalı pod'lar konuşuyor (zincir)" chain_ok probe-gateway
 S=$(k6_wait "$POD" rotation 240)

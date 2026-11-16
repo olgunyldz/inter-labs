@@ -24,7 +24,7 @@ run_load() { # run_load <ad> -> metrikler
   reqs=$(jq -r '.metrics.http_reqs.values.count' "$S")
   prom_settle 20
   pr=$(pricing_reqs $((T0 + D)) "$D")
-  [ "$pr" != null ] && metric "$1.amplification" "$(awk -v a="$pr" -v b="$reqs" 'BEGIN{printf "%.3f", a/b}')" kat "pricing'e gelen / gateway'e gelen istek"
+  if [ "$pr" != null ]; then metric "$1.amplification" "$(awk -v a="$pr" -v b="$reqs" 'BEGIN{printf "%.3f", a/b}')" kat "pricing'e gelen / gateway'e gelen istek"; fi
 }
 supports_l7() { [ "$MESH" = istio-sidecar ] || [ "$MESH" = istio-ambient-l7 ] || [ "$MESH" = linkerd ]; }
 

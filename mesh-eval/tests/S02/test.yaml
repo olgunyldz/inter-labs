@@ -10,7 +10,8 @@ method: >
   kontrol edilir (mesh ile uyumsuzluk bulgusu). (2) Gerekiyorsa mesh'e uyarlanmış ek kurallar uygulanır.
   (3) İzin/ret matrisi: izinli kenarlar açık, yetkisiz pod, başka namespace ve yatay geçiş kapalı olmalı.
   (4) Etiketi "gateway" olan ama kimliği farklı bir pod (impostor) order'a erişmeye çalışır.
+  (5) Impostor bağlıyken, onunla aynı ServiceAccount'u paylaşan yetkisiz pod 20 istek dener (ortak kimlik atlatması).
 components: [kindnet / kube-network-policies (NetworkPolicy motoru), netshoot istemcileri]
 meshes: [all]
-outputs: [naive.chain, naive.e2e, naive.ready, matris kontrolleri, impostor_access]
+outputs: [naive.chain, naive.e2e, naive.ready, matris kontrolleri, impostor_access, shared_identity_bypass]
 pass_criteria: Uyarlanmış kurallarla izin/ret matrisinin tamamı beklendiği gibi

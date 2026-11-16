@@ -45,7 +45,15 @@ case $MESH in
   istio-*) CA_DIR=$(pki_istio cluster-a); want_san="spiffe://cluster.local/ns/$SHOP_NS/sa/order" ;;
   linkerd) CA_DIR=$(pki_linkerd issuer); want_san="order.$SHOP_NS.serviceaccount.identity.linkerd.cluster.local" ;;
 esac
-check "sertifika kurumsal ara CA'dan (AKI = ara CA SKI)" "$(ski_of "$CA_DIR/ca-cert.pem")" "$aki"
+# Beklenen ara CA: cluster'da yüklü olan (önceki tekrarın rotasyonu kalıcıdır); yoksa ilk kurulumdaki
+CUR_CA=$(mktemp)
+case $MESH in
+  istio-*) kb -n istio-system get secret cacerts -o jsonpath='{.data.ca-cert\.pem}' | base64 -d > "$CUR_CA" ;;
+  linkerd) kb -n linkerd get secret linkerd-identity-issuer -o jsonpath='{.data.crt\.pem}' | base64 -d > "$CUR_CA" ;;
+esac
+[ -s "$CUR_CA" ] || cp "$CA_DIR/ca-cert.pem" "$CUR_CA"
+check "sertifika kurumsal ara CA'dan (AKI = ara CA SKI)" "$(ski_of "$CUR_CA")" "$aki"
+rm -f "$CUR_CA"
 check_le "sertifika ömrü (saat)" "$ttl" 24
 check "kimlik (SAN)" var "$(grep -qF "$want_san" <<<"$san" && echo var || echo yok)"
 

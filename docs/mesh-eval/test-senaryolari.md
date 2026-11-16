@@ -111,11 +111,11 @@ Bileşenlerin ayrıntısı ve sürümleri: [envanter.md](envanter.md).
 
 **Yöntem.** k6 (loadgen node'u, mesh içinde) gateway'e sabit hızlı (constant-arrival-rate) aşamalarla yük verir. Her aşama ayrı ölçülür. Her aşamada rol bazında CPU/bellek (cAdvisor; node toplamı dahil) ve mesh'in servis başına gecikmesi kaydedilir. İki kırılma noktası raporlanır: SLO noktası (p99 <= 100 ms, hata < %1, hedef hızın >= %95'i) ve doyma noktası (hata < %1, hız >= %95).
 
-**Bileşenler.** k6, fake-service zinciri (8 servis), Prometheus (mgmt), cAdvisor, mesh metrikleri
+**Bileşenler.** k6, chainsvc zinciri (8 servis), Prometheus (mgmt), cAdvisor, mesh metrikleri
 
 **Süre profilleri.** `quick`: 100,300,600,900 RPS x 30 sn; `full`: 100,250,500,750,1000,1250,1500,2000 RPS x 60 sn
 
-**Çıktılar.** `stage<i>.p50_ms/p95_ms/p99_ms, stage<i>.rps, stage<i>.error_rate`; `stage<i>.<rol>.cpu_cores / mem_mib`; `knee_slo_rps, knee_sat_rps (kırılma noktaları), hop.<servis>.p50_ms`
+**Çıktılar.** `stage<i>.p50_ms/p95_ms/p99_ms, stage<i>.rps, stage<i>.error_rate`; `stage<i>.<rol>.cpu_cores / mem_mib`; `knee_slo_rps, knee_sat_rps (kırılma noktaları), hop.<servis>.p50_ms`; `post_overload_healthy (aşırı yükten 30 sn sonra kendiliğinden toparlandı mı)`
 
 **Başarı ölçütü.** İlk aşamada hata oranı < %1 (sistem düşük yükte sağlıklı)
 
@@ -129,7 +129,7 @@ Tanım: [`mesh-eval/tests/P01/`](../../mesh-eval/tests/P01/) · Çalıştırma: 
 
 **Yöntem.** k6 sabit hızla yük verir; süre dört eşit çeyreğe bölünür. İlk ve son çeyreğin p99'u ile rol bazında bellek kullanımı kıyaslanır.
 
-**Bileşenler.** k6, fake-service zinciri, cAdvisor, Prometheus
+**Bileşenler.** k6, chainsvc zinciri, cAdvisor, Prometheus
 
 **Süre profilleri.** `quick`: 200 RPS x 2 dk; `full`: 300 RPS x 20 dk
 
@@ -147,7 +147,7 @@ Tanım: [`mesh-eval/tests/P02/`](../../mesh-eval/tests/P02/) · Çalıştırma: 
 
 **Yöntem.** Üç aşama: düşük yük (100 RPS) -> ani sıçrama -> tekrar düşük yük. Sıçrama ve sonrası p99/hata ölçülür; toparlanma süresi, sıçrama bittikten sonra p99'un tekrar ilk aşamanın 2 katının altına indiği ana kadar geçen süredir (k6 canlı metrikleri, 5 sn çözünürlük).
 
-**Bileşenler.** k6, fake-service zinciri, Prometheus
+**Bileşenler.** k6, chainsvc zinciri, Prometheus
 
 **Süre profilleri.** `quick`: 100 -> 700 (20 sn) -> 100 RPS; `full`: 100 -> 1200 (30 sn) -> 100 RPS
 
@@ -165,7 +165,7 @@ Tanım: [`mesh-eval/tests/P03/`](../../mesh-eval/tests/P03/) · Çalıştırma: 
 
 **Yöntem.** k6 host'ta, "internet" segmentinde (lab-edge network'ü) bir container olarak çalışır ve https://shop.localtest.me adresine edge LB üzerinden sabit hızlı aşamalarla yük verir.
 
-**Bileşenler.** k6 (docker, lab-edge), HAProxy edge LB, DMZ ingress-nginx x2, cluster-a ingress-nginx, fake-service zinciri
+**Bileşenler.** k6 (docker, lab-edge), HAProxy edge LB, DMZ ingress-nginx x2, cluster-a ingress-nginx, chainsvc zinciri
 
 **Süre profilleri.** `quick`: 100, 250 RPS x 30 sn; `full`: 100, 250, 400 RPS x 60 sn
 
@@ -201,7 +201,7 @@ Tanım: [`mesh-eval/tests/P05/`](../../mesh-eval/tests/P05/) · Çalıştırma: 
 
 **Yöntem.** shop namespace'inde (mesh'li) bağımsız bir test deployment'ı 0'dan N replikaya ölçeklenir. Her pod için oluşturulma -> Ready süresi ve tüm pod'ların hazır olma süresi ölçülür. İmajlar node'da önceden bulunur (indirme süresi ölçüme girmez).
 
-**Bileşenler.** kube-apiserver, kubelet, mesh enjektörü / CNI, fake-service
+**Bileşenler.** kube-apiserver, kubelet, mesh enjektörü / CNI, chainsvc
 
 **Süre profilleri.** `quick`: 10 replika x 1 tur; `full`: 30 replika x 3 tur
 
@@ -369,7 +369,7 @@ Tanım: [`mesh-eval/tests/S08/`](../../mesh-eval/tests/S08/) · Çalıştırma: 
 
 **Yöntem.** catalog'un v2 sürümü ayrı deployment olarak açılır (catalog-v1 / catalog-v2 servisleri). (1) %90/%10 ağırlık: 400 istekte v2 oranı ölçülür. (2) "x-canary: true" başlıklı istekler %100 v2. (3) Tüm trafik v1'e giderken v2'ye yansıtılır: cevaplar v1, v2'ye gelen istek sayısı ölçülür. Mesh yoksa yalnızca replika sayısıyla orantılı dağılım mümkündür (referans).
 
-**Bileşenler.** Gateway API HTTPRoute (GAMMA), Istio (sidecar / waypoint), Linkerd, fake-service v1/v2
+**Bileşenler.** Gateway API HTTPRoute (GAMMA), Istio (sidecar / waypoint), Linkerd, chainsvc v1/v2
 
 **Çıktılar.** `weighted.v2_share`; `header.v2_share`; `mirror.supported`; `mirror.v2_received`
 
@@ -385,7 +385,7 @@ Tanım: [`mesh-eval/tests/T01/`](../../mesh-eval/tests/T01/) · Çalıştırma: 
 
 **Yöntem.** (1) fraud 3 replikaya çıkarılır; payment'a 300 istek atılır (payment -> fraud gRPC, kalıcı bağlantı); cevaplardaki fraud pod IP'lerinin dağılımı ölçülür. (2) banner servisine (bağlanınca sunucu yazar) protokol ipucu olan (appProtocol: tcp) ve olmayan port üzerinden bağlanılıp ilk baytın gelme süresi ölçülür. (3) data cluster'ındaki Redis'e PING, Postgres'e TCP bağlantısı.
 
-**Bileşenler.** fake-service gRPC, socat (banner), data cluster Redis/Postgres, mesh protokol algılama
+**Bileşenler.** chainsvc gRPC, socat (banner), data cluster Redis/Postgres, mesh protokol algılama
 
 **Çıktılar.** `grpc.pods_used`; `grpc.max_share`; `banner.hint_ms`; `banner.nohint_ms`; `redis_ok`; `postgres_ok`
 
@@ -471,7 +471,7 @@ Tanım: [`mesh-eval/tests/O03/`](../../mesh-eval/tests/O03/) · Çalıştırma: 
 
 **Yöntem.** 100 RPS sabit yük. (A) pricing isteklerinin %20'si 1 sn gecikir; önce politikasız, sonra inventory -> pricing için timeout 500 ms / deneme başına 150 ms / 2 retry. pricing'e gelen istek sayısı / gateway istek sayısı = amplifikasyon. (B) pricing'e sürekli 503 dönen 1 replika eklenir (2 sağlam + 1 hatalı); önce politikasız, sonra outlier detection (Istio DestinationRule / Linkerd failure accrual) ile hata oranı ölçülür.
 
-**Bileşenler.** Istio VirtualService + DestinationRule (sidecar / waypoint), Linkerd HTTPRoute retry/timeout + failure accrual, fake-service hata enjeksiyonu
+**Bileşenler.** Istio VirtualService + DestinationRule (sidecar / waypoint), Linkerd HTTPRoute retry/timeout + failure accrual, chainsvc hata enjeksiyonu
 
 **Çıktılar.** `A.none.p99_ms`; `A.policy.p99_ms`; `A.amplification`; `B.none.error_rate`; `B.policy.error_rate`
 
@@ -503,7 +503,7 @@ Tanım: [`mesh-eval/tests/R02/`](../../mesh-eval/tests/R02/) · Çalıştırma: 
 
 **Yöntem.** 200 RPS sabit yük sürerken sırayla order (HTTP), catalog (zincirin sonu) ve fraud (gRPC) servislerinin birer pod'u silinir. Toplam başarısız istek, hata oranı ve p99 ölçülür.
 
-**Bileşenler.** k6, kube-proxy / mesh uç nokta yönetimi, fake-service
+**Bileşenler.** k6, kube-proxy / mesh uç nokta yönetimi, chainsvc
 
 **Çıktılar.** `failed_requests`; `error_rate`; `p99_ms`
 

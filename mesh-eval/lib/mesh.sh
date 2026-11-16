@@ -119,7 +119,7 @@ ingress_reconfigure() {
 mesh_enroll() {
   local p=$1 ns
   log "Uygulama mesh'e alınıyor: $p"
-  for ns in "${MESH_NAMESPACES[@]}" ingress-nginx; do
+  for ns in "${MESH_NAMESPACES[@]}" ingress-nginx observability; do
     kb label ns "$ns" istio-injection- istio.io/dataplane-mode- istio.io/use-waypoint- >/dev/null 2>&1 || true
     kb annotate ns "$ns" linkerd.io/inject- config.linkerd.io/default-inbound-policy- >/dev/null 2>&1 || true
   done
@@ -143,14 +143,13 @@ spec: { mtls: { mode: STRICT } }
 YAML
     ok "PeerAuthentication STRICT ($SHOP_NS)"
   fi
+  # Linkerd: all-authenticated politikası proxy metrik portunu da (4191) kapsar. Prometheus agent mesh'e
+  # alınır -> metrikleri mTLS ile (kimlikli) toplar. Admin portuna Server tanımlamak kubelet probe'larını bozar.
   if [ "$p" = linkerd ]; then
-    local cidr
-    cidr=$(kb get node "$BENCH_CLUSTER-control-plane" -o jsonpath='{.spec.podCIDR}')
-    for ns in "${MESH_NAMESPACES[@]}"; do
-      sed -e "s|__NS__|$ns|g" -e "s|__CIDR__|$cidr|g" "$MEVAL_ROOT/meshes/linkerd/admin-scrape.yaml" | kb apply -f - >/dev/null
-    done
-    ok "Linkerd: metrik portu yalnızca Prometheus agent'a açık ($cidr)"
+    kb annotate ns observability linkerd.io/inject=enabled --overwrite >/dev/null
+    ok "Linkerd: Prometheus agent mesh'e alındı (metrik toplama kimlikli)"
   fi
+  kb -n observability rollout restart deploy >/dev/null 2>&1 || true
   ingress_reconfigure "$p"
   ok "ingress-nginx ($BENCH_CLUSTER) yeniden yapılandırıldı"
   kb -n "$SHOP_NS" rollout restart deploy >/dev/null

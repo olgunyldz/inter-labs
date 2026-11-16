@@ -119,8 +119,10 @@ def select(runs, session=None):
     out = {}
     for key, rs in groups.items():
         rs.sort(key=lambda r: r["meta"]["start"])
-        last_session = rs[-1]["meta"].get("session")
-        same = [r for r in rs if r["meta"].get("session") == last_session]
+        # en son oturum, onun içinde en son çağrı (meval test run); aynı çağrıdaki --repeat tekrarları birleştirilir
+        last = rs[-1]["meta"]
+        same = [r for r in rs if r["meta"].get("session") == last.get("session")
+                and r["meta"].get("invocation", r["id"]) == last.get("invocation", rs[-1]["id"])]
         out[key] = aggregate(same)
     return out
 
@@ -130,7 +132,7 @@ def derive(data):
     for (t, m), a in data.items():
         mt = a["metrics"]
         if t == "P05":
-            pods = mt.get("shop_pods") or 0
+            pods = mt.get("shop_pods_running") or mt.get("shop_pods") or 0
             rc = sum(mt.get(f"req.{r}.cpu_cores", 0) for r in ("sidecar", "ztunnel", "waypoint", "cni"))
             rm = sum(mt.get(f"req.{r}.mem_mib", 0) for r in ("sidecar", "ztunnel", "waypoint", "cni"))
             if pods:
@@ -219,7 +221,7 @@ def projection(data, env, meshes):
             continue
         mt = p5["metrics"]
         per = lambda role, k="load": (mt.get(f"{k}.{role}.mem_mib", 0) / mt[f"{k}.{role}.containers"]) if mt.get(f"{k}.{role}.containers") else 0
-        rq = lambda role, r: (mt.get(f"req.{role}.{r}", 0) / mt[f"idle.{role}.containers"]) if mt.get(f"idle.{role}.containers") else 0
+        rq = lambda role, r: (mt.get(f"req.{role}.{r}", 0) / mt[f"req.{role}.containers"]) if mt.get(f"req.{role}.containers") else 0
         mem = per("sidecar") * pods + (per("ztunnel") + per("cni")) * nodes + per("waypoint") * waypoints
         req_cpu = rq("sidecar", "cpu_cores") * pods + (rq("ztunnel", "cpu_cores") + rq("cni", "cpu_cores")) * nodes + rq("waypoint", "cpu_cores") * waypoints
         req_mem = rq("sidecar", "mem_mib") * pods + (rq("ztunnel", "mem_mib") + rq("cni", "mem_mib")) * nodes + rq("waypoint", "mem_mib") * waypoints
@@ -241,7 +243,7 @@ def projection(data, env, meshes):
             "series_m": series / 1e6, "node_eq_used": node_eq_used, "node_eq_req": node_eq_req,
         }
     assumptions = {
-        "Servis": int(svcs), "Servis başına replika": rep, "Pod": int(pods), "Node başına pod": ppn,
+        "Servis": int(svcs), "Servis başına replika": fmt(rep), "Pod": int(pods), "Node başına pod": fmt(ppn),
         "Node": nodes, "Node boyutu": f"{int(vcpu)} vCPU / {int(memgb)} GB",
         "Toplam servisler arası istek hızı": f"{int(rps)} RPS",
         "Waypoint başına servis (ambient L7)": int(spw), "Waypoint": waypoints,
@@ -740,7 +742,8 @@ def render_html(ctx):
       f'kontrol düzlemi {esc(ctx["env"].get("CPUSET_CONTROL", ""))} numaralı çekirdeklere sabitlendi (docker cpuset); yük üretici ölçülen servislerle CPU paylaşmaz.</li>'
       '<li>Adil kıyas: her mesh, sıfırdan kurulmuş bench cluster\'ında (<code>meval mesh use &lt;profil&gt; --fresh</code>) aynı servis zinciri ve aynı yükle ölçülür. '
       'Tüm mesh\'lerde zorunlu mTLS açık, erişim logu ve tracing (O01 hariç) kapalı, kaynak istekleri mesh varsayılanında.</li>'
-      '<li>Servis zinciri: 8 servis (HTTP + bir gRPC kademesi), derinlik 5, paralel dallanma; her servis yapay 1–5 ms işlem süresi (fake-service).</li>'
+      '<li>Servis zinciri: 8 servis (HTTP + bir gRPC kademesi), derinlik 5, paralel dallanma; her servis yapay 1–5 ms işlem süresi (chainsvc, <code>mesh-eval/apps/chainsvc</code>).</li>'
+      '<li>Bağlantılar: servisler HTTP keep-alive ve kalıcı gRPC bağlantısı kullanır (gerçek servislerdeki gibi bağlantı havuzu).</li>'
       '<li>Mutlak değerler (RPS, ms) prod donanımına aktarılamaz; mesh\'ler arası göreli fark ve kırılma davranışı değerlendirilmelidir. '
       'Bulguların prod benzeri donanımda doğrulanması önerilir.</li>'
       '<li>Tekrarlanan koşularda metriklerin medyanı alınır, durum en kötü sonuçtur; yayılım (min…max) tablolarda gösterilir.</li></ul>')

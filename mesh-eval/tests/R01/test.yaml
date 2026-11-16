@@ -11,7 +11,7 @@ method: >
   sayısı / gateway istek sayısı = amplifikasyon. (B) pricing'e sürekli 503 dönen 1 replika eklenir
   (2 sağlam + 1 hatalı); önce politikasız, sonra outlier detection (Istio DestinationRule /
   Linkerd failure accrual) ile hata oranı ölçülür.
-components: [Istio VirtualService + DestinationRule (sidecar / waypoint), Linkerd HTTPRoute retry/timeout + failure accrual, fake-service hata enjeksiyonu]
+components: [Istio VirtualService + DestinationRule (sidecar / waypoint), Linkerd HTTPRoute retry/timeout + failure accrual, chainsvc hata enjeksiyonu]
 meshes: [all]
 outputs: [A.none.p99_ms, A.policy.p99_ms, A.amplification, B.none.error_rate, B.policy.error_rate]
 pass_criteria: Politikayla p99 < 1000 ms ve outlier detection ile hata oranı yarıdan fazla düşer

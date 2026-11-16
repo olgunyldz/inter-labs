@@ -23,15 +23,17 @@ expect_access "rogue + sahte Istio kimlik başlığı (XFCC) -> order" ret probe
   -H "X-Forwarded-Client-Cert: By=spiffe://cluster.local/ns/shop/sa/order;URI=spiffe://cluster.local/ns/shop/sa/gateway"
 expect_access "rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order" ret probe-rogue "$SHOP_NS" "$O" \
   -H "l5d-client-id: gateway.shop.serviceaccount.identity.linkerd.cluster.local"
-# Proxy yönetim portları (bilgi sızıntısı / yönetim erişimi)
-admin=""
-for port in 15000 15020 15021 4191; do
-  c=$(http_code probe-rogue "$SHOP_NS" "http://$POD_IP:$port/")
-  admin+="$port=$c "
-  [ "$port" = 15000 ] || [ "$port" = 4191 ] && metric "admin_port_$port" "$(is_2xx "$c" && echo 1 || echo 0)" bool "rogue'dan proxy yönetim portuna erişim"
-done
-echo "$admin" > "$(raw admin-ports.txt)"
+# Proxy yönetim uçları: yapılandırma dökümü (kritik) ve metrikler (bilgi sızıntısı, ölçüm olarak)
 case $MESH in
-  istio-*) expect_access "rogue -> Envoy admin (15000)"       ret probe-rogue "$SHOP_NS" "http://$POD_IP:15000/config_dump" ;;
-  linkerd) expect_access "rogue -> linkerd-proxy admin (4191)" ret probe-rogue "$SHOP_NS" "http://$POD_IP:4191/metrics" ;;
+  istio-sidecar) expect_access "rogue -> Envoy yapılandırma dökümü (15000/config_dump)" ret probe-rogue "$SHOP_NS" "http://$POD_IP:15000/config_dump"
+                 mu="http://$POD_IP:15020/stats/prometheus" ;;
+  istio-ambient*) mu="http://$POD_IP:15020/stats/prometheus" ;;
+  linkerd) mu="http://$POD_IP:4191/metrics" ;;
+  *) mu="" ;;
 esac
+if [ -n "$mu" ]; then
+  c=$(http_code probe-rogue "$SHOP_NS" "$mu")
+  metric proxy_metrics_exposed "$(is_2xx "$c" && echo 1 || echo 0)" bool "rogue başka pod'un proxy metriklerini okuyabildi mi ($mu -> $c)"
+  is_2xx "$c" && finding "$MESH: proxy metrik ucu ($mu) yetkisiz bir pod'dan okunabiliyor (servis adları, istek sayıları sızar). Prod'da NetworkPolicy ile yalnızca izleme sistemine açılmalı."
+fi
+true

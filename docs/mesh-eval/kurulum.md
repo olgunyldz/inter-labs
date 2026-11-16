@@ -66,6 +66,7 @@ bin/meval mesh use istio-ambient --fresh   # bir mesh profili (bkz. kılavuz)
 ### Servis zinciri
 
 Tek kaynak: [`mesh-eval/apps/shop/services.tsv`](../../mesh-eval/apps/shop/services.tsv) → `render.sh` manifest üretir.
+Test servisi [`mesh-eval/apps/chainsvc`](../../mesh-eval/apps/chainsvc/main.go) `setup` sırasında derlenip kind node'larına yüklenir.
 
 ```
 gateway ─► order ─┬─► inventory ─► pricing ─► catalog
@@ -74,11 +75,11 @@ gateway ─► order ─┬─► inventory ─► pricing ─► catalog
 
 | Özellik | Değer |
 |---|---|
-| Uygulama | `fake-service` v0.26.2 (HTTP + gRPC, gecikme/hata enjeksiyonu) |
+| Uygulama | `chainsvc` (mesh-eval/apps/chainsvc, Go; HTTP + gRPC, gecikme/hata enjeksiyonu, B3/Zipkin) |
 | Derinlik / servis sayısı | 5 kademe, 8 servis, order'da paralel dallanma |
 | Replika | 2 (`SVC_REPLICAS`) |
 | Yapay işlem süresi | p50 1 ms, p90 2 ms, p99 5 ms |
-| Bağlantılar | Keep-alive açık |
+| Bağlantılar | HTTP keep-alive, kalıcı gRPC bağlantısı; SIGTERM'de bağlantılar boşaltılır |
 | Kimlik | Her servisin kendi ServiceAccount'u (mesh kimliği) |
 | Protokol ipucu | HTTP servislerde `appProtocol: http`, gRPC'de `kubernetes.io/h2c` (bkz. tespitler) |
 
@@ -141,12 +142,27 @@ Kurulum sırasında elle yapılan ek doğrulamalar: her profilde kenar bazında 
 Bu tespitler rapora da girecek niteliktedir.
 
 1. **Istio 1.31 sidecar'ı native sidecar olarak ekliyor.** `istio-proxy` init container olarak, `restartPolicy: Always` ile geliyor. Pod yaşam döngüsü (Job'lar, başlatma sırası) klasik sidecar'dan farklıdır.
-2. **Linkerd'de `all-authenticated` politikası proxy metrik portunu da (4191) kapatıyor.** Mesh dışındaki Prometheus metrik toplayamaz (`up=0`). Çözüm: [`meshes/linkerd/admin-scrape.yaml`](../../mesh-eval/meshes/linkerd/admin-scrape.yaml); yalnızca Prometheus'un node pod ağına izin verilir.
+2. **Linkerd'de `all-authenticated` politikası proxy'nin admin portunu da (4191) kapsıyor.** Mesh dışındaki
+   Prometheus metrik toplayamıyor (`up=0`). Admin portu için bir `Server` tanımlamak ise Linkerd'ün kubelet
+   probe'larına verdiği otomatik izni kaldırıyor: native sidecar olarak çalışan proxy'nin kendi startup probe'u
+   (`/ready`) 403 alıyor ve **yeni pod'lar hiç hazır olmuyor**. Yol bazında (HTTPRoute) izin de admin sunucusunda
+   uygulanmıyor. Çözüm Linkerd'ün kendi önerisi: Prometheus'u da mesh'e almak (`observability` namespace'i
+   inject). Metrikler mTLS ile kimlikli toplanır ve admin portuna politika gerekmez.
 3. **Linkerd, Service'teki `appProtocol: grpc` değerini tanımıyor.** gRPC trafiği opak TCP taşınıyor; L7 metrikler ve gRPC tipinde `Server` yetkisi çalışmıyor (bağlantı reddi). Kubernetes standardı `appProtocol: kubernetes.io/h2c` ile düzeldi. Prod'da protokol ipuçları mesh'e göre standartlaştırılmalı.
 4. **Linkerd `RequestMirror` filtresini desteklemiyor.** Politika denetleyicisi logu: `RequestMirror filter is not supported`.
-5. **Lab DNS sorunu (mesh'ten bağımsız).** kind node'larının `resolv.conf`'u docker ağ geçidini (172.28.x.1) gösteriyor; orada DNS yok. Cluster içinden internet adları çözülemiyor, `search local` yüzünden her dış sorgu önce zaman aşımına uğruyor. mesh-eval CoreDNS'e `local:53` için hızlı NXDOMAIN ve `ext.test` bölgesini ekler. S07 internete bağımlı değildir.
+5. **Lab DNS sorunu (mesh'ten bağımsız).** kind node'larının `resolv.conf`'u docker ağ geçidini (172.28.x.1) gösteriyor; orada DNS yok. Cluster içinden internet adları çözülemiyor, `search local` yüzünden her dış sorgu önce zaman aşımına uğruyor. mesh-eval CoreDNS'e `ext.test` bölgesini ve `ext.test.local` için hızlı NXDOMAIN ekler (genel bir `local:53` bloğu `cluster.local`'ı da yakalar ve cluster DNS'ini bozar; geliştirme sırasında yaşandı). S07 internete bağımlı değildir.
 6. **Istio Helm chart'ları.** Istio 1.31 chart'ları klasik Helm deposunda ve OCI registry'de yok (en yeni 1.30.8). Kurulum release tarball'ının içindeki chart'larla yapılır; imajlar docker.io'da mevcut.
 7. **Grafana / Tempo Helm chart'ları "deprecated" uyarısı veriyor.** Topluluk depolarına taşınıyorlar. Lab için sorun değil; prod'da güncel chart kaynağı seçilmeli.
+
+8. **Hazır test uygulaması (fake-service) kullanılamadı; yerine `chainsvc` yazıldı.** fake-service (v0.26.2, son
+   sürüm Ocak 2024) keep-alive açıkken upstream'den hata aldığı bir istekten sonra kalıcı bağlantıya bozuk HTTP
+   cevabı yazıyor (proxy logu: `invalid HTTP version parsed`). Servis yeniden başlatılana kadar her istek 500
+   dönüyor; aşırı yük ve hata enjeksiyonu testlerini geçersiz kılıyor. Keep-alive kapatılınca da her istek yeni
+   bağlantı açtığı için 2 dakikalık sabit yükte gecikme sürekli arttı (p50 11 → 43 ms). İkisi de mesh kıyasını
+   bozduğu için aynı ortam değişkenlerini ve aynı JSON cevap biçimini kullanan küçük bir Go servisi yazıldı:
+   keep-alive doğru çalışıyor, gRPC kalıcı tek bağlantı kullanıyor (L4 / L7 yük dengeleme farkı gözlenebilir),
+   SIGTERM'de istekler boşaltılıyor. Ek önlem: her testten önce zincir sağlık kontrolü yapılır; bozuksa shop
+   yeniden başlatılır ve koşu kaydına not düşülür (`meta.json` → `precheck`).
 
 ## Sorun giderme
 

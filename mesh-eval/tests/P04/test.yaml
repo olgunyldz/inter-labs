@@ -7,7 +7,7 @@ purpose: >
 method: >
   k6 host'ta, "internet" segmentinde (lab-edge network'ü) bir container olarak çalışır ve
   https://shop.localtest.me adresine edge LB üzerinden sabit hızlı aşamalarla yük verir.
-components: [k6 (docker, lab-edge), HAProxy edge LB, DMZ ingress-nginx x2, cluster-a ingress-nginx, fake-service zinciri]
+components: [k6 (docker, lab-edge), HAProxy edge LB, DMZ ingress-nginx x2, cluster-a ingress-nginx, chainsvc zinciri]
 meshes: [all]
 profiles:
   quick: "100, 250 RPS x 30 sn"

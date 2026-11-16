@@ -27,9 +27,17 @@ bench_nodes() {
   ok "worker taint'leri: app / loadgen"
 }
 
+# Test servisi imajı (apps/chainsvc): yoksa derlenir, bench cluster node'larına yüklenir
+app_image() {
+  docker image inspect "$APP_IMAGE" >/dev/null 2>&1 || docker build -q -t "$APP_IMAGE" "$MEVAL_ROOT/apps/chainsvc" >/dev/null
+  kind load docker-image "$APP_IMAGE" --name "$BENCH_CLUSTER" >/dev/null 2>&1
+  ok "test servisi imajı: $APP_IMAGE"
+}
+
 app_deploy() {
   local data_ip
   log "Servis zinciri (shop) + istemciler"
+  app_image
   bash "$MEVAL_ROOT/apps/shop/render.sh" | kb apply -f - >/dev/null
   data_ip=$(node_ip_of data-control-plane "$NET_DATA")
   kb apply -f - >/dev/null <<YAML
@@ -200,10 +208,16 @@ NGX
         nginx:1.27-alpine >/dev/null
     fi
   done
-  # CoreDNS: ext.test bölgesi
+  # CoreDNS: ext.test bölgesi (değiştiyse CoreDNS yeniden başlatılır; reload eklentisi gecikmeli/güvenilmez)
+  local before; before=$(kb -n kube-system get configmap coredns -o jsonpath='{.data.Corefile}' | md5sum)
   kb -n kube-system get configmap coredns -o json | jq --arg a "$EGRESS_ALLOWED_IP" --arg b "$EGRESS_DENIED_IP" '
     .data.Corefile |= (if test("ext.test:53") then . else . + "\next.test:53 {\n    hosts {\n        \($a) allowed.ext.test\n        \($b) denied.ext.test\n    }\n}\n" end)
-    | .data.Corefile |= (if test("\nlocal:53") then . else . + "\n# node resolv.conf search local: .local sorguları upstream DNS tarafında zaman aşımına uğruyor -> hızlı NXDOMAIN\nlocal:53 {\n    template ANY ANY {\n        rcode NXDOMAIN\n    }\n}\n" end)' \
+    | .data.Corefile |= sub("\n# node resolv.conf search local[^\n]*\nlocal:53 \\{\n    template ANY ANY \\{\n        rcode NXDOMAIN\n    \\}\n\\}\n"; "")
+    | .data.Corefile |= (if test("ext.test.local:53") then . else . + "\n# search local: ext.test adlarının .local denemesi upstream DNS tarafında zaman aşımına uğrar -> hızlı NXDOMAIN\next.test.local:53 {\n    template ANY ANY {\n        rcode NXDOMAIN\n    }\n}\n" end)' \
     | kb apply -f - >/dev/null
+  if [ "$before" != "$(kb -n kube-system get configmap coredns -o jsonpath='{.data.Corefile}' | md5sum)" ]; then
+    kb -n kube-system rollout restart deploy/coredns >/dev/null
+    kb -n kube-system rollout status deploy/coredns --timeout=120s >/dev/null
+  fi
   ok "egress hedefleri: allowed.ext.test ($EGRESS_ALLOWED_IP), denied.ext.test ($EGRESS_DENIED_IP)"
 }

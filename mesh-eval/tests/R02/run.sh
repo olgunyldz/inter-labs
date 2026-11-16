@@ -10,7 +10,7 @@ case $MESH in
     finding "Linkerd'de yerleşik hata enjeksiyonu yok; hatalı/yavaş backend'ler kurulup HTTPRoute ağırlığıyla yönlendirilerek yapıldı (ek dağıtım ve bakım gerektirir, gecikme/hata ayrı ayrı oranlanamaz)."
     for v in err:"ERROR_RATE=1 ERROR_CODE=503" slow:"TIMING_50_PERCENTILE=200ms TIMING_90_PERCENTILE=200ms TIMING_99_PERCENTILE=200ms"; do
       n=catalog-${v%%:*}
-      kb -n "$SHOP_NS" create deploy "$n" --image="$FAKE_SERVICE_IMAGE" --dry-run=client -o json | jq --arg n "$n" '
+      kb -n "$SHOP_NS" create deploy "$n" --image="$APP_IMAGE" --dry-run=client -o json | jq --arg n "$n" '
         .spec.template.spec.nodeSelector={"mesh-eval.role":"app"}
         | .spec.template.spec.tolerations=[{key:"mesh-eval.role",operator:"Equal",value:"app",effect:"NoSchedule"}]
         | .spec.template.spec.serviceAccountName="catalog"' | kb apply -f - >/dev/null

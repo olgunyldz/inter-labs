@@ -47,9 +47,6 @@ authz_render() {
 authz_clear() {
   kb -n "$SHOP_NS" delete authorizationpolicies.security.istio.io --all --ignore-not-found >/dev/null 2>&1 || true
   kb -n "$SHOP_NS" delete servers.policy.linkerd.io,meshtlsauthentications.policy.linkerd.io,authorizationpolicies.policy.linkerd.io,httproutes.policy.linkerd.io,networkauthentications.policy.linkerd.io \
-    --ignore-not-found -l '!mesh-eval/keep' >/dev/null 2>&1 || true
-  # Linkerd metrik portu politikası (mesh_enroll) korunur
-  [ "$(current_mesh)" = linkerd ] && sed -e "s|__NS__|$SHOP_NS|g" -e "s|__CIDR__|$(kb get node "$BENCH_CLUSTER-control-plane" -o jsonpath='{.spec.podCIDR}')|g" \
-    "$MEVAL_ROOT/meshes/linkerd/admin-scrape.yaml" | kb apply -f - >/dev/null
+    --ignore-not-found >/dev/null 2>&1 || true
   return 0
 }

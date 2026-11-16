@@ -7,7 +7,7 @@ purpose: >
 method: >
   200 RPS sabit yük sürerken sırayla order (HTTP), catalog (zincirin sonu) ve fraud (gRPC) servislerinin
   birer pod'u silinir. Toplam başarısız istek, hata oranı ve p99 ölçülür.
-components: [k6, kube-proxy / mesh uç nokta yönetimi, fake-service]
+components: [k6, kube-proxy / mesh uç nokta yönetimi, chainsvc]
 meshes: [all]
 outputs: [failed_requests, error_rate, p99_ms]
 pass_criteria: Hata oranı < %1

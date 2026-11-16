@@ -10,7 +10,7 @@ method: >
   Her aşama ayrı ölçülür. Her aşamada rol bazında CPU/bellek (cAdvisor; node toplamı dahil) ve mesh'in
   servis başına gecikmesi kaydedilir. İki kırılma noktası raporlanır:
   SLO noktası (p99 <= 100 ms, hata < %1, hedef hızın >= %95'i) ve doyma noktası (hata < %1, hız >= %95).
-components: [k6, fake-service zinciri (8 servis), Prometheus (mgmt), cAdvisor, mesh metrikleri]
+components: [k6, chainsvc zinciri (8 servis), Prometheus (mgmt), cAdvisor, mesh metrikleri]
 meshes: [all]
 profiles:
   quick: "100,300,600,900 RPS x 30 sn"
@@ -19,4 +19,5 @@ outputs:
   - stage<i>.p50_ms/p95_ms/p99_ms, stage<i>.rps, stage<i>.error_rate
   - stage<i>.<rol>.cpu_cores / mem_mib
   - knee_slo_rps, knee_sat_rps (kırılma noktaları), hop.<servis>.p50_ms
+  - post_overload_healthy (aşırı yükten 30 sn sonra kendiliğinden toparlandı mı)
 pass_criteria: İlk aşamada hata oranı < %1 (sistem düşük yükte sağlıklı)

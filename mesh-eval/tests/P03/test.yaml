@@ -6,7 +6,7 @@ method: >
   Üç aşama: düşük yük (100 RPS) -> ani sıçrama -> tekrar düşük yük. Sıçrama ve sonrası p99/hata
   ölçülür; toparlanma süresi, sıçrama bittikten sonra p99'un tekrar ilk aşamanın 2 katının
   altına indiği ana kadar geçen süredir (k6 canlı metrikleri, 5 sn çözünürlük).
-components: [k6, fake-service zinciri, Prometheus]
+components: [k6, chainsvc zinciri, Prometheus]
 meshes: [all]
 profiles:
   quick: "100 -> 700 (20 sn) -> 100 RPS"

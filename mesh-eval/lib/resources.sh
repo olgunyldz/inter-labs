@@ -84,3 +84,14 @@ mesh_hop_latency() {
   esac
   prom_query "$expr" "$e" | jq -r '.data.result[] | "\(.metric.destination_workload) \(.value[1])"'
 }
+
+# role_req_count <rol> <zaman>: çalışan pod'lardaki konteyner sayısı (kube-state-metrics; requests ile aynı kaynak)
+role_req_count() {
+  local sel=${ROLE_SEL[$1]}
+  sel=${sel//container!=\"\"/container=~\".+\"}
+  prom_scalar "count(kube_pod_container_info{$C,${sel}} * on(namespace,pod) group_left() (max by (namespace,pod) (kube_pod_status_phase{$C,phase=\"Running\"}) == 1))" "$2" | sed 's/^null$/0/'
+}
+# shop_pods_cad <başlangıç> <bitiş>: pencerede yaşayan shop pod'u sayısı (cAdvisor; bellek ölçümüyle aynı kaynak)
+shop_pods_cad() {
+  prom_scalar "count(max by (pod) (max_over_time(container_memory_working_set_bytes{$C,namespace=\"$SHOP_NS\",container!=\"\",container!~\"istio-proxy|linkerd-proxy|istio-init|linkerd-init|istio-validation\"}[$(( $2 - $1 ))s])))" "$2" | sed 's/^null$/0/'
+}

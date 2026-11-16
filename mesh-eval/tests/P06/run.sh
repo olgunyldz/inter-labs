@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
         - name: app
-          image: $FAKE_SERVICE_IMAGE
+          image: $APP_IMAGE
           env: [{ name: NAME, value: scaler }]
           readinessProbe: { httpGet: { path: /ready, port: 9090 }, periodSeconds: 1 }
           resources: { requests: { cpu: 10m, memory: 16Mi } }

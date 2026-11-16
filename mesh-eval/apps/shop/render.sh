@@ -58,7 +58,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: app
-          image: $FAKE_SERVICE_IMAGE
+          image: $APP_IMAGE
           ports: [{ name: $proto, containerPort: 9090 }]
           env:
             - { name: NAME, value: "$name" }
@@ -69,8 +69,6 @@ spec:
             - { name: TIMING_50_PERCENTILE, value: "$SVC_TIMING_P50" }
             - { name: TIMING_90_PERCENTILE, value: "$SVC_TIMING_P90" }
             - { name: TIMING_99_PERCENTILE, value: "$SVC_TIMING_P99" }
-            - { name: HTTP_CLIENT_KEEP_ALIVES, value: "true" }
-            - { name: HTTP_SERVER_KEEP_ALIVES, value: "true" }
             - { name: HTTP_CLIENT_REQUEST_TIMEOUT, value: "10s" }
             - { name: TRACING_ZIPKIN, value: "${SVC_TRACING_ZIPKIN:-}" }
             - { name: LOG_LEVEL, value: "error" }

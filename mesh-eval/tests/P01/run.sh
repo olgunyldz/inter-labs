@@ -49,3 +49,12 @@ check_le "ilk aşama hata oranı" "$(k6_val "$S" http_req_failed rate phase:0)" 
 END=$(( T0 + TOTAL ))
 prom_save k6_p99 "max(k6_http_req_duration_p99{run=\"$(basename "$RUN_DIR")\"})" "$T0" "$END"
 prom_save k6_rps "sum(rate(k6_http_reqs_total{run=\"$(basename "$RUN_DIR")\"}[15s]))" "$T0" "$END"
+
+# Aşırı yük sonrası toparlanma: son aşamadan 30 sn sonra zincir kendiliğinden sağlıklı mı
+sleep 30
+if chain_ok probe-gateway; then
+  metric post_overload_healthy 1 bool "aşırı yükten 30 sn sonra zincir kendiliğinden sağlıklı"
+else
+  metric post_overload_healthy 0 bool "aşırı yükten 30 sn sonra zincir kendiliğinden sağlıklı"
+  finding "$MESH: en yüksek aşamadan sonra servis zinciri kendiliğinden toparlanmadı (30 sn sonra hâlâ 5xx); yeniden başlatma gerekti. Mesh'siz referansla kıyaslanmalı."
+fi

@@ -11,7 +11,7 @@ method: >
   cevaplardaki fraud pod IP'lerinin dağılımı ölçülür. (2) banner servisine (bağlanınca sunucu yazar)
   protokol ipucu olan (appProtocol: tcp) ve olmayan port üzerinden bağlanılıp ilk baytın gelme süresi
   ölçülür. (3) data cluster'ındaki Redis'e PING, Postgres'e TCP bağlantısı.
-components: [fake-service gRPC, socat (banner), data cluster Redis/Postgres, mesh protokol algılama]
+components: [chainsvc gRPC, socat (banner), data cluster Redis/Postgres, mesh protokol algılama]
 meshes: [all]
 outputs: [grpc.pods_used, grpc.max_share, banner.hint_ms, banner.nohint_ms, redis_ok, postgres_ok]
 pass_criteria: Redis/Postgres erişimi çalışır, protokol ipuçlu server-first bağlantı < 1 sn

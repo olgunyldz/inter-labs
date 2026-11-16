@@ -7,7 +7,7 @@ purpose: >
 method: >
   k6 sabit hızla yük verir; süre dört eşit çeyreğe bölünür. İlk ve son çeyreğin p99'u ile
   rol bazında bellek kullanımı kıyaslanır.
-components: [k6, fake-service zinciri, cAdvisor, Prometheus]
+components: [k6, chainsvc zinciri, cAdvisor, Prometheus]
 meshes: [all]
 profiles:
   quick: "200 RPS x 2 dk"

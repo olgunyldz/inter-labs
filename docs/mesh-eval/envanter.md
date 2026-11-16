@@ -60,7 +60,7 @@ Bench → mgmt erişimi lab'daki data servisleriyle aynı yöntemle kurulur: sel
 
 | Bileşen | İmaj | Görev | Kullanan testler |
 |---|---|---|---|
-| fake-service | `nicholasjackson/fake-service:v0.26.2` | 8 servislik zincir (HTTP/gRPC), gecikme ve hata enjeksiyonu, v2 sürümü | Tümü |
+| chainsvc | `mesh-eval/chainsvc:0.1.0` (apps/chainsvc, Go 1.26, grpc-go 1.75, scratch imaj) | 8 servislik zincir (HTTP/gRPC), gecikme ve hata enjeksiyonu, v2 sürümü, B3/Zipkin | Tümü |
 | k6 | `grafana/k6:2.4.0` | Yük üretici. Bench'te pod (loadgen node'u, mesh içinde); P04'te host'ta container (lab-edge) | P01–P05, S08, R01–R05, O01, O02 |
 | netshoot | `nicolaka/netshoot:v0.14` | Test istemcileri (curl, openssl, tcpdump, socat, dig) | S01–S08, T01–T03, P07 |
 | banner (socat) | netshoot | Server-first TCP sunucusu | T02 |
@@ -91,6 +91,7 @@ mesh-eval/
   config.env                sürümler, CPU yerleşimi, servis zinciri, prod varsayımları
   lib/                      common, app, observability, mesh, pki, policy, k6, resources, test, tools
   apps/shop/                services.tsv (zincir tanımı) + render.sh
+  apps/chainsvc/            test servisi (Go) + Dockerfile
   meshes/istio|linkerd/     mesh'e özel helm değerleri ve ek politikalar
   observability/            Prometheus/Grafana/Tempo değerleri + Grafana panosu
   tests/<ID>/               test.yaml (tanım) + run.sh (çalıştırıcı) + policies/

@@ -8,7 +8,7 @@ method: >
   shop namespace'inde (mesh'li) bağımsız bir test deployment'ı 0'dan N replikaya ölçeklenir.
   Her pod için oluşturulma -> Ready süresi ve tüm pod'ların hazır olma süresi ölçülür.
   İmajlar node'da önceden bulunur (indirme süresi ölçüme girmez).
-components: [kube-apiserver, kubelet, mesh enjektörü / CNI, fake-service]
+components: [kube-apiserver, kubelet, mesh enjektörü / CNI, chainsvc]
 meshes: [all]
 profiles:
   quick: "10 replika x 1 tur"

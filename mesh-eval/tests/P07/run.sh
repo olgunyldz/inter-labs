@@ -65,7 +65,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
         - name: app
-          image: $FAKE_SERVICE_IMAGE
+          image: $APP_IMAGE
           env: [{ name: NAME, value: svc-$i }]
           resources: { requests: { cpu: 5m, memory: 16Mi } }
 YAML

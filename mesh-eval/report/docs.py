@@ -11,7 +11,7 @@ CATS = [("performans", "Performans"), ("güvenlik", "Güvenlik"), ("trafik", "Tr
 MESHES = ["none", "istio-ambient", "istio-ambient-l7", "istio-sidecar", "linkerd"]
 # Bileşen grupları (matris sütunları): test.yaml components alanındaki anahtar kelimelere göre
 GROUPS = [
-    ("k6", ["k6"]), ("Servis zinciri", ["fake-service", "zincir"]), ("Prometheus/Grafana", ["Prometheus", "cAdvisor", "kube-state", "Grafana"]),
+    ("k6", ["k6"]), ("Servis zinciri", ["chainsvc", "zincir"]), ("Prometheus/Grafana", ["Prometheus", "cAdvisor", "kube-state", "Grafana"]),
     ("Tempo", ["Tempo"]), ("Edge LB / DMZ", ["HAProxy", "DMZ", "edge"]), ("NetworkPolicy", ["NetworkPolicy", "kube-network-policies"]),
     ("Mesh yetki politikası", ["yetki", "AuthorizationPolicy", "MeshTLS"]), ("Mesh trafik kuralları", ["VirtualService", "HTTPRoute", "DestinationRule", "failure accrual"]),
     ("Mesh kontrol düzlemi", ["kontrol düzlemi", "istiod", "linkerd-identity", "webhook", "CA"]), ("Gateway API", ["Gateway API"]),

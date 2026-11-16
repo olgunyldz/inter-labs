@@ -79,12 +79,20 @@ run_one() { # run_one <id> <tekrar-no>
   : > "$dir/checks.jsonl"; : > "$dir/metrics.jsonl"; : > "$dir/findings.jsonl"
   t0=$(date +%s)
   jq -n --argjson t "$(test_meta "$id")" --arg mesh "$mesh" --arg profile "$PROFILE" \
-    --arg session "$SESSION" --argjson rep "$rep" --argjson start "$t0" \
+    --arg session "$SESSION" --arg inv "$INVOCATION" --argjson rep "$rep" --argjson start "$t0" \
     --argjson versions "$(versions_json)" --arg commit "$(git -C "$LAB_ROOT" rev-parse --short HEAD 2>/dev/null)" \
     --arg dirty "$(git -C "$LAB_ROOT" status --porcelain 2>/dev/null | wc -l)" \
-    '{test:$t, mesh:$mesh, profile:$profile, session:$session, repeat:$rep, start:$start,
+    '{test:$t, mesh:$mesh, profile:$profile, session:$session, invocation:$inv, repeat:$rep, start:$start,
       versions:$versions, git:{commit:$commit, uncommitted_files:($dirty|tonumber)}}' > "$dir/meta.json"
   log "Test $id  [mesh=$mesh profil=$PROFILE tekrar=$rep]  -> ${dir#$MEVAL_ROOT/}"
+  # Ön kontrol: zincir sağlıklı değilse (önceki testin bıraktığı bozukluk) shop yeniden başlatılır
+  if ! chain_ok probe-gateway; then
+    warn "ön kontrol: zincir sağlıksız -> shop yeniden başlatılıyor"
+    kb -n "$SHOP_NS" rollout restart deploy -l mesh-eval/part-of=shop >/dev/null
+    app_wait >/dev/null 2>&1 || true
+    sleep 5
+    jq '.precheck = "zincir sağlıksızdı; test öncesi shop yeniden başlatıldı"' "$dir/meta.json" > "$dir/meta.tmp" && mv "$dir/meta.tmp" "$dir/meta.json"
+  fi
   if ! test_supports "$id" "$mesh"; then
     echo "bu test $mesh profilinde tanımlı değil (test.yaml: meshes)" > "$dir/na.txt"
     rc=0
@@ -94,6 +102,8 @@ run_one() { # run_one <id> <tekrar-no>
       set -euo pipefail
       export RUN_DIR="$dir" MESH="$mesh" PROFILE TEST_ID="$id"
       trap _run_on_exit EXIT
+      # kütüphaneleri her testte yeniden yükle (uzun suite'ler sırasında yapılan düzeltmeler de geçerli olur)
+      for f in "$MEVAL_ROOT"/lib/*.sh; do [ "$f" = "$MEVAL_ROOT/lib/common.sh" ] || source "$f"; done
       cd "$TESTS_DIR/$id"
       source ./run.sh
     ) 2>&1 | tee "$dir/log.txt"
@@ -147,7 +157,8 @@ PY
       done
       [ ${#ids[@]} -gt 0 ] || die "test id gerekli (meval test list)"
       SESSION=${SESSION:-adhoc-$(date +%Y%m%d)}
-      export PROFILE SESSION
+      INVOCATION="$(date +%Y%m%d-%H%M%S)-$$"   # rapor: test x mesh için oturumdaki en son çağrı kullanılır
+      export PROFILE SESSION INVOCATION
       local id r
       for id in "${ids[@]}"; do
         [ -f "$TESTS_DIR/$id/test.yaml" ] || die "test bulunamadı: $id"

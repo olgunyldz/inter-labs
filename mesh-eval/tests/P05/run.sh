@@ -1,4 +1,5 @@
 # P05 — Kaynak tüketimi
+source "$MEVAL_ROOT/lib/resources.sh"   # güncel kaynak ölçüm fonksiyonları
 IDLE=$(profile_val 45 120); LOAD=$(profile_val 90 300); RATE=${P05_RATE:-250}
 metric rate_rps "$RATE" RPS
 log "Boşta ölçüm ($IDLE sn)"
@@ -20,6 +21,7 @@ for r in app sidecar ztunnel waypoint cni control; do
   [ "$(role_count "$r" "$le")" = 0 ] && continue
   metric "req.$r.cpu_cores" "$(role_requests "$r" cpu "$le")" çekirdek "ayrılan CPU (requests)"
   metric "req.$r.mem_mib" "$(role_requests "$r" memory "$le")" MiB "ayrılan bellek (requests)"
+  metric "req.$r.containers" "$(role_req_count "$r" "$le")" adet "çalışan pod'lardaki konteyner (requests paydası)"
 done
 # Türetilmiş değerler: veri düzlemi = sidecar + ztunnel + waypoint (+ cni)
 dp_cpu=0; dp_mem_idle=0
@@ -28,8 +30,9 @@ for r in sidecar ztunnel waypoint cni; do
   dp_cpu=$(awk -v a="$dp_cpu" -v b="$(role_cpu "$r" "$ls" "$le")" 'BEGIN{print a+b}')
   dp_mem_idle=$(awk -v a="$dp_mem_idle" -v b="$(role_mem "$r" $((s + 5)) "$e")" 'BEGIN{print a+b}')
 done
-pods=$(prom_scalar "count(kube_pod_info{$C,namespace=\"$SHOP_NS\"})" "$le")
-metric shop_pods "$pods" adet
+pods=$(shop_pods_cad $((s + 5)) "$e")
+metric shop_pods "$pods" adet "boşta penceresinde yaşayan shop pod'u (cAdvisor, bellek paydası)"
+metric shop_pods_running "$(prom_scalar "count(kube_pod_status_phase{$C,namespace=\"$SHOP_NS\",phase=\"Running\"} == 1)" "$le")" adet "çalışan shop pod'u (requests paydası)"
 metric dataplane.cpu_cores "$dp_cpu" çekirdek "yük altında veri düzlemi CPU"
 metric dataplane.cpu_per_1k_rps "$(awk -v c="$dp_cpu" -v r="$rps" 'BEGIN{ if (r>0) printf "%.4f", c*1000/r; else print 0 }')" çekirdek "1000 RPS (giriş) başına veri düzlemi CPU"
 metric dataplane.mem_idle_mib "$dp_mem_idle" MiB "boşta veri düzlemi belleği"

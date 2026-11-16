@@ -82,7 +82,7 @@ prom_scalar() {
 versions_json() {
   jq -n \
     --arg istio "$ISTIO_VERSION" --arg linkerd "$LINKERD_VERSION" \
-    --arg k6 "$K6_IMAGE" --arg app "$FAKE_SERVICE_IMAGE" --arg gw "$GATEWAY_API_VERSION" \
+    --arg k6 "$K6_IMAGE" --arg app "$APP_IMAGE" --arg gw "$GATEWAY_API_VERSION" \
     --arg k8s "$(kb version -o json 2>/dev/null | jq -r .serverVersion.gitVersion)" \
     --arg kind "$(kind version 2>/dev/null | awk '{print $2}')" \
     --arg ingress "$INGRESS_NGINX_CHART_VERSION" \

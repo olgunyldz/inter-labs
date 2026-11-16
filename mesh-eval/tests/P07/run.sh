@@ -45,6 +45,15 @@ before_ctl=$(role_mem control $((t - 30)) "$t"); before_sc=$(role_mem sidecar $(
 sc_n=$(role_count sidecar "$t")
 kb create namespace shop-scale --dry-run=client -o yaml | kb apply -f - >/dev/null
 ns_mesh_labels "$SHOP_NS" shop-scale
+# Varsayılan sidecar CPU isteği (100m) x N pod, lab'daki app node'unun ayrılabilir CPU'sunu doldurur ve
+# pod'lar Pending kalır. Bu test yayılmayı ölçer; ölçek pod'larında proxy isteği küçültülür, varsayılan
+# isteğin etkisi bulgu olarak kaydedilir (maliyet etkisi P05 ve projeksiyonda).
+ANN="{}"
+if [ "$MESH" = istio-sidecar ]; then
+  ANN='{ sidecar.istio.io/proxyCPU: "5m", sidecar.istio.io/proxyMemory: "32Mi" }'
+  alloc=$(kb get node "$BENCH_CLUSTER-worker" -o jsonpath='{.status.allocatable.cpu}')
+  finding "istio-sidecar: varsayılan proxy CPU isteğiyle (100m) $N ek servis lab'daki app node'una ($alloc çekirdek ayrılabilir) sığmadı; pod'lar Pending kaldı. Ölçek testi için ek pod'larda proxy isteği 5m'ye indirildi. Prod'da bu ayrılan kapasite, kullanılmasa da node sayısını belirler (projeksiyondaki ayrılan çekirdek kalemi)."
+fi
 for ((i = 1; i <= N; i++)); do
   cat <<YAML
 ---
@@ -60,7 +69,7 @@ spec:
   replicas: 1
   selector: { matchLabels: { app: svc-$i } }
   template:
-    metadata: { labels: { app: svc-$i } }
+    metadata: { labels: { app: svc-$i }, annotations: $ANN }
     spec:
       nodeSelector: { mesh-eval.role: app }
       tolerations: [{ key: mesh-eval.role, operator: Equal, value: app, effect: NoSchedule }]
@@ -72,7 +81,11 @@ spec:
           resources: { requests: { cpu: 5m, memory: 16Mi } }
 YAML
 done | kb apply -f - >/dev/null
-for d in $(kb -n shop-scale get deploy -o name); do kb -n shop-scale rollout status "$d" --timeout=300s >/dev/null; done
+deadline=$(( $(date +%s) + 600 ))
+for d in $(kb -n shop-scale get deploy -o name); do
+  left=$(( deadline - $(date +%s) )); [ "$left" -gt 5 ] || left=5
+  kb -n shop-scale rollout status "$d" --timeout="${left}s" >/dev/null || die "$N servis 600 sn içinde hazır olmadı ($d)"
+done
 ok "$N servis hazır"
 sleep 60   # yapılandırmanın proxy'lere yayılması
 t=$(date +%s)

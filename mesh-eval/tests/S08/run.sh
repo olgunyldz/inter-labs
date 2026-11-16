@@ -105,4 +105,7 @@ S=$(k6_wait "$POD" rotation 240)
 err=$(jq -r '.metrics.http_req_failed.values.rate' "$S")
 metric rotation.error_rate "$err" oran "rotasyon sırasında hata oranı"
 metric rotation.p99_ms "$(jq -r '.metrics.http_req_duration.values["p(99)"]' "$S")" ms
+if [ "$zt_restart" = 1 ] && awk -v e="$err" 'BEGIN{exit !(e > 0.01)}'; then
+  finding "$MESH: CA rotasyonu için gereken ztunnel yeniden başlatması yük altında kesinti yarattı: hata oranı %$(awk -v e="$err" 'BEGIN{printf "%.1f", e*100}'), $(jq -r '.metrics.http_req_failed.values.passes' "$S") başarısız istek, p99 $(jq -r '.metrics.http_req_duration.values["p(99)"] | floor' "$S") ms. Waypoint üzerinden geçen tüneller node proxy'si yeniden başlarken kopuyor."
+fi
 check_le "rotasyon sırasında hata oranı" "$err" 0.01

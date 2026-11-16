@@ -21,6 +21,7 @@ check_true "zincir çalışıyor (8 servis)" chain_ok probe-gateway
 check_true "uçtan uca erişim (edge -> ingress -> gateway)" e2e_ok
 check_true "tüm shop pod'ları sağlıklı" shop_all_ready
 expect_access "gateway rolü -> order"          izin probe-gateway "$SHOP_NS" "http://order.$SHOP_NS.svc:9090/"
+[ "$MESH" = istio-ambient-l7 ] && finding "istio-ambient-l7: servisler arası tüm trafik waypoint üzerinden geldiği için hedef pod'daki NetworkPolicy yalnızca waypoint'i kaynak olarak görür; waypoint'e izin vermek zorunlu olduğundan çağıran bazlı NetworkPolicy kuralları (ör. yalnızca gateway -> order) etkisiz kalır. Bu profilde servisler arası erişim kontrolü yalnızca mesh yetki politikasıyla (S03) yapılabilir."
 expect_access "yetkisiz pod -> order"          ret  probe-rogue   "$SHOP_NS" "http://order.$SHOP_NS.svc:9090/"
 rc=$(http_code probe-rogue "$SHOP_NS" "http://order.$SHOP_NS.svc:9090/")
 is_2xx "$rc" && finding "$MESH: NetworkPolicy order'a yalnızca gateway rolüne izin verdiği halde yetkisiz pod (rogue) order'a erişebildi (HTTP $rc). Mesh proxy'si başka iş yüklerinin açtığı bağlantıları paylaştığında NetworkPolicy bağlantının gerçek kaynağını göremiyor; davranış aralıklı."

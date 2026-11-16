@@ -1,3 +1,7 @@
 # Linkerd control plane. Varsayılanlardan sapmalar ve nedenleri:
 controllerReplicas: 1       # lab: tek replika (prod'da HA modu: --ha)
 # Proxy kaynak istekleri Linkerd varsayılanında bırakıldı (istek tanımlı değil).
+# Cluster ağları: yalnızca bench cluster'ın pod / servis aralıkları. Varsayılan (10/8, 172.16/12, 192.168/16)
+# lab'daki dış hedefleri (172.28.x) "cluster içi" sayar ve EgressNetwork'ü reddeder (S07). Prod'da da
+# gerçek aralıklar verilmelidir.
+clusterNetworks: "10.20.0.0/16,10.21.0.0/16"

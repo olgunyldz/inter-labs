@@ -1,5 +1,6 @@
-# Linkerd egress: lab'daki dış hedefler 172.16.0.0/12 içinde olduğu için Linkerd'in varsayılan "cluster ağı"
-# tanımına düşer; EgressNetwork'te dış ağ açıkça belirtilir. Varsayılan ret, allowed.ext.test SNI'ına izin.
+# Linkerd egress: cluster dışına giden trafik varsayılan ret, allowed.ext.test SNI'ına izin.
+# Not: Linkerd clusterNetworks yalnızca bench aralıklarıyla kurulur (meshes/linkerd/values.yaml); aksi halde
+# 172.28.x hedefleri "cluster içi" sayılır ve EgressNetwork reddedilir.
 apiVersion: policy.linkerd.io/v1alpha1
 kind: EgressNetwork
 metadata: { name: external, namespace: shop }

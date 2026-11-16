@@ -47,6 +47,6 @@ authz_render() {
 authz_clear() {
   kb -n "$SHOP_NS" delete authorizationpolicies.security.istio.io --all --ignore-not-found >/dev/null 2>&1 || true
   kb -n "$SHOP_NS" delete servers.policy.linkerd.io,meshtlsauthentications.policy.linkerd.io,authorizationpolicies.policy.linkerd.io,httproutes.policy.linkerd.io,networkauthentications.policy.linkerd.io \
-    --ignore-not-found >/dev/null 2>&1 || true
+    --all --ignore-not-found >/dev/null 2>&1 || true
   return 0
 }

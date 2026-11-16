@@ -164,6 +164,12 @@ Bu tespitler rapora da girecek niteliktedir.
    SIGTERM'de istekler boşaltılıyor. Ek önlem: her testten önce zincir sağlık kontrolü yapılır; bozuksa shop
    yeniden başlatılır ve koşu kaydına not düşülür (`meta.json` → `precheck`).
 
+9. **Linkerd'ün varsayılan `clusterNetworks` değeri tüm özel IP bloklarını kapsıyor** (10/8, 172.16/12, 192.168/16).
+   Bu yüzden cluster dışındaki ama özel IP'li hedefler (lab'da 172.28.x; prod'da kurum içi veri merkezi ağları)
+   "cluster içi" sayılıyor ve `EgressNetwork` reddediliyor ("networks overlap with clusterNetworks"). Kural kabul
+   edilmediği halde izinli hedefe giden trafik de kesildi. mesh-eval Linkerd'ü gerçek pod/servis aralıklarıyla
+   kurar (`meshes/linkerd/values.yaml`). Prod'da da aralıklar açıkça verilmelidir.
+
 ## Sorun giderme
 
 | Belirti | Kontrol |

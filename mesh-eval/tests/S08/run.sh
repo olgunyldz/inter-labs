@@ -64,8 +64,9 @@ case $MESH in
   linkerd)
     pki_intermediate linkerd "rot-$TS" ec identity.linkerd.cluster.local 365
     N="$PKI_DIR/linkerd/rot-$TS"
-    kb -n linkerd create secret generic linkerd-identity-issuer --type=kubernetes.io/tls \
-      --from-file=tls.crt="$N/ca-cert.pem" --from-file=tls.key="$N/ca-key.pem" --from-file=ca.crt="$N/root-cert.pem" \
+    # linkerd install ile gelen issuer secret'ı: Opaque, crt.pem / key.pem
+    kb -n linkerd create secret generic linkerd-identity-issuer \
+      --from-file=crt.pem="$N/ca-cert.pem" --from-file=key.pem="$N/ca-key.pem" \
       --dry-run=client -o yaml | kb apply -f - >/dev/null ;;
 esac
 sleep 15

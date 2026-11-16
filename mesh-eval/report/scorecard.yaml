@@ -21,7 +21,9 @@ categories:
     items:
       - { test: P05, metric: dataplane.cpu_per_1k_rps, better: lower, label: "1000 RPS başına veri düzlemi CPU" }
       - { test: P05, metric: dataplane.mem_per_pod_mib, better: lower, label: "pod başına veri düzlemi belleği" }
-      - { test: P05, metric: derived.req_cpu_per_pod, better: lower, label: "pod başına ayrılan CPU (requests)" }
+      # Ayrılan kaynak (requests) puanlanmaz: mesh'lerin varsayılan ayarına bağlı (Linkerd varsayılan olarak tanımlamaz,
+      # prod'da tanımlanmalıdır). Maliyet tablosu ve projeksiyonda notuyla gösterilir.
+      - { test: P05, metric: idle.control.mem_mib, better: lower, label: "kontrol düzlemi belleği" }
       - { test: O02, metric: series_mesh_per_pod, better: lower, label: "pod başına metrik serisi" }
       - { test: P07, metric: control.mem_growth_mib, better: lower, label: "servis sayısıyla kontrol düzlemi büyümesi" }
   - id: guvenlik

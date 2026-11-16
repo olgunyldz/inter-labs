@@ -32,7 +32,7 @@ for r in sidecar ztunnel waypoint cni; do
 done
 pods=$(shop_pods_cad $((s + 5)) "$e")
 metric shop_pods "$pods" adet "boşta penceresinde yaşayan shop pod'u (cAdvisor, bellek paydası)"
-metric shop_pods_running "$(prom_scalar "count(kube_pod_status_phase{$C,namespace=\"$SHOP_NS\",phase=\"Running\"} == 1)" "$le")" adet "çalışan shop pod'u (requests paydası)"
+metric shop_pods_running "$(prom_scalar "count(last_over_time(kube_pod_status_phase{$C,namespace=\"$SHOP_NS\",phase=\"Running\"}[1m]) == 1)" "$le")" adet "çalışan shop pod'u (requests paydası)"
 metric dataplane.cpu_cores "$dp_cpu" çekirdek "yük altında veri düzlemi CPU"
 metric dataplane.cpu_per_1k_rps "$(awk -v c="$dp_cpu" -v r="$rps" 'BEGIN{ if (r>0) printf "%.4f", c*1000/r; else print 0 }')" çekirdek "1000 RPS (giriş) başına veri düzlemi CPU"
 metric dataplane.mem_idle_mib "$dp_mem_idle" MiB "boşta veri düzlemi belleği"

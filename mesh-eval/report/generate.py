@@ -261,7 +261,7 @@ def fmt(v, unit=""):
         return "—"
     a = abs(v)
     if a >= 1000:
-        s = f"{v:,.0f}".replace(",", ".")
+        s = f"{v:,.0f}".replace(",", " ")   # binlik ayırıcı boşluk (nokta ondalıkla karışır)
     elif a >= 100:
         s = f"{v:.0f}"
     elif a >= 10:
@@ -671,7 +671,9 @@ def render_html(ctx):
         w(svg_bars([("Node eşdeğeri (kullanılan)", {m: ctx["proj"][m]["node_eq_used"] for m in pm}),
                     ("Node eşdeğeri (ayrılan)", {m: ctx["proj"][m]["node_eq_req"] for m in pm})], "Mesh'in prod'da gerektirdiği ek kapasite", "node"))
         w('<p class="mut small">Sınırlar: doğrusal ölçekleme; lab node\'u 4 çekirdekli ve tek makinedir. Sidecar büyümesi Istio <code>Sidecar</code> kaynağıyla '
-          'kapsam daraltılarak azaltılabilir; Linkerd proxy\'leri hedefleri istek anında öğrenir. Ayrılan kaynaklar mesh\'lerin varsayılan değerleridir.</p>')
+          'kapsam daraltılarak azaltılabilir; Linkerd proxy\'leri hedefleri istek anında öğrenir. Ayrılan kaynaklar mesh\'lerin varsayılan değerleridir: '
+          'Istio sidecar başına 100m CPU / 128 Mi, ztunnel node başına 200m / 512 Mi; <b>Linkerd proxy\'sine varsayılan olarak kaynak isteği tanımlanmaz</b> '
+          '(0 görünmesi maliyetsiz olduğu anlamına gelmez; prod\'da tanımlanmalıdır, kullanılan değerler bir alt sınırdır).</p>')
 
     # 5 matris
     w('<h2 id="matris">5. Test sonuç matrisi</h2><div class="wrap"><table><tr><th>Test</th>' + "".join(f'<th class="n">{esc(MESH_NAMES[m])}</th>' for m in meshes) + "</tr>")
@@ -746,6 +748,8 @@ def render_html(ctx):
       '<li>Bağlantılar: servisler HTTP keep-alive ve kalıcı gRPC bağlantısı kullanır (gerçek servislerdeki gibi bağlantı havuzu).</li>'
       '<li>Mutlak değerler (RPS, ms) prod donanımına aktarılamaz; mesh\'ler arası göreli fark ve kırılma davranışı değerlendirilmelidir. '
       'Bulguların prod benzeri donanımda doğrulanması önerilir.</li>'
+      '<li>Ambient + waypoint profilinde lab\'da tek waypoint replikası vardır ve shop namespace\'inin tüm servisler arası trafiği bu tek Envoy\'dan geçer; '
+      'bu profildeki L7 kapasite sonucu (P01) waypoint ölçeklenmesine bağlıdır. Prod\'da waypoint\'ler namespace / servis bazında ve HPA ile ölçeklenir.</li>'
       '<li>Tekrarlanan koşularda metriklerin medyanı alınır, durum en kötü sonuçtur; yayılım (min…max) tablolarda gösterilir.</li></ul>')
 
     # 10 envanter

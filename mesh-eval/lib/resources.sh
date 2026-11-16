@@ -13,7 +13,7 @@
 C="cluster=\"$BENCH_CLUSTER\""
 declare -A ROLE_SEL=(
   [app]="namespace=\"$SHOP_NS\",container=\"app\""
-  [sidecar]="namespace=\"$SHOP_NS\",container=~\"istio-proxy|linkerd-proxy\""
+  [sidecar]="namespace=\"$SHOP_NS\",container=~\"istio-proxy|linkerd-proxy\",pod!~\"waypoint-.*\""
   [ztunnel]="namespace=\"istio-system\",pod=~\"ztunnel-.*\",container!=\"\""
   [waypoint]="namespace=\"$SHOP_NS\",pod=~\"waypoint-.*\",container!=\"\""
   [cni]="namespace=\"istio-system\",pod=~\"istio-cni-node-.*\",container!=\"\""
@@ -39,13 +39,15 @@ role_mem() {
 }
 # role_count <rol> <zaman>: konteyner sayısı
 role_count() {
-  prom_scalar "count(container_memory_working_set_bytes{$C,${ROLE_SEL[$1]}})" "$2" | sed 's/^null$/0/'
+  prom_scalar "count(last_over_time(container_memory_working_set_bytes{$C,${ROLE_SEL[$1]}}[1m]))" "$2" | sed 's/^null$/0/'
 }
 # role_requests <rol> <cpu|memory> <zaman>: kaynak istekleri (requests) toplamı (çekirdek / MiB)
 role_requests() {
   local sel=${ROLE_SEL[$1]} r=$2 v
   sel=${sel//container!=\"\"/container=~\".+\"}
-  v=$(prom_scalar "sum(kube_pod_container_resource_requests{$C,resource=\"$r\",${sel}} * on(namespace,pod) group_left() (max by (namespace,pod) (kube_pod_status_phase{$C,phase=\"Running\"}) == 1))" "$3")
+  # native sidecar'lar (Istio 1.31, Linkerd edge) init container olarak görünür -> iki metrik toplanır
+  local run="* on(namespace,pod) group_left() (max by (namespace,pod) (last_over_time(kube_pod_status_phase{$C,phase=\"Running\"}[1m])) == 1)"
+  v=$(prom_scalar "(sum(last_over_time(kube_pod_container_resource_requests{$C,resource=\"$r\",${sel}}[1m]) $run) or vector(0)) + (sum(last_over_time(kube_pod_init_container_resource_requests{$C,resource=\"$r\",${sel}}[1m]) $run) or vector(0))" "$3")
   [ "$v" = null ] && { echo 0; return; }
   [ "$r" = memory ] && awk -v b="$v" 'BEGIN{printf "%.1f", b/1048576}' || echo "$v"
 }
@@ -89,7 +91,8 @@ mesh_hop_latency() {
 role_req_count() {
   local sel=${ROLE_SEL[$1]}
   sel=${sel//container!=\"\"/container=~\".+\"}
-  prom_scalar "count(kube_pod_container_info{$C,${sel}} * on(namespace,pod) group_left() (max by (namespace,pod) (kube_pod_status_phase{$C,phase=\"Running\"}) == 1))" "$2" | sed 's/^null$/0/'
+  local run="* on(namespace,pod) group_left() (max by (namespace,pod) (last_over_time(kube_pod_status_phase{$C,phase=\"Running\"}[1m])) == 1)"
+  prom_scalar "(count(last_over_time(kube_pod_container_info{$C,${sel}}[1m]) $run) or vector(0)) + (count(last_over_time(kube_pod_init_container_info{$C,${sel}}[1m]) $run) or vector(0))" "$2" | sed 's/^null$/0/'
 }
 # shop_pods_cad <başlangıç> <bitiş>: pencerede yaşayan shop pod'u sayısı (cAdvisor; bellek ölçümüyle aynı kaynak)
 shop_pods_cad() {

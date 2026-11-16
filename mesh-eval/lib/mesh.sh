@@ -67,6 +67,10 @@ istio_uninstall() {
   kb delete namespace istio-system --ignore-not-found --wait=true >/dev/null 2>&1 || true
   kb get crd -o name | grep -E 'istio\.io' | xargs -r kb delete >/dev/null 2>&1 || true
   kb delete mutatingwebhookconfiguration,validatingwebhookconfiguration -l app=sidecar-injector --ignore-not-found >/dev/null 2>&1 || true
+  # revision/tag ile oluşan webhook'lar (ör. istiod-default-validator, istio-revision-tag-default) helm
+  # kaldırmasında geride kalabilir ve sonraki istio-base kurulumunu engeller
+  kb get mutatingwebhookconfiguration,validatingwebhookconfiguration -o name 2>/dev/null \
+    | grep -E '/(istio|istiod)-' | xargs -r kb delete --ignore-not-found >/dev/null 2>&1 || true
 }
 
 # --- Linkerd ----------------------------------------------------------------

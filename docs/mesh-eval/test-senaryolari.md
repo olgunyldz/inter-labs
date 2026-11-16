@@ -253,11 +253,11 @@ Tanım: [`mesh-eval/tests/S01/`](../../mesh-eval/tests/S01/) · Çalıştırma: 
 
 **Amaç.** Kubernetes NetworkPolicy ile servisler arası izin listesinin (varsayılan ret + zincir kuralları) her mesh ile birlikte doğru çalıştığını ve mesh'e özel ek kural gerekip gerekmediğini göstermek. Etiket bazlı kuralların "kimlik taklidi"ne açık olduğunu kanıtlamak.
 
-**Yöntem.** (1) Standart kural seti (mesh'ten habersiz) uygulanır; zincir, uçtan uca erişim ve pod sağlığı kontrol edilir (mesh ile uyumsuzluk bulgusu). (2) Gerekiyorsa mesh'e uyarlanmış ek kurallar uygulanır. (3) İzin/ret matrisi: izinli kenarlar açık, yetkisiz pod, başka namespace ve yatay geçiş kapalı olmalı. (4) Etiketi "gateway" olan ama kimliği farklı bir pod (impostor) order'a erişmeye çalışır.
+**Yöntem.** (1) Standart kural seti (mesh'ten habersiz) uygulanır; zincir, uçtan uca erişim ve pod sağlığı kontrol edilir (mesh ile uyumsuzluk bulgusu). (2) Gerekiyorsa mesh'e uyarlanmış ek kurallar uygulanır. (3) İzin/ret matrisi: izinli kenarlar açık, yetkisiz pod, başka namespace ve yatay geçiş kapalı olmalı. (4) Etiketi "gateway" olan ama kimliği farklı bir pod (impostor) order'a erişmeye çalışır. (5) Impostor bağlıyken, onunla aynı ServiceAccount'u paylaşan yetkisiz pod 20 istek dener (ortak kimlik atlatması).
 
 **Bileşenler.** kindnet / kube-network-policies (NetworkPolicy motoru), netshoot istemcileri
 
-**Çıktılar.** `naive.chain`; `naive.e2e`; `naive.ready`; `matris kontrolleri`; `impostor_access`
+**Çıktılar.** `naive.chain`; `naive.e2e`; `naive.ready`; `matris kontrolleri`; `impostor_access`; `shared_identity_bypass`
 
 **Başarı ölçütü.** Uyarlanmış kurallarla izin/ret matrisinin tamamı beklendiği gibi
 
@@ -285,11 +285,11 @@ Tanım: [`mesh-eval/tests/S03/`](../../mesh-eval/tests/S03/) · Çalıştırma: 
 
 **Amaç.** Bir servisin yalnızca belirli endpoint'lerinin, belirli kimliklere ve HTTP metotlarına açık olmasını sağlamak (ör. /admin kapalı, yalnızca GET). Mesh içinde endpoint bazlı whitelisting.
 
-**Yöntem.** order servisi için kural: yalnızca gateway kimliği, yalnızca GET, yalnızca "/" ve "/api/*". /admin, POST, DELETE ve başka kimlik reddedilmeli. Önce kural tek başına uygulanır; kubelet sağlık kontrollerini bozuyorsa (bulgu) gerekli ek kural eklenir. Ambient L4 (waypoint'siz) profilde L7 kural uygulanamaz; gözlenen davranış kaydedilir.
+**Yöntem.** order servisi için kural: yalnızca gateway kimliği, yalnızca GET, yalnızca "/" ve "/api/*". /admin, POST, DELETE ve başka kimlik reddedilmeli. Önce kural tek başına uygulanır; kubelet sağlık kontrollerini bozuyorsa (bulgu) gerekli ek kural eklenir. Kontrollerden önce kuralın tüm proxy'lere yayılması beklenir (/admin ardışık 10 kez reddedilene kadar, en fazla 120 sn); süre converge_s olarak kaydedilir, 25 sn'yi aşarsa bulgu yazılır. Ambient L4 (waypoint'siz) profilde L7 kural uygulanamaz; gözlenen davranış kaydedilir.
 
 **Bileşenler.** Istio AuthorizationPolicy (sidecar / waypoint), Linkerd HTTPRoute + AuthorizationPolicy
 
-**Çıktılar.** `matris kontrolleri`; `probe_fix_needed`
+**Çıktılar.** `matris kontrolleri`; `probe_fix_needed`; `converge_s`
 
 **Başarı ölçütü.** İzinli endpoint'ler açık, diğerleri reddedilir, zincir çalışır
 

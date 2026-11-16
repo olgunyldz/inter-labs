@@ -10,6 +10,17 @@ if [ "$ready" = 0 ] && [ -f "policies/$MESH-probes.yaml" ]; then
   kb apply -f "policies/$MESH-probes.yaml" >/dev/null
   sleep 20
 fi
+# Yayılma: kural tüm proxy'lere ulaşana kadar bekle (ardışık 10 ret), süreyi kaydet. Sabit bekleme
+# yerine yakınsama: tek bir proxy'nin geç güncellenmesi kural hatası değil, yayılma gecikmesidir.
+if [ "$MESH" != istio-ambient ]; then
+  t0=$SECONDS; streak=0
+  while [ $((SECONDS - t0)) -lt 120 ] && [ "$streak" -lt 10 ]; do
+    if [ "$(http_code probe-gateway "$SHOP_NS" "$O/admin")" != 200 ]; then streak=$((streak + 1)); else streak=0; sleep 1; fi
+  done
+  conv=$(( SECONDS - t0 + 20 ))
+  metric converge_s "$conv" sn "kural uygulandıktan sonra tüm proxy'lerde tutarlı ret (yaklaşık, 20 sn ilk bekleme dahil)"
+  [ "$conv" -gt 25 ] && finding "$MESH: L7 kuralın tüm proxy'lerde tutarlı uygulanması yaklaşık $conv sn sürdü; bu süre boyunca bazı istekler yasak endpoint'e ulaşabildi."
+fi
 if [ "$MESH" = istio-ambient ]; then
   # waypoint'siz L4 modu: ztunnel HTTP özniteliklerini göremez
   codes=""

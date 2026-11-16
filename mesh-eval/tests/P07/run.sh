@@ -3,7 +3,9 @@ N=$(profile_val 30 120)
 POL="policies/$MESH.yaml"
 URL="http://order.$SHOP_NS.svc:9090/"
 on_exit kb delete -f "$POL" --ignore-not-found
-on_exit kb delete namespace shop-scale --wait=false
+on_exit kb delete namespace shop-scale --wait=true --timeout=300s
+# önceki tekrarın namespace'i hâlâ siliniyorsa bitmesini bekle (yoksa yeni nesneler reddedilir)
+kb wait --for=delete namespace/shop-scale --timeout=300s >/dev/null 2>&1 || true
 
 # poll_until <deny|allow>: probe-rogue içinden 100 ms aralıkla yoklar; koşul sağlandığı anı (unix) yazar
 poll_until() {

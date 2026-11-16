@@ -76,7 +76,12 @@ def num(v):
 
 
 def aggregate(runs):
-    """Aynı test x mesh için tekrarları birleştirir: metrik medyanı, en kötü durum."""
+    """Aynı test x mesh için tekrarları birleştirir: metrik medyanı, en kötü durum.
+    Altyapı hatasıyla yarıda kalan tekrarlar (error), başarılı tamamlanan en az bir tekrar varsa ölçümden çıkarılır
+    ve sayısı raporlanır (errored_repeats)."""
+    errored = [r for r in runs if r["result"]["status"] == "error"]
+    if errored and len(errored) < len(runs):
+        runs = [r for r in runs if r["result"]["status"] != "error"]
     metrics, units, descs = defaultdict(list), {}, {}
     findings, checks = [], []
     for r in runs:
@@ -99,7 +104,7 @@ def aggregate(runs):
     spread = {k: (min(v), max(v)) for k, v in metrics.items() if len(v) > 1}
     return {
         "status": status, "metrics": agg, "spread": spread, "units": units, "descs": descs,
-        "findings": findings, "checks": checks, "repeats": len(runs),
+        "findings": findings, "checks": checks, "repeats": len(runs), "errored_repeats": len(errored) if len(errored) < len(runs) + len(errored) else 0,
         "na_reason": runs[-1]["result"].get("na_reason"),
         "runs": [r["id"] for r in runs], "session": runs[-1]["meta"].get("session"),
         "profile": runs[-1]["meta"].get("profile"), "versions": runs[-1]["meta"].get("versions", {}),
@@ -724,6 +729,9 @@ def render_html(ctx):
             if fs:
                 w('<h4>Bulgular</h4><ul class="f">' + "".join(f'<li><b style="color:{MESH_COLORS[m]}">{esc(MESH_NAMES[m])}:</b> {esc(f)}</li>' for m, f in fs) + "</ul>")
             runs = [(m, r) for m in meshes for r in d.get((t, m), {}).get("runs", [])]
+            errs = [(m, d[(t, m)]["errored_repeats"]) for m in meshes if d.get((t, m), {}).get("errored_repeats")]
+            if errs:
+                w('<p class="small st-fail">Altyapı hatasıyla yarıda kalıp ölçümden çıkarılan tekrar: ' + ", ".join(f"{esc(MESH_NAMES[m])}: {n}" for m, n in errs) + "</p>")
             if runs:
                 w('<p class="mut small">Koşular: ' + ", ".join(f"<code>{esc(r)}</code>" for _, r in runs) + "</p>")
             w("</div>")
@@ -750,7 +758,8 @@ def render_html(ctx):
       'Bulguların prod benzeri donanımda doğrulanması önerilir.</li>'
       '<li>Ambient + waypoint profilinde lab\'da tek waypoint replikası vardır ve shop namespace\'inin tüm servisler arası trafiği bu tek Envoy\'dan geçer; '
       'bu profildeki L7 kapasite sonucu (P01) waypoint ölçeklenmesine bağlıdır. Prod\'da waypoint\'ler namespace / servis bazında ve HPA ile ölçeklenir.</li>'
-      '<li>Tekrarlanan koşularda metriklerin medyanı alınır, durum en kötü sonuçtur; yayılım (min…max) tablolarda gösterilir.</li></ul>')
+      '<li>Tekrarlanan koşularda metriklerin medyanı alınır, durum en kötü sonuçtur; yayılım (min…max) tablolarda gösterilir. '
+      'Altyapı hatasıyla yarıda kalan bir tekrar (test sonucu değil), başarılı tekrar varsa ölçümden çıkarılır ve ilgili testte belirtilir.</li></ul>')
 
     # 10 envanter
     w('<h2 id="envanter">10. Envanter</h2><div class="wrap"><table><tr><th>Bileşen</th><th>Sürüm</th></tr>')

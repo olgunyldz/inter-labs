@@ -136,6 +136,30 @@ def derive(data):
     """Rapor için türetilmiş metrikler."""
     for (t, m), a in data.items():
         mt = a["metrics"]
+        if t == "P01":
+            # SLO kırılma noktası tahmini: SLO'yu sağlayan son aşama ile ilk sağlamayan aşama arasında p99'a göre doğrusal
+            slo = mt.get("slo_p99_ms") or 100
+            prev = None
+            i = 0
+            est = None
+            while f"stage{i}.p99_ms" in mt:
+                tr, p99 = mt.get(f"stage{i}.target_rps"), mt.get(f"stage{i}.p99_ms")
+                bad = (p99 > slo) or (mt.get(f"stage{i}.error_rate") or 0) > 0.01 or (mt.get(f"stage{i}.rps") or 0) < 0.95 * (tr or 0)
+                if bad:
+                    if prev is None:
+                        est = 0.0
+                    elif p99 > slo and p99 > prev[1]:
+                        est = prev[0] + (slo - prev[1]) / (p99 - prev[1]) * (tr - prev[0])
+                    else:
+                        est = prev[0]
+                    break
+                prev = (tr, p99)
+                i += 1
+            if est is None and prev:
+                est = prev[0]
+            if est is not None:
+                mt["derived.knee_slo_est_rps"] = est
+                a["units"]["derived.knee_slo_est_rps"] = "RPS"
         if t == "P05":
             pods = mt.get("shop_pods_running") or mt.get("shop_pods") or 0
             rc = sum(mt.get(f"req.{r}.cpu_cores", 0) for r in ("sidecar", "ztunnel", "waypoint", "cni"))
@@ -409,11 +433,11 @@ def summary_points(ctx):
         rank = sorted(ctx["total"].items(), key=lambda kv: -kv[1])
         pts.append("Puan kartı sıralaması (eşit ağırlık): " + ", ".join(f"{MESH_NAMES[m]} {v * 100:.0f}" for m, v in rank) + ".")
     g = lambda t, m, k: d.get((t, m), {}).get("metrics", {}).get(k)
-    base = g("P01", "none", "knee_slo_rps")
+    base = g("P01", "none", "derived.knee_slo_est_rps")
     for m in scored:
-        k = g("P01", m, "knee_slo_rps")
+        k = g("P01", m, "derived.knee_slo_est_rps")
         if k and base:
-            pts.append(f"{MESH_NAMES[m]}: SLO (p99 ≤ {fmt(g('P01', m, 'slo_p99_ms'))} ms) kapasitesi {fmt(k)} RPS — mesh'siz referansın (%{k / base * 100:.0f}'i).")
+            pts.append(f"{MESH_NAMES[m]}: SLO (p99 ≤ {fmt(g('P01', m, 'slo_p99_ms'))} ms) kapasitesi yaklaşık {fmt(k)} RPS (mesh'siz referansa göre %{k / base * 100:.0f}).")
     a, s = proj.get("istio-ambient"), proj.get("istio-sidecar")
     if a and s:
         pts.append(f"3.000 servis projeksiyonu: veri düzlemi belleği ambient {fmt(a['dp_mem_gib'])} GiB, sidecar {fmt(s['dp_mem_gib'])} GiB; "
@@ -563,40 +587,44 @@ def p05_section(ctx):
     return "\n".join(o)
 
 
+COST_ITEMS = [
+    ("Veri düzlemi CPU, 250 RPS yükte", "P05", "dataplane.cpu_cores", "çekirdek"),
+    ("1000 servis isteği başına veri düzlemi CPU", "P05", "derived.cpu_per_1k_hops", "çekirdek"),
+    ("Veri düzlemi belleği, yüksüz an (toplam, önceki yük testlerinden sonra)", "P05", "dataplane.mem_idle_mib", "MiB"),
+    ("Uygulama pod'u başına veri düzlemi belleği", "P05", "dataplane.mem_per_pod_mib", "MiB"),
+    ("Pod başına ayrılan CPU (requests)", "P05", "derived.req_cpu_per_pod", "çekirdek"),
+    ("Pod başına ayrılan bellek (requests)", "P05", "derived.req_mem_per_pod", "MiB"),
+    ("Servis node'unda app+proxy dışı CPU (kernel/ağ)", "P05", "node_overhead_cores", "çekirdek"),
+    ("Kontrol düzlemi belleği", "P05", "load.control.mem_mib", "MiB"),
+    ("Kontrol düzlemi büyümesi (N servis eklenince)", "P07", "control.mem_growth_mib", "MiB"),
+    ("Her proxy'nin büyümesi (N servis eklenince)", "P07", "sidecar.mem_per_container_growth_mib", "MiB"),
+    ("Orta yükte uçtan uca p99", "P01", "stage1.p99_ms", "ms"),
+    ("SLO kırılma noktası (aşamalar arası tahmin)", "P01", "derived.knee_slo_est_rps", "RPS"),
+    ("SLO'yu sağlayan en yüksek aşama", "P01", "knee_slo_rps", "RPS"),
+    ("Pod hazır olma süresi (medyan)", "P06", "ready_p50_s", "sn"),
+    ("Güncellemede yeniden başlatılan uygulama pod'u", "R05", "restarted_pods", "adet"),
+    ("Güncelleme süresi", "R05", "upgrade_duration_s", "sn"),
+    ("Güncelleme sırasında başarısız istek", "R05", "failed_requests", "istek"),
+    ("Node proxy'si yeniden başlarken başarısız istek", "R04", "B.failed_requests", "istek"),
+    ("Pod başına metrik serisi", "O02", "series_mesh_per_pod", "seri"),
+    ("Pod'a eklenen konteyner", "O03", "added_containers_per_pod", "adet"),
+    ("Ayrıcalıklı (NET_ADMIN/privileged) bileşen türü", "O03", "privileged_components", "adet"),
+    ("CRD sayısı", "O03", "crds", "adet"),
+]
+
+
 def cost_table(ctx):
     """Ambient / sidecar / Linkerd maliyet kalemleri (tek tablo)"""
     d, meshes = ctx["data"], [m for m in ctx["meshes"] if m != "none"]
     g = lambda t, m, k: d.get((t, m), {}).get("metrics", {}).get(k)
-    items = [
-        ("Veri düzlemi CPU, 250 RPS yükte", "P05", "dataplane.cpu_cores", "çekirdek"),
-        ("1000 servis isteği başına veri düzlemi CPU", "P05", "derived.cpu_per_1k_hops", "çekirdek"),
-        ("Veri düzlemi belleği, boşta (toplam)", "P05", "dataplane.mem_idle_mib", "MiB"),
-        ("Uygulama pod'u başına veri düzlemi belleği", "P05", "dataplane.mem_per_pod_mib", "MiB"),
-        ("Pod başına ayrılan CPU (requests)", "P05", "derived.req_cpu_per_pod", "çekirdek"),
-        ("Pod başına ayrılan bellek (requests)", "P05", "derived.req_mem_per_pod", "MiB"),
-        ("Servis node'unda app+proxy dışı CPU (kernel/ağ)", "P05", "node_overhead_cores", "çekirdek"),
-        ("Kontrol düzlemi belleği", "P05", "load.control.mem_mib", "MiB"),
-        ("Kontrol düzlemi büyümesi (N servis eklenince)", "P07", "control.mem_growth_mib", "MiB"),
-        ("Her proxy'nin büyümesi (N servis eklenince)", "P07", "sidecar.mem_per_container_growth_mib", "MiB"),
-        ("Orta yükte uçtan uca p99", "P01", "stage1.p99_ms", "ms"),
-        ("SLO kırılma noktası", "P01", "knee_slo_rps", "RPS"),
-        ("Pod hazır olma süresi (medyan)", "P06", "ready_p50_s", "sn"),
-        ("Güncellemede yeniden başlatılan uygulama pod'u", "R05", "restarted_pods", "adet"),
-        ("Güncelleme süresi", "R05", "upgrade_duration_s", "sn"),
-        ("Güncelleme sırasında başarısız istek", "R05", "failed_requests", "istek"),
-        ("Node proxy'si yeniden başlarken başarısız istek", "R04", "B.failed_requests", "istek"),
-        ("Pod başına metrik serisi", "O02", "series_mesh_per_pod", "seri"),
-        ("Pod'a eklenen konteyner", "O03", "added_containers_per_pod", "adet"),
-        ("Ayrıcalıklı (NET_ADMIN/privileged) bileşen türü", "O03", "privileged_components", "adet"),
-        ("CRD sayısı", "O03", "crds", "adet"),
-    ]
+    items = COST_ITEMS
     h = ['<div class="wrap"><table><tr><th>Kalem</th><th>Kaynak</th>' + "".join(f'<th class="n">{esc(MESH_NAMES[m])}</th>' for m in meshes) + "</tr>"]
     for label, t, k, u in items:
         vals = {m: g(t, m, k) for m in meshes}
         if not any(num(v) for v in vals.values()):
             continue
         nums = [v for v in vals.values() if num(v)]
-        best = min(nums) if k not in ("knee_slo_rps",) else max(nums)
+        best = min(nums) if k not in ("knee_slo_rps", "derived.knee_slo_est_rps") else max(nums)
         cells = []
         for m in meshes:
             v = vals[m]
@@ -627,7 +655,7 @@ def render_html(ctx):
     w('<h2 id="ozet">1. Yönetici özeti</h2><div class="kpis">')
     for m in scored:
         sc = ctx["total"].get(m)
-        k = d.get(("P01", m), {}).get("metrics", {}).get("knee_slo_rps")
+        k = d.get(("P01", m), {}).get("metrics", {}).get("derived.knee_slo_est_rps")
         mem = d.get(("P05", m), {}).get("metrics", {}).get("dataplane.mem_per_pod_mib")
         w(f'<div class="kpi" style="border-top:4px solid {MESH_COLORS[m]}"><span>{esc(MESH_NAMES[m])}</span>'
           f'<b>{fmt(sc * 100 if sc is not None else None)} / 100</b><span>SLO kapasitesi {fmt(k, "RPS")} · pod başına {fmt(mem, "MiB")}</span></div>')
@@ -746,20 +774,7 @@ def render_html(ctx):
     w("<ul class='f small mut'>" + "".join(f"<li>{esc(n)}</li>" for n in st.get("notes", [])) + "</ul>")
 
     # 9 yöntem
-    w('<h2 id="yontem">9. Yöntem ve sınırlar</h2><ul class="f">'
-      '<li>Ortam: tek host üzerinde kind cluster\'ları (prod topolojisinin kopyası: edge LB, DMZ A/B, cluster A/B, data, mgmt). Mesh yalnızca cluster-a\'da.</li>'
-      f'<li>CPU ayrımı: servis node\'u {esc(ctx["env"].get("CPUSET_APP", ""))}, yük üretici node\'u {esc(ctx["env"].get("CPUSET_LOADGEN", ""))}, '
-      f'kontrol düzlemi {esc(ctx["env"].get("CPUSET_CONTROL", ""))} numaralı çekirdeklere sabitlendi (docker cpuset); yük üretici ölçülen servislerle CPU paylaşmaz.</li>'
-      '<li>Adil kıyas: her mesh, sıfırdan kurulmuş bench cluster\'ında (<code>meval mesh use &lt;profil&gt; --fresh</code>) aynı servis zinciri ve aynı yükle ölçülür. '
-      'Tüm mesh\'lerde zorunlu mTLS açık, erişim logu ve tracing (O01 hariç) kapalı, kaynak istekleri mesh varsayılanında.</li>'
-      '<li>Servis zinciri: 8 servis (HTTP + bir gRPC kademesi), derinlik 5, paralel dallanma; her servis yapay 1–5 ms işlem süresi (chainsvc, <code>mesh-eval/apps/chainsvc</code>).</li>'
-      '<li>Bağlantılar: servisler HTTP keep-alive ve kalıcı gRPC bağlantısı kullanır (gerçek servislerdeki gibi bağlantı havuzu).</li>'
-      '<li>Mutlak değerler (RPS, ms) prod donanımına aktarılamaz; mesh\'ler arası göreli fark ve kırılma davranışı değerlendirilmelidir. '
-      'Bulguların prod benzeri donanımda doğrulanması önerilir.</li>'
-      '<li>Ambient + waypoint profilinde lab\'da tek waypoint replikası vardır ve shop namespace\'inin tüm servisler arası trafiği bu tek Envoy\'dan geçer; '
-      'bu profildeki L7 kapasite sonucu (P01) waypoint ölçeklenmesine bağlıdır. Prod\'da waypoint\'ler namespace / servis bazında ve HPA ile ölçeklenir.</li>'
-      '<li>Tekrarlanan koşularda metriklerin medyanı alınır, durum en kötü sonuçtur; yayılım (min…max) tablolarda gösterilir. '
-      'Altyapı hatasıyla yarıda kalan bir tekrar (test sonucu değil), başarılı tekrar varsa ölçümden çıkarılır ve ilgili testte belirtilir.</li></ul>')
+    w('<h2 id="yontem">9. Yöntem ve sınırlar</h2><ul class="f">' + "".join(f"<li>{md_inline(x)}</li>" for x in method_items(ctx)) + "</ul>")
 
     # 10 envanter
     w('<h2 id="envanter">10. Envanter</h2><div class="wrap"><table><tr><th>Bileşen</th><th>Sürüm</th></tr>')
@@ -768,6 +783,38 @@ def render_html(ctx):
     w("</table></div><p class='mut small'>Ayrıntılı envanter: <code>docs/mesh-eval/envanter.md</code>. Ham sonuçlar: <code>mesh-eval/results/&lt;koşu&gt;/</code>.</p>")
     w("</main></body></html>")
     return "\n".join(e)
+
+
+def md_inline(t):
+    """`kod` -> <code>, geri kalan HTML kaçışlı"""
+    return re.sub(r"`([^`]+)`", lambda m: f"<code>{m.group(1)}</code>", esc(t))
+
+
+def method_items(ctx):
+    env = ctx["env"]
+    return [
+        "Ortam: tek host üzerinde kind cluster'ları (prod topolojisinin kopyası: edge LB, DMZ A/B, cluster A/B, data, mgmt). Mesh yalnızca cluster-a'da.",
+        f"CPU ayrımı: servis node'u {env.get('CPUSET_APP', '')}, yük üretici node'u {env.get('CPUSET_LOADGEN', '')}, "
+        f"kontrol düzlemi {env.get('CPUSET_CONTROL', '')} numaralı çekirdeklere sabitlendi (docker cpuset); yük üretici ölçülen servislerle CPU paylaşmaz.",
+        "Adil kıyas: her mesh, sıfırdan kurulmuş bench cluster'ında (`meval mesh use <profil> --fresh`) aynı servis zinciri, aynı test sırası ve aynı yükle ölçülür. "
+        "Tüm mesh'lerde zorunlu mTLS açık, erişim logu ve tracing (O01 hariç) kapalı, kaynak istekleri mesh varsayılanında.",
+        "Servis zinciri: 8 servis (HTTP + bir gRPC kademesi), derinlik 5, paralel dallanma; her servis yapay 1–5 ms işlem süresi (chainsvc, `mesh-eval/apps/chainsvc`).",
+        "Bağlantılar: servisler HTTP keep-alive ve kalıcı gRPC bağlantısı kullanır (gerçek servislerdeki gibi bağlantı havuzu).",
+        "Bellek ölçümü (P05): proxy belleği, P01–P04 yük testlerinden sonra ölçülür; proxy'lerin yoğun yükte büyüyüp geri vermediği bellek dahildir. "
+        "Bu, yeni kurulmuş bir pod'dan yüksek ama uzun süre çalışan prod pod'larına daha yakın bir değerdir. Sıra tüm mesh'lerde aynıdır; değer, önceki yükün yoğunluğuna bağlıdır (quick profilde daha düşük çıkar).",
+        "SLO kırılma noktası: P01 aşamalı yükte p99 ≤ SLO, hata < %1 ve hedef hızın %95'i koşullarını sağlayan son aşama ölçülür. "
+        "Aşamalar kaba olduğundan (full profilde 250 RPS adım) özet ve puan kartında, son geçen ve ilk kalan aşama arasında p99'a göre doğrusal tahmin kullanılır; "
+        "aşama bazlı değer test detaylarında yer alır.",
+        "Mutlak değerler (RPS, ms) prod donanımına aktarılamaz; mesh'ler arası göreli fark ve kırılma davranışı değerlendirilmelidir. "
+        "Bulguların prod benzeri donanımda doğrulanması önerilir.",
+        "Ambient + waypoint profilinde lab'da tek waypoint replikası vardır ve shop namespace'inin tüm servisler arası trafiği bu tek Envoy'dan geçer; "
+        "bu profildeki L7 kapasite sonucu (P01) waypoint ölçeklenmesine bağlıdır. Prod'da waypoint'ler namespace / servis bazında ve HPA ile ölçeklenir.",
+        "P07 (ölçek): Istio sidecar'da varsayılan proxy CPU isteği (100m) 120 ek servisle lab node'unun ayrılabilir CPU'sunu doldurduğu için ek pod'larda "
+        "proxy isteği 5m'ye indirildi (bulgu olarak kayıtlı); diğer mesh'lerde değişiklik yok.",
+        "Tekrarlanan koşularda metriklerin medyanı alınır, durum en kötü sonuçtur; yayılım (min…max) tablolarda gösterilir. "
+        "Altyapı veya test hatasıyla yarıda kalan bir tekrar (ölçüm sonucu değil), başarılı tekrar varsa ölçümden çıkarılır ve ilgili testte belirtilir. "
+        "Test hatası düzeltilen testler aynı oturumda yeniden koşulmuştur; rapor her test için en son koşuyu kullanır.",
+    ]
 
 
 def render_md(ctx):
@@ -786,6 +833,15 @@ def render_md(ctx):
     for c in ctx["cats"]:
         w(f"| {c['name']} | " + " | ".join(fmt(c["scores"][m] * 100) if m in c["scores"] else "—" for m in scored) + " |")
     w("| **Toplam** | " + " | ".join(f"**{fmt(ctx['total'][m] * 100)}**" if m in ctx["total"] else "—" for m in scored) + " |")
+    cm = [m for m in meshes if m != "none"]
+    w("\n## 3. Maliyet: kalem kalem\n")
+    w("| Kalem | Kaynak | " + " | ".join(MESH_NAMES[m] for m in cm) + " |")
+    w("|---|---|" + "---:|" * len(cm))
+    for label, t, k, u in COST_ITEMS:
+        vals = [d.get((t, m), {}).get("metrics", {}).get(k) for m in cm]
+        if not any(num(v) for v in vals):
+            continue
+        w(f"| {label} | {t} | " + " | ".join(fmt(v, u) for v in vals) + " |")
     if ctx["proj"]:
         pm = [m for m in scored if m in ctx["proj"]]
         w("\n## 4. Prod projeksiyonu (3.000 servis)\n")
@@ -827,6 +883,18 @@ def render_md(ctx):
         for k in keys[:40]:
             u = next((d[(t, m)]["units"].get(k) for m in present if k in d[(t, m)]["units"]), "")
             w(f"| `{k}` | " + " | ".join(fmt(d[(t, m)]["metrics"].get(k), u) for m in present) + " |")
+    st = ctx["static"]
+    w(f"\n## 8. Lisans, destek, olgunluk\n\nTest edilmez; kaynaklardan derlenmiştir (doğrulama: {st.get('verified_on', '')}).\n")
+    sm = list(st["meshes"].values())
+    w("| | " + " | ".join(v["name"] for v in sm) + " |")
+    w("|---|" + "---|" * len(sm))
+    for k, lab in [("license", "Lisans"), ("cncf", "CNCF"), ("releases", "Sürüm modeli"), ("support", "Destek"), ("risk", "Değerlendirme")]:
+        w(f"| **{lab}** | " + " | ".join(str(v.get(k, "")).replace("|", "/").replace("\n", " ") for v in sm) + " |")
+    for n in st.get("notes", []):
+        w(f"- {n}")
+    w("\n## 9. Yöntem ve sınırlar\n")
+    for x in method_items(ctx):
+        w(f"- {x}")
     w("\n## 10. Envanter\n")
     for k, v in ctx["versions"].items():
         w(f"- {k}: `{v}`")

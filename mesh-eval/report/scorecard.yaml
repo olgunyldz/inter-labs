@@ -8,7 +8,7 @@ categories:
     name: Performans
     weight: 1
     items:
-      - { test: P01, metric: knee_slo_rps, better: higher, label: "SLO kırılma noktası (RPS)" }
+      - { test: P01, metric: derived.knee_slo_est_rps, better: higher, label: "SLO kırılma noktası (RPS, aşamalar arası tahmin)" }
       - { test: P01, metric: stage1.p99_ms, better: lower, label: "orta yükte p99" }
       - { test: P04, metric: stage1.p99_ms, better: lower, label: "uçtan uca p99" }
       - { test: P02, kind: status, label: "uzun yük kararlılığı" }

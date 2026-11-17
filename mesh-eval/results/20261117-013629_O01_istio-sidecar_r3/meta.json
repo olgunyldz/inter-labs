@@ -1,0 +1,55 @@
+{
+  "test": {
+    "id": "O01",
+    "name": "Gözlemlenebilirlik — hazır metrikler, doğruluk, dağıtık izleme, erişim logu",
+    "category": "gözlem",
+    "purpose": "Mesh'in uygulama koduna dokunmadan ne kadar görünürlük sağladığını ölçmek: her servis için \"altın metrikler\" (istek hızı, başarı oranı, gecikme), mesh'in ölçtüğü gecikmenin doğruluğu (k6'ya göre), uçtan uca trace (Tempo) ve erişim logu.\n",
+    "method": "100 RPS yük altında: (1) 8 servisin kaçı için mesh L7 metrikleri (istek/başarı/gecikme histogramı) veya yalnızca L4 (TCP) metrikleri var; (2) gateway'de mesh'in p99'u / k6 p99 oranı; (3) tracing geçici olarak açılır (Istio Telemetry API %100 örnekleme -> Tempo; Linkerd linkerd-jaeger eklentisi -> Tempo; uygulama B3 başlıklarını taşır) ve bir trace'teki span / servis sayısı ölçülür; (4) erişim logu açılıp proxy logunda istek satırı aranır.\n",
+    "components": [
+      "mesh metrikleri",
+      "Prometheus",
+      "Tempo (mgmt)",
+      "Grafana datasource proxy",
+      "Istio Telemetry API",
+      "linkerd-jaeger"
+    ],
+    "meshes": [
+      "istio-sidecar",
+      "istio-ambient",
+      "istio-ambient-l7",
+      "linkerd"
+    ],
+    "outputs": [
+      "services_l7_metrics",
+      "services_l4_metrics",
+      "latency_accuracy_ratio",
+      "trace.spans",
+      "trace.services",
+      "trace.mesh_spans",
+      "access_log"
+    ],
+    "pass_criteria": "Tüm servisler için en az L4 metrik var ve trace Tempo'da bulunur"
+  },
+  "mesh": "istio-sidecar",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-223531-2939011",
+  "repeat": 3,
+  "start": 1794868589,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "4b7a9dd",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794868727
+}

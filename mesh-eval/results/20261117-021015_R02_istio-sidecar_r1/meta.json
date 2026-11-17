@@ -1,0 +1,49 @@
+{
+  "test": {
+    "id": "R02",
+    "name": "Hata enjeksiyonu (fault injection)",
+    "category": "dayanıklılık",
+    "purpose": "Uygulama koduna dokunmadan, mesh üzerinden kontrollü hata ve gecikme enjekte edebilmek (kaos testi, dayanıklılık tatbikatı). Mesh'lerin bu yeteneğini ve doğruluğunu kıyaslamak.\n",
+    "method": "catalog'a giden isteklerin %10'una 503, %10'una 200 ms gecikme enjekte edilir; 100 RPS yükte gateway'de gözlenen hata oranı ve gecikme dağılımı ölçülür. Istio: VirtualService fault. Linkerd'de yerleşik hata enjeksiyonu yoktur; önerilen yöntemle (HTTPRoute ağırlıklı yönlendirme ile hatalı / yavaş backend) yapılır.\n",
+    "components": [
+      "Istio VirtualService (sidecar / waypoint)",
+      "Linkerd HTTPRoute + hatalı backend'ler",
+      "k6"
+    ],
+    "meshes": [
+      "istio-sidecar",
+      "istio-ambient",
+      "istio-ambient-l7",
+      "linkerd"
+    ],
+    "outputs": [
+      "observed_error_rate",
+      "p50_ms",
+      "p95_ms",
+      "method"
+    ],
+    "pass_criteria": "Gözlenen hata oranı %10 ± 3 puan ve p95 >= 200 ms"
+  },
+  "mesh": "istio-sidecar",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-223531-2939011",
+  "repeat": 1,
+  "start": 1794870615,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "4b7a9dd",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794870754
+}

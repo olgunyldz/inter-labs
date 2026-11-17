@@ -1,0 +1,64 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794837307,
+  "end": 1794837436,
+  "duration_s": 129,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "tüm servisler için en az L4 metrik",
+      "expected": ">= 8",
+      "actual": "8",
+      "pass": true
+    },
+    {
+      "name": "trace Tempo'da bulundu",
+      "expected": "var",
+      "actual": "var",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "services_l7_metrics",
+      "value": 0,
+      "unit": "/8",
+      "desc": "istek/başarı/gecikme metriği olan servis"
+    },
+    {
+      "key": "services_l4_metrics",
+      "value": 8,
+      "unit": "/8",
+      "desc": "TCP (bağlantı/bayt) metriği olan servis"
+    },
+    {
+      "key": "trace.spans",
+      "value": 15,
+      "unit": "span",
+      "desc": ""
+    },
+    {
+      "key": "trace.services",
+      "value": 8,
+      "unit": "adet",
+      "desc": "trace'teki servis adı sayısı"
+    },
+    {
+      "key": "trace.mesh_spans",
+      "value": 0,
+      "unit": "adet",
+      "desc": "mesh proxy'lerinin ürettiği servis adları"
+    },
+    {
+      "key": "access_log",
+      "value": 0,
+      "unit": "bool",
+      "desc": "proxy erişim logu üretebildi"
+    }
+  ],
+  "findings": [
+    "istio-ambient: 0/8 servis için L7 (istek, başarı oranı, gecikme) metriği var; diğerleri için yalnızca TCP metrikleri. Altın metrikler için L7 proxy (waypoint) gerekir.",
+    "istio-ambient: trace yalnızca uygulamanın ürettiği span'lardan oluştu; mesh proxy'leri span üretmedi (servisler: catalog,fraud,gateway,inventory,ledger,order,payment,pricing)."
+  ]
+}

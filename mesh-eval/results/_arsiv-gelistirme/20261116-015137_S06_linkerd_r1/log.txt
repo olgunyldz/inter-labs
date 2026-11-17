@@ -1,0 +1,9 @@
+  [32m[ok][0m mesh dışı namespace -> order [403] (=ret)
+  [32m[ok][0m mesh'ten çıkarılmış pod (gateway SA) -> order [403] (=ret)
+  [32m[ok][0m host ağı (node) -> order pod IP [403] (=ret)
+  [32m[ok][0m rogue -> order pod IP (Service'i atlayarak) [403] (=ret)
+  [32m[ok][0m rogue + sahte Istio kimlik başlığı (XFCC) -> order [403] (=ret)
+  [32m[ok][0m rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [403] (=ret)
+    admin_port_15000 = 0 bool
+    admin_port_4191 = 0 bool
+  [32m[ok][0m rogue -> linkerd-proxy admin (4191) [403] (=ret)

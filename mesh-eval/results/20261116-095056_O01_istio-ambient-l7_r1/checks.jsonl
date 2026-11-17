@@ -1,0 +1,2 @@
+{"name":"tüm servisler için en az L4 metrik","expected":">= 8","actual":"8","pass":true}
+{"name":"trace Tempo'da bulundu","expected":"var","actual":"var","pass":true}

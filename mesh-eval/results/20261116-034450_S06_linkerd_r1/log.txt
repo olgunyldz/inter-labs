@@ -1,0 +1,8 @@
+  [32m[ok][0m mesh dışı namespace -> order [403] (=ret)
+  [32m[ok][0m mesh'ten çıkarılmış pod (gateway SA) -> order [403] (=ret)
+  [32m[ok][0m host ağı (node) -> order pod IP [403] (=ret)
+  [32m[ok][0m rogue -> order pod IP (Service'i atlayarak) [403] (=ret)
+  [32m[ok][0m rogue + sahte Istio kimlik başlığı (XFCC) -> order [403] (=ret)
+  [32m[ok][0m rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [403] (=ret)
+    proxy_metrics_exposed = 1 bool
+  [33m[!][0m BULGU: linkerd: proxy metrik ucu (http://10.20.1.29:4191/metrics) yetkisiz bir pod'dan okunabiliyor (servis adları, istek sayıları sızar). Prod'da NetworkPolicy ile yalnızca izleme sistemine açılmalı.

@@ -1,0 +1,26 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794836684,
+  "end": 1794836700,
+  "duration_s": 16,
+  "na_reason": "ambient: FQDN bazlı egress reddi mesh tarafından yapılamıyor (izinsiz hedef HTTP 200)",
+  "checks": [],
+  "metrics": [
+    {
+      "key": "allowed_http_code",
+      "value": 200,
+      "unit": "kod",
+      "desc": ""
+    },
+    {
+      "key": "denied_http_code",
+      "value": 200,
+      "unit": "kod",
+      "desc": ""
+    }
+  ],
+  "findings": [
+    "Istio ambient: ztunnel'de REGISTRY_ONLY (kayıtsız dış adreslere ret) yok; ServiceEntry tanımlı olsa da izinsiz hedefe (denied.ext.test) erişim açık. Ambient'te egress kısıtı için egress gateway veya NetworkPolicy ile birleşik tasarım gerekir."
+  ]
+}

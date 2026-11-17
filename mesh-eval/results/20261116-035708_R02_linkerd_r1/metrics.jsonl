@@ -1,0 +1,5 @@
+{"key":"method","value":1,"unit":"-","desc":"HTTPRoute ağırlıklı yönlendirme + hatalı backend"}
+{"key":"observed_error_rate","value":0.10242168407020662,"unit":"oran","desc":"gateway'de gözlenen hata oranı (hedef 0.10)"}
+{"key":"p50_ms","value":12.930029,"unit":"ms","desc":""}
+{"key":"p90_ms","value":54.715026,"unit":"ms","desc":""}
+{"key":"p95_ms","value":208.477328,"unit":"ms","desc":""}

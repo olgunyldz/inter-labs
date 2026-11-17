@@ -1,0 +1,63 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794867361,
+  "end": 1794867378,
+  "duration_s": 17,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "mesh dışı namespace -> order [000]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "mesh'ten çıkarılmış pod (gateway SA) -> order [000]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "host ağı (node) -> order pod IP [000]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue -> order pod IP (Service'i atlayarak) [503]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue + sahte Istio kimlik başlığı (XFCC) -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue -> Envoy yapılandırma dökümü (15000/config_dump) [000]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "proxy_metrics_exposed",
+      "value": 1,
+      "unit": "bool",
+      "desc": "rogue başka pod'un proxy metriklerini okuyabildi mi (http://10.20.1.40:15020/stats/prometheus -> 200)"
+    }
+  ],
+  "findings": [
+    "istio-sidecar: proxy metrik ucu (http://10.20.1.40:15020/stats/prometheus) yetkisiz bir pod'dan okunabiliyor (servis adları, istek sayıları sızar). Prod'da NetworkPolicy ile yalnızca izleme sistemine açılmalı."
+  ]
+}

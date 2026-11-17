@@ -1,0 +1,67 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794783097,
+  "end": 1794783119,
+  "duration_s": 22,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "mesh dışı namespace -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "mesh'ten çıkarılmış pod (gateway SA) -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "host ağı (node) -> order pod IP [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue -> order pod IP (Service'i atlayarak) [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue + sahte Istio kimlik başlığı (XFCC) -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue -> linkerd-proxy admin (4191) [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "admin_port_15000",
+      "value": 0,
+      "unit": "bool",
+      "desc": "rogue'dan proxy yönetim portuna erişim"
+    },
+    {
+      "key": "admin_port_4191",
+      "value": 0,
+      "unit": "bool",
+      "desc": "rogue'dan proxy yönetim portuna erişim"
+    }
+  ],
+  "findings": []
+}

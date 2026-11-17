@@ -1,0 +1,16 @@
+    spike_rps = 700 RPS
+    spike_duration_s = 20 sn
+    before.p50_ms = 13.8039505 ms
+    before.p99_ms = 22.215890819999995 ms
+    before.error_rate = 0 oran
+    before.dropped = 0 istek
+    spike.p50_ms = 2139.403304 ms
+    spike.p99_ms = 3593.4243124000004 ms
+    spike.error_rate = 0.0001784758165268606 oran
+    spike.dropped = 2794 istek
+    after.p50_ms = 14.168508 ms
+    after.p99_ms = 1152.4849918800053 ms
+    after.error_rate = 0 oran
+    after.dropped = 89 istek
+    recovery_s = 5 sn
+  [32m[ok][0m sıçrama sonrası hata oranı (0 <= 0.01)

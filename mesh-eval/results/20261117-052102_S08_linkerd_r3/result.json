@@ -1,0 +1,81 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794882062,
+  "end": 1794882169,
+  "duration_s": 107,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "sertifika kurumsal ara CA'dan (AKI = ara CA SKI)",
+      "expected": "73B591A49C8BADC34CED68872E30D95CA4CE6806",
+      "actual": "73B591A49C8BADC34CED68872E30D95CA4CE6806",
+      "pass": true
+    },
+    {
+      "name": "sertifika ömrü (saat)",
+      "expected": "<= 24",
+      "actual": "24",
+      "pass": true
+    },
+    {
+      "name": "kimlik (SAN)",
+      "expected": "var",
+      "actual": "var",
+      "pass": true
+    },
+    {
+      "name": "rotasyon: yeni pod yeni ara CA'dan sertifika aldı",
+      "expected": "2F61779654A5C852EEE0152BF1398BE8B126EFC4",
+      "actual": "2F61779654A5C852EEE0152BF1398BE8B126EFC4",
+      "pass": true
+    },
+    {
+      "name": "rotasyon: eski ve yeni sertifikalı pod'lar konuşuyor (zincir)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "rotasyon sırasında hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0.00035003500350035",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "cert_ttl_h",
+      "value": 24,
+      "unit": "saat",
+      "desc": "iş yükü sertifikası geçerlilik süresi"
+    },
+    {
+      "key": "rotation.needed_restart",
+      "value": 1,
+      "unit": "bool",
+      "desc": "yeni CA için kontrol düzlemi yeniden başlatıldı mı"
+    },
+    {
+      "key": "rotation.ztunnel_restart",
+      "value": 0,
+      "unit": "bool",
+      "desc": "yeni CA için ztunnel yeniden başlatıldı mı (ambient)"
+    },
+    {
+      "key": "rotation.error_rate",
+      "value": 0.00035003500350035,
+      "unit": "oran",
+      "desc": "rotasyon sırasında hata oranı"
+    },
+    {
+      "key": "rotation.p99_ms",
+      "value": 26.328566759999987,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": [
+    "linkerd: yeni ara CA otomatik yüklenmedi; kontrol düzleminin yeniden başlatılması gerekti."
+  ]
+}

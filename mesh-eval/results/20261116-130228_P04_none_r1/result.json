@@ -1,0 +1,115 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794823348,
+  "end": 1794823539,
+  "duration_s": 191,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "ilk aşama hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "stage0.target_rps",
+      "value": 100,
+      "unit": "RPS",
+      "desc": ""
+    },
+    {
+      "key": "stage0.p50_ms",
+      "value": 10.995816999999999,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage0.p95_ms",
+      "value": 15.6135764,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage0.p99_ms",
+      "value": 18.016840920000007,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage0.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "stage1.target_rps",
+      "value": 250,
+      "unit": "RPS",
+      "desc": ""
+    },
+    {
+      "key": "stage1.p50_ms",
+      "value": 10.850142,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage1.p95_ms",
+      "value": 15.305189,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage1.p99_ms",
+      "value": 17.427896,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage1.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "stage2.target_rps",
+      "value": 400,
+      "unit": "RPS",
+      "desc": ""
+    },
+    {
+      "key": "stage2.p50_ms",
+      "value": 11.235794,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage2.p95_ms",
+      "value": 15.995242,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage2.p99_ms",
+      "value": 18.283208,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage2.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "tls_handshake_p50_ms",
+      "value": 0,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": []
+}

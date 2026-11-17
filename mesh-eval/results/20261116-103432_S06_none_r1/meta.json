@@ -1,0 +1,44 @@
+{
+  "test": {
+    "id": "S06",
+    "name": "Politika atlatma denemeleri",
+    "category": "güvenlik",
+    "purpose": "Yetki kurallarının (S03) yalnızca \"doğru yoldan\" gelen trafikte değil, kötü niyetli denemelerde de geçerli olduğunu kanıtlamak: mesh dışı pod, mesh'ten çıkarılmış pod (aynı kimlikle), host ağı, doğrudan pod IP'si, sahte kimlik başlıkları, proxy yönetim portları.\n",
+    "method": "S03'ün kimlik politikası uygulanır; ardından her deneme order servisine/pod'una yapılır. Mesh yoksa (none) aynı denemeler politikasız ortamda yapılır (risk görünürlüğü).\n",
+    "components": [
+      "mesh yetki politikası",
+      "mTLS",
+      "netshoot (hostNetwork dahil)"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "her deneme için izin/ret",
+      "admin_ports"
+    ],
+    "pass_criteria": "Tüm denemeler reddedilir"
+  },
+  "mesh": "none",
+  "profile": "quick",
+  "session": "dogrulama-quick",
+  "invocation": "20261116-101835-2681776",
+  "repeat": 1,
+  "start": 1794814472,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "6f13cdb",
+    "uncommitted_files": 0
+  },
+  "status": "fail",
+  "end": 1794814489
+}

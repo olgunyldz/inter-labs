@@ -1,0 +1,1 @@
+"NetworkPolicy etiket bazlıdır: shop.role=gateway etiketini taşıyan farklı kimlikli bir pod order'a erişebildi (HTTP 200). Kimlik bazlı kural için mesh yetki politikası gerekir (S03)."

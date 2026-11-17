@@ -1,0 +1,11 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794783119,
+  "end": 1794783120,
+  "duration_s": 1,
+  "na_reason": "cluster'dan internete erişim yok (example.com) — test yapılamaz",
+  "checks": [],
+  "metrics": [],
+  "findings": []
+}

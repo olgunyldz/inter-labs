@@ -1,0 +1,4 @@
+{"name":"ağırlıklı: v2 payı >= 0.05","expected":">= 0.05","actual":"0.098","pass":true}
+{"name":"ağırlıklı: v2 payı <= 0.15","expected":"<= 0.15","actual":"0.098","pass":true}
+{"name":"başlık bazlı: tüm istekler v2","expected":"1.000","actual":"1.000","pass":true}
+{"name":"yansıtma: cevaplar v1","expected":"0.000","actual":"0.000","pass":true}

@@ -1,0 +1,13 @@
+    cert_ttl_h = 24 saat
+  [32m[ok][0m sertifika kurumsal ara CA'dan (AKI = ara CA SKI) (=87E96D70C147FA95E075E4DCA0190BA24447E6CC)
+  [32m[ok][0m sertifika ömrü (saat) (24 <= 24)
+  [32m[ok][0m kimlik (SAN) (=var)
+
+[1;34m==> Yük altında ara CA rotasyonu[0m
+  [33m[!][0m BULGU: linkerd: yeni ara CA otomatik yüklenmedi; kontrol düzleminin yeniden başlatılması gerekti.
+    rotation.needed_restart = 1 bool
+  [32m[ok][0m rotasyon: yeni pod yeni ara CA'dan sertifika aldı (=39073A24614C5AE10E0DC710D4C40308E671291E)
+  [32m[ok][0m rotasyon: eski ve yeni sertifikalı pod'lar konuşuyor (zincir) (=ok)
+    rotation.error_rate = 0.00035 oran
+    rotation.p99_ms = 22.51285365999996 ms
+  [32m[ok][0m rotasyon sırasında hata oranı (0.00035 <= 0.01)

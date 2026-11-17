@@ -1,0 +1,8 @@
+{"name":"zincir çalışıyor (gateway GET / -> order)","expected":"ok","actual":"ok","pass":true}
+{"name":"tüm shop pod'ları sağlıklı","expected":"ok","actual":"ok","pass":true}
+{"name":"gateway: GET / [200]","expected":"izin","actual":"izin","pass":true}
+{"name":"gateway: GET /api/orders [200]","expected":"izin","actual":"izin","pass":true}
+{"name":"gateway: GET /admin [404]","expected":"ret","actual":"ret","pass":true}
+{"name":"gateway: POST / [404]","expected":"ret","actual":"ret","pass":true}
+{"name":"gateway: DELETE /api/x [404]","expected":"ret","actual":"ret","pass":true}
+{"name":"rogue: GET / [403]","expected":"ret","actual":"ret","pass":true}

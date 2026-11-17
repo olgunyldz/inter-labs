@@ -1,0 +1,45 @@
+{
+  "status": "fail",
+  "exit_code": 0,
+  "start": 1794825656,
+  "end": 1794825669,
+  "duration_s": 13,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "mesh dışından düz HTTP -> order [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "kontrol: yakalama çalışıyor (düz metin kontrol işareti görüldü)",
+      "expected": ">= 1",
+      "actual": "4",
+      "pass": true
+    },
+    {
+      "name": "ağ üzerinde trafik şifreli",
+      "expected": "evet",
+      "actual": "hayır",
+      "pass": false
+    }
+  ],
+  "metrics": [
+    {
+      "key": "marker_packets",
+      "value": 40,
+      "unit": "paket",
+      "desc": "mesh içi isteğin işaretinin ağda görüldüğü paket sayısı (0 = şifreli)"
+    },
+    {
+      "key": "control_packets",
+      "value": 4,
+      "unit": "paket",
+      "desc": "kontrol: mesh dışı düz isteğin işareti (>0 olmalı)"
+    }
+  ],
+  "findings": [
+    "Servisler arası trafik ağda düz metin: başlıklar ve gövde node üzerinde okunabiliyor (40 paket)."
+  ]
+}

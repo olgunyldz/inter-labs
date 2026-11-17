@@ -1,0 +1,11 @@
+    probes_ok_without_fix = 0 bool
+  [33m[!][0m BULGU: linkerd: endpoint kuralı tek başına kubelet sağlık kontrollerini (/ready) engelledi; order pod'ları NotReady oldu. Probe yolları için ek kural gerekiyor (policies/linkerd-probes.yaml).
+  [32m[ok][0m zincir çalışıyor (gateway GET / -> order) (=ok)
+  [32m[ok][0m tüm shop pod'ları sağlıklı (=ok)
+  [32m[ok][0m gateway: GET / [200] (=izin)
+  [32m[ok][0m gateway: GET /api/orders [200] (=izin)
+  [32m[ok][0m gateway: GET /admin [404] (=ret)
+  [32m[ok][0m gateway: POST / [404] (=ret)
+  [32m[ok][0m gateway: DELETE /api/x [404] (=ret)
+  [32m[ok][0m rogue: GET / [403] (=ret)
+    deny_http_code = 404 kod

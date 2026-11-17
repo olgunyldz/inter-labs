@@ -1,0 +1,108 @@
+{
+  "status": "fail",
+  "exit_code": 0,
+  "start": 1794850638,
+  "end": 1794850686,
+  "duration_s": 48,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "zincir çalışıyor (8 servis)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "uçtan uca erişim (edge -> ingress -> gateway)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "tüm shop pod'ları sağlıklı",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "gateway rolü -> order [200]",
+      "expected": "izin",
+      "actual": "izin",
+      "pass": true
+    },
+    {
+      "name": "yetkisiz pod -> order [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "yetkisiz pod -> catalog [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "başka namespace -> order [000]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "yatay geçiş: gateway -> catalog [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "ortak kimlik üzerinden NetworkPolicy atlatılamıyor (20 deneme)",
+      "expected": "0",
+      "actual": "20",
+      "pass": false
+    }
+  ],
+  "metrics": [
+    {
+      "key": "naive.chain_ok",
+      "value": 1,
+      "unit": "bool",
+      "desc": "standart kurallarla zincir çalışıyor"
+    },
+    {
+      "key": "naive.e2e_ok",
+      "value": 1,
+      "unit": "bool",
+      "desc": ""
+    },
+    {
+      "key": "naive.pods_ready",
+      "value": 1,
+      "unit": "bool",
+      "desc": "standart kurallarla pod'lar sağlıklı (probe'lar geçiyor)"
+    },
+    {
+      "key": "mesh_specific_rules",
+      "value": 3,
+      "unit": "adet",
+      "desc": "mesh için gereken ek NetworkPolicy"
+    },
+    {
+      "key": "impostor_access",
+      "value": 1,
+      "unit": "bool",
+      "desc": "etiketi taklit eden pod order'a erişebildi mi"
+    },
+    {
+      "key": "shared_identity_bypass",
+      "value": 20,
+      "unit": "/20",
+      "desc": "aynı SA'yı paylaşan izinli pod bağlıyken yetkisiz pod'un geçen isteği"
+    }
+  ],
+  "findings": [
+    "istio-ambient-l7: servisler arası tüm trafik waypoint üzerinden geldiği için hedef pod'daki NetworkPolicy yalnızca waypoint'i kaynak olarak görür; waypoint'e izin vermek zorunlu olduğundan çağıran bazlı NetworkPolicy kuralları (ör. yalnızca gateway -> order) etkisiz kalır. Bu profilde servisler arası erişim kontrolü yalnızca mesh yetki politikasıyla (S03) yapılabilir.",
+    "istio-ambient-l7: NetworkPolicy order'a yalnızca gateway rolüne izin verdiği halde yetkisiz pod (rogue) order'a erişebildi (HTTP 200). Mesh proxy'si başka iş yüklerinin açtığı bağlantıları paylaştığında NetworkPolicy bağlantının gerçek kaynağını göremiyor; davranış aralıklı.",
+    "NetworkPolicy etiket bazlıdır: shop.role=gateway etiketini taşıyan farklı kimlikli bir pod order'a erişebildi (HTTP 200). Kimlik bazlı kural için mesh yetki politikası gerekir (S03).",
+    "istio-ambient-l7: yetkisiz pod (rogue), NetworkPolicy'nin izin verdiği ve aynı ServiceAccount'u paylaşan başka bir pod order'a bağlıyken 20 isteğin 20 tanesinde kuralı aştı. Mesh proxy'si aynı kimliğin trafiğini ortak bağlantı üzerinden taşıyor; NetworkPolicy yalnızca bağlantının kaynağını (IP) görüyor. Bu mesh'te NetworkPolicy tek başına güvenilir bir sınır değil; kimlik bazlı mesh kuralı (S03) gerekir."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "status": "error",
+  "exit_code": 1,
+  "start": 1794789923,
+  "end": 1794789944,
+  "duration_s": 21,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "sertifika kurumsal ara CA'dan (AKI = ara CA SKI)",
+      "expected": "87E96D70C147FA95E075E4DCA0190BA24447E6CC",
+      "actual": "87E96D70C147FA95E075E4DCA0190BA24447E6CC",
+      "pass": true
+    },
+    {
+      "name": "sertifika ömrü (saat)",
+      "expected": "<= 24",
+      "actual": "24",
+      "pass": true
+    },
+    {
+      "name": "kimlik (SAN)",
+      "expected": "var",
+      "actual": "var",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "cert_ttl_h",
+      "value": 24,
+      "unit": "saat",
+      "desc": "iş yükü sertifikası geçerlilik süresi"
+    }
+  ],
+  "findings": []
+}

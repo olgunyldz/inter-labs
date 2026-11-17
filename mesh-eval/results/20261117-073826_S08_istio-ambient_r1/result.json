@@ -1,0 +1,82 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794890306,
+  "end": 1794890476,
+  "duration_s": 170,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "sertifika kurumsal ara CA'dan (AKI = ara CA SKI)",
+      "expected": "DC731C17126A99789DC15B3F18A8CB4DF1F14EAD",
+      "actual": "DC731C17126A99789DC15B3F18A8CB4DF1F14EAD",
+      "pass": true
+    },
+    {
+      "name": "sertifika ömrü (saat)",
+      "expected": "<= 24",
+      "actual": "24",
+      "pass": true
+    },
+    {
+      "name": "kimlik (SAN)",
+      "expected": "var",
+      "actual": "var",
+      "pass": true
+    },
+    {
+      "name": "rotasyon: yeni pod yeni ara CA'dan sertifika aldı",
+      "expected": "A9DA0D58EC3891B63E7DFE89DC70F1AADE0DA284",
+      "actual": "A9DA0D58EC3891B63E7DFE89DC70F1AADE0DA284",
+      "pass": true
+    },
+    {
+      "name": "rotasyon: eski ve yeni sertifikalı pod'lar konuşuyor (zincir)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "rotasyon sırasında hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0.0002500234396974716",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "cert_ttl_h",
+      "value": 24,
+      "unit": "saat",
+      "desc": "iş yükü sertifikası geçerlilik süresi"
+    },
+    {
+      "key": "rotation.needed_restart",
+      "value": 1,
+      "unit": "bool",
+      "desc": "yeni CA için kontrol düzlemi yeniden başlatıldı mı"
+    },
+    {
+      "key": "rotation.ztunnel_restart",
+      "value": 1,
+      "unit": "bool",
+      "desc": "yeni CA için ztunnel yeniden başlatıldı mı (ambient)"
+    },
+    {
+      "key": "rotation.error_rate",
+      "value": 0.0002500234396974716,
+      "unit": "oran",
+      "desc": "rotasyon sırasında hata oranı"
+    },
+    {
+      "key": "rotation.p99_ms",
+      "value": 18.12655816000002,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": [
+    "istio-ambient: yeni ara CA otomatik yüklenmedi; kontrol düzleminin yeniden başlatılması gerekti.",
+    "istio-ambient: CA rotasyonunda yeni pod bile eski ara CA'nın sertifikasını kullandı (ztunnel kimlik başına önbellekte tutuyor). Yeni CA'nın devreye girmesi için ztunnel DaemonSet'inin yeniden başlatılması gerekti; bu sırada node'daki tüm pod'ların trafiği etkilenir."
+  ]
+}

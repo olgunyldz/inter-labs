@@ -1,0 +1,69 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794882169,
+  "end": 1794882223,
+  "duration_s": 54,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "ağırlıklı: v2 payı >= 0.05",
+      "expected": ">= 0.05",
+      "actual": "0.098",
+      "pass": true
+    },
+    {
+      "name": "ağırlıklı: v2 payı <= 0.15",
+      "expected": "<= 0.15",
+      "actual": "0.098",
+      "pass": true
+    },
+    {
+      "name": "başlık bazlı: tüm istekler v2",
+      "expected": "1.000",
+      "actual": "1.000",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "baseline.v2_share",
+      "value": 0.367,
+      "unit": "oran",
+      "desc": "kural yokken v2 payı (3 replikadan 1'i -> ~0.33)"
+    },
+    {
+      "key": "weighted.v2_share",
+      "value": 0.098,
+      "unit": "oran",
+      "desc": "hedef 0.10"
+    },
+    {
+      "key": "header.v2_share",
+      "value": 1.000,
+      "unit": "oran",
+      "desc": "hedef 1.00"
+    },
+    {
+      "key": "mirror.v2_share_in_responses",
+      "value": 0.098,
+      "unit": "oran",
+      "desc": "yansıtmada cevapların v2 payı (0 olmalı)"
+    },
+    {
+      "key": "mirror.v2_received",
+      "value": 0,
+      "unit": "istek",
+      "desc": "yansıtma süresince v2'ye ulaşan istek"
+    },
+    {
+      "key": "mirror.supported",
+      "value": 0,
+      "unit": "bool",
+      "desc": ""
+    }
+  ],
+  "findings": [
+    "linkerd: trafik yansıtma (RequestMirror) çalışmadı: v2'ye 0 istek ulaştı (beklenen ~400). Route durumu: Accepted=True:Accepted ResolvedRefs=True:ResolvedRefs"
+  ]
+}

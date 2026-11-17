@@ -1,0 +1,45 @@
+{
+  "test": {
+    "id": "S01",
+    "name": "mTLS zorunluluğu ve hat üzerinde şifreleme",
+    "category": "güvenlik",
+    "purpose": "Servisler arası trafiğin (1) mesh dışından şifresiz erişime kapalı olduğunu ve (2) ağ üzerinde gerçekten şifreli aktığını kanıtlamak. PCI DSS segmentasyon ve \"iletimde şifreleme\" kanıtı.\n",
+    "method": "(1) Mesh dışı bir namespace'teki pod order servisine düz HTTP ile bağlanmayı dener. (2) Servis node'unda host ağında çalışan tcpdump, probe-gateway -> order isteklerine eklenen benzersiz bir işaret metnini (X-Meval-Marker başlığı) ağ paketlerinde arar. İşaret görünüyorsa trafik şifresizdir.\n",
+    "components": [
+      "tcpdump (netshoot",
+      "hostNetwork)",
+      "mesh proxy'leri",
+      "PeerAuthentication / default-inbound-policy"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "plaintext_from_outside",
+      "marker_packets"
+    ],
+    "pass_criteria": "Mesh dışı düz erişim reddedilir ve işaret metni ağda görünmez"
+  },
+  "mesh": "istio-sidecar",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-223531-2939011",
+  "repeat": 3,
+  "start": 1794866943,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "4b7a9dd",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794866954
+}

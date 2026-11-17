@@ -1,0 +1,47 @@
+    from_version = 0 -
+    to_version = 0 -
+
+[1;34m==> Hazırlık: istio-ambient-l7 1.30.8 sürümüyle yeniden kuruluyor[0m
+
+[1;34m==> Mevcut mesh bileşenleri kaldırılıyor[0m
+  [32m[ok][0m temizlendi
+
+[1;34m==> Istio 1.30.8 kuruluyor (ambient)[0m
+  [32m[ok][0m Gateway API CRD'leri v1.6.1
+  [32m[ok][0m plug-in CA (cacerts) yüklendi
+  [32m[ok][0m istiod
+I1116 22:19:37.820856 1415121 warnings.go:107] "Warning: spec.template.metadata.annotations[container.apparmor.security.beta.kubernetes.io/install-cni]: deprecated since v1.30; use the \"appArmorProfile\" field instead"
+  [32m[ok][0m istio-cni
+  [32m[ok][0m ztunnel
+
+[1;34m==> Uygulama mesh'e alınıyor: istio-ambient-l7[0m
+  [32m[ok][0m PeerAuthentication STRICT (shop)
+  [32m[ok][0m ingress-nginx (cluster-a) yeniden yapılandırıldı
+  [32m[ok][0m shop: 19 pod çalışıyor
+  [32m[ok][0m waypoint (shop) -> tüm servisler L7 üzerinden
+  [32m[ok][0m eski sürüm hazır (1.30.8)
+
+[1;34m==> Güncelleme: 1.30.8 -> 1.31.4[0m
+
+[1;34m==> adım 1: istio-base[0m
+
+[1;34m==> adım 2: istiod[0m
+
+[1;34m==> adım 3: istio-cni[0m
+I1116 22:20:46.770414 1427761 warnings.go:107] "Warning: spec.template.metadata.annotations[container.apparmor.security.beta.kubernetes.io/install-cni]: deprecated since v1.30; use the \"appArmorProfile\" field instead"
+
+[1;34m==> adım 4: ztunnel (DaemonSet, node node)[0m
+
+[1;34m==> adım 5: waypoint (istiod tarafından güncellenir, hazır olması beklenir)[0m
+    upgrade_duration_s = 87 sn
+    steps = 5 adım
+    restarted_pods = 1 adet
+  [32m[ok][0m veri düzlemi yeni sürümde (=1.31.4)
+
+[1;34m==> k6 bitişi bekleniyor[0m
+    failed_requests = 2 istek
+    error_rate = 0.000022223456858714373 oran
+    p99_ms = 21.10678052 ms
+    max_ms = 136.926211 ms
+  [32m[ok][0m güncelleme sırasında hata oranı (0.000022223456858714373 <= 0.01)
+  [32m[ok][0m güncelleme sonrası zincir çalışıyor (=ok)

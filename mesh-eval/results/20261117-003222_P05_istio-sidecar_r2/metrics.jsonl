@@ -1,0 +1,66 @@
+{"key":"rate_rps","value":250,"unit":"RPS","desc":""}
+{"key":"idle.app.cpu_cores","value":0.0019171433411538875,"unit":"çekirdek","desc":"app ortalama CPU"}
+{"key":"idle.app.mem_mib","value":166.5,"unit":"MiB","desc":"app ortalama bellek"}
+{"key":"idle.app.containers","value":16,"unit":"adet","desc":"app konteyner sayısı"}
+{"key":"idle.sidecar.cpu_cores","value":0.05484944319496098,"unit":"çekirdek","desc":"sidecar ortalama CPU"}
+{"key":"idle.sidecar.mem_mib","value":1798.8,"unit":"MiB","desc":"sidecar ortalama bellek"}
+{"key":"idle.sidecar.containers","value":19,"unit":"adet","desc":"sidecar konteyner sayısı"}
+{"key":"idle.control.cpu_cores","value":0.002014076375015858,"unit":"çekirdek","desc":"control ortalama CPU"}
+{"key":"idle.control.mem_mib","value":73.1,"unit":"MiB","desc":"control ortalama bellek"}
+{"key":"idle.control.containers","value":1,"unit":"adet","desc":"control konteyner sayısı"}
+{"key":"idle.ingress.cpu_cores","value":0.003304612044167437,"unit":"çekirdek","desc":"ingress ortalama CPU"}
+{"key":"idle.ingress.mem_mib","value":111.7,"unit":"MiB","desc":"ingress ortalama bellek"}
+{"key":"idle.ingress.containers","value":2,"unit":"adet","desc":"ingress konteyner sayısı"}
+{"key":"idle.node_app.cpu_cores","value":0.12684710921196607,"unit":"çekirdek","desc":"node_app ortalama CPU"}
+{"key":"idle.node_app.mem_mib","value":2431.1,"unit":"MiB","desc":"node_app ortalama bellek"}
+{"key":"idle.node_app.containers","value":1,"unit":"adet","desc":"node_app konteyner sayısı"}
+{"key":"idle.node_loadgen.cpu_cores","value":0.015895125674716685,"unit":"çekirdek","desc":"node_loadgen ortalama CPU"}
+{"key":"idle.node_loadgen.mem_mib","value":164.0,"unit":"MiB","desc":"node_loadgen ortalama bellek"}
+{"key":"idle.node_loadgen.containers","value":1,"unit":"adet","desc":"node_loadgen konteyner sayısı"}
+{"key":"idle.node_control.cpu_cores","value":0.2025336946865078,"unit":"çekirdek","desc":"node_control ortalama CPU"}
+{"key":"idle.node_control.mem_mib","value":1676.7,"unit":"MiB","desc":"node_control ortalama bellek"}
+{"key":"idle.node_control.containers","value":1,"unit":"adet","desc":"node_control konteyner sayısı"}
+{"key":"load.app.cpu_cores","value":0.9593338453081334,"unit":"çekirdek","desc":"app ortalama CPU"}
+{"key":"load.app.mem_mib","value":173.0,"unit":"MiB","desc":"app ortalama bellek"}
+{"key":"load.app.containers","value":16,"unit":"adet","desc":"app konteyner sayısı"}
+{"key":"load.sidecar.cpu_cores","value":1.8012253150202882,"unit":"çekirdek","desc":"sidecar ortalama CPU"}
+{"key":"load.sidecar.mem_mib","value":1779.4,"unit":"MiB","desc":"sidecar ortalama bellek"}
+{"key":"load.sidecar.containers","value":19,"unit":"adet","desc":"sidecar konteyner sayısı"}
+{"key":"load.control.cpu_cores","value":0.0032383494559558115,"unit":"çekirdek","desc":"control ortalama CPU"}
+{"key":"load.control.mem_mib","value":74.4,"unit":"MiB","desc":"control ortalama bellek"}
+{"key":"load.control.containers","value":1,"unit":"adet","desc":"control konteyner sayısı"}
+{"key":"load.ingress.cpu_cores","value":0.004760281309089694,"unit":"çekirdek","desc":"ingress ortalama CPU"}
+{"key":"load.ingress.mem_mib","value":113.1,"unit":"MiB","desc":"ingress ortalama bellek"}
+{"key":"load.ingress.containers","value":2,"unit":"adet","desc":"ingress konteyner sayısı"}
+{"key":"load.loadgen.cpu_cores","value":0.2608904324789438,"unit":"çekirdek","desc":"loadgen ortalama CPU"}
+{"key":"load.loadgen.mem_mib","value":75.9,"unit":"MiB","desc":"loadgen ortalama bellek"}
+{"key":"load.loadgen.containers","value":1,"unit":"adet","desc":"loadgen konteyner sayısı"}
+{"key":"load.node_app.cpu_cores","value":2.918029330457212,"unit":"çekirdek","desc":"node_app ortalama CPU"}
+{"key":"load.node_app.mem_mib","value":2414.8,"unit":"MiB","desc":"node_app ortalama bellek"}
+{"key":"load.node_app.containers","value":1,"unit":"adet","desc":"node_app konteyner sayısı"}
+{"key":"load.node_loadgen.cpu_cores","value":0.29301549787319026,"unit":"çekirdek","desc":"node_loadgen ortalama CPU"}
+{"key":"load.node_loadgen.mem_mib","value":247.1,"unit":"MiB","desc":"node_loadgen ortalama bellek"}
+{"key":"load.node_loadgen.containers","value":1,"unit":"adet","desc":"node_loadgen konteyner sayısı"}
+{"key":"load.node_control.cpu_cores","value":0.32928003790699245,"unit":"çekirdek","desc":"node_control ortalama CPU"}
+{"key":"load.node_control.mem_mib","value":1740.1,"unit":"MiB","desc":"node_control ortalama bellek"}
+{"key":"load.node_control.containers","value":1,"unit":"adet","desc":"node_control konteyner sayısı"}
+{"key":"load.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"load.p50_ms","value":17.753102,"unit":"ms","desc":""}
+{"key":"load.p99_ms","value":60.43386095999988,"unit":"ms","desc":""}
+{"key":"load.rps","value":250.0,"unit":"RPS","desc":""}
+{"key":"req.app.cpu_cores","value":0.8,"unit":"çekirdek","desc":"ayrılan CPU (requests)"}
+{"key":"req.app.mem_mib","value":512.0,"unit":"MiB","desc":"ayrılan bellek (requests)"}
+{"key":"req.app.containers","value":16,"unit":"adet","desc":"çalışan pod'lardaki konteyner (requests paydası)"}
+{"key":"req.sidecar.cpu_cores","value":1.9000000000000001,"unit":"çekirdek","desc":"ayrılan CPU (requests)"}
+{"key":"req.sidecar.mem_mib","value":2432.0,"unit":"MiB","desc":"ayrılan bellek (requests)"}
+{"key":"req.sidecar.containers","value":19,"unit":"adet","desc":"çalışan pod'lardaki konteyner (requests paydası)"}
+{"key":"req.control.cpu_cores","value":0.5,"unit":"çekirdek","desc":"ayrılan CPU (requests)"}
+{"key":"req.control.mem_mib","value":2048.0,"unit":"MiB","desc":"ayrılan bellek (requests)"}
+{"key":"req.control.containers","value":1,"unit":"adet","desc":"çalışan pod'lardaki konteyner (requests paydası)"}
+{"key":"shop_pods","value":19,"unit":"adet","desc":"boşta penceresinde yaşayan shop pod'u (cAdvisor, bellek paydası)"}
+{"key":"shop_pods_running","value":19,"unit":"adet","desc":"çalışan shop pod'u (requests paydası)"}
+{"key":"dataplane.cpu_cores","value":1.80123,"unit":"çekirdek","desc":"yük altında veri düzlemi CPU"}
+{"key":"dataplane.cpu_per_1k_rps","value":7.2049,"unit":"çekirdek","desc":"1000 RPS (giriş) başına veri düzlemi CPU"}
+{"key":"dataplane.mem_idle_mib","value":1798.8,"unit":"MiB","desc":"boşta veri düzlemi belleği"}
+{"key":"dataplane.mem_per_pod_mib","value":94.67,"unit":"MiB","desc":"uygulama pod'u başına veri düzlemi belleği (boşta)"}
+{"key":"node_overhead_cores","value":0.157,"unit":"çekirdek","desc":"servis node'unda app+proxy dışı CPU (kernel ağ, kubelet...)"}

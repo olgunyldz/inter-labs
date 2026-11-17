@@ -1,0 +1,50 @@
+{
+  "test": {
+    "id": "P03",
+    "name": "Ani yük (spike) — dayanım ve toparlanma",
+    "category": "performans",
+    "purpose": "Ani trafik sıçramasında hata oranını ve sistemin normale dönme süresini ölçmek.",
+    "method": "Üç aşama: düşük yük (100 RPS) -> ani sıçrama -> tekrar düşük yük. Sıçrama ve sonrası p99/hata ölçülür; toparlanma süresi, sıçrama bittikten sonra p99'un tekrar ilk aşamanın 2 katının altına indiği ana kadar geçen süredir (k6 canlı metrikleri, 5 sn çözünürlük).\n",
+    "components": [
+      "k6",
+      "fake-service zinciri",
+      "Prometheus"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "profiles": {
+      "quick": "100 -> 700 (20 sn) -> 100 RPS",
+      "full": "100 -> 1200 (30 sn) -> 100 RPS"
+    },
+    "outputs": [
+      "before.p99_ms",
+      "spike.p99_ms",
+      "spike.error_rate",
+      "after.p99_ms",
+      "recovery_s"
+    ],
+    "pass_criteria": "Sıçrama sonrası aşamada hata oranı < %1"
+  },
+  "mesh": "linkerd",
+  "profile": "quick",
+  "session": "adhoc-20261116",
+  "repeat": 1,
+  "start": 1794782693,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "d77427e",
+    "uncommitted_files": 4
+  },
+  "status": "pass",
+  "end": 1794782835
+}

@@ -1,0 +1,29 @@
+
+[1;34m==> Yayılma süresi (mevcut ölçek)[0m
+    base.deny_s = 1.14 sn
+    base.allow_s = 0.12 sn
+  [32m[ok][0m base: yürürlüğe girme süresi (1.14 <= 30)
+
+[1;34m==> Ölçek: 120 ek servis[0m
+Warning: Detected changes to resource shop-scale which is currently being deleted.
+Error from server (Forbidden): error when creating "STDIN": services "svc-100" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-101" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-102" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-103" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-104" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-105" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-106" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-107" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-108" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-109" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-110" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-111" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-112" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-113" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-114" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-115" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-116" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-117" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-118" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-119" is forbidden: unable to create new content in namespace shop-scale because it is being terminated
+Error from server (Forbidden): error when creating "STDIN": services "svc-120" is forbidden: unable to create new content in namespace shop-scale because it is being terminated

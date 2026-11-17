@@ -1,0 +1,1 @@
+  [33m[!][0m uygulanamaz: fault injection L7 proxy gerektirir; ambient L4 (waypoint'siz) profilde yok

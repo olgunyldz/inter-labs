@@ -1,0 +1,15 @@
+    services_l7_metrics = 8 /8
+    services_l4_metrics = 0 /8
+  [32m[ok][0m tüm servisler için en az L4 metrik (8 >= 8)
+    mesh_p99_ms = 1586.8395278818236 ms
+    k6_p99_ms = 1850.7185417199998 ms
+    latency_accuracy_ratio = 0.86 kat
+
+[1;34m==> Dağıtık izleme (geçici olarak açılıyor)[0m
+    trace.spans = 31 span
+    trace.services = 17 adet
+    trace.mesh_spans = 9 adet
+  [32m[ok][0m trace Tempo'da bulundu (=var)
+
+[1;34m==> Erişim logu[0m
+    access_log = 1 bool

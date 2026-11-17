@@ -1,0 +1,37 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794867413,
+  "end": 1794867429,
+  "duration_s": 16,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "izinli dış hedef (allowed.ext.test)",
+      "expected": "açık",
+      "actual": "açık",
+      "pass": true
+    },
+    {
+      "name": "izinsiz dış hedef (denied.ext.test)",
+      "expected": "kapalı",
+      "actual": "kapalı",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "allowed_http_code",
+      "value": 200,
+      "unit": "kod",
+      "desc": ""
+    },
+    {
+      "key": "denied_http_code",
+      "value": 0,
+      "unit": "kod",
+      "desc": ""
+    }
+  ],
+  "findings": []
+}

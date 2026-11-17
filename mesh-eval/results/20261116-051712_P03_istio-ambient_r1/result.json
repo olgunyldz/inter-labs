@@ -1,0 +1,109 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794795432,
+  "end": 1794795574,
+  "duration_s": 142,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "sıçrama sonrası hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "spike_rps",
+      "value": 700,
+      "unit": "RPS",
+      "desc": ""
+    },
+    {
+      "key": "spike_duration_s",
+      "value": 20,
+      "unit": "sn",
+      "desc": ""
+    },
+    {
+      "key": "before.p50_ms",
+      "value": 11.001424,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "before.p99_ms",
+      "value": 18.034224,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "before.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "before.dropped",
+      "value": 0,
+      "unit": "istek",
+      "desc": ""
+    },
+    {
+      "key": "spike.p50_ms",
+      "value": 10.900089,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "spike.p99_ms",
+      "value": 18.12482230000001,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "spike.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "spike.dropped",
+      "value": 0,
+      "unit": "istek",
+      "desc": ""
+    },
+    {
+      "key": "after.p50_ms",
+      "value": 10.852729,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "after.p99_ms",
+      "value": 17.580536,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "after.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "after.dropped",
+      "value": 0,
+      "unit": "istek",
+      "desc": ""
+    },
+    {
+      "key": "recovery_s",
+      "value": 5,
+      "unit": "sn",
+      "desc": "sıçrama bitiminden p99 <= 2x taban'a dönüşe kadar"
+    }
+  ],
+  "findings": []
+}

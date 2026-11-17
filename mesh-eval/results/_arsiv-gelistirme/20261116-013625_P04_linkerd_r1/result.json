@@ -1,0 +1,85 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794782185,
+  "end": 1794782254,
+  "duration_s": 69,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "ilk aşama hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "stage0.target_rps",
+      "value": 100,
+      "unit": "RPS",
+      "desc": ""
+    },
+    {
+      "key": "stage0.p50_ms",
+      "value": 6.151653,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage0.p95_ms",
+      "value": 9.356564399999998,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage0.p99_ms",
+      "value": 11.16035912999998,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage0.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "stage1.target_rps",
+      "value": 250,
+      "unit": "RPS",
+      "desc": ""
+    },
+    {
+      "key": "stage1.p50_ms",
+      "value": 6.861718,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage1.p95_ms",
+      "value": 12.321731,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage1.p99_ms",
+      "value": 22.003076,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "stage1.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "tls_handshake_p50_ms",
+      "value": 0,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": []
+}

@@ -1,0 +1,12 @@
+
+[1;34m==> A) yavaş bağımlılık: pricing isteklerinin %20'si 1 sn[0m
+    A.none.p50_ms = 11.855955999999999 ms
+    A.none.p99_ms = 1014.78178473 ms
+    A.none.error_rate = 0 oran
+
+[1;34m==> B) hatalı replika: 2 sağlam + 1 sürekli 503[0m
+    B.none.p50_ms = 10.094064 ms
+    B.none.p99_ms = 17.272167 ms
+    B.none.error_rate = 0.9993334073991779 oran
+  [33m[!][0m BULGU: istio-ambient: 3 replikadan 1'i sürekli hata verirken uçtan uca hata oranı %100 (replika oranına göre beklenen ~%33). Hızlı hata dönen replika yük dengeleyici tarafından tercih ediliyor; outlier detection / failure accrual olmadan hatalı pod trafiği çeker.
+  [33m[!][0m uygulanamaz: timeout/retry/outlier detection için L7 proxy gerekir (istio-ambient); politikasız ölçümler kaydedildi

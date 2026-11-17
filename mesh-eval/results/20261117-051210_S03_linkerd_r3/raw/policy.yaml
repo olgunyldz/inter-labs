@@ -1,0 +1,180 @@
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: gateway, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: gateway } }
+  port: http
+  proxyProtocol: HTTP/1
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: gateway-clients, namespace: shop }
+spec: { identities: ["k6.loadgen.serviceaccount.identity.linkerd.cluster.local","ingress-nginx.ingress-nginx.serviceaccount.identity.linkerd.cluster.local","gateway.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: gateway-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: gateway }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: gateway-clients }]
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: order, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: order } }
+  port: http
+  proxyProtocol: HTTP/1
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: order-clients, namespace: shop }
+spec: { identities: ["gateway.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: order-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: order }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: order-clients }]
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: inventory, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: inventory } }
+  port: http
+  proxyProtocol: HTTP/1
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: inventory-clients, namespace: shop }
+spec: { identities: ["order.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: inventory-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: inventory }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: inventory-clients }]
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: payment, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: payment } }
+  port: http
+  proxyProtocol: HTTP/1
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: payment-clients, namespace: shop }
+spec: { identities: ["order.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: payment-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: payment }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: payment-clients }]
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: pricing, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: pricing } }
+  port: http
+  proxyProtocol: HTTP/1
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: pricing-clients, namespace: shop }
+spec: { identities: ["inventory.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: pricing-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: pricing }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: pricing-clients }]
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: catalog, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: catalog } }
+  port: http
+  proxyProtocol: HTTP/1
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: catalog-clients, namespace: shop }
+spec: { identities: ["pricing.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: catalog-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: catalog }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: catalog-clients }]
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: fraud, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: fraud } }
+  port: grpc
+  proxyProtocol: gRPC
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: fraud-clients, namespace: shop }
+spec: { identities: ["payment.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: fraud-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: fraud }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: fraud-clients }]
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: ledger, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: ledger } }
+  port: http
+  proxyProtocol: HTTP/1
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: ledger-clients, namespace: shop }
+spec: { identities: ["fraud.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: ledger-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: ledger }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: ledger-clients }]
+---
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata: { name: banner, namespace: shop }
+spec:
+  podSelector: { matchLabels: { app: banner } }
+  port: tcp-banner
+  proxyProtocol: opaque
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata: { name: banner-clients, namespace: shop }
+spec: { identities: ["gateway.shop.serviceaccount.identity.linkerd.cluster.local"] }
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata: { name: banner-authz, namespace: shop }
+spec:
+  targetRef: { group: policy.linkerd.io, kind: Server, name: banner }
+  requiredAuthenticationRefs: [{ group: policy.linkerd.io, kind: MeshTLSAuthentication, name: banner-clients }]

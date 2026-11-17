@@ -1,0 +1,186 @@
+{"key":"stages","value":4,"unit":"adet","desc":"aşama sayısı"}
+{"key":"stage_duration_s","value":30,"unit":"sn","desc":""}
+{"key":"stage0.target_rps","value":100,"unit":"RPS","desc":""}
+{"key":"stage0.rps","value":100.0,"unit":"RPS","desc":"gerçekleşen"}
+{"key":"stage0.p50_ms","value":13.805532,"unit":"ms","desc":""}
+{"key":"stage0.p95_ms","value":19.039804,"unit":"ms","desc":""}
+{"key":"stage0.p99_ms","value":23.40143,"unit":"ms","desc":""}
+{"key":"stage0.p999_ms","value":87.18781300000006,"unit":"ms","desc":""}
+{"key":"stage0.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"stage0.dropped","value":0,"unit":"istek","desc":""}
+{"key":"stage0.start","value":1794810565,"unit":"unix","desc":""}
+{"key":"stage0.end","value":1794810595,"unit":"unix","desc":""}
+{"key":"stage0.app.cpu_cores","value":0.23026240507954088,"unit":"çekirdek","desc":"app ortalama CPU"}
+{"key":"stage0.app.mem_mib","value":115.4,"unit":"MiB","desc":"app ortalama bellek"}
+{"key":"stage0.app.containers","value":47,"unit":"adet","desc":"app konteyner sayısı"}
+{"key":"stage0.sidecar.cpu_cores","value":0,"unit":"çekirdek","desc":"sidecar ortalama CPU"}
+{"key":"stage0.sidecar.mem_mib","value":43.4,"unit":"MiB","desc":"sidecar ortalama bellek"}
+{"key":"stage0.sidecar.containers","value":2,"unit":"adet","desc":"sidecar konteyner sayısı"}
+{"key":"stage0.ztunnel.cpu_cores","value":0.02339093635454848,"unit":"çekirdek","desc":"ztunnel ortalama CPU"}
+{"key":"stage0.ztunnel.mem_mib","value":25.0,"unit":"MiB","desc":"ztunnel ortalama bellek"}
+{"key":"stage0.ztunnel.containers","value":6,"unit":"adet","desc":"ztunnel konteyner sayısı"}
+{"key":"stage0.waypoint.cpu_cores","value":0,"unit":"çekirdek","desc":"waypoint ortalama CPU"}
+{"key":"stage0.waypoint.mem_mib","value":43.4,"unit":"MiB","desc":"waypoint ortalama bellek"}
+{"key":"stage0.waypoint.containers","value":2,"unit":"adet","desc":"waypoint konteyner sayısı"}
+{"key":"stage0.cni.cpu_cores","value":0.0008066602899016245,"unit":"çekirdek","desc":"cni ortalama CPU"}
+{"key":"stage0.cni.mem_mib","value":70.3,"unit":"MiB","desc":"cni ortalama bellek"}
+{"key":"stage0.cni.containers","value":6,"unit":"adet","desc":"cni konteyner sayısı"}
+{"key":"stage0.control.cpu_cores","value":0.0021806350504224585,"unit":"çekirdek","desc":"control ortalama CPU"}
+{"key":"stage0.control.mem_mib","value":59.6,"unit":"MiB","desc":"control ortalama bellek"}
+{"key":"stage0.control.containers","value":2,"unit":"adet","desc":"control konteyner sayısı"}
+{"key":"stage0.ingress.cpu_cores","value":0,"unit":"çekirdek","desc":"ingress ortalama CPU"}
+{"key":"stage0.ingress.mem_mib","value":142.9,"unit":"MiB","desc":"ingress ortalama bellek"}
+{"key":"stage0.ingress.containers","value":2,"unit":"adet","desc":"ingress konteyner sayısı"}
+{"key":"stage0.loadgen.cpu_cores","value":0.05602355772275346,"unit":"çekirdek","desc":"loadgen ortalama CPU"}
+{"key":"stage0.loadgen.mem_mib","value":35.1,"unit":"MiB","desc":"loadgen ortalama bellek"}
+{"key":"stage0.loadgen.containers","value":1,"unit":"adet","desc":"loadgen konteyner sayısı"}
+{"key":"stage0.node_app.cpu_cores","value":0.8032283775016221,"unit":"çekirdek","desc":"node_app ortalama CPU"}
+{"key":"stage0.node_app.mem_mib","value":624.6,"unit":"MiB","desc":"node_app ortalama bellek"}
+{"key":"stage0.node_app.containers","value":2,"unit":"adet","desc":"node_app konteyner sayısı"}
+{"key":"stage0.node_loadgen.cpu_cores","value":0.1104111211031175,"unit":"çekirdek","desc":"node_loadgen ortalama CPU"}
+{"key":"stage0.node_loadgen.mem_mib","value":242.6,"unit":"MiB","desc":"node_loadgen ortalama bellek"}
+{"key":"stage0.node_loadgen.containers","value":2,"unit":"adet","desc":"node_loadgen konteyner sayısı"}
+{"key":"stage0.node_control.cpu_cores","value":0.26115278747382037,"unit":"çekirdek","desc":"node_control ortalama CPU"}
+{"key":"stage0.node_control.mem_mib","value":1644.3,"unit":"MiB","desc":"node_control ortalama bellek"}
+{"key":"stage0.node_control.containers","value":2,"unit":"adet","desc":"node_control konteyner sayısı"}
+{"key":"stage1.target_rps","value":300,"unit":"RPS","desc":""}
+{"key":"stage1.rps","value":299.7,"unit":"RPS","desc":"gerçekleşen"}
+{"key":"stage1.p50_ms","value":27.9601295,"unit":"ms","desc":""}
+{"key":"stage1.p95_ms","value":72.43778659999998,"unit":"ms","desc":""}
+{"key":"stage1.p99_ms","value":100.43294019,"unit":"ms","desc":""}
+{"key":"stage1.p999_ms","value":137.90663468500102,"unit":"ms","desc":""}
+{"key":"stage1.error_rate","value":0.00022241992882562276,"unit":"oran","desc":""}
+{"key":"stage1.dropped","value":9,"unit":"istek","desc":""}
+{"key":"stage1.start","value":1794810600,"unit":"unix","desc":""}
+{"key":"stage1.end","value":1794810630,"unit":"unix","desc":""}
+{"key":"stage1.app.cpu_cores","value":0.6645296808505069,"unit":"çekirdek","desc":"app ortalama CPU"}
+{"key":"stage1.app.mem_mib","value":126.3,"unit":"MiB","desc":"app ortalama bellek"}
+{"key":"stage1.app.containers","value":47,"unit":"adet","desc":"app konteyner sayısı"}
+{"key":"stage1.sidecar.cpu_cores","value":0,"unit":"çekirdek","desc":"sidecar ortalama CPU"}
+{"key":"stage1.sidecar.mem_mib","value":55.5,"unit":"MiB","desc":"sidecar ortalama bellek"}
+{"key":"stage1.sidecar.containers","value":2,"unit":"adet","desc":"sidecar konteyner sayısı"}
+{"key":"stage1.ztunnel.cpu_cores","value":0.0833774343199529,"unit":"çekirdek","desc":"ztunnel ortalama CPU"}
+{"key":"stage1.ztunnel.mem_mib","value":27.8,"unit":"MiB","desc":"ztunnel ortalama bellek"}
+{"key":"stage1.ztunnel.containers","value":6,"unit":"adet","desc":"ztunnel konteyner sayısı"}
+{"key":"stage1.waypoint.cpu_cores","value":0,"unit":"çekirdek","desc":"waypoint ortalama CPU"}
+{"key":"stage1.waypoint.mem_mib","value":55.5,"unit":"MiB","desc":"waypoint ortalama bellek"}
+{"key":"stage1.waypoint.containers","value":2,"unit":"adet","desc":"waypoint konteyner sayısı"}
+{"key":"stage1.cni.cpu_cores","value":0.0030844635415356956,"unit":"çekirdek","desc":"cni ortalama CPU"}
+{"key":"stage1.cni.mem_mib","value":74.6,"unit":"MiB","desc":"cni ortalama bellek"}
+{"key":"stage1.cni.containers","value":6,"unit":"adet","desc":"cni konteyner sayısı"}
+{"key":"stage1.control.cpu_cores","value":0,"unit":"çekirdek","desc":"control ortalama CPU"}
+{"key":"stage1.control.mem_mib","value":61.2,"unit":"MiB","desc":"control ortalama bellek"}
+{"key":"stage1.control.containers","value":2,"unit":"adet","desc":"control konteyner sayısı"}
+{"key":"stage1.ingress.cpu_cores","value":0.0014425726901408547,"unit":"çekirdek","desc":"ingress ortalama CPU"}
+{"key":"stage1.ingress.mem_mib","value":143.2,"unit":"MiB","desc":"ingress ortalama bellek"}
+{"key":"stage1.ingress.containers","value":2,"unit":"adet","desc":"ingress konteyner sayısı"}
+{"key":"stage1.loadgen.cpu_cores","value":0.19631042759356385,"unit":"çekirdek","desc":"loadgen ortalama CPU"}
+{"key":"stage1.loadgen.mem_mib","value":47.1,"unit":"MiB","desc":"loadgen ortalama bellek"}
+{"key":"stage1.loadgen.containers","value":1,"unit":"adet","desc":"loadgen konteyner sayısı"}
+{"key":"stage1.node_app.cpu_cores","value":3.371299353555445,"unit":"çekirdek","desc":"node_app ortalama CPU"}
+{"key":"stage1.node_app.mem_mib","value":651.5,"unit":"MiB","desc":"node_app ortalama bellek"}
+{"key":"stage1.node_app.containers","value":2,"unit":"adet","desc":"node_app konteyner sayısı"}
+{"key":"stage1.node_loadgen.cpu_cores","value":0.3368803913738018,"unit":"çekirdek","desc":"node_loadgen ortalama CPU"}
+{"key":"stage1.node_loadgen.mem_mib","value":261.2,"unit":"MiB","desc":"node_loadgen ortalama bellek"}
+{"key":"stage1.node_loadgen.containers","value":2,"unit":"adet","desc":"node_loadgen konteyner sayısı"}
+{"key":"stage1.node_control.cpu_cores","value":0.44709526656701337,"unit":"çekirdek","desc":"node_control ortalama CPU"}
+{"key":"stage1.node_control.mem_mib","value":1657.4,"unit":"MiB","desc":"node_control ortalama bellek"}
+{"key":"stage1.node_control.containers","value":2,"unit":"adet","desc":"node_control konteyner sayısı"}
+{"key":"hop.order.p50_ms","value":21.964454429028812,"unit":"ms","desc":"mesh'in ölçtüğü servis gecikmesi (aşama 1)"}
+{"key":"hop.gateway.p50_ms","value":28.768631960631957,"unit":"ms","desc":"mesh'in ölçtüğü servis gecikmesi (aşama 1)"}
+{"key":"hop.pricing.p50_ms","value":8.618156510980512,"unit":"ms","desc":"mesh'in ölçtüğü servis gecikmesi (aşama 1)"}
+{"key":"hop.inventory.p50_ms","value":16.949332253164556,"unit":"ms","desc":"mesh'in ölçtüğü servis gecikmesi (aşama 1)"}
+{"key":"hop.payment.p50_ms","value":17.406262468765618,"unit":"ms","desc":"mesh'in ölçtüğü servis gecikmesi (aşama 1)"}
+{"key":"hop.fraud.p50_ms","value":8.833539603960396,"unit":"ms","desc":"mesh'in ölçtüğü servis gecikmesi (aşama 1)"}
+{"key":"hop.catalog.p50_ms","value":3.2404951370468615,"unit":"ms","desc":"mesh'in ölçtüğü servis gecikmesi (aşama 1)"}
+{"key":"hop.ledger.p50_ms","value":3.254297047157338,"unit":"ms","desc":"mesh'in ölçtüğü servis gecikmesi (aşama 1)"}
+{"key":"stage2.target_rps","value":600,"unit":"RPS","desc":""}
+{"key":"stage2.rps","value":563.7,"unit":"RPS","desc":"gerçekleşen"}
+{"key":"stage2.p50_ms","value":935.2074849999999,"unit":"ms","desc":""}
+{"key":"stage2.p95_ms","value":1275.1779895,"unit":"ms","desc":""}
+{"key":"stage2.p99_ms","value":1408.38478757,"unit":"ms","desc":""}
+{"key":"stage2.p999_ms","value":1519.1954589380005,"unit":"ms","desc":""}
+{"key":"stage2.error_rate","value":0.00005913660555884092,"unit":"oran","desc":""}
+{"key":"stage2.dropped","value":1090,"unit":"istek","desc":""}
+{"key":"stage2.start","value":1794810635,"unit":"unix","desc":""}
+{"key":"stage2.end","value":1794810665,"unit":"unix","desc":""}
+{"key":"stage2.app.cpu_cores","value":0.9884413408241303,"unit":"çekirdek","desc":"app ortalama CPU"}
+{"key":"stage2.app.mem_mib","value":321.8,"unit":"MiB","desc":"app ortalama bellek"}
+{"key":"stage2.app.containers","value":47,"unit":"adet","desc":"app konteyner sayısı"}
+{"key":"stage2.sidecar.cpu_cores","value":0,"unit":"çekirdek","desc":"sidecar ortalama CPU"}
+{"key":"stage2.sidecar.mem_mib","value":318.6,"unit":"MiB","desc":"sidecar ortalama bellek"}
+{"key":"stage2.sidecar.containers","value":2,"unit":"adet","desc":"sidecar konteyner sayısı"}
+{"key":"stage2.ztunnel.cpu_cores","value":0.7417222151785972,"unit":"çekirdek","desc":"ztunnel ortalama CPU"}
+{"key":"stage2.ztunnel.mem_mib","value":93.5,"unit":"MiB","desc":"ztunnel ortalama bellek"}
+{"key":"stage2.ztunnel.containers","value":6,"unit":"adet","desc":"ztunnel konteyner sayısı"}
+{"key":"stage2.waypoint.cpu_cores","value":0,"unit":"çekirdek","desc":"waypoint ortalama CPU"}
+{"key":"stage2.waypoint.mem_mib","value":318.6,"unit":"MiB","desc":"waypoint ortalama bellek"}
+{"key":"stage2.waypoint.containers","value":2,"unit":"adet","desc":"waypoint konteyner sayısı"}
+{"key":"stage2.cni.cpu_cores","value":0.0041656477318519295,"unit":"çekirdek","desc":"cni ortalama CPU"}
+{"key":"stage2.cni.mem_mib","value":78.6,"unit":"MiB","desc":"cni ortalama bellek"}
+{"key":"stage2.cni.containers","value":6,"unit":"adet","desc":"cni konteyner sayısı"}
+{"key":"stage2.control.cpu_cores","value":0.00399100733015945,"unit":"çekirdek","desc":"control ortalama CPU"}
+{"key":"stage2.control.mem_mib","value":61.0,"unit":"MiB","desc":"control ortalama bellek"}
+{"key":"stage2.control.containers","value":2,"unit":"adet","desc":"control konteyner sayısı"}
+{"key":"stage2.ingress.cpu_cores","value":0.003077681428718895,"unit":"çekirdek","desc":"ingress ortalama CPU"}
+{"key":"stage2.ingress.mem_mib","value":143.5,"unit":"MiB","desc":"ingress ortalama bellek"}
+{"key":"stage2.ingress.containers","value":2,"unit":"adet","desc":"ingress konteyner sayısı"}
+{"key":"stage2.loadgen.cpu_cores","value":0.3169998514667656,"unit":"çekirdek","desc":"loadgen ortalama CPU"}
+{"key":"stage2.loadgen.mem_mib","value":231.7,"unit":"MiB","desc":"loadgen ortalama bellek"}
+{"key":"stage2.loadgen.containers","value":1,"unit":"adet","desc":"loadgen konteyner sayısı"}
+{"key":"stage2.node_app.cpu_cores","value":3.901699488046127,"unit":"çekirdek","desc":"node_app ortalama CPU"}
+{"key":"stage2.node_app.mem_mib","value":1132.1,"unit":"MiB","desc":"node_app ortalama bellek"}
+{"key":"stage2.node_app.containers","value":2,"unit":"adet","desc":"node_app konteyner sayısı"}
+{"key":"stage2.node_loadgen.cpu_cores","value":0.5418005888517392,"unit":"çekirdek","desc":"node_loadgen ortalama CPU"}
+{"key":"stage2.node_loadgen.mem_mib","value":423.1,"unit":"MiB","desc":"node_loadgen ortalama bellek"}
+{"key":"stage2.node_loadgen.containers","value":2,"unit":"adet","desc":"node_loadgen konteyner sayısı"}
+{"key":"stage2.node_control.cpu_cores","value":0.49053433519108264,"unit":"çekirdek","desc":"node_control ortalama CPU"}
+{"key":"stage2.node_control.mem_mib","value":1687.5,"unit":"MiB","desc":"node_control ortalama bellek"}
+{"key":"stage2.node_control.containers","value":2,"unit":"adet","desc":"node_control konteyner sayısı"}
+{"key":"stage3.target_rps","value":900,"unit":"RPS","desc":""}
+{"key":"stage3.rps","value":699.9,"unit":"RPS","desc":"gerçekleşen"}
+{"key":"stage3.p50_ms","value":707.528697,"unit":"ms","desc":""}
+{"key":"stage3.p95_ms","value":4109.098952,"unit":"ms","desc":""}
+{"key":"stage3.p99_ms","value":4551.45713048,"unit":"ms","desc":""}
+{"key":"stage3.p999_ms","value":5020.352872152001,"unit":"ms","desc":""}
+{"key":"stage3.error_rate","value":0.5965137876839548,"unit":"oran","desc":""}
+{"key":"stage3.dropped","value":6004,"unit":"istek","desc":""}
+{"key":"stage3.start","value":1794810670,"unit":"unix","desc":""}
+{"key":"stage3.end","value":1794810700,"unit":"unix","desc":""}
+{"key":"stage3.app.cpu_cores","value":0.9020872314564659,"unit":"çekirdek","desc":"app ortalama CPU"}
+{"key":"stage3.app.mem_mib","value":586.8,"unit":"MiB","desc":"app ortalama bellek"}
+{"key":"stage3.app.containers","value":47,"unit":"adet","desc":"app konteyner sayısı"}
+{"key":"stage3.sidecar.cpu_cores","value":0,"unit":"çekirdek","desc":"sidecar ortalama CPU"}
+{"key":"stage3.sidecar.mem_mib","value":709.7,"unit":"MiB","desc":"sidecar ortalama bellek"}
+{"key":"stage3.sidecar.containers","value":3,"unit":"adet","desc":"sidecar konteyner sayısı"}
+{"key":"stage3.ztunnel.cpu_cores","value":1.0042369106158244,"unit":"çekirdek","desc":"ztunnel ortalama CPU"}
+{"key":"stage3.ztunnel.mem_mib","value":170.6,"unit":"MiB","desc":"ztunnel ortalama bellek"}
+{"key":"stage3.ztunnel.containers","value":6,"unit":"adet","desc":"ztunnel konteyner sayısı"}
+{"key":"stage3.waypoint.cpu_cores","value":0,"unit":"çekirdek","desc":"waypoint ortalama CPU"}
+{"key":"stage3.waypoint.mem_mib","value":709.7,"unit":"MiB","desc":"waypoint ortalama bellek"}
+{"key":"stage3.waypoint.containers","value":3,"unit":"adet","desc":"waypoint konteyner sayısı"}
+{"key":"stage3.cni.cpu_cores","value":0.0032452771507456976,"unit":"çekirdek","desc":"cni ortalama CPU"}
+{"key":"stage3.cni.mem_mib","value":80.2,"unit":"MiB","desc":"cni ortalama bellek"}
+{"key":"stage3.cni.containers","value":6,"unit":"adet","desc":"cni konteyner sayısı"}
+{"key":"stage3.control.cpu_cores","value":0.014921697161792235,"unit":"çekirdek","desc":"control ortalama CPU"}
+{"key":"stage3.control.mem_mib","value":62.1,"unit":"MiB","desc":"control ortalama bellek"}
+{"key":"stage3.control.containers","value":2,"unit":"adet","desc":"control konteyner sayısı"}
+{"key":"stage3.ingress.cpu_cores","value":0.0025536575824748756,"unit":"çekirdek","desc":"ingress ortalama CPU"}
+{"key":"stage3.ingress.mem_mib","value":143.6,"unit":"MiB","desc":"ingress ortalama bellek"}
+{"key":"stage3.ingress.containers","value":2,"unit":"adet","desc":"ingress konteyner sayısı"}
+{"key":"stage3.loadgen.cpu_cores","value":0,"unit":"çekirdek","desc":"loadgen ortalama CPU"}
+{"key":"stage3.loadgen.mem_mib","value":688.8,"unit":"MiB","desc":"loadgen ortalama bellek"}
+{"key":"stage3.loadgen.containers","value":1,"unit":"adet","desc":"loadgen konteyner sayısı"}
+{"key":"stage3.node_app.cpu_cores","value":2.9390236821244526,"unit":"çekirdek","desc":"node_app ortalama CPU"}
+{"key":"stage3.node_app.mem_mib","value":1783.3,"unit":"MiB","desc":"node_app ortalama bellek"}
+{"key":"stage3.node_app.containers","value":2,"unit":"adet","desc":"node_app konteyner sayısı"}
+{"key":"stage3.node_loadgen.cpu_cores","value":1.3405890985324944,"unit":"çekirdek","desc":"node_loadgen ortalama CPU"}
+{"key":"stage3.node_loadgen.mem_mib","value":925.3,"unit":"MiB","desc":"node_loadgen ortalama bellek"}
+{"key":"stage3.node_loadgen.containers","value":2,"unit":"adet","desc":"node_loadgen konteyner sayısı"}
+{"key":"stage3.node_control.cpu_cores","value":0.5415221890547257,"unit":"çekirdek","desc":"node_control ortalama CPU"}
+{"key":"stage3.node_control.mem_mib","value":1699.7,"unit":"MiB","desc":"node_control ortalama bellek"}
+{"key":"stage3.node_control.containers","value":2,"unit":"adet","desc":"node_control konteyner sayısı"}
+{"key":"knee_slo_rps","value":100,"unit":"RPS","desc":"p99 <= 100 ms SLO'sunu sağlayan en yüksek aşama"}
+{"key":"knee_sat_rps","value":300,"unit":"RPS","desc":"hatasız (<%1) ve hedef hızda karşılanan en yüksek aşama"}
+{"key":"slo_p99_ms","value":100,"unit":"ms","desc":"SLO eşiği"}
+{"key":"post_overload_healthy","value":1,"unit":"bool","desc":"aşırı yükten 30 sn sonra zincir kendiliğinden sağlıklı"}

@@ -1,0 +1,13 @@
+{
+  "status": "error",
+  "exit_code": 1,
+  "start": 1794783950,
+  "end": 1794784070,
+  "duration_s": 120,
+  "na_reason": null,
+  "checks": [],
+  "metrics": [],
+  "findings": [
+    "Linkerd'de yerleşik hata enjeksiyonu yok; hatalı/yavaş backend'ler kurulup HTTPRoute ağırlığıyla yönlendirilerek yapıldı (ek dağıtım ve bakım gerektirir, gecikme/hata ayrı ayrı oranlanamaz)."
+  ]
+}

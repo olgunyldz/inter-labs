@@ -1,0 +1,7 @@
+    cert_ttl_h = 24 saat
+  [32m[ok][0m sertifika kurumsal ara CA'dan (AKI = ara CA SKI) (=87E96D70C147FA95E075E4DCA0190BA24447E6CC)
+  [32m[ok][0m sertifika ömrü (saat) (24 <= 24)
+  [32m[ok][0m kimlik (SAN) (=var)
+
+[1;34m==> Yük altında ara CA rotasyonu[0m
+The Secret "linkerd-identity-issuer" is invalid: type: Invalid value: "kubernetes.io/tls": field is immutable

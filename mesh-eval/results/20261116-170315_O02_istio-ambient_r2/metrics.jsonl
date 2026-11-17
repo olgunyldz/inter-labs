@@ -1,0 +1,5 @@
+{"key":"series_total","value":79592,"unit":"seri","desc":"bench cluster'ından gelen aktif seri"}
+{"key":"series_mesh","value":571,"unit":"seri","desc":"mesh'e ait metrik aileleri"}
+{"key":"shop_pods","value":19,"unit":"adet","desc":""}
+{"key":"series_mesh_per_pod","value":30.1,"unit":"seri","desc":"uygulama pod'u başına mesh serisi"}
+{"key":"samples_per_s","value":13922.313043478262,"unit":"örnek/sn","desc":"agent remote-write hızı"}

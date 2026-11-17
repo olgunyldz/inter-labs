@@ -1,0 +1,47 @@
+{
+  "test": {
+    "id": "R01",
+    "name": "Timeout, retry ve outlier detection (circuit breaking)",
+    "category": "dayanıklılık",
+    "purpose": "(A) Bir alt servis yavaşladığında mesh'in timeout + retry politikasının uçtan uca gecikmeyi sınırladığını ve retry'ların yükü ne kadar artırdığını (amplifikasyon) ölçmek. (B) Hatalı bir replika (sürekli 503) devredeyken outlier detection'ın onu devreden çıkardığını göstermek.\n",
+    "method": "100 RPS sabit yük. (A) pricing isteklerinin %20'si 1 sn gecikir; önce politikasız, sonra inventory -> pricing için timeout 500 ms / deneme başına 150 ms / 2 retry. pricing'e gelen istek sayısı / gateway istek sayısı = amplifikasyon. (B) pricing'e sürekli 503 dönen 1 replika eklenir (2 sağlam + 1 hatalı); önce politikasız, sonra outlier detection (Istio DestinationRule / Linkerd failure accrual) ile hata oranı ölçülür.\n",
+    "components": [
+      "Istio VirtualService + DestinationRule (sidecar / waypoint)",
+      "Linkerd HTTPRoute retry/timeout + failure accrual",
+      "chainsvc hata enjeksiyonu"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "A.none.p99_ms",
+      "A.policy.p99_ms",
+      "A.amplification",
+      "B.none.error_rate",
+      "B.policy.error_rate"
+    ],
+    "pass_criteria": "Politikayla p99 < 1000 ms ve outlier detection ile hata oranı yarıdan fazla düşer"
+  },
+  "mesh": "istio-ambient",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-141719-2939011",
+  "repeat": 1,
+  "start": 1794837993,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "47c45b9",
+    "uncommitted_files": 0
+  },
+  "status": "na",
+  "end": 1794838239
+}

@@ -1,0 +1,11 @@
+
+[1;34m==> A) yavaş bağımlılık: pricing isteklerinin %20'si 1 sn[0m
+    A.none.p50_ms = 12.42614 ms
+    A.none.p99_ms = 1015.3913258599999 ms
+    A.none.error_rate = 0 oran
+
+[1;34m==> B) hatalı replika: 2 sağlam + 1 sürekli 503[0m
+    B.none.p50_ms = 11.619789 ms
+    B.none.p99_ms = 18.530753 ms
+    B.none.error_rate = 0.0017495626093476631 oran
+  [33m[!][0m uygulanamaz: timeout/retry/outlier detection için L7 proxy gerekir (istio-ambient); politikasız ölçümler kaydedildi

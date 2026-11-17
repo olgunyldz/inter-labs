@@ -1,0 +1,5 @@
+  [32m[ok][0m izinsiz kaynak: /admin (=403)
+  [32m[ok][0m izinsiz kaynak: / (kısıtsız) (=200)
+  [32m[ok][0m sahte X-Forwarded-For (izinli IP taklidi): /admin (=403)
+    client_ip = 0 -
+  [32m[ok][0m izinli kaynak (172.28.10.1): /admin (=200)

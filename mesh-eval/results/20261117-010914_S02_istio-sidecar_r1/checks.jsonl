@@ -1,0 +1,9 @@
+{"name":"zincir çalışıyor (8 servis)","expected":"ok","actual":"ok","pass":true}
+{"name":"uçtan uca erişim (edge -> ingress -> gateway)","expected":"ok","actual":"ok","pass":true}
+{"name":"tüm shop pod'ları sağlıklı","expected":"ok","actual":"ok","pass":true}
+{"name":"gateway rolü -> order [200]","expected":"izin","actual":"izin","pass":true}
+{"name":"yetkisiz pod -> order [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"yetkisiz pod -> catalog [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"başka namespace -> order [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"yatay geçiş: gateway -> catalog [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"ortak kimlik üzerinden NetworkPolicy atlatılamıyor (20 deneme)","expected":"0","actual":"7","pass":false}

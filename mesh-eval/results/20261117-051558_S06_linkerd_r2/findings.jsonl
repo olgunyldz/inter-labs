@@ -1,0 +1,1 @@
+"linkerd: proxy metrik ucu (http://10.20.1.39:4191/metrics) yetkisiz bir pod'dan okunabiliyor (servis adları, istek sayıları sızar). Prod'da NetworkPolicy ile yalnızca izleme sistemine açılmalı."

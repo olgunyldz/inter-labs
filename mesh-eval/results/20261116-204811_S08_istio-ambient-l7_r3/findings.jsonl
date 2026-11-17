@@ -1,0 +1,3 @@
+"istio-ambient-l7: yeni ara CA otomatik yüklenmedi; kontrol düzleminin yeniden başlatılması gerekti."
+"istio-ambient-l7: CA rotasyonunda yeni pod bile eski ara CA'nın sertifikasını kullandı (ztunnel kimlik başına önbellekte tutuyor). Yeni CA'nın devreye girmesi için ztunnel DaemonSet'inin yeniden başlatılması gerekti; bu sırada node'daki tüm pod'ların trafiği etkilenir."
+"istio-ambient-l7: CA rotasyonu için gereken ztunnel yeniden başlatması yük altında kesinti yarattı: hata oranı %8.5, 2599 başarısız istek, p99 10000 ms. Waypoint üzerinden geçen tüneller node proxy'si yeniden başlarken kopuyor."

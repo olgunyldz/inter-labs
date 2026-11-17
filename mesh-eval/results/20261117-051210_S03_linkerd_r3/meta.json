@@ -1,0 +1,48 @@
+{
+  "test": {
+    "id": "S03",
+    "name": "Servisler arası whitelisting — kimlik bazlı (mesh yetki politikası)",
+    "category": "güvenlik",
+    "purpose": "Servisler arası erişimi IP/etiket yerine kriptografik kimlikle (ServiceAccount, mTLS sertifikası) kısıtlamak: varsayılan ret + her servis için izinli çağıranlar listesi. NetworkPolicy'den (S02) farkı: etiket taklidi işe yaramaz.\n",
+    "method": "Kenar listesi (lib/policy.sh, AUTHZ_EDGES) mesh'in politika diline çevrilip uygulanır: Istio AuthorizationPolicy (sidecar/ambient: pod seçici; ambient+waypoint: Service hedefli), Linkerd Server + MeshTLSAuthentication + AuthorizationPolicy. İzin/ret matrisi ve kimlik taklidi (impostor: etiket gateway, kimlik rogue) denenir.\n",
+    "components": [
+      "mesh yetki politikası",
+      "mTLS kimlikleri",
+      "netshoot istemcileri"
+    ],
+    "meshes": [
+      "istio-sidecar",
+      "istio-ambient",
+      "istio-ambient-l7",
+      "linkerd"
+    ],
+    "outputs": [
+      "policy_objects",
+      "matris kontrolleri",
+      "impostor_access"
+    ],
+    "pass_criteria": "İzin/ret matrisinin tamamı beklendiği gibi, kimlik taklidi reddedilir, pod'lar sağlıklı"
+  },
+  "mesh": "linkerd",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261117-024526-2939011",
+  "repeat": 3,
+  "start": 1794881530,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "b246cdf",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794881553
+}

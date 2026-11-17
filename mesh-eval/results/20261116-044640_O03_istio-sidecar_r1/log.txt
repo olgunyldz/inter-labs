@@ -1,0 +1,12 @@
+    crds = 15 adet
+    gateway_api_crds = 10 adet
+    control_plane_pods = 1 adet
+    node_agents = 0 adet
+    images = 2 adet
+    webhooks = 3 adet
+    added_containers_per_pod = 2 adet
+    privileged_components = 1 adet
+    install_s = 17 sn
+    helm_releases = 2 adet
+    diag_issues = 0 adet
+  [32m[ok][0m tanılama aracında hata yok (=0)

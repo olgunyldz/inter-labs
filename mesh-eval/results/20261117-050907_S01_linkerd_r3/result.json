@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794881347,
+  "end": 1794881358,
+  "duration_s": 11,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "mesh dışından düz HTTP -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "kontrol: yakalama çalışıyor (düz metin kontrol işareti görüldü)",
+      "expected": ">= 1",
+      "actual": "6",
+      "pass": true
+    },
+    {
+      "name": "ağ üzerinde trafik şifreli",
+      "expected": "evet",
+      "actual": "evet",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "marker_packets",
+      "value": 0,
+      "unit": "paket",
+      "desc": "mesh içi isteğin işaretinin ağda görüldüğü paket sayısı (0 = şifreli)"
+    },
+    {
+      "key": "control_packets",
+      "value": 6,
+      "unit": "paket",
+      "desc": "kontrol: mesh dışı düz isteğin işareti (>0 olmalı)"
+    }
+  ],
+  "findings": []
+}

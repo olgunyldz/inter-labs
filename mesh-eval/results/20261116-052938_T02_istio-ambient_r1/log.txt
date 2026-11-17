@@ -1,0 +1,14 @@
+
+[1;34m==> 1) gRPC yük dağılımı (payment -> fraud, kalıcı bağlantı)[0m
+    grpc.pods_used = 2 adet
+    grpc.max_share = 0.543 oran
+  [33m[!][0m BULGU: istio-ambient: gRPC (HTTP/2 kalıcı bağlantı) trafiği istek bazlı dağıtılmıyor: 3 pod'dan 2 tanesi trafik aldı, en yüklü pod payı 0.543. Bağlantı bazlı (L4) dengeleme.
+
+[1;34m==> 2) server-first TCP (banner)[0m
+    banner.hint_ms = 1 ms
+    banner.nohint_ms = 1 ms
+  [32m[ok][0m server-first (ipuçlu) ilk bayt (ms) (1 <= 1000)
+
+[1;34m==> 3) veri tabanı trafiği (data cluster)[0m
+  [32m[ok][0m Redis PING (=+PONG)
+  [32m[ok][0m Postgres TCP bağlantısı (=ok)

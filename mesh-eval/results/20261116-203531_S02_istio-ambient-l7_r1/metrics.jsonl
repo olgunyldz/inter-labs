@@ -1,0 +1,6 @@
+{"key":"naive.chain_ok","value":1,"unit":"bool","desc":"standart kurallarla zincir çalışıyor"}
+{"key":"naive.e2e_ok","value":0,"unit":"bool","desc":""}
+{"key":"naive.pods_ready","value":1,"unit":"bool","desc":"standart kurallarla pod'lar sağlıklı (probe'lar geçiyor)"}
+{"key":"mesh_specific_rules","value":3,"unit":"adet","desc":"mesh için gereken ek NetworkPolicy"}
+{"key":"impostor_access","value":1,"unit":"bool","desc":"etiketi taklit eden pod order'a erişebildi mi"}
+{"key":"shared_identity_bypass","value":20,"unit":"/20","desc":"aynı SA'yı paylaşan izinli pod bağlıyken yetkisiz pod'un geçen isteği"}

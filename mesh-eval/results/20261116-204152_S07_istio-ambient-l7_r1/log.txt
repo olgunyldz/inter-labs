@@ -1,0 +1,4 @@
+    allowed_http_code = 200 kod
+    denied_http_code = 200 kod
+  [33m[!][0m BULGU: Istio ambient: ztunnel'de REGISTRY_ONLY (kayıtsız dış adreslere ret) yok; ServiceEntry tanımlı olsa da izinsiz hedefe (denied.ext.test) erişim açık. Ambient'te egress kısıtı için egress gateway veya NetworkPolicy ile birleşik tasarım gerekir.
+  [33m[!][0m uygulanamaz: ambient: FQDN bazlı egress reddi mesh tarafından yapılamıyor (izinsiz hedef HTTP 200)

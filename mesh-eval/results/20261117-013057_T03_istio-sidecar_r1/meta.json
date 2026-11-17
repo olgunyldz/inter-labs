@@ -1,0 +1,50 @@
+{
+  "test": {
+    "id": "T03",
+    "name": "Gateway API ile giriş (ingress-nginx'in yerine geçme)",
+    "category": "trafik",
+    "purpose": "ingress-nginx Mart 2026'da emekliye ayrıldı. Mesh'in kendi Gateway API uygulamasının küme girişini (north-south) üstlenip üstlenemeyeceğini göstermek: ayrı bir ingress ürününe gerek kalır mı?\n",
+    "method": "shop namespace'inde Gateway (gatewayClassName: istio) + HTTPRoute ile gateway servisi yayınlanır; mesh dışı bir pod'dan erişilir ve zincirin tamamının çalıştığı doğrulanır. Linkerd'de giriş için Gateway API uygulaması yoktur (yalnızca mesh içi GAMMA); ayrı bir ürün gerekir.\n",
+    "components": [
+      "Gateway API v1.6",
+      "Istio gateway (Envoy)",
+      "HTTPRoute"
+    ],
+    "meshes": [
+      "istio-sidecar",
+      "istio-ambient",
+      "istio-ambient-l7",
+      "linkerd"
+    ],
+    "outputs": [
+      "gateway_programmed",
+      "route_accepted",
+      "chain_ok",
+      "p50_ms"
+    ],
+    "pass_criteria": "Gateway hazır, route kabul edildi, zincir mesh dışından erişilebilir"
+  },
+  "mesh": "istio-sidecar",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-223531-2939011",
+  "repeat": 1,
+  "start": 1794868257,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "4b7a9dd",
+    "uncommitted_files": 0
+  },
+  "precheck": "zincir sağlıksızdı; test öncesi shop yeniden başlatıldı",
+  "status": "pass",
+  "end": 1794868292
+}

@@ -1,0 +1,73 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794865694,
+  "end": 1794865744,
+  "duration_s": 50,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "tüm turlar tamamlandı",
+      "expected": "3",
+      "actual": "3",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "replicas",
+      "value": 30,
+      "unit": "adet",
+      "desc": ""
+    },
+    {
+      "key": "rounds",
+      "value": 3,
+      "unit": "tur",
+      "desc": ""
+    },
+    {
+      "key": "round1.all_ready_s",
+      "value": 12.55,
+      "unit": "sn",
+      "desc": ""
+    },
+    {
+      "key": "round2.all_ready_s",
+      "value": 12.51,
+      "unit": "sn",
+      "desc": ""
+    },
+    {
+      "key": "round3.all_ready_s",
+      "value": 13.24,
+      "unit": "sn",
+      "desc": ""
+    },
+    {
+      "key": "ready_p50_s",
+      "value": 11,
+      "unit": "sn",
+      "desc": "pod oluşturma -> Ready (medyan)"
+    },
+    {
+      "key": "ready_p95_s",
+      "value": 12,
+      "unit": "sn",
+      "desc": ""
+    },
+    {
+      "key": "ready_max_s",
+      "value": 13,
+      "unit": "sn",
+      "desc": ""
+    },
+    {
+      "key": "all_ready_s",
+      "value": 12.55,
+      "unit": "sn",
+      "desc": "N pod'un tamamı hazır (medyan tur)"
+    }
+  ],
+  "findings": []
+}

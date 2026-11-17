@@ -1,0 +1,1 @@
+DNS:order.shop.serviceaccount.identity.linkerd.cluster.local

@@ -1,0 +1,6 @@
+
+[1;34m==> 1) gRPC yük dağılımı (payment -> fraud, kalıcı bağlantı)[0m
+    grpc.pods_used = 3 adet
+    grpc.max_share = 0.370 oran
+
+[1;34m==> 2) server-first TCP (banner)[0m

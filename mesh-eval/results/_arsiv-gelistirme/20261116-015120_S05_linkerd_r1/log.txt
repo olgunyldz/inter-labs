@@ -1,0 +1,5 @@
+  [31m[x][0m izinsiz kaynak: /admin: beklenen=403 gerçekleşen=,403
+  [31m[x][0m izinsiz kaynak: / (kısıtsız): beklenen=200 gerçekleşen=,200
+  [31m[x][0m sahte X-Forwarded-For (izinli IP taklidi): /admin: beklenen=403 gerçekleşen=,403
+  [31m[x][0m izinli kaynak (edge segmenti): /admin: beklenen=200 gerçekleşen=,403
+    allowed_cidr = 0 -

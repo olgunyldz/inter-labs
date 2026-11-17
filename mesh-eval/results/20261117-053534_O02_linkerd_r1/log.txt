@@ -1,0 +1,6 @@
+    series_total = 111720 seri
+    series_mesh = 23738 seri
+    shop_pods = 19 adet
+    series_mesh_per_pod = 1249.4 seri
+    samples_per_s = 18913.043478260868 örnek/sn
+  [32m[ok][0m ölçüm tamamlandı (=ok)

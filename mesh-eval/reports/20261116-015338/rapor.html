@@ -1,0 +1,762 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Service Mesh Değerlendirmesi</title><style>
+:root{--bg:#fff;--fg:#1d2330;--mut:#5d6575;--bd:#dde1e8;--card:#f6f7f9;--acc:#1d6fa5;--ok:#1f8a4c;--bad:#b3261e;--warn:#9a6700}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14171d;--fg:#e6e8ec;--mut:#9aa3b2;--bd:#2c323d;--card:#1b1f27;--acc:#6cb4ee;--ok:#5cc28a;--bad:#ff8a80;--warn:#e3b341}}
+:root[data-theme=dark]{--bg:#14171d;--fg:#e6e8ec;--mut:#9aa3b2;--bd:#2c323d;--card:#1b1f27;--acc:#6cb4ee;--ok:#5cc28a;--bad:#ff8a80;--warn:#e3b341}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1080px;margin:0 auto;padding:24px 16px 80px}h1{font-size:28px;margin:8px 0 4px}h2{font-size:21px;margin:40px 0 12px;padding-top:12px;border-top:1px solid var(--bd)}
+h3{font-size:17px;margin:28px 0 8px}h4{font-size:15px;margin:18px 0 6px;color:var(--mut)}.mut{color:var(--mut)}.small{font-size:13px}
+table{border-collapse:collapse;width:100%;margin:8px 0 16px;font-size:13.5px}th,td{border-bottom:1px solid var(--bd);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--card);font-weight:600}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}.wrap{overflow-x:auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:12px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.kpi{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px}
+.kpi b{display:block;font-size:22px}.kpi span{color:var(--mut);font-size:13px}
+.chart{width:100%;max-width:720px;height:auto;margin:8px 0}.chart .ct{font-weight:600;font-size:13px;fill:var(--fg)}.chart .ax,.chart .lg{font-size:11px;fill:var(--mut)}
+.chart .grid{stroke:var(--bd);stroke-width:1}.lgi{display:inline-flex;align-items:center;gap:6px;margin-right:14px;font-size:13px}.lgi i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.st-pass{color:var(--ok)}.st-fail{color:var(--warn)}.st-error{color:var(--bad)}.st-na{color:var(--mut)}
+.bar{height:8px;border-radius:4px;background:var(--acc);display:inline-block;vertical-align:middle;margin-right:6px}
+ul.f li{margin:4px 0}code{font-size:12.5px;background:var(--card);padding:1px 4px;border-radius:4px}
+nav.toc a{color:var(--acc);text-decoration:none}nav.toc li{margin:2px 0}
+@media print{h2{page-break-before:always}.card,.kpi{break-inside:avoid}}
+</style></head><body><main>
+<p class="mut small">inter-labs · mesh-eval</p><h1>Service Mesh Değerlendirme Raporu</h1>
+<p class="mut">Oluşturma: 16.11.2026 01:53 · Oturum(lar): adhoc-20261116 · Profil: quick · Kıyaslanan: <span class="lgi"><i style="background:#7b4bb7"></i>Linkerd</span></p>
+<nav class="toc card"><b>İçindekiler</b><ol><li><a href="#ozet">Yönetici özeti</a></li><li><a href="#puan">Puan kartı</a></li><li><a href="#maliyet">Maliyet: kalem kalem</a></li><li><a href="#proj">Prod projeksiyonu (3.000 servis)</a></li><li><a href="#matris">Test sonuç matrisi</a></li><li><a href="#bulgular">Bulgular</a></li><li><a href="#detay">Test detayları</a></li><li><a href="#lisans">Lisans, destek, olgunluk</a></li><li><a href="#yontem">Yöntem ve sınırlar</a></li><li><a href="#envanter">Envanter</a></li></ol></nav>
+<h2 id="ozet">1. Yönetici özeti</h2><div class="kpis">
+<div class="kpi" style="border-top:4px solid #7b4bb7"><span>Linkerd</span><b>92.4 / 100</b><span>SLO kapasitesi — · pod başına 8.75 MiB</span></div>
+</div><ul class="f"><li>Puan kartı sıralaması (eşit ağırlık): Linkerd 92.</li><li>Linkerd: başarısız/kısmi P02, S03, S05, S08; yetenek yok S07.</li><li>Toplam 3 bulgu kaydedildi (bölüm 6).</li></ul>
+<p class="mut small">Bu özet ölçümlerden otomatik üretilir. Sunuma eklenecek değerlendirme ve öneri metni bu verilere dayanarak ekip tarafından yazılmalıdır.</p>
+<h2 id="puan">2. Puan kartı</h2><p>Her kalem 0–100 arası puanlanır: durum kalemlerinde geçti = 100, kısmen = geçen kontrol oranı, yetenek yok = 0; ölçü kalemlerinde en iyi mesh 100, diğerleri en iyiye oranla. Kategoriler eşit ağırlıklıdır (<code>report/scorecard.yaml</code>). "Mesh yok" puanlanmaz.</p>
+<div class="wrap"><table><tr><th>Kategori / kalem</th><th>Test</th><th class="n">Linkerd</th></tr>
+<tr><th colspan="2">Performans</th><th class="n">91.7</th></tr>
+<tr><td>SLO kırılma noktası (RPS)</td><td class="mut small">P01</td><td class="n mut">·</td></tr>
+<tr><td>orta yükte p99</td><td class="mut small">P01</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">48.9</span></td></tr>
+<tr><td>uçtan uca p99</td><td class="mut small">P04</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">22.0</span></td></tr>
+<tr><td>uzun yük kararlılığı</td><td class="mut small">P02</td><td class="n"><span class="bar" style="width:20px"></span>50<br><span class="mut small">1/2 kontrol</span></td></tr>
+<tr><td>ani yük</td><td class="mut small">P03</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">geçti</span></td></tr>
+<tr><td>pod hazır olma süresi</td><td class="mut small">P06</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">4.00</span></td></tr>
+<tr><td>politika yayılma süresi</td><td class="mut small">P07</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">0.180</span></td></tr>
+<tr><th colspan="2">Kaynak maliyeti</th><th class="n">100</th></tr>
+<tr><td>1000 RPS başına veri düzlemi CPU</td><td class="mut small">P05</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">3.86</span></td></tr>
+<tr><td>pod başına veri düzlemi belleği</td><td class="mut small">P05</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">8.75</span></td></tr>
+<tr><td>pod başına ayrılan CPU (requests)</td><td class="mut small">P05</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">0</span></td></tr>
+<tr><td>pod başına metrik serisi</td><td class="mut small">O02</td><td class="n mut">·</td></tr>
+<tr><td>servis sayısıyla kontrol düzlemi büyümesi</td><td class="mut small">P07</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">11.1</span></td></tr>
+<tr><th colspan="2">Güvenlik</th><th class="n">77.8</th></tr>
+<tr><td>mTLS / şifreleme</td><td class="mut small">S01</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">geçti</span></td></tr>
+<tr><td>NetworkPolicy uyumu</td><td class="mut small">S02</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">geçti</span></td></tr>
+<tr><td>kimlik bazlı yetki</td><td class="mut small">S03</td><td class="n"><span class="bar" style="width:27px"></span>67<br><span class="mut small">6/9 kontrol</span></td></tr>
+<tr><td>endpoint (L7) yetki</td><td class="mut small">S04</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">geçti</span></td></tr>
+<tr><td>atlatma denemeleri</td><td class="mut small">S06</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">geçti</span></td></tr>
+<tr><td>egress kısıtı</td><td class="mut small">S07</td><td class="n"><span class="bar" style="width:0px"></span>0<br><span class="mut small">yetenek yok</span></td></tr>
+<tr><td>sertifika / CA rotasyonu</td><td class="mut small">S08</td><td class="n mut">·</td></tr>
+<tr><th colspan="2">Dayanıklılık</th><th class="n">—</th></tr>
+<tr><td>timeout / retry / outlier</td><td class="mut small">R01</td><td class="n mut">·</td></tr>
+<tr><td>hata enjeksiyonu</td><td class="mut small">R02</td><td class="n mut">·</td></tr>
+<tr><td>pod kaybında başarısız istek</td><td class="mut small">R03</td><td class="n mut">·</td></tr>
+<tr><td>kontrol düzlemi kaybı</td><td class="mut small">R04</td><td class="n mut">·</td></tr>
+<tr><td>kesintisiz güncelleme</td><td class="mut small">R05</td><td class="n mut">·</td></tr>
+<tr><td>güncellemede yeniden başlatılan pod</td><td class="mut small">R05</td><td class="n mut">·</td></tr>
+<tr><th colspan="2">Trafik yönetimi</th><th class="n">100</th></tr>
+<tr><td>kademeli yayın</td><td class="mut small">T01</td><td class="n"><span class="bar" style="width:40px"></span>100<br><span class="mut small">geçti</span></td></tr>
+<tr><td>gRPC yük dağılımı</td><td class="mut small">T02</td><td class="n mut">·</td></tr>
+<tr><td>Gateway API ingress</td><td class="mut small">T03</td><td class="n mut">·</td></tr>
+<tr><th colspan="2">Gözlemlenebilirlik</th><th class="n">—</th></tr>
+<tr><td>L7 metrikli servis</td><td class="mut small">O01</td><td class="n mut">·</td></tr>
+<tr><td>trace / log</td><td class="mut small">O01</td><td class="n mut">·</td></tr>
+<tr><th colspan="2">Operasyon</th><th class="n">—</th></tr>
+<tr><td>CRD sayısı</td><td class="mut small">O03</td><td class="n mut">·</td></tr>
+<tr><td>pod&#x27;a eklenen konteyner</td><td class="mut small">O03</td><td class="n mut">·</td></tr>
+<tr><td>ayrıcalıklı bileşen</td><td class="mut small">O03</td><td class="n mut">·</td></tr>
+<tr><td>tanılama</td><td class="mut small">O03</td><td class="n mut">·</td></tr>
+<tr><th colspan="2">TOPLAM</th><th class="n">92.4</th></tr></table></div>
+<h2 id="maliyet">3. Maliyet: kalem kalem</h2><p>Ambient, sidecar ve Linkerd arasındaki maliyet farkı; ölçüldüğü test ile birlikte. Ambient L4 ve ambient + waypoint ayrı sütundur: waypoint yalnızca L7 özellik gereken servislere eklenebilir.</p>
+<div class="wrap"><table><tr><th>Kalem</th><th>Kaynak</th><th class="n">Linkerd</th></tr>
+<tr><td>Veri düzlemi CPU, 250 RPS yükte</td><td class='mut small'>P05</td><td class="n">0.966 çekirdek</td></tr>
+<tr><td>1000 servis isteği başına veri düzlemi CPU</td><td class='mut small'>P05</td><td class="n">0.483 çekirdek</td></tr>
+<tr><td>Veri düzlemi belleği, boşta (toplam)</td><td class='mut small'>P05</td><td class="n">166 MiB</td></tr>
+<tr><td>Uygulama pod&#x27;u başına veri düzlemi belleği</td><td class='mut small'>P05</td><td class="n">8.75 MiB</td></tr>
+<tr><td>Pod başına ayrılan CPU (requests)</td><td class='mut small'>P05</td><td class="n">0 çekirdek</td></tr>
+<tr><td>Pod başına ayrılan bellek (requests)</td><td class='mut small'>P05</td><td class="n">0 MiB</td></tr>
+<tr><td>Servis node&#x27;unda app+proxy dışı CPU (kernel/ağ)</td><td class='mut small'>P05</td><td class="n">0.166 çekirdek</td></tr>
+<tr><td>Kontrol düzlemi belleği</td><td class='mut small'>P05</td><td class="n">86.5 MiB</td></tr>
+<tr><td>Kontrol düzlemi büyümesi (N servis eklenince)</td><td class='mut small'>P07</td><td class="n">11.1 MiB</td></tr>
+<tr><td>Her proxy&#x27;nin büyümesi (N servis eklenince)</td><td class='mut small'>P07</td><td class="n">-1.12 MiB</td></tr>
+<tr><td>Orta yükte uçtan uca p99</td><td class='mut small'>P01</td><td class="n">48.9 ms</td></tr>
+<tr><td>Pod hazır olma süresi (medyan)</td><td class='mut small'>P06</td><td class="n">4.00 sn</td></tr>
+</table></div><p class='mut small'>Kalın: kalemdeki en iyi değer. Değerler lab ortamındandır; mutlak değil göreli kıyas içindir.</p>
+<svg viewBox="0 0 640 137" class="chart" role="img" aria-label="Yük altında CPU (250 RPS) — rol bazında">
+<text x="10" y="18" class="ct">Yük altında CPU (250 RPS) — rol bazında</text>
+<text x="10" y="45" class="ax">Uygulama</text>
+<rect x="190" y="34" width="360.0" height="14" rx="2" fill="#7b4bb7"><title>Linkerd: 1.07 çekirdek</title></rect>
+<text x="555.0" y="45" class="ax">1.07 çekirdek</text>
+<text x="10" y="74" class="ax">Sidecar proxy</text>
+<rect x="190" y="63" width="323.7" height="14" rx="2" fill="#7b4bb7"><title>Linkerd: 0.966 çekirdek</title></rect>
+<text x="518.7" y="74" class="ax">0.966 çekirdek</text>
+<text x="10" y="103" class="ax">Kontrol düzlemi</text>
+<rect x="190" y="92" width="2.1" height="14" rx="2" fill="#7b4bb7"><title>Linkerd: 0.006 çekirdek</title></rect>
+<text x="197.1" y="103" class="ax">0.006 çekirdek</text>
+</svg>
+<svg viewBox="0 0 640 137" class="chart" role="img" aria-label="Boşta bellek — rol bazında">
+<text x="10" y="18" class="ct">Boşta bellek — rol bazında</text>
+<text x="10" y="45" class="ax">Uygulama</text>
+<rect x="190" y="34" width="360.0" height="14" rx="2" fill="#7b4bb7"><title>Linkerd: 216 MiB</title></rect>
+<text x="555.0" y="45" class="ax">216 MiB</text>
+<text x="10" y="74" class="ax">Sidecar proxy</text>
+<rect x="190" y="63" width="276.5" height="14" rx="2" fill="#7b4bb7"><title>Linkerd: 166 MiB</title></rect>
+<text x="471.5" y="74" class="ax">166 MiB</text>
+<text x="10" y="103" class="ax">Kontrol düzlemi</text>
+<rect x="190" y="92" width="146.2" height="14" rx="2" fill="#7b4bb7"><title>Linkerd: 87.9 MiB</title></rect>
+<text x="341.2" y="103" class="ax">87.9 MiB</text>
+</svg>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>load.rps</code></td><td class="n">250 RPS</td></tr>
+<tr><td><code>load.p99_ms</code></td><td class="n">31.0 ms</td></tr>
+<tr><td><code>dataplane.cpu_cores</code><br><span class="mut small">yük altında veri düzlemi CPU</span></td><td class="n">0.966 çekirdek</td></tr>
+<tr><td><code>dataplane.cpu_per_1k_rps</code><br><span class="mut small">1000 RPS (giriş) başına veri düzlemi CPU</span></td><td class="n">3.86 çekirdek</td></tr>
+<tr><td><code>derived.cpu_per_1k_hops</code><br><span class="mut small">1000 servis isteği (hop) başına veri düzlemi CPU</span></td><td class="n">0.483 çekirdek</td></tr>
+<tr><td><code>dataplane.mem_idle_mib</code><br><span class="mut small">boşta veri düzlemi belleği</span></td><td class="n">166 MiB</td></tr>
+<tr><td><code>dataplane.mem_per_pod_mib</code><br><span class="mut small">uygulama pod&#x27;u başına veri düzlemi belleği (boşta)</span></td><td class="n">8.75 MiB</td></tr>
+<tr><td><code>derived.req_cpu_per_pod</code><br><span class="mut small">pod başına ayrılan veri düzlemi CPU&#x27;su</span></td><td class="n">0 çekirdek</td></tr>
+<tr><td><code>derived.req_mem_per_pod</code><br><span class="mut small">pod başına ayrılan veri düzlemi belleği</span></td><td class="n">0 MiB</td></tr>
+<tr><td><code>node_overhead_cores</code><br><span class="mut small">servis node&#x27;unda app+proxy dışı CPU (kernel ağ, kubelet...)</span></td><td class="n">0.166 çekirdek</td></tr>
+<tr><td><code>shop_pods</code></td><td class="n">19.0 adet</td></tr>
+<tr><td><code>idle.app.mem_mib</code><br><span class="mut small">app ortalama bellek</span></td><td class="n">216 MiB</td></tr>
+<tr><td><code>load.app.mem_mib</code><br><span class="mut small">app ortalama bellek</span></td><td class="n">226 MiB</td></tr>
+<tr><td><code>load.app.cpu_cores</code><br><span class="mut small">app ortalama CPU</span></td><td class="n">1.07 çekirdek</td></tr>
+<tr><td><code>req.app.cpu_cores</code><br><span class="mut small">ayrılan CPU (requests)</span></td><td class="n">0.800 çekirdek</td></tr>
+<tr><td><code>req.app.mem_mib</code><br><span class="mut small">ayrılan bellek (requests)</span></td><td class="n">512 MiB</td></tr>
+<tr><td><code>idle.app.containers</code><br><span class="mut small">app konteyner sayısı</span></td><td class="n">26.0 adet</td></tr>
+<tr><td><code>idle.sidecar.mem_mib</code><br><span class="mut small">sidecar ortalama bellek</span></td><td class="n">166 MiB</td></tr>
+<tr><td><code>load.sidecar.mem_mib</code><br><span class="mut small">sidecar ortalama bellek</span></td><td class="n">169 MiB</td></tr>
+<tr><td><code>load.sidecar.cpu_cores</code><br><span class="mut small">sidecar ortalama CPU</span></td><td class="n">0.966 çekirdek</td></tr>
+<tr><td><code>req.sidecar.cpu_cores</code><br><span class="mut small">ayrılan CPU (requests)</span></td><td class="n">0 çekirdek</td></tr>
+<tr><td><code>req.sidecar.mem_mib</code><br><span class="mut small">ayrılan bellek (requests)</span></td><td class="n">0 MiB</td></tr>
+<tr><td><code>idle.sidecar.containers</code><br><span class="mut small">sidecar konteyner sayısı</span></td><td class="n">29.0 adet</td></tr>
+<tr><td><code>idle.control.mem_mib</code><br><span class="mut small">control ortalama bellek</span></td><td class="n">87.9 MiB</td></tr>
+<tr><td><code>load.control.mem_mib</code><br><span class="mut small">control ortalama bellek</span></td><td class="n">86.5 MiB</td></tr>
+<tr><td><code>load.control.cpu_cores</code><br><span class="mut small">control ortalama CPU</span></td><td class="n">0.006 çekirdek</td></tr>
+<tr><td><code>req.control.cpu_cores</code><br><span class="mut small">ayrılan CPU (requests)</span></td><td class="n">0 çekirdek</td></tr>
+<tr><td><code>req.control.mem_mib</code><br><span class="mut small">ayrılan bellek (requests)</span></td><td class="n">0 MiB</td></tr>
+<tr><td><code>idle.control.containers</code><br><span class="mut small">control konteyner sayısı</span></td><td class="n">8.00 adet</td></tr>
+</table></div>
+<h2 id="proj">4. Prod projeksiyonu (3.000 servis)</h2><p>Lab'da ölçülen birim maliyetler aşağıdaki varsayımlarla ölçeklenir. Varsayımlar <code>mesh-eval/config.env</code> (PROD_*) ile değiştirilip rapor yeniden üretilebilir.</p>
+<div class="wrap"><table><tr><th>Varsayım</th><th>Değer</th></tr><tr><td>Servis</td><td>3000</td></tr><tr><td>Servis başına replika</td><td>3.0</td></tr><tr><td>Pod</td><td>9000</td></tr><tr><td>Node başına pod</td><td>30.0</td></tr><tr><td>Node</td><td>300</td></tr><tr><td>Node boyutu</td><td>16 vCPU / 64 GB</td></tr><tr><td>Toplam servisler arası istek hızı</td><td>30000 RPS</td></tr><tr><td>Waypoint başına servis (ambient L7)</td><td>10</td></tr><tr><td>Waypoint</td><td>300</td></tr></table></div>
+<div class="wrap"><table><tr><th>Kalem</th><th class="n">Linkerd</th></tr>
+<tr><td>Veri düzlemi belleği (yük altında)</td><td class="n">51.2 GiB</td></tr>
+<tr><td>Veri düzlemi CPU (toplam trafik)</td><td class="n">14.5 çekirdek</td></tr>
+<tr><td>Ayrılan CPU (requests)</td><td class="n">0 çekirdek</td></tr>
+<tr><td>Ayrılan bellek (requests)</td><td class="n">0 GiB</td></tr>
+<tr><td>Kontrol düzlemi belleği (servis sayısıyla)</td><td class="n">1.17 GiB</td></tr>
+<tr><td>Proxy&#x27;lerin servis sayısıyla büyümesi</td><td class="n">0 GiB</td></tr>
+<tr><td>Mesh metrik serisi</td><td class="n">0 milyon</td></tr>
+<tr><td>Node eşdeğeri — kullanılan</td><td class="n">0.906 node</td></tr>
+<tr><td>Node eşdeğeri — ayrılan (requests)</td><td class="n">0 node</td></tr>
+</table></div>
+<svg viewBox="0 0 640 108" class="chart" role="img" aria-label="Mesh&#x27;in prod&#x27;da gerektirdiği ek kapasite">
+<text x="10" y="18" class="ct">Mesh&#x27;in prod&#x27;da gerektirdiği ek kapasite</text>
+<text x="10" y="45" class="ax">Node eşdeğeri (kullanılan)</text>
+<rect x="190" y="34" width="360.0" height="14" rx="2" fill="#7b4bb7"><title>Linkerd: 0.906 node</title></rect>
+<text x="555.0" y="45" class="ax">0.906 node</text>
+<text x="10" y="74" class="ax">Node eşdeğeri (ayrılan)</text>
+<rect x="190" y="63" width="1.0" height="14" rx="2" fill="#7b4bb7"><title>Linkerd: 0 node</title></rect>
+<text x="196.0" y="74" class="ax">0 node</text>
+</svg>
+<p class="mut small">Sınırlar: doğrusal ölçekleme; lab node'u 4 çekirdekli ve tek makinedir. Sidecar büyümesi Istio <code>Sidecar</code> kaynağıyla kapsam daraltılarak azaltılabilir; Linkerd proxy'leri hedefleri istek anında öğrenir. Ayrılan kaynaklar mesh'lerin varsayılan değerleridir.</p>
+<h2 id="matris">5. Test sonuç matrisi</h2><div class="wrap"><table><tr><th>Test</th><th class="n">Linkerd</th></tr>
+<tr><th colspan="2">Performans</th></tr>
+<tr><td><a href="#t-P01">P01</a> Kademeli yük — gecikme ve kırılma noktası</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-P02">P02</a> Sabit uzun yük (soak) — kararlılık ve sızıntı</td><td class="n"><span class="st-fail" title="Kısmen / başarısız">⚠️ Kısmen / başarısız</span></td></tr>
+<tr><td><a href="#t-P03">P03</a> Ani yük (spike) — dayanım ve toparlanma</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-P04">P04</a> Uçtan uca yol — edge -&gt; DMZ -&gt; ingress -&gt; zincir</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-P05">P05</a> Kaynak tüketimi — kalem kalem maliyet</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-P06">P06</a> Pod başlangıç süresi ve ölçeklenme hızı</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-P07">P07</a> Politika yayılma süresi ve kontrol düzlemi ölçeği</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><th colspan="2">Güvenlik</th></tr>
+<tr><td><a href="#t-S01">S01</a> mTLS zorunluluğu ve hat üzerinde şifreleme</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-S02">S02</a> Servisler arası whitelisting — NetworkPolicy (L3/L4)</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-S03">S03</a> Servisler arası whitelisting — kimlik bazlı (mesh yetki politikası)</td><td class="n"><span class="st-fail" title="Kısmen / başarısız">⚠️ Kısmen / başarısız</span></td></tr>
+<tr><td><a href="#t-S04">S04</a> Endpoint bazlı erişim kısıtı (L7 — path / method)</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-S05">S05</a> Giriş noktasında endpoint bazlı erişim kısıtı (DMZ ingress)</td><td class="n"><span class="st-fail" title="Kısmen / başarısız">⚠️ Kısmen / başarısız</span></td></tr>
+<tr><td><a href="#t-S06">S06</a> Politika atlatma denemeleri</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-S07">S07</a> Dış çıkış (egress) whitelisting</td><td class="n"><span class="st-na" title="cluster&#x27;dan internete erişim yok (example.com) — test yapılamaz">➖ Uygulanamaz</span></td></tr>
+<tr><td><a href="#t-S08">S08</a> Sertifika yönetimi — kurumsal CA, ömür, yük altında CA rotasyonu</td><td class="n"><span class="st-error" title="Hata">❌ Hata</span></td></tr>
+<tr><th colspan="2">Dayanıklılık</th></tr>
+<tr><td><a href="#t-R01">R01</a> Timeout, retry ve outlier detection (circuit breaking)</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><td><a href="#t-R02">R02</a> Hata enjeksiyonu (fault injection)</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><td><a href="#t-R03">R03</a> Yük altında pod kaybı (failover)</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><td><a href="#t-R04">R04</a> Mesh&#x27;in kendi arızası — kontrol düzlemi kaybı ve node proxy&#x27;si yeniden başlaması</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><td><a href="#t-R05">R05</a> Yük altında kesintisiz mesh güncellemesi</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><th colspan="2">Trafik yönetimi</th></tr>
+<tr><td><a href="#t-T01">T01</a> Kademeli yayın — ağırlıklı yönlendirme, başlık bazlı yönlendirme, trafik yansıtma</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><a href="#t-T02">T02</a> Protokol desteği — gRPC yük dağılımı, server-first TCP, veri tabanı trafiği</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><td><a href="#t-T03">T03</a> Gateway API ile giriş (ingress-nginx&#x27;in yerine geçme)</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><th colspan="2">Gözlemlenebilirlik</th></tr>
+<tr><td><a href="#t-O01">O01</a> Gözlemlenebilirlik — hazır metrikler, doğruluk, dağıtık izleme, erişim logu</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><td><a href="#t-O02">O02</a> Metrik maliyeti — seri sayısı ve alım hızı</td><td class="n"><span class="st-na">·</span></td></tr>
+<tr><th colspan="2">Operasyon</th></tr>
+<tr><td><a href="#t-O03">O03</a> Operasyon envanteri — karmaşıklık ve ayrıcalık</td><td class="n"><span class="st-na">·</span></td></tr>
+</table></div><p class='mut small'>✅ geçti · ⚠️ bazı kontroller başarısız · ➖ bu mesh'te yetenek yok / uygulanamaz (nedeni hücre ipucunda) · ❌ test hatası · · koşulmadı</p>
+<h2 id="bulgular">6. Bulgular</h2><p>Testlerin otomatik kaydettiği, karar için önemli gözlemler.</p>
+<h3 style="color:#7b4bb7">Linkerd</h3><ul class="f">
+<li><a href="#t-S02">S02</a> — NetworkPolicy etiket bazlıdır: shop.role=gateway etiketini taşıyan farklı kimlikli bir pod order&#x27;a erişebildi (HTTP 200). Kimlik bazlı kural için mesh yetki politikası gerekir (S03).</li>
+<li><a href="#t-S04">S04</a> — linkerd: endpoint kuralı tek başına kubelet sağlık kontrollerini (/ready) engelledi; order pod&#x27;ları NotReady oldu. Probe yolları için ek kural gerekiyor (policies/linkerd-probes.yaml).</li>
+<li><a href="#t-T01">T01</a> — linkerd: trafik yansıtma (RequestMirror) çalışmadı: v2&#x27;ye 0 istek ulaştı (beklenen ~400). Route durumu: Accepted=True:Accepted ResolvedRefs=True:ResolvedRefs</li>
+<li><a href="#t-S07">S07</a> — <span class="mut">uygulanamaz:</span> cluster&#x27;dan internete erişim yok (example.com) — test yapılamaz</li>
+</ul>
+<h2 id="detay">7. Test detayları</h2>
+<h3>Performans</h3>
+<div class="card" id="t-P01"><h4 style="color:var(--fg);font-size:16px">P01 — Kademeli yük — gecikme ve kırılma noktası</h4>
+<p><b>Amaç.</b> Artan istek hızında (RPS) servis zincirinin gecikmesini (p50/p95/p99) ve hata oranını ölçmek; sistemin bozulmaya başladığı noktayı (kırılma noktası) bulmak. Mesh&#x27;siz referansla kıyaslanınca mesh&#x27;in gecikme ve kapasite maliyetini verir.
+</p><p><b>Yöntem.</b> k6 (loadgen node&#x27;u, mesh içinde) gateway&#x27;e sabit hızlı (constant-arrival-rate) aşamalarla yük verir. Her aşama ayrı ölçülür. Her aşamada rol bazında CPU/bellek (cAdvisor; node toplamı dahil) ve mesh&#x27;in servis başına gecikmesi kaydedilir. İki kırılma noktası raporlanır: SLO noktası (p99 &lt;= 100 ms, hata &lt; %1, hedef hızın &gt;= %95&#x27;i) ve doyma noktası (hata &lt; %1, hız &gt;= %95).
+</p>
+<p class="small"><b>Bileşenler:</b> k6, fake-service zinciri (8 servis), Prometheus (mgmt), cAdvisor, mesh metrikleri<br><b>Başarı ölçütü:</b> İlk aşamada hata oranı &lt; %1 (sistem düşük yükte sağlıklı)<br><b>Profiller:</b> quick: 100,300,600,900 RPS x 30 sn; full: 100,250,500,750,1000,1250,1500,2000 RPS x 60 sn</p>
+<svg viewBox="0 0 640 320" class="chart" role="img" aria-label="p99 gecikme — hedef istek hızına göre (log ölçek)">
+<text x="60" y="18" class="ct">p99 gecikme — hedef istek hızına göre (log ölçek)</text>
+<line x1="60" x2="480" y1="274.0" y2="274.0" class="grid"/>
+<text x="54" y="278.0" class="ax" text-anchor="end">8.82</text>
+<line x1="60" x2="480" y1="213.0" y2="213.0" class="grid"/>
+<text x="54" y="217.0" class="ax" text-anchor="end">54.2</text>
+<line x1="60" x2="480" y1="152.0" y2="152.0" class="grid"/>
+<text x="54" y="156.0" class="ax" text-anchor="end">333</text>
+<line x1="60" x2="480" y1="91.0" y2="91.0" class="grid"/>
+<text x="54" y="95.0" class="ax" text-anchor="end">2.048</text>
+<line x1="60" x2="480" y1="30.0" y2="30.0" class="grid"/>
+<text x="54" y="34.0" class="ax" text-anchor="end">12.590</text>
+<text x="60.0" y="290" class="ax" text-anchor="middle">100</text>
+<text x="165.0" y="290" class="ax" text-anchor="middle">300</text>
+<text x="322.5" y="290" class="ax" text-anchor="middle">600</text>
+<text x="480.0" y="290" class="ax" text-anchor="middle">900</text>
+<text x="270.0" y="312" class="ax" text-anchor="middle">hedef RPS</text>
+<text x="14" y="152.0" class="ax" text-anchor="middle" transform="rotate(-90 14 152.0)">p99 (ms)</text>
+<path d="M60.0,274.0 L165.0,216.5 L322.5,40.0 L480.0,37.7" fill="none" stroke="#7b4bb7" stroke-width="2.2"/>
+<circle cx="60.0" cy="274.0" r="3.2" fill="#7b4bb7"><title>Linkerd: 100 -> 8.82</title></circle>
+<circle cx="165.0" cy="216.5" r="3.2" fill="#7b4bb7"><title>Linkerd: 300 -> 48.9</title></circle>
+<circle cx="322.5" cy="40.0" r="3.2" fill="#7b4bb7"><title>Linkerd: 600 -> 9.347</title></circle>
+<circle cx="480.0" cy="37.7" r="3.2" fill="#7b4bb7"><title>Linkerd: 900 -> 10.001</title></circle>
+<rect x="492" y="34" width="12" height="3" fill="#7b4bb7"/>
+<text x="510" y="39" class="lg">Linkerd</text>
+</svg>
+<svg viewBox="0 0 640 320" class="chart" role="img" aria-label="p50 gecikme — hedef istek hızına göre">
+<text x="60" y="18" class="ct">p50 gecikme — hedef istek hızına göre</text>
+<line x1="60" x2="480" y1="274.0" y2="274.0" class="grid"/>
+<text x="54" y="278.0" class="ax" text-anchor="end">0</text>
+<line x1="60" x2="480" y1="213.0" y2="213.0" class="grid"/>
+<text x="54" y="217.0" class="ax" text-anchor="end">1.842</text>
+<line x1="60" x2="480" y1="152.0" y2="152.0" class="grid"/>
+<text x="54" y="156.0" class="ax" text-anchor="end">3.683</text>
+<line x1="60" x2="480" y1="91.0" y2="91.0" class="grid"/>
+<text x="54" y="95.0" class="ax" text-anchor="end">5.525</text>
+<line x1="60" x2="480" y1="30.0" y2="30.0" class="grid"/>
+<text x="54" y="34.0" class="ax" text-anchor="end">7.366</text>
+<text x="60.0" y="290" class="ax" text-anchor="middle">100</text>
+<text x="165.0" y="290" class="ax" text-anchor="middle">300</text>
+<text x="322.5" y="290" class="ax" text-anchor="middle">600</text>
+<text x="480.0" y="290" class="ax" text-anchor="middle">900</text>
+<text x="270.0" y="312" class="ax" text-anchor="middle">hedef RPS</text>
+<text x="14" y="152.0" class="ax" text-anchor="middle" transform="rotate(-90 14 152.0)">p50 (ms)</text>
+<path d="M60.0,273.8 L165.0,273.8 L322.5,134.0 L480.0,52.2" fill="none" stroke="#7b4bb7" stroke-width="2.2"/>
+<circle cx="60.0" cy="273.8" r="3.2" fill="#7b4bb7"><title>Linkerd: 100 -> 4.80</title></circle>
+<circle cx="165.0" cy="273.8" r="3.2" fill="#7b4bb7"><title>Linkerd: 300 -> 5.90</title></circle>
+<circle cx="322.5" cy="134.0" r="3.2" fill="#7b4bb7"><title>Linkerd: 600 -> 4.225</title></circle>
+<circle cx="480.0" cy="52.2" r="3.2" fill="#7b4bb7"><title>Linkerd: 900 -> 6.696</title></circle>
+<rect x="492" y="34" width="12" height="3" fill="#7b4bb7"/>
+<text x="510" y="39" class="lg">Linkerd</text>
+</svg>
+
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>stages</code><br><span class="mut small">aşama sayısı</span></td><td class="n">4.00 adet</td></tr>
+<tr><td><code>stage_duration_s</code></td><td class="n">30.0 sn</td></tr>
+<tr><td><code>stage0.target_rps</code></td><td class="n">100 RPS</td></tr>
+<tr><td><code>stage0.rps</code><br><span class="mut small">gerçekleşen</span></td><td class="n">100 RPS</td></tr>
+<tr><td><code>stage0.p50_ms</code></td><td class="n">4.80 ms</td></tr>
+<tr><td><code>stage0.p95_ms</code></td><td class="n">7.81 ms</td></tr>
+<tr><td><code>stage0.p99_ms</code></td><td class="n">8.82 ms</td></tr>
+<tr><td><code>stage0.p999_ms</code></td><td class="n">10.7 ms</td></tr>
+<tr><td><code>stage0.error_rate</code></td><td class="n">0 oran</td></tr>
+<tr><td><code>stage0.dropped</code></td><td class="n">0 istek</td></tr>
+<tr><td><code>stage1.target_rps</code></td><td class="n">300 RPS</td></tr>
+<tr><td><code>stage1.rps</code><br><span class="mut small">gerçekleşen</span></td><td class="n">300 RPS</td></tr>
+<tr><td><code>stage1.p50_ms</code></td><td class="n">5.90 ms</td></tr>
+<tr><td><code>stage1.p95_ms</code></td><td class="n">14.7 ms</td></tr>
+<tr><td><code>stage1.p99_ms</code></td><td class="n">48.9 ms</td></tr>
+<tr><td><code>stage1.p999_ms</code></td><td class="n">103 ms</td></tr>
+<tr><td><code>stage1.error_rate</code></td><td class="n">0 oran</td></tr>
+<tr><td><code>stage1.dropped</code></td><td class="n">0 istek</td></tr>
+<tr><td><code>hop.pricing.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">1.38 ms</td></tr>
+<tr><td><code>hop.gateway.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">4.29 ms</td></tr>
+<tr><td><code>hop.banner.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">0.500 ms</td></tr>
+<tr><td><code>hop.catalog.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">0.568 ms</td></tr>
+<tr><td><code>hop.ledger.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">0.575 ms</td></tr>
+<tr><td><code>hop.payment.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">1.88 ms</td></tr>
+<tr><td><code>hop.order.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">3.29 ms</td></tr>
+<tr><td><code>hop.inventory.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">1.99 ms</td></tr>
+<tr><td><code>hop.fraud.p50_ms</code><br><span class="mut small">mesh&#x27;in ölçtüğü servis gecikmesi (aşama 1)</span></td><td class="n">0.800 ms</td></tr>
+<tr><td><code>stage2.target_rps</code></td><td class="n">600 RPS</td></tr>
+<tr><td><code>stage2.rps</code><br><span class="mut small">gerçekleşen</span></td><td class="n">447 RPS</td></tr>
+<tr><td><code>stage2.p50_ms</code></td><td class="n">4.225 ms</td></tr>
+<tr><td><code>stage2.p95_ms</code></td><td class="n">8.185 ms</td></tr>
+<tr><td><code>stage2.p99_ms</code></td><td class="n">9.347 ms</td></tr>
+<tr><td><code>stage2.p999_ms</code></td><td class="n">9.998 ms</td></tr>
+<tr><td><code>stage2.error_rate</code></td><td class="n">0.001 oran</td></tr>
+<tr><td><code>stage2.dropped</code></td><td class="n">4.583 istek</td></tr>
+<tr><td><code>stage3.target_rps</code></td><td class="n">900 RPS</td></tr>
+<tr><td><code>stage3.rps</code><br><span class="mut small">gerçekleşen</span></td><td class="n">464 RPS</td></tr>
+<tr><td><code>stage3.p50_ms</code></td><td class="n">6.696 ms</td></tr>
+<tr><td><code>stage3.p95_ms</code></td><td class="n">9.877 ms</td></tr>
+<tr><td><code>stage3.p99_ms</code></td><td class="n">10.001 ms</td></tr>
+<tr><td><code>stage3.p999_ms</code></td><td class="n">10.002 ms</td></tr>
+<tr><td><code>stage3.error_rate</code></td><td class="n">0.042 oran</td></tr>
+<tr><td><code>stage3.dropped</code></td><td class="n">13.089 istek</td></tr>
+<tr><td><code>knee_rps</code><br><span class="mut small">kırılma noktası (sağlıklı son aşama)</span></td><td class="n">100 RPS</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>ilk aşama hata oranı</td><td class="n st-pass" title="beklenen: &lt;= 0.01">✔ 0</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-012938_P01_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-P02"><h4 style="color:var(--fg);font-size:16px">P02 — Sabit uzun yük (soak) — kararlılık ve sızıntı</h4>
+<p><b>Amaç.</b> Uzun süre sabit yük altında gecikmenin kayıp kaymadığını (drift) ve proxy&#x27;lerin bellek kullanımının büyümediğini (sızıntı) göstermek.
+</p><p><b>Yöntem.</b> k6 sabit hızla yük verir; süre dört eşit çeyreğe bölünür. İlk ve son çeyreğin p99&#x27;u ile rol bazında bellek kullanımı kıyaslanır.
+</p>
+<p class="small"><b>Bileşenler:</b> k6, fake-service zinciri, cAdvisor, Prometheus<br><b>Başarı ölçütü:</b> Hata oranı &lt; %1 ve son çeyrek p99 &lt;= max(1.5 x ilk çeyrek, ilk çeyrek + 10 ms)<br><b>Profiller:</b> quick: 200 RPS x 2 dk; full: 300 RPS x 20 dk</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-fail" title="Kısmen / başarısız">⚠️ Kısmen / başarısız</span></td></tr>
+<tr><td><code>rate_rps</code></td><td class="n">200 RPS</td></tr>
+<tr><td><code>duration_s</code></td><td class="n">120 sn</td></tr>
+<tr><td><code>q0.p99_ms</code><br><span class="mut small">çeyrek 1</span></td><td class="n">9.94 ms</td></tr>
+<tr><td><code>q0.p50_ms</code></td><td class="n">4.86 ms</td></tr>
+<tr><td><code>q1.p99_ms</code><br><span class="mut small">çeyrek 2</span></td><td class="n">9.98 ms</td></tr>
+<tr><td><code>q1.p50_ms</code></td><td class="n">4.91 ms</td></tr>
+<tr><td><code>q2.p99_ms</code><br><span class="mut small">çeyrek 3</span></td><td class="n">18.8 ms</td></tr>
+<tr><td><code>q2.p50_ms</code></td><td class="n">5.89 ms</td></tr>
+<tr><td><code>q3.p99_ms</code><br><span class="mut small">çeyrek 4</span></td><td class="n">15.7 ms</td></tr>
+<tr><td><code>q3.p50_ms</code></td><td class="n">6.04 ms</td></tr>
+<tr><td><code>p50_ms</code></td><td class="n">5.42 ms</td></tr>
+<tr><td><code>p99_ms</code></td><td class="n">13.7 ms</td></tr>
+<tr><td><code>error_rate</code></td><td class="n">0 oran</td></tr>
+<tr><td><code>p99_drift</code><br><span class="mut small">son çeyrek p99 / ilk çeyrek p99</span></td><td class="n">1.58 kat</td></tr>
+<tr><td><code>app.mem_first_mib</code></td><td class="n">226 MiB</td></tr>
+<tr><td><code>app.mem_last_mib</code></td><td class="n">224 MiB</td></tr>
+<tr><td><code>app.mem_growth_mib</code><br><span class="mut small">son - ilk çeyrek</span></td><td class="n">-1.90 MiB</td></tr>
+<tr><td><code>sidecar.mem_first_mib</code></td><td class="n">169 MiB</td></tr>
+<tr><td><code>sidecar.mem_last_mib</code></td><td class="n">168 MiB</td></tr>
+<tr><td><code>sidecar.mem_growth_mib</code><br><span class="mut small">son - ilk çeyrek</span></td><td class="n">-0.500 MiB</td></tr>
+<tr><td><code>control.mem_first_mib</code></td><td class="n">82.6 MiB</td></tr>
+<tr><td><code>control.mem_last_mib</code></td><td class="n">82.6 MiB</td></tr>
+<tr><td><code>control.mem_growth_mib</code><br><span class="mut small">son - ilk çeyrek</span></td><td class="n">0 MiB</td></tr>
+<tr><td><code>load.app.cpu_cores</code><br><span class="mut small">app ortalama CPU</span></td><td class="n">0.769 çekirdek</td></tr>
+<tr><td><code>load.app.mem_mib</code><br><span class="mut small">app ortalama bellek</span></td><td class="n">225 MiB</td></tr>
+<tr><td><code>load.app.containers</code><br><span class="mut small">app konteyner sayısı</span></td><td class="n">16.0 adet</td></tr>
+<tr><td><code>load.sidecar.cpu_cores</code><br><span class="mut small">sidecar ortalama CPU</span></td><td class="n">0.700 çekirdek</td></tr>
+<tr><td><code>load.sidecar.mem_mib</code><br><span class="mut small">sidecar ortalama bellek</span></td><td class="n">168 MiB</td></tr>
+<tr><td><code>load.sidecar.containers</code><br><span class="mut small">sidecar konteyner sayısı</span></td><td class="n">19.0 adet</td></tr>
+<tr><td><code>load.control.cpu_cores</code><br><span class="mut small">control ortalama CPU</span></td><td class="n">0.005 çekirdek</td></tr>
+<tr><td><code>load.control.mem_mib</code><br><span class="mut small">control ortalama bellek</span></td><td class="n">82.5 MiB</td></tr>
+<tr><td><code>load.control.containers</code><br><span class="mut small">control konteyner sayısı</span></td><td class="n">8.00 adet</td></tr>
+<tr><td><code>load.ingress.cpu_cores</code><br><span class="mut small">ingress ortalama CPU</span></td><td class="n">0.002 çekirdek</td></tr>
+<tr><td><code>load.ingress.mem_mib</code><br><span class="mut small">ingress ortalama bellek</span></td><td class="n">48.7 MiB</td></tr>
+<tr><td><code>load.ingress.containers</code><br><span class="mut small">ingress konteyner sayısı</span></td><td class="n">2.00 adet</td></tr>
+<tr><td><code>load.loadgen.cpu_cores</code><br><span class="mut small">loadgen ortalama CPU</span></td><td class="n">0.182 çekirdek</td></tr>
+<tr><td><code>load.loadgen.mem_mib</code><br><span class="mut small">loadgen ortalama bellek</span></td><td class="n">36.0 MiB</td></tr>
+<tr><td><code>load.loadgen.containers</code><br><span class="mut small">loadgen konteyner sayısı</span></td><td class="n">2.00 adet</td></tr>
+<tr><td><code>load.node_app.cpu_cores</code><br><span class="mut small">node_app ortalama CPU</span></td><td class="n">1.60 çekirdek</td></tr>
+<tr><td><code>load.node_app.mem_mib</code><br><span class="mut small">node_app ortalama bellek</span></td><td class="n">940 MiB</td></tr>
+<tr><td><code>load.node_app.containers</code><br><span class="mut small">node_app konteyner sayısı</span></td><td class="n">1.00 adet</td></tr>
+<tr><td><code>load.node_loadgen.cpu_cores</code><br><span class="mut small">node_loadgen ortalama CPU</span></td><td class="n">0.205 çekirdek</td></tr>
+<tr><td><code>load.node_loadgen.mem_mib</code><br><span class="mut small">node_loadgen ortalama bellek</span></td><td class="n">206 MiB</td></tr>
+<tr><td><code>load.node_loadgen.containers</code><br><span class="mut small">node_loadgen konteyner sayısı</span></td><td class="n">1.00 adet</td></tr>
+<tr><td><code>load.node_control.cpu_cores</code><br><span class="mut small">node_control ortalama CPU</span></td><td class="n">0.312 çekirdek</td></tr>
+<tr><td><code>load.node_control.mem_mib</code><br><span class="mut small">node_control ortalama bellek</span></td><td class="n">2.034 MiB</td></tr>
+<tr><td><code>load.node_control.containers</code><br><span class="mut small">node_control konteyner sayısı</span></td><td class="n">1.00 adet</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>hata oranı</td><td class="n st-pass" title="beklenen: &lt;= 0.01">✔ 0</td></tr>
+<tr><td>p99 kayması (son/ilk)</td><td class="n st-error" title="beklenen: &lt;= 1.5">✘ 1.582</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-014221_P02_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-P03"><h4 style="color:var(--fg);font-size:16px">P03 — Ani yük (spike) — dayanım ve toparlanma</h4>
+<p><b>Amaç.</b> Ani trafik sıçramasında hata oranını ve sistemin normale dönme süresini ölçmek.</p><p><b>Yöntem.</b> Üç aşama: düşük yük (100 RPS) -&gt; ani sıçrama -&gt; tekrar düşük yük. Sıçrama ve sonrası p99/hata ölçülür; toparlanma süresi, sıçrama bittikten sonra p99&#x27;un tekrar ilk aşamanın 2 katının altına indiği ana kadar geçen süredir (k6 canlı metrikleri, 5 sn çözünürlük).
+</p>
+<p class="small"><b>Bileşenler:</b> k6, fake-service zinciri, Prometheus<br><b>Başarı ölçütü:</b> Sıçrama sonrası aşamada hata oranı &lt; %1<br><b>Profiller:</b> quick: 100 -&gt; 700 (20 sn) -&gt; 100 RPS; full: 100 -&gt; 1200 (30 sn) -&gt; 100 RPS</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>spike_rps</code></td><td class="n">700 RPS</td></tr>
+<tr><td><code>spike_duration_s</code></td><td class="n">20.0 sn</td></tr>
+<tr><td><code>before.p50_ms</code></td><td class="n">4.84 ms</td></tr>
+<tr><td><code>before.p99_ms</code></td><td class="n">9.04 ms</td></tr>
+<tr><td><code>before.error_rate</code></td><td class="n">0 oran</td></tr>
+<tr><td><code>before.dropped</code></td><td class="n">0 istek</td></tr>
+<tr><td><code>spike.p50_ms</code></td><td class="n">1.547 ms</td></tr>
+<tr><td><code>spike.p99_ms</code></td><td class="n">3.349 ms</td></tr>
+<tr><td><code>spike.error_rate</code></td><td class="n">0 oran</td></tr>
+<tr><td><code>spike.dropped</code></td><td class="n">2.098 istek</td></tr>
+<tr><td><code>after.p50_ms</code></td><td class="n">5.42 ms</td></tr>
+<tr><td><code>after.p99_ms</code></td><td class="n">818 ms</td></tr>
+<tr><td><code>after.error_rate</code></td><td class="n">0 oran</td></tr>
+<tr><td><code>after.dropped</code></td><td class="n">66.0 istek</td></tr>
+<tr><td><code>recovery_s</code><br><span class="mut small">sıçrama bitiminden p99 &lt;= 2x taban&#x27;a dönüşe kadar</span></td><td class="n">5.00 sn</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>sıçrama sonrası hata oranı</td><td class="n st-pass" title="beklenen: &lt;= 0.01">✔ 0</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-014453_P03_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-P04"><h4 style="color:var(--fg);font-size:16px">P04 — Uçtan uca yol — edge -&gt; DMZ -&gt; ingress -&gt; zincir</h4>
+<p><b>Amaç.</b> Gerçek kullanıcı yolundaki toplam gecikmeyi ölçmek (edge LB, DMZ ingress A/B, cluster-a ingress, mesh&#x27;li ingress -&gt; gateway kenarı dahil) ve küme içi ölçümle (P01) kıyaslamak.
+</p><p><b>Yöntem.</b> k6 host&#x27;ta, &quot;internet&quot; segmentinde (lab-edge network&#x27;ü) bir container olarak çalışır ve https://shop.localtest.me adresine edge LB üzerinden sabit hızlı aşamalarla yük verir.
+</p>
+<p class="small"><b>Bileşenler:</b> k6 (docker, lab-edge), HAProxy edge LB, DMZ ingress-nginx x2, cluster-a ingress-nginx, fake-service zinciri<br><b>Başarı ölçütü:</b> İlk aşamada hata oranı &lt; %1<br><b>Profiller:</b> quick: 100, 250 RPS x 30 sn; full: 100, 250, 400 RPS x 60 sn</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>stage0.target_rps</code></td><td class="n">100 RPS</td></tr>
+<tr><td><code>stage0.p50_ms</code></td><td class="n">6.15 ms</td></tr>
+<tr><td><code>stage0.p95_ms</code></td><td class="n">9.36 ms</td></tr>
+<tr><td><code>stage0.p99_ms</code></td><td class="n">11.2 ms</td></tr>
+<tr><td><code>stage0.error_rate</code></td><td class="n">0 oran</td></tr>
+<tr><td><code>stage1.target_rps</code></td><td class="n">250 RPS</td></tr>
+<tr><td><code>stage1.p50_ms</code></td><td class="n">6.86 ms</td></tr>
+<tr><td><code>stage1.p95_ms</code></td><td class="n">12.3 ms</td></tr>
+<tr><td><code>stage1.p99_ms</code></td><td class="n">22.0 ms</td></tr>
+<tr><td><code>stage1.error_rate</code></td><td class="n">0 oran</td></tr>
+<tr><td><code>tls_handshake_p50_ms</code></td><td class="n">0 ms</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>ilk aşama hata oranı</td><td class="n st-pass" title="beklenen: &lt;= 0.01">✔ 0</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-013625_P04_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-P05"><h4 style="color:var(--fg);font-size:16px">P05 — Kaynak tüketimi — kalem kalem maliyet</h4>
+<p><b>Amaç.</b> Mesh&#x27;in her bileşeninin boşta ve sabit yük altında harcadığı CPU/belleği ve kapasite planlamasında &quot;ayrılan&quot; kaynak isteklerini (requests) ölçmek. Ambient / sidecar / Linkerd maliyet tablosunun ve prod projeksiyonunun ana girdisi.
+</p><p><b>Yöntem.</b> Önce boşta (yük yok) bir pencere, sonra tüm mesh&#x27;lerde aynı sabit hızda (250 RPS) yük penceresi ölçülür. Roller: app, sidecar, ztunnel, waypoint, cni, control, node toplamı. Ayrıca kaynak istekleri (kube-state-metrics) ve konteyner sayıları kaydedilir.
+</p>
+<p class="small"><b>Bileşenler:</b> k6, cAdvisor, kube-state-metrics, Prometheus<br><b>Başarı ölçütü:</b> Yük penceresinde hata oranı &lt; %1<br><b>Profiller:</b> quick: boşta 45 sn, 250 RPS x 90 sn; full: boşta 120 sn, 250 RPS x 300 sn</p>
+<p class="mut small">Grafikler ve ayrıntılı tablo: bölüm 3.</p>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>yük altında hata oranı</td><td class="n st-pass" title="beklenen: &lt;= 0.01">✔ 0</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-013910_P05_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-P06"><h4 style="color:var(--fg);font-size:16px">P06 — Pod başlangıç süresi ve ölçeklenme hızı</h4>
+<p><b>Amaç.</b> Mesh&#x27;in yeni pod&#x27;ların hazır olma süresine etkisini ölçmek (sidecar enjeksiyonu, proxy başlatma, sertifika alma). Ani ölçeklenmede (HPA) ne kadar gecikme eklediğini gösterir.
+</p><p><b>Yöntem.</b> shop namespace&#x27;inde (mesh&#x27;li) bağımsız bir test deployment&#x27;ı 0&#x27;dan N replikaya ölçeklenir. Her pod için oluşturulma -&gt; Ready süresi ve tüm pod&#x27;ların hazır olma süresi ölçülür. İmajlar node&#x27;da önceden bulunur (indirme süresi ölçüme girmez).
+</p>
+<p class="small"><b>Bileşenler:</b> kube-apiserver, kubelet, mesh enjektörü / CNI, fake-service<br><b>Başarı ölçütü:</b> Tüm pod&#x27;lar 120 sn içinde hazır<br><b>Profiller:</b> quick: 10 replika x 1 tur; full: 30 replika x 3 tur</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>replicas</code></td><td class="n">10.0 adet</td></tr>
+<tr><td><code>rounds</code></td><td class="n">1.00 tur</td></tr>
+<tr><td><code>round1.all_ready_s</code></td><td class="n">4.68 sn</td></tr>
+<tr><td><code>ready_p50_s</code><br><span class="mut small">pod oluşturma -&gt; Ready (medyan)</span></td><td class="n">4.00 sn</td></tr>
+<tr><td><code>ready_p95_s</code></td><td class="n">4.00 sn</td></tr>
+<tr><td><code>ready_max_s</code></td><td class="n">4.00 sn</td></tr>
+<tr><td><code>all_ready_s</code><br><span class="mut small">N pod&#x27;un tamamı hazır (medyan tur)</span></td><td class="n">4.68 sn</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>tüm turlar tamamlandı</td><td class="n st-pass" title="beklenen: 1">✔ 1</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-013734_P06_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-P07"><h4 style="color:var(--fg);font-size:16px">P07 — Politika yayılma süresi ve kontrol düzlemi ölçeği</h4>
+<p><b>Amaç.</b> Bir erişim kuralı değiştiğinde ne kadar sürede yürürlüğe girdiğini ölçmek; cluster&#x27;daki servis sayısı arttığında kontrol düzleminin ve proxy&#x27;lerin kaynak tüketiminin nasıl büyüdüğünü göstermek (3.000 servislik prod için ölçeklenme göstergesi).
+</p><p><b>Yöntem.</b> (1) probe-rogue -&gt; order erişimini kesen kural uygulanır; erişimin kesildiği an (pod içinden 100 ms aralıkla yoklama) ölçülür; kural kaldırılır, erişimin geri geldiği an ölçülür (3 tekrar, medyan). Mesh yoksa NetworkPolicy, mesh&#x27;lerde mesh&#x27;in yetki politikası kullanılır. (2) Ayrı bir mesh&#x27;li namespace&#x27;e N servis (1 replika) eklenir; kontrol düzlemi ve shop proxy&#x27;lerinin belleği öncesi/sonrası kıyaslanır. (3) Ölçüm (1) N servis varken tekrarlanır.
+</p>
+<p class="small"><b>Bileşenler:</b> mesh kontrol düzlemi (istiod / linkerd-destination), proxy&#x27;ler, kube-network-policies (none)<br><b>Başarı ölçütü:</b> Kural 30 sn içinde yürürlüğe girer ve kaldırıldığında erişim geri gelir<br><b>Profiller:</b> quick: N = 30 servis; full: N = 120 servis</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>base.deny_s</code><br><span class="mut small">kural uygulandı -&gt; erişim kesildi (medyan)</span></td><td class="n">0.180 sn</td></tr>
+<tr><td><code>base.allow_s</code><br><span class="mut small">kural kaldırıldı -&gt; erişim açıldı (medyan)</span></td><td class="n">0.130 sn</td></tr>
+<tr><td><code>scale_services</code></td><td class="n">30.0 adet</td></tr>
+<tr><td><code>control.mem_before_mib</code></td><td class="n">77.9 MiB</td></tr>
+<tr><td><code>control.mem_after_mib</code></td><td class="n">89.0 MiB</td></tr>
+<tr><td><code>control.mem_growth_mib</code><br><span class="mut small">N servis eklenince kontrol düzlemi bellek artışı</span></td><td class="n">11.1 MiB</td></tr>
+<tr><td><code>sidecar.mem_per_container_before_mib</code></td><td class="n">6.87 MiB</td></tr>
+<tr><td><code>sidecar.mem_per_container_after_mib</code></td><td class="n">5.74 MiB</td></tr>
+<tr><td><code>sidecar.mem_per_container_growth_mib</code><br><span class="mut small">shop&#x27;taki her proxy&#x27;nin, N servis eklenince bellek artışı</span></td><td class="n">-1.12 MiB</td></tr>
+<tr><td><code>scaled.deny_s</code><br><span class="mut small">kural uygulandı -&gt; erişim kesildi (medyan)</span></td><td class="n">0.160 sn</td></tr>
+<tr><td><code>scaled.allow_s</code><br><span class="mut small">kural kaldırıldı -&gt; erişim açıldı (medyan)</span></td><td class="n">0.130 sn</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>base: yürürlüğe girme süresi</td><td class="n st-pass" title="beklenen: &lt;= 30">✔ 0.18</td></tr>
+<tr><td>scaled: yürürlüğe girme süresi</td><td class="n st-pass" title="beklenen: &lt;= 30">✔ 0.16</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-013740_P07_linkerd_r1</code></p>
+</div>
+<h3>Güvenlik</h3>
+<div class="card" id="t-S01"><h4 style="color:var(--fg);font-size:16px">S01 — mTLS zorunluluğu ve hat üzerinde şifreleme</h4>
+<p><b>Amaç.</b> Servisler arası trafiğin (1) mesh dışından şifresiz erişime kapalı olduğunu ve (2) ağ üzerinde gerçekten şifreli aktığını kanıtlamak. PCI DSS segmentasyon ve &quot;iletimde şifreleme&quot; kanıtı.
+</p><p><b>Yöntem.</b> (1) Mesh dışı bir namespace&#x27;teki pod order servisine düz HTTP ile bağlanmayı dener. (2) Servis node&#x27;unda host ağında çalışan tcpdump, probe-gateway -&gt; order isteklerine eklenen benzersiz bir işaret metnini (X-Meval-Marker başlığı) ağ paketlerinde arar. İşaret görünüyorsa trafik şifresizdir.
+</p>
+<p class="small"><b>Bileşenler:</b> tcpdump (netshoot, hostNetwork), mesh proxy&#x27;leri, PeerAuthentication / default-inbound-policy<br><b>Başarı ölçütü:</b> Mesh dışı düz erişim reddedilir ve işaret metni ağda görünmez</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>marker_packets</code><br><span class="mut small">mesh içi isteğin işaretinin ağda görüldüğü paket sayısı (0 = şifreli)</span></td><td class="n">0 paket</td></tr>
+<tr><td><code>control_packets</code><br><span class="mut small">kontrol: mesh dışı düz isteğin işareti (&gt;0 olmalı)</span></td><td class="n">6.00 paket</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>mesh dışından düz HTTP -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>kontrol: yakalama çalışıyor (düz metin kontrol işareti görüldü)</td><td class="n st-pass" title="beklenen: &gt;= 1">✔ 6</td></tr>
+<tr><td>ağ üzerinde trafik şifreli</td><td class="n st-pass" title="beklenen: evet">✔ evet</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-014926_S01_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-S02"><h4 style="color:var(--fg);font-size:16px">S02 — Servisler arası whitelisting — NetworkPolicy (L3/L4)</h4>
+<p><b>Amaç.</b> Kubernetes NetworkPolicy ile servisler arası izin listesinin (varsayılan ret + zincir kuralları) her mesh ile birlikte doğru çalıştığını ve mesh&#x27;e özel ek kural gerekip gerekmediğini göstermek. Etiket bazlı kuralların &quot;kimlik taklidi&quot;ne açık olduğunu kanıtlamak.
+</p><p><b>Yöntem.</b> (1) Standart kural seti (mesh&#x27;ten habersiz) uygulanır; zincir, uçtan uca erişim ve pod sağlığı kontrol edilir (mesh ile uyumsuzluk bulgusu). (2) Gerekiyorsa mesh&#x27;e uyarlanmış ek kurallar uygulanır. (3) İzin/ret matrisi: izinli kenarlar açık, yetkisiz pod, başka namespace ve yatay geçiş kapalı olmalı. (4) Etiketi &quot;gateway&quot; olan ama kimliği farklı bir pod (impostor) order&#x27;a erişmeye çalışır.
+</p>
+<p class="small"><b>Bileşenler:</b> kindnet / kube-network-policies (NetworkPolicy motoru), netshoot istemcileri<br><b>Başarı ölçütü:</b> Uyarlanmış kurallarla izin/ret matrisinin tamamı beklendiği gibi</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>naive.chain_ok</code><br><span class="mut small">standart kurallarla zincir çalışıyor</span></td><td class="n">1.00</td></tr>
+<tr><td><code>naive.e2e_ok</code></td><td class="n">1.00</td></tr>
+<tr><td><code>naive.pods_ready</code><br><span class="mut small">standart kurallarla pod&#x27;lar sağlıklı (probe&#x27;lar geçiyor)</span></td><td class="n">1.00</td></tr>
+<tr><td><code>mesh_specific_rules</code></td><td class="n">0 adet</td></tr>
+<tr><td><code>impostor_access</code><br><span class="mut small">etiketi taklit eden pod order&#x27;a erişebildi mi</span></td><td class="n">1.00</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>zincir çalışıyor (8 servis)</td><td class="n st-pass" title="beklenen: ok">✔ ok</td></tr>
+<tr><td>uçtan uca erişim (edge -&gt; ingress -&gt; gateway)</td><td class="n st-pass" title="beklenen: ok">✔ ok</td></tr>
+<tr><td>tüm shop pod&#x27;ları sağlıklı</td><td class="n st-pass" title="beklenen: ok">✔ ok</td></tr>
+<tr><td>gateway rolü -&gt; order</td><td class="n st-pass" title="beklenen: izin">✔ izin (200)</td></tr>
+<tr><td>yetkisiz pod -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (504)</td></tr>
+<tr><td>yetkisiz pod -&gt; catalog</td><td class="n st-pass" title="beklenen: ret">✔ ret (504)</td></tr>
+<tr><td>başka namespace -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (000)</td></tr>
+<tr><td>yatay geçiş: gateway -&gt; catalog</td><td class="n st-pass" title="beklenen: ret">✔ ret (504)</td></tr>
+</table></div>
+<h4>Bulgular</h4><ul class="f"><li><b style="color:#7b4bb7">Linkerd:</b> NetworkPolicy etiket bazlıdır: shop.role=gateway etiketini taşıyan farklı kimlikli bir pod order&#x27;a erişebildi (HTTP 200). Kimlik bazlı kural için mesh yetki politikası gerekir (S03).</li></ul>
+<p class="mut small">Koşular: <code>20261116-014937_S02_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-S03"><h4 style="color:var(--fg);font-size:16px">S03 — Servisler arası whitelisting — kimlik bazlı (mesh yetki politikası)</h4>
+<p><b>Amaç.</b> Servisler arası erişimi IP/etiket yerine kriptografik kimlikle (ServiceAccount, mTLS sertifikası) kısıtlamak: varsayılan ret + her servis için izinli çağıranlar listesi. NetworkPolicy&#x27;den (S02) farkı: etiket taklidi işe yaramaz.
+</p><p><b>Yöntem.</b> Kenar listesi (lib/policy.sh, AUTHZ_EDGES) mesh&#x27;in politika diline çevrilip uygulanır: Istio AuthorizationPolicy (sidecar/ambient: pod seçici; ambient+waypoint: Service hedefli), Linkerd Server + MeshTLSAuthentication + AuthorizationPolicy. İzin/ret matrisi ve kimlik taklidi (impostor: etiket gateway, kimlik rogue) denenir.
+</p>
+<p class="small"><b>Bileşenler:</b> mesh yetki politikası, mTLS kimlikleri, netshoot istemcileri<br><b>Başarı ölçütü:</b> İzin/ret matrisinin tamamı beklendiği gibi, kimlik taklidi reddedilir, pod&#x27;lar sağlıklı</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-fail" title="Kısmen / başarısız">⚠️ Kısmen / başarısız</span></td></tr>
+<tr><td><code>policy_objects</code><br><span class="mut small">uygulanan politika nesnesi sayısı</span></td><td class="n">27.0 adet</td></tr>
+<tr><td><code>deny_http_code</code><br><span class="mut small">reddedilen isteğin cevabı (403 = L7 ret, 000 = bağlantı reddi)</span></td><td class="n">403 kod</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>zincir çalışıyor (8 servis, tüm kenarlar yetkili)</td><td class="n st-error" title="beklenen: ok">✘ hata</td></tr>
+<tr><td>uçtan uca erişim (ingress kimliği yetkili)</td><td class="n st-error" title="beklenen: ok">✘ hata</td></tr>
+<tr><td>tüm shop pod&#x27;ları sağlıklı</td><td class="n st-pass" title="beklenen: ok">✔ ok</td></tr>
+<tr><td>gateway kimliği -&gt; order</td><td class="n st-error" title="beklenen: izin">✘ ret (500)</td></tr>
+<tr><td>rogue kimliği -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>rogue kimliği -&gt; gateway</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>yatay geçiş: gateway -&gt; catalog</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>kimlik taklidi (etiket=gateway, sa=rogue) -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>mesh dışı namespace -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-015015_S03_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-S04"><h4 style="color:var(--fg);font-size:16px">S04 — Endpoint bazlı erişim kısıtı (L7 — path / method)</h4>
+<p><b>Amaç.</b> Bir servisin yalnızca belirli endpoint&#x27;lerinin, belirli kimliklere ve HTTP metotlarına açık olmasını sağlamak (ör. /admin kapalı, yalnızca GET). Mesh içinde endpoint bazlı whitelisting.
+</p><p><b>Yöntem.</b> order servisi için kural: yalnızca gateway kimliği, yalnızca GET, yalnızca &quot;/&quot; ve &quot;/api/*&quot;. /admin, POST, DELETE ve başka kimlik reddedilmeli. Önce kural tek başına uygulanır; kubelet sağlık kontrollerini bozuyorsa (bulgu) gerekli ek kural eklenir. Ambient L4 (waypoint&#x27;siz) profilde L7 kural uygulanamaz; gözlenen davranış kaydedilir.
+</p>
+<p class="small"><b>Bileşenler:</b> Istio AuthorizationPolicy (sidecar / waypoint), Linkerd HTTPRoute + AuthorizationPolicy<br><b>Başarı ölçütü:</b> İzinli endpoint&#x27;ler açık, diğerleri reddedilir, zincir çalışır</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>probes_ok_without_fix</code><br><span class="mut small">kural tek başına uygulanınca pod&#x27;lar sağlıklı mı</span></td><td class="n">0</td></tr>
+<tr><td><code>deny_http_code</code><br><span class="mut small">reddedilen endpoint&#x27;in cevabı</span></td><td class="n">404 kod</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>zincir çalışıyor (gateway GET / -&gt; order)</td><td class="n st-pass" title="beklenen: ok">✔ ok</td></tr>
+<tr><td>tüm shop pod&#x27;ları sağlıklı</td><td class="n st-pass" title="beklenen: ok">✔ ok</td></tr>
+<tr><td>gateway: GET /</td><td class="n st-pass" title="beklenen: izin">✔ izin (200)</td></tr>
+<tr><td>gateway: GET /api/orders</td><td class="n st-pass" title="beklenen: izin">✔ izin (200)</td></tr>
+<tr><td>gateway: GET /admin</td><td class="n st-pass" title="beklenen: ret">✔ ret (404)</td></tr>
+<tr><td>gateway: POST /</td><td class="n st-pass" title="beklenen: ret">✔ ret (404)</td></tr>
+<tr><td>gateway: DELETE /api/x</td><td class="n st-pass" title="beklenen: ret">✔ ret (404)</td></tr>
+<tr><td>rogue: GET /</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+</table></div>
+<h4>Bulgular</h4><ul class="f"><li><b style="color:#7b4bb7">Linkerd:</b> linkerd: endpoint kuralı tek başına kubelet sağlık kontrollerini (/ready) engelledi; order pod&#x27;ları NotReady oldu. Probe yolları için ek kural gerekiyor (policies/linkerd-probes.yaml).</li></ul>
+<p class="mut small">Koşular: <code>20261116-015039_S04_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-S05"><h4 style="color:var(--fg);font-size:16px">S05 — Giriş noktasında endpoint bazlı erişim kısıtı (DMZ ingress)</h4>
+<p><b>Amaç.</b> Dışarıya açık bir endpoint&#x27;in (ör. /admin) yalnızca izinli kaynak IP&#x27;lerinden erişilebilir olmasını DMZ katmanında sağlamak; istemci IP&#x27;sinin sahte X-Forwarded-For başlığıyla taklit edilemediğini kanıtlamak. Mesh&#x27;ten bağımsızdır (DMZ cluster&#x27;larında mesh yok); her profilde aynı sonuç beklenir.
+</p><p><b>Yöntem.</b> dmz-a ve dmz-b&#x27;de shop.localtest.me/admin için whitelist-source-range kuralı tanımlanır. (1) İzinsiz aralık: /admin 403, / 200. (2) Sahte X-Forwarded-For ile /admin hâlâ 403. (3) Edge segmenti (lab-edge) izinli yapılınca /admin 200. İstemci IP&#x27;si edge LB&#x27;den PROXY protocol ile gelir.
+</p>
+<p class="small"><b>Bileşenler:</b> HAProxy edge LB (PROXY protocol), DMZ ingress-nginx x2<br><b>Başarı ölçütü:</b> Tüm kontroller beklendiği gibi</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-fail" title="Kısmen / başarısız">⚠️ Kısmen / başarısız</span></td></tr>
+<tr><td><code>allowed_cidr</code><br><span class="mut small">172.28.5.0/24</span></td><td class="n small">172.28.5.0/24</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>izinsiz kaynak: /admin</td><td class="n st-error" title="beklenen: 403">✘ ,403</td></tr>
+<tr><td>izinsiz kaynak: / (kısıtsız)</td><td class="n st-error" title="beklenen: 200">✘ ,200</td></tr>
+<tr><td>sahte X-Forwarded-For (izinli IP taklidi): /admin</td><td class="n st-error" title="beklenen: 403">✘ ,403</td></tr>
+<tr><td>izinli kaynak (edge segmenti): /admin</td><td class="n st-error" title="beklenen: 200">✘ ,403</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-015120_S05_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-S06"><h4 style="color:var(--fg);font-size:16px">S06 — Politika atlatma denemeleri</h4>
+<p><b>Amaç.</b> Yetki kurallarının (S03) yalnızca &quot;doğru yoldan&quot; gelen trafikte değil, kötü niyetli denemelerde de geçerli olduğunu kanıtlamak: mesh dışı pod, mesh&#x27;ten çıkarılmış pod (aynı kimlikle), host ağı, doğrudan pod IP&#x27;si, sahte kimlik başlıkları, proxy yönetim portları.
+</p><p><b>Yöntem.</b> S03&#x27;ün kimlik politikası uygulanır; ardından her deneme order servisine/pod&#x27;una yapılır. Mesh yoksa (none) aynı denemeler politikasız ortamda yapılır (risk görünürlüğü).
+</p>
+<p class="small"><b>Bileşenler:</b> mesh yetki politikası, mTLS, netshoot (hostNetwork dahil)<br><b>Başarı ölçütü:</b> Tüm denemeler reddedilir</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>admin_port_15000</code><br><span class="mut small">rogue&#x27;dan proxy yönetim portuna erişim</span></td><td class="n">0</td></tr>
+<tr><td><code>admin_port_4191</code><br><span class="mut small">rogue&#x27;dan proxy yönetim portuna erişim</span></td><td class="n">0</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>mesh dışı namespace -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>mesh&#x27;ten çıkarılmış pod (gateway SA) -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>host ağı (node) -&gt; order pod IP</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>rogue -&gt; order pod IP (Service&#x27;i atlayarak)</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>rogue + sahte Istio kimlik başlığı (XFCC) -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -&gt; order</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+<tr><td>rogue -&gt; linkerd-proxy admin (4191)</td><td class="n st-pass" title="beklenen: ret">✔ ret (403)</td></tr>
+</table></div>
+<p class="mut small">Koşular: <code>20261116-015137_S06_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-S07"><h4 style="color:var(--fg);font-size:16px">S07 — Dış çıkış (egress) whitelisting</h4>
+<p><b>Amaç.</b> Servislerin yalnızca izinli dış adreslere (FQDN) çıkabilmesini sağlamak; prod&#x27;daki ayrı dış çıkış zone&#x27;unun cluster içi karşılığı. Hangi mesh&#x27;in FQDN bazlı egress kısıtı yapabildiğini göstermek.
+</p><p><b>Yöntem.</b> İzinli hedef example.com:443, izinsiz hedef www.wikipedia.org:443. Mesh&#x27;e göre yöntem: none: NetworkPolicy (yalnızca IP bazlı, DNS&#x27;ten çözülen IP&#x27;ler); istio-sidecar: Sidecar kaynağı REGISTRY_ONLY + ServiceEntry; istio-ambient(-l7): ServiceEntry (ztunnel&#x27;de REGISTRY_ONLY yok — gözlenen davranış kaydedilir); linkerd: EgressNetwork (trafficPolicy: Deny) + TLSRoute.
+</p>
+<p class="small"><b>Bileşenler:</b> NetworkPolicy, Istio Sidecar/ServiceEntry, Linkerd EgressNetwork, internet erişimi<br><b>Başarı ölçütü:</b> İzinli hedef açık, izinsiz hedef kapalı</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-na" title="cluster&#x27;dan internete erişim yok (example.com) — test yapılamaz">➖ Uygulanamaz</span></td></tr>
+</table></div>
+
+<p class="mut small">Koşular: <code>20261116-015159_S07_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-S08"><h4 style="color:var(--fg);font-size:16px">S08 — Sertifika yönetimi — kurumsal CA, ömür, yük altında CA rotasyonu</h4>
+<p><b>Amaç.</b> İş yükü sertifikalarının bizim (kurumsal) CA&#x27;mızdan imzalandığını, kısa ömürlü olduğunu ve otomatik yenilendiğini; ara CA (issuer) yük altında değiştirildiğinde trafik kesilmediğini göstermek. Prod&#x27;da Vault gibi kurumsal CA ile entegrasyonun lab karşılığı.
+</p><p><b>Yöntem.</b> (1) order pod&#x27;unun iş yükü sertifikası mesh aracıyla alınır (istioctl / linkerd identity): veren CA, geçerlilik süresi, SPIFFE kimliği. (2) 200 RPS sabit yük altında, aynı kök CA ile yeni bir ara CA üretilip mesh&#x27;e verilir; order yeniden başlatılır. Yeni pod&#x27;un sertifikası yeni ara CA&#x27;dan gelmeli, eski ve yeni sertifikalı pod&#x27;lar konuşabilmeli, yükte hata oluşmamalı.
+</p>
+<p class="small"><b>Bileşenler:</b> mesh CA (istiod / linkerd-identity), plug-in CA (lib/pki.sh), k6<br><b>Başarı ölçütü:</b> Sertifika kurumsal ara CA&#x27;dan, ömür &lt;= 24 sa, rotasyonda hata oranı &lt; %1 ve yeni issuer</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-error" title="Hata">❌ Hata</span></td></tr>
+</table></div>
+
+<p class="mut small">Koşular: <code>20261116-015200_S08_linkerd_r1</code></p>
+</div>
+<h3>Dayanıklılık</h3>
+<div class="card" id="t-R01"><h4 style="color:var(--fg);font-size:16px">R01 — Timeout, retry ve outlier detection (circuit breaking)</h4>
+<p><b>Amaç.</b> (A) Bir alt servis yavaşladığında mesh&#x27;in timeout + retry politikasının uçtan uca gecikmeyi sınırladığını ve retry&#x27;ların yükü ne kadar artırdığını (amplifikasyon) ölçmek. (B) Hatalı bir replika (sürekli 503) devredeyken outlier detection&#x27;ın onu devreden çıkardığını göstermek.
+</p><p><b>Yöntem.</b> 100 RPS sabit yük. (A) pricing isteklerinin %20&#x27;si 1 sn gecikir; önce politikasız, sonra inventory -&gt; pricing için timeout 500 ms / deneme başına 150 ms / 2 retry. pricing&#x27;e gelen istek sayısı / gateway istek sayısı = amplifikasyon. (B) pricing&#x27;e sürekli 503 dönen 1 replika eklenir (2 sağlam + 1 hatalı); önce politikasız, sonra outlier detection (Istio DestinationRule / Linkerd failure accrual) ile hata oranı ölçülür.
+</p>
+<p class="small"><b>Bileşenler:</b> Istio VirtualService + DestinationRule (sidecar / waypoint), Linkerd HTTPRoute retry/timeout + failure accrual, fake-service hata enjeksiyonu<br><b>Başarı ölçütü:</b> Politikayla p99 &lt; 1000 ms ve outlier detection ile hata oranı yarıdan fazla düşer</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<div class="card" id="t-R02"><h4 style="color:var(--fg);font-size:16px">R02 — Hata enjeksiyonu (fault injection)</h4>
+<p><b>Amaç.</b> Uygulama koduna dokunmadan, mesh üzerinden kontrollü hata ve gecikme enjekte edebilmek (kaos testi, dayanıklılık tatbikatı). Mesh&#x27;lerin bu yeteneğini ve doğruluğunu kıyaslamak.
+</p><p><b>Yöntem.</b> catalog&#x27;a giden isteklerin %10&#x27;una 503, %10&#x27;una 200 ms gecikme enjekte edilir; 100 RPS yükte gateway&#x27;de gözlenen hata oranı ve gecikme dağılımı ölçülür. Istio: VirtualService fault. Linkerd&#x27;de yerleşik hata enjeksiyonu yoktur; önerilen yöntemle (HTTPRoute ağırlıklı yönlendirme ile hatalı / yavaş backend) yapılır.
+</p>
+<p class="small"><b>Bileşenler:</b> Istio VirtualService (sidecar / waypoint), Linkerd HTTPRoute + hatalı backend&#x27;ler, k6<br><b>Başarı ölçütü:</b> Gözlenen hata oranı %10 ± 3 puan ve p95 &gt;= 200 ms</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<div class="card" id="t-R03"><h4 style="color:var(--fg);font-size:16px">R03 — Yük altında pod kaybı (failover)</h4>
+<p><b>Amaç.</b> Yük altındayken servis replikaları kaybedildiğinde (deploy, node bakımı, çökme) kullanıcıya yansıyan hata sayısını ölçmek. Mesh&#x27;in bağlantı yönetimi / yeniden deneme davranışının etkisi.
+</p><p><b>Yöntem.</b> 200 RPS sabit yük sürerken sırayla order (HTTP), catalog (zincirin sonu) ve fraud (gRPC) servislerinin birer pod&#x27;u silinir. Toplam başarısız istek, hata oranı ve p99 ölçülür.
+</p>
+<p class="small"><b>Bileşenler:</b> k6, kube-proxy / mesh uç nokta yönetimi, fake-service<br><b>Başarı ölçütü:</b> Hata oranı &lt; %1</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<div class="card" id="t-R04"><h4 style="color:var(--fg);font-size:16px">R04 — Mesh&#x27;in kendi arızası — kontrol düzlemi kaybı ve node proxy&#x27;si yeniden başlaması</h4>
+<p><b>Amaç.</b> &quot;Mesh tek hata noktası mı?&quot; sorusunu cevaplamak. (A) Kontrol düzlemi tamamen düştüğünde mevcut trafik akıyor mu, yeni pod&#x27;lar açılabiliyor ve trafik alabiliyor mu? (B) Ambient&#x27;te node başına paylaşılan ztunnel yeniden başlarsa o node&#x27;daki tüm pod&#x27;lar ne kadar etkilenir (arıza etki alanı)?
+</p><p><b>Yöntem.</b> 150 RPS sabit yük. (A) Kontrol düzlemi deployment&#x27;ları 0&#x27;a indirilir (istiod / linkerd-destination, -identity, -proxy-injector); 20 sn sonra catalog bir replika ölçeklenir; yeni pod&#x27;un oluşturulup oluşturulmadığı, mesh&#x27;e girip girmediği ve trafik alıp alamadığı kontrol edilir; 45 sn sonra kontrol düzlemi geri getirilir. (B, yalnızca ambient) app node&#x27;undaki ztunnel pod&#x27;u silinir; hata sayısı ölçülür.
+</p>
+<p class="small"><b>Bileşenler:</b> istiod / linkerd kontrol düzlemi, ztunnel, mutating webhook&#x27;lar, k6<br><b>Başarı ölçütü:</b> Kontrol düzlemi kaybında mevcut trafikte hata oranı &lt; %1</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<div class="card" id="t-R05"><h4 style="color:var(--fg);font-size:16px">R05 — Yük altında kesintisiz mesh güncellemesi</h4>
+<p><b>Amaç.</b> Mesh sürüm güncellemesinin (yılda birkaç kez zorunlu) iş trafiğini kesip kesmediğini, ne kadar sürdüğünü ve hangi adımları gerektirdiğini ölçmek. Sidecar ile ambient arasındaki en büyük operasyonel fark beklenen kalem.
+</p><p><b>Yöntem.</b> Mesh bir önceki sürümle (Istio 1.30.x / Linkerd bir önceki edge) yeniden kurulur, uygulama mesh&#x27;e alınır. 150 RPS sabit yük sürerken hedef sürüme güncellenir: sidecar: revizyonlu (canary) kontrol düzlemi + varsayılan etiketin taşınması + tüm deployment&#x27;ların sırayla yeniden başlatılması; ambient: helm ile yerinde güncelleme (base, istiod, istio-cni, ztunnel); linkerd: linkerd upgrade + deployment&#x27;ların yeniden başlatılması. Güncelleme süresi, adım sayısı, yeniden başlatılan pod sayısı ve başarısız istekler ölçülür.
+</p>
+<p class="small"><b>Bileşenler:</b> helm / istioctl / linkerd CLI, k6, tüm veri düzlemi<br><b>Başarı ölçütü:</b> Güncelleme sırasında hata oranı &lt; %1 ve sonunda tüm proxy&#x27;ler yeni sürümde</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<h3>Trafik yönetimi</h3>
+<div class="card" id="t-T01"><h4 style="color:var(--fg);font-size:16px">T01 — Kademeli yayın — ağırlıklı yönlendirme, başlık bazlı yönlendirme, trafik yansıtma</h4>
+<p><b>Amaç.</b> Yeni sürümü (canary) kullanıcıların küçük bir kısmına açabilmek, belirli istekleri (başlık) yeni sürüme yönlendirebilmek ve gerçek trafiği yeni sürüme kopyalayıp (mirroring) cevabı kullanmadan deneyebilmek. Tüm mesh&#x27;lerde aynı standart (Gateway API HTTPRoute, GAMMA) kullanılır.
+</p><p><b>Yöntem.</b> catalog&#x27;un v2 sürümü ayrı deployment olarak açılır (catalog-v1 / catalog-v2 servisleri). (1) %90/%10 ağırlık: 400 istekte v2 oranı ölçülür. (2) &quot;x-canary: true&quot; başlıklı istekler %100 v2. (3) Tüm trafik v1&#x27;e giderken v2&#x27;ye yansıtılır: cevaplar v1, v2&#x27;ye gelen istek sayısı ölçülür. Mesh yoksa yalnızca replika sayısıyla orantılı dağılım mümkündür (referans).
+</p>
+<p class="small"><b>Bileşenler:</b> Gateway API HTTPRoute (GAMMA), Istio (sidecar / waypoint), Linkerd, fake-service v1/v2<br><b>Başarı ölçütü:</b> Ağırlıklı yönlendirmede v2 payı %10 ± 5 puan, başlıklı isteklerin tamamı v2</p>
+<div class="wrap"><table><tr><th>Metrik</th><th class="n">Linkerd</th></tr>
+<tr><td>Durum</td><td class="n"><span class="st-pass" title="Geçti">✅ Geçti</span></td></tr>
+<tr><td><code>baseline.v2_share</code><br><span class="mut small">kural yokken v2 payı (3 replikadan 1&#x27;i -&gt; ~0.33)</span></td><td class="n">0.325 oran</td></tr>
+<tr><td><code>weighted.v2_share</code><br><span class="mut small">hedef 0.10</span></td><td class="n">0.085 oran</td></tr>
+<tr><td><code>header.v2_share</code><br><span class="mut small">hedef 1.00</span></td><td class="n">1.00 oran</td></tr>
+<tr><td><code>mirror.v2_share_in_responses</code><br><span class="mut small">yansıtmada cevapların v2 payı (0 olmalı)</span></td><td class="n">0.098 oran</td></tr>
+<tr><td><code>mirror.v2_received</code><br><span class="mut small">yansıtma süresince v2&#x27;ye ulaşan istek</span></td><td class="n">0 istek</td></tr>
+<tr><td><code>mirror.supported</code></td><td class="n">0</td></tr>
+</table></div>
+<h4>Kontroller</h4><div class="wrap"><table><tr><th>Kontrol</th><th class="n">Linkerd</th></tr>
+<tr><td>ağırlıklı: v2 payı &gt;= 0.05</td><td class="n st-pass" title="beklenen: &gt;= 0.05">✔ 0.085</td></tr>
+<tr><td>ağırlıklı: v2 payı &lt;= 0.15</td><td class="n st-pass" title="beklenen: &lt;= 0.15">✔ 0.085</td></tr>
+<tr><td>başlık bazlı: tüm istekler v2</td><td class="n st-pass" title="beklenen: 1.000">✔ 1.000</td></tr>
+</table></div>
+<h4>Bulgular</h4><ul class="f"><li><b style="color:#7b4bb7">Linkerd:</b> linkerd: trafik yansıtma (RequestMirror) çalışmadı: v2&#x27;ye 0 istek ulaştı (beklenen ~400). Route durumu: Accepted=True:Accepted ResolvedRefs=True:ResolvedRefs</li></ul>
+<p class="mut small">Koşular: <code>20261116-015201_T01_linkerd_r1</code></p>
+</div>
+<div class="card" id="t-T02"><h4 style="color:var(--fg);font-size:16px">T02 — Protokol desteği — gRPC yük dağılımı, server-first TCP, veri tabanı trafiği</h4>
+<p><b>Amaç.</b> Prod&#x27;daki protokollerin mesh&#x27;ten sorunsuz geçtiğini göstermek: (1) gRPC / HTTP2&#x27;de istek bazlı yük dağılımı (kube-proxy bağlantı bazlı dağıtır, uzun ömürlü bağlantı tek pod&#x27;a yapışır); (2) bağlantıyı önce sunucunun konuştuğu protokoller (SMTP, MySQL benzeri; Oracle/MSSQL/Kafka gibi TCP protokolleri için gösterge) — protokol algılama gecikmesi; (3) Redis / Postgres TCP trafiği.
+</p><p><b>Yöntem.</b> (1) fraud 3 replikaya çıkarılır; payment&#x27;a 300 istek atılır (payment -&gt; fraud gRPC, kalıcı bağlantı); cevaplardaki fraud pod IP&#x27;lerinin dağılımı ölçülür. (2) banner servisine (bağlanınca sunucu yazar) protokol ipucu olan (appProtocol: tcp) ve olmayan port üzerinden bağlanılıp ilk baytın gelme süresi ölçülür. (3) data cluster&#x27;ındaki Redis&#x27;e PING, Postgres&#x27;e TCP bağlantısı.
+</p>
+<p class="small"><b>Bileşenler:</b> fake-service gRPC, socat (banner), data cluster Redis/Postgres, mesh protokol algılama<br><b>Başarı ölçütü:</b> Redis/Postgres erişimi çalışır, protokol ipuçlu server-first bağlantı &lt; 1 sn</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<div class="card" id="t-T03"><h4 style="color:var(--fg);font-size:16px">T03 — Gateway API ile giriş (ingress-nginx&#x27;in yerine geçme)</h4>
+<p><b>Amaç.</b> ingress-nginx Mart 2026&#x27;da emekliye ayrıldı. Mesh&#x27;in kendi Gateway API uygulamasının küme girişini (north-south) üstlenip üstlenemeyeceğini göstermek: ayrı bir ingress ürününe gerek kalır mı?
+</p><p><b>Yöntem.</b> shop namespace&#x27;inde Gateway (gatewayClassName: istio) + HTTPRoute ile gateway servisi yayınlanır; mesh dışı bir pod&#x27;dan erişilir ve zincirin tamamının çalıştığı doğrulanır. Linkerd&#x27;de giriş için Gateway API uygulaması yoktur (yalnızca mesh içi GAMMA); ayrı bir ürün gerekir.
+</p>
+<p class="small"><b>Bileşenler:</b> Gateway API v1.6, Istio gateway (Envoy), HTTPRoute<br><b>Başarı ölçütü:</b> Gateway hazır, route kabul edildi, zincir mesh dışından erişilebilir</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<h3>Gözlemlenebilirlik</h3>
+<div class="card" id="t-O01"><h4 style="color:var(--fg);font-size:16px">O01 — Gözlemlenebilirlik — hazır metrikler, doğruluk, dağıtık izleme, erişim logu</h4>
+<p><b>Amaç.</b> Mesh&#x27;in uygulama koduna dokunmadan ne kadar görünürlük sağladığını ölçmek: her servis için &quot;altın metrikler&quot; (istek hızı, başarı oranı, gecikme), mesh&#x27;in ölçtüğü gecikmenin doğruluğu (k6&#x27;ya göre), uçtan uca trace (Tempo) ve erişim logu.
+</p><p><b>Yöntem.</b> 100 RPS yük altında: (1) 8 servisin kaçı için mesh L7 metrikleri (istek/başarı/gecikme histogramı) veya yalnızca L4 (TCP) metrikleri var; (2) gateway&#x27;de mesh&#x27;in p99&#x27;u / k6 p99 oranı; (3) tracing geçici olarak açılır (Istio Telemetry API %100 örnekleme -&gt; Tempo; Linkerd linkerd-jaeger eklentisi -&gt; Tempo; uygulama B3 başlıklarını taşır) ve bir trace&#x27;teki span / servis sayısı ölçülür; (4) erişim logu açılıp proxy logunda istek satırı aranır.
+</p>
+<p class="small"><b>Bileşenler:</b> mesh metrikleri, Prometheus, Tempo (mgmt), Grafana datasource proxy, Istio Telemetry API, linkerd-jaeger<br><b>Başarı ölçütü:</b> Tüm servisler için en az L4 metrik var ve trace Tempo&#x27;da bulunur</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<div class="card" id="t-O02"><h4 style="color:var(--fg);font-size:16px">O02 — Metrik maliyeti — seri sayısı ve alım hızı</h4>
+<p><b>Amaç.</b> Mesh metriklerinin izleme altyapısına (Prometheus) getirdiği gizli maliyeti ölçmek: aktif zaman serisi sayısı ve saniyede alınan örnek sayısı. Prod&#x27;da 3.000 servise projeksiyonun girdisi.
+</p><p><b>Yöntem.</b> 60 sn 100 RPS yükten sonra bench cluster&#x27;ından (bu mesh profili etiketiyle) gelen aktif seri sayısı toplam ve mesh&#x27;e ait metrik aileleri (istio_*, envoy_*, linkerd proxy işleri) olarak ayrılır; agent&#x27;ın remote-write örnek hızı ölçülür. Mesh&#x27;siz profil referanstır.
+</p>
+<p class="small"><b>Bileşenler:</b> Prometheus agent (bench), Prometheus (mgmt), mesh metrik uçları<br><b>Başarı ölçütü:</b> Ölçüm tamamlanır (bilgi amaçlı)</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<h3>Operasyon</h3>
+<div class="card" id="t-O03"><h4 style="color:var(--fg);font-size:16px">O03 — Operasyon envanteri — karmaşıklık ve ayrıcalık</h4>
+<p><b>Amaç.</b> Mesh&#x27;in işletme yükünü nesnel göstergelerle kaydetmek: CRD sayısı, kontrol düzlemi ve node ajanı bileşenleri, kullanılan imajlar, webhook&#x27;lar, uygulama pod&#x27;una eklenen konteynerler, ayrıcalıklı (NET_ADMIN / privileged) gereksinimler, kurulum süresi ve tanılama aracının sonucu.
+</p><p><b>Yöntem.</b> Kurulu mesh&#x27;in Kubernetes nesneleri sayılır; istioctl analyze / linkerd check çalıştırılır.</p>
+<p class="small"><b>Bileşenler:</b> kubectl, istioctl, linkerd CLI<br><b>Başarı ölçütü:</b> Tanılama aracında hata yok</p>
+<p class='mut'>Bu test için kayıtlı koşu yok.</p>
+
+</div>
+<h2 id="lisans">8. Lisans, destek, olgunluk</h2><p class="mut small">Test edilmez; kaynaklardan derlenmiştir (doğrulama: 2026-11-16).</p>
+<div class="wrap"><table><tr><th></th><th>Istio</th><th>Linkerd</th></tr>
+<tr><td><b>Lisans</b></td><td>Apache 2.0 (kaynak kod ve tüm sürümler)</td><td>Kaynak kod Apache 2.0. Açık kaynak proje 2024&#x27;ten beri yalnızca &#x27;edge&#x27; sürümleri yayınlıyor; &#x27;stable&#x27; sürümler Buoyant Enterprise for Linkerd (BEL) dağıtımında.</td></tr>
+<tr><td><b>CNCF</b></td><td>CNCF graduated (Temmuz 2023)</td><td>CNCF graduated (Temmuz 2021)</td></tr>
+<tr><td><b>Sürüm modeli</b></td><td>Yaklaşık 3 ayda bir minor sürüm; her minor sürüm yaklaşık 6 ay yama alır. Ambient modu 1.24 (Kasım 2024) ile GA.</td><td>Edge sürümleri haftalık / iki haftalık; sürüm başına uzun destek yok (bu değerlendirmede edge kullanıldı).</td></tr>
+<tr><td><b>Destek</b></td><td>Topluluk + çok sayıda ticari destek sağlayıcısı (ör. Solo.io, Tetrate, Red Hat OpenShift Service Mesh, Google Cloud Service Mesh).</td><td>Ticari destek ve stable sürüm: Buoyant (BEL). BEL&#x27;in üretim kullanımı için belirli kurum büyüklüğünün üzerinde ücretli lisans gerekir.</td></tr>
+<tr><td><b>Değerlendirme</b></td><td>Düşük lisans riski. Ambient modu sidecar&#x27;a göre daha yeni; bazı özellikler waypoint gerektirir.</td><td>Orta-yüksek lisans/destek riski: üretimde stable sürüm için tek tedarikçiye (Buoyant) bağımlılık ve lisans maliyeti; edge sürümlerle üretim, sık güncelleme yükü getirir.</td></tr>
+<tr><td><b>Kaynak</b></td><td class='small'>https://istio.io/latest/docs/releases/supported-releases/<br>https://www.cncf.io/projects/istio/</td><td class='small'>https://linkerd.io/releases/<br>https://buoyant.io/pricing<br>https://www.cncf.io/projects/linkerd/</td></tr></table></div>
+<ul class='f small mut'><li>Lisans ve destek bilgileri test edilmez; karar öncesi tedarikçilerden güncel teklif ve koşullar alınmalıdır.</li></ul>
+<h2 id="yontem">9. Yöntem ve sınırlar</h2><ul class="f"><li>Ortam: tek host üzerinde kind cluster'ları (prod topolojisinin kopyası: edge LB, DMZ A/B, cluster A/B, data, mgmt). Mesh yalnızca cluster-a'da.</li><li>CPU ayrımı: servis node'u 0-3, yük üretici node'u 4-6, kontrol düzlemi 7-8 numaralı çekirdeklere sabitlendi (docker cpuset); yük üretici ölçülen servislerle CPU paylaşmaz.</li><li>Adil kıyas: her mesh, sıfırdan kurulmuş bench cluster'ında (<code>meval mesh use &lt;profil&gt; --fresh</code>) aynı servis zinciri ve aynı yükle ölçülür. Tüm mesh'lerde zorunlu mTLS açık, erişim logu ve tracing (O01 hariç) kapalı, kaynak istekleri mesh varsayılanında.</li><li>Servis zinciri: 8 servis (HTTP + bir gRPC kademesi), derinlik 5, paralel dallanma; her servis yapay 1–5 ms işlem süresi (fake-service).</li><li>Mutlak değerler (RPS, ms) prod donanımına aktarılamaz; mesh'ler arası göreli fark ve kırılma davranışı değerlendirilmelidir. Bulguların prod benzeri donanımda doğrulanması önerilir.</li><li>Tekrarlanan koşularda metriklerin medyanı alınır, durum en kötü sonuçtur; yayılım (min…max) tablolarda gösterilir.</li></ul>
+<h2 id="envanter">10. Envanter</h2><div class="wrap"><table><tr><th>Bileşen</th><th>Sürüm</th></tr>
+<tr><td>istio</td><td><code>1.31.4</code></td></tr>
+<tr><td>linkerd</td><td><code>edge-26.11.2</code></td></tr>
+<tr><td>k6</td><td><code>grafana/k6:2.4.0</code></td></tr>
+<tr><td>app</td><td><code>nicholasjackson/fake-service:v0.26.2</code></td></tr>
+<tr><td>gateway_api</td><td><code>v1.6.1</code></td></tr>
+<tr><td>kubernetes</td><td><code>v1.37.0</code></td></tr>
+<tr><td>kind</td><td><code>v0.33.0</code></td></tr>
+<tr><td>ingress_nginx_chart</td><td><code>4.15.1</code></td></tr>
+</table></div><p class='mut small'>Ayrıntılı envanter: <code>docs/mesh-eval/envanter.md</code>. Ham sonuçlar: <code>mesh-eval/results/&lt;koşu&gt;/</code>.</p>
+</main></body></html>

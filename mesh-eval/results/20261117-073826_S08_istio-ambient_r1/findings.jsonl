@@ -1,0 +1,2 @@
+"istio-ambient: yeni ara CA otomatik yüklenmedi; kontrol düzleminin yeniden başlatılması gerekti."
+"istio-ambient: CA rotasyonunda yeni pod bile eski ara CA'nın sertifikasını kullandı (ztunnel kimlik başına önbellekte tutuyor). Yeni CA'nın devreye girmesi için ztunnel DaemonSet'inin yeniden başlatılması gerekti; bu sırada node'daki tüm pod'ların trafiği etkilenir."

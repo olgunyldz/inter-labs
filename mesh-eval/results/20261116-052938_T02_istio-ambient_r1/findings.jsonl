@@ -1,0 +1,1 @@
+"istio-ambient: gRPC (HTTP/2 kalıcı bağlantı) trafiği istek bazlı dağıtılmıyor: 3 pod'dan 2 tanesi trafik aldı, en yüklü pod payı 0.543. Bağlantı bazlı (L4) dengeleme."

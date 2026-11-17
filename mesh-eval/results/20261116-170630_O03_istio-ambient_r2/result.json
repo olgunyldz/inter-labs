@@ -1,0 +1,85 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794837990,
+  "end": 1794837991,
+  "duration_s": 1,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "tanılama aracında hata yok",
+      "expected": "0",
+      "actual": "0",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "crds",
+      "value": 15,
+      "unit": "adet",
+      "desc": "mesh'e ait CRD"
+    },
+    {
+      "key": "gateway_api_crds",
+      "value": 10,
+      "unit": "adet",
+      "desc": ""
+    },
+    {
+      "key": "control_plane_pods",
+      "value": 1,
+      "unit": "adet",
+      "desc": ""
+    },
+    {
+      "key": "node_agents",
+      "value": 2,
+      "unit": "adet",
+      "desc": "DaemonSet (node başına ajan)"
+    },
+    {
+      "key": "images",
+      "value": 3,
+      "unit": "adet",
+      "desc": "kullanılan farklı mesh imajı"
+    },
+    {
+      "key": "webhooks",
+      "value": 3,
+      "unit": "adet",
+      "desc": ""
+    },
+    {
+      "key": "added_containers_per_pod",
+      "value": 0,
+      "unit": "adet",
+      "desc": "uygulama pod'una mesh'in eklediği konteyner (init dahil)"
+    },
+    {
+      "key": "privileged_components",
+      "value": 2,
+      "unit": "adet",
+      "desc": "privileged veya NET_ADMIN isteyen konteyner türü (install-cni,istio-proxy)"
+    },
+    {
+      "key": "install_s",
+      "value": 44,
+      "unit": "sn",
+      "desc": "kurulum süresi (meval mesh use)"
+    },
+    {
+      "key": "helm_releases",
+      "value": 4,
+      "unit": "adet",
+      "desc": ""
+    },
+    {
+      "key": "diag_issues",
+      "value": 0,
+      "unit": "adet",
+      "desc": "tanılama aracının uyarı + hata sayısı"
+    }
+  ],
+  "findings": []
+}

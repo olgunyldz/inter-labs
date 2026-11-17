@@ -1,0 +1,63 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794885563,
+  "end": 1794885684,
+  "duration_s": 121,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "A: kontrol düzlemi kaybında mevcut trafik hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "A.new_pod_created",
+      "value": 1,
+      "unit": "bool",
+      "desc": "kontrol düzlemi yokken yeni pod oluşturulabildi"
+    },
+    {
+      "key": "A.new_pod_ready",
+      "value": 1,
+      "unit": "bool",
+      "desc": ""
+    },
+    {
+      "key": "A.new_pod_meshed",
+      "value": 0,
+      "unit": "bool",
+      "desc": "yeni pod mesh'e dahil (proxy / ambient yönlendirme)"
+    },
+    {
+      "key": "A.new_pod_serving",
+      "value": 0,
+      "unit": "bool",
+      "desc": "yeni pod mesh içinden trafik alabiliyor"
+    },
+    {
+      "key": "A.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": "kontrol düzlemi kaybı boyunca mevcut trafikte hata oranı"
+    },
+    {
+      "key": "A.failed_requests",
+      "value": 0,
+      "unit": "istek",
+      "desc": ""
+    },
+    {
+      "key": "A.p99_ms",
+      "value": 20.867268,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": [
+    "linkerd: kontrol düzlemi yokken yeni pod mesh'e GİRMEDEN açıldı (proxy'siz). Zorunlu mTLS altında bu pod diğer servislerle konuşamaz / güvenlik açığı oluşturur."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794868929,
+  "end": 1794869029,
+  "duration_s": 100,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "ölçüm tamamlandı",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "series_total",
+      "value": 92325,
+      "unit": "seri",
+      "desc": "bench cluster'ından gelen aktif seri"
+    },
+    {
+      "key": "series_mesh",
+      "value": 15415,
+      "unit": "seri",
+      "desc": "mesh'e ait metrik aileleri"
+    },
+    {
+      "key": "shop_pods",
+      "value": 19,
+      "unit": "adet",
+      "desc": ""
+    },
+    {
+      "key": "series_mesh_per_pod",
+      "value": 811.3,
+      "unit": "seri",
+      "desc": "uygulama pod'u başına mesh serisi"
+    },
+    {
+      "key": "samples_per_s",
+      "value": 17130.434782608696,
+      "unit": "örnek/sn",
+      "desc": "agent remote-write hızı"
+    }
+  ],
+  "findings": []
+}

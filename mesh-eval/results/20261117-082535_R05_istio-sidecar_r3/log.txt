@@ -1,0 +1,6 @@
+    from_version = 0 -
+    to_version = 0 -
+
+[1;34m==> Hazırlık: istio-sidecar 1.30.8 sürümüyle yeniden kuruluyor[0m
+
+[1;34m==> Mevcut mesh bileşenleri kaldırılıyor[0m

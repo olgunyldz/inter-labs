@@ -1,0 +1,20 @@
+
+[1;34m==> Yayılma süresi (mevcut ölçek)[0m
+    base.deny_s = 0.24 sn
+    base.allow_s = 0.27 sn
+  [32m[ok][0m base: yürürlüğe girme süresi (0.24 <= 30)
+
+[1;34m==> Ölçek: 30 ek servis[0m
+  [32m[ok][0m 30 servis hazır
+    scale_services = 30 adet
+    control.mem_before_mib = 69.5 MiB
+    control.mem_after_mib = 104.0 MiB
+    control.mem_growth_mib = 34.5 MiB
+    sidecar.mem_per_container_before_mib = 60.35 MiB
+    sidecar.mem_per_container_after_mib = 57.02 MiB
+    sidecar.mem_per_container_growth_mib = -3.33 MiB
+
+[1;34m==> Yayılma süresi (30 ek servisle)[0m
+    scaled.deny_s = 0.35 sn
+    scaled.allow_s = 0.24 sn
+  [32m[ok][0m scaled: yürürlüğe girme süresi (0.35 <= 30)

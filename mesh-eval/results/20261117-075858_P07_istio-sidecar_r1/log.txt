@@ -1,0 +1,19 @@
+
+[1;34m==> Yayılma süresi (mevcut ölçek)[0m
+    base.deny_s = 0.12 sn
+    base.allow_s = 0.23 sn
+  [32m[ok][0m base: yürürlüğe girme süresi (0.12 <= 30)
+
+[1;34m==> Ölçek: 120 ek servis[0m
+  [33m[!][0m BULGU: istio-sidecar: varsayılan proxy CPU isteğiyle (100m) 120 ek servis lab'daki app node'una (12 çekirdek ayrılabilir) sığmadı; pod'lar Pending kaldı. Ölçek testi için ek pod'larda proxy isteği 5m'ye indirildi. Prod'da bu ayrılan kapasite, kullanılmasa da node sayısını belirler (projeksiyondaki ayrılan çekirdek kalemi).
+  [32m[ok][0m 120 servis hazır
+    scale_services = 120 adet
+    control.mem_before_mib = 78.0 MiB
+    control.mem_after_mib = 240.7 MiB
+    control.mem_growth_mib = 162.7 MiB
+    sidecar.mem_per_container_before_mib = 36.34 MiB
+    sidecar.mem_per_container_after_mib = 54.12 MiB
+    sidecar.mem_per_container_growth_mib = 17.78 MiB
+
+[1;34m==> Yayılma süresi (120 ek servisle)[0m
+  [32m[ok][0m scaled: başlangıçta erişim açık (=200)

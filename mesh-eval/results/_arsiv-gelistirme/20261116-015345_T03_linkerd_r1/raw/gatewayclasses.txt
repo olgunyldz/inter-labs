@@ -1,0 +1,3 @@
+gatewayclass.gateway.networking.k8s.io/istio
+gatewayclass.gateway.networking.k8s.io/istio-remote
+gatewayclass.gateway.networking.k8s.io/istio-waypoint

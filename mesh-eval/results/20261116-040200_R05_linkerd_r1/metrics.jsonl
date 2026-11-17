@@ -1,0 +1,9 @@
+{"key":"from_version","value":0,"unit":"-","desc":"edge-26.10.2"}
+{"key":"to_version","value":0,"unit":"-","desc":"edge-26.11.2"}
+{"key":"upgrade_duration_s","value":113,"unit":"sn","desc":"güncelleme komutlarının toplam süresi"}
+{"key":"steps","value":4,"unit":"adım","desc":""}
+{"key":"restarted_pods","value":19,"unit":"adet","desc":"güncelleme için yeniden başlatılan uygulama pod'u"}
+{"key":"failed_requests","value":27,"unit":"istek","desc":""}
+{"key":"error_rate","value":0.0004285646259583181,"unit":"oran","desc":""}
+{"key":"p99_ms","value":20.172851,"unit":"ms","desc":""}
+{"key":"max_ms","value":3013.388152,"unit":"ms","desc":""}

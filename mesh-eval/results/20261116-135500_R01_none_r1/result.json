@@ -1,0 +1,50 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794826500,
+  "end": 1794826746,
+  "duration_s": 246,
+  "na_reason": "timeout/retry/outlier detection için L7 proxy gerekir (none); politikasız ölçümler kaydedildi",
+  "checks": [],
+  "metrics": [
+    {
+      "key": "A.none.p50_ms",
+      "value": 11.205014,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.none.p99_ms",
+      "value": 1013.78981584,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.none.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "B.none.p50_ms",
+      "value": 9.448201,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.none.p99_ms",
+      "value": 16.379912,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.none.error_rate",
+      "value": 1,
+      "unit": "oran",
+      "desc": ""
+    }
+  ],
+  "findings": [
+    "none: 3 replikadan 1'i sürekli hata verirken uçtan uca hata oranı %100 (replika oranına göre beklenen ~%33). Hızlı hata dönen replika yük dengeleyici tarafından tercih ediliyor; outlier detection / failure accrual olmadan hatalı pod trafiği çeker."
+  ]
+}

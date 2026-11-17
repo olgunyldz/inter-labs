@@ -1,0 +1,1 @@
+"linkerd: 3 replikadan 1'i sürekli hata verirken uçtan uca hata oranı %58 (replika oranına göre beklenen ~%33). Hızlı hata dönen replika yük dengeleyici tarafından tercih ediliyor; outlier detection / failure accrual olmadan hatalı pod trafiği çeker."

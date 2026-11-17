@@ -1,0 +1,43 @@
+{
+  "status": "fail",
+  "exit_code": 0,
+  "start": 1794783080,
+  "end": 1794783097,
+  "duration_s": 17,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "izinsiz kaynak: /admin",
+      "expected": "403",
+      "actual": ",403",
+      "pass": false
+    },
+    {
+      "name": "izinsiz kaynak: / (kısıtsız)",
+      "expected": "200",
+      "actual": ",200",
+      "pass": false
+    },
+    {
+      "name": "sahte X-Forwarded-For (izinli IP taklidi): /admin",
+      "expected": "403",
+      "actual": ",403",
+      "pass": false
+    },
+    {
+      "name": "izinli kaynak (edge segmenti): /admin",
+      "expected": "200",
+      "actual": ",403",
+      "pass": false
+    }
+  ],
+  "metrics": [
+    {
+      "key": "allowed_cidr",
+      "value": 0,
+      "unit": "-",
+      "desc": "172.28.5.0/24"
+    }
+  ],
+  "findings": []
+}

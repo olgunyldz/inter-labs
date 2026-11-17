@@ -1,0 +1,2 @@
+{"key":"marker_packets","value":0,"unit":"paket","desc":"mesh içi isteğin işaretinin ağda görüldüğü paket sayısı (0 = şifreli)"}
+{"key":"control_packets","value":9,"unit":"paket","desc":"kontrol: mesh dışı düz isteğin işareti (>0 olmalı)"}

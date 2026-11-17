@@ -1,0 +1,45 @@
+{
+  "test": {
+    "id": "R03",
+    "name": "Yük altında pod kaybı (failover)",
+    "category": "dayanıklılık",
+    "purpose": "Yük altındayken servis replikaları kaybedildiğinde (deploy, node bakımı, çökme) kullanıcıya yansıyan hata sayısını ölçmek. Mesh'in bağlantı yönetimi / yeniden deneme davranışının etkisi.\n",
+    "method": "200 RPS sabit yük sürerken sırayla order (HTTP), catalog (zincirin sonu) ve fraud (gRPC) servislerinin birer pod'u silinir. Toplam başarısız istek, hata oranı ve p99 ölçülür.\n",
+    "components": [
+      "k6",
+      "kube-proxy / mesh uç nokta yönetimi",
+      "chainsvc"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "failed_requests",
+      "error_rate",
+      "p99_ms"
+    ],
+    "pass_criteria": "Hata oranı < %1"
+  },
+  "mesh": "linkerd",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261117-024526-2939011",
+  "repeat": 1,
+  "start": 1794885239,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "b246cdf",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794885347
+}

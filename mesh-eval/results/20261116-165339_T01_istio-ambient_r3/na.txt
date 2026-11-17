@@ -1,0 +1,1 @@
+L7 yönlendirme için mesh L7 proxy'si gerekir (istio-ambient); yalnızca replika oranında dağılım (v2 payı 0.320)

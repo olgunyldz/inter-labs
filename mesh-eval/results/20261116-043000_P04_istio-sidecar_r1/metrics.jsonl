@@ -1,0 +1,11 @@
+{"key":"stage0.target_rps","value":100,"unit":"RPS","desc":""}
+{"key":"stage0.p50_ms","value":14.95024,"unit":"ms","desc":""}
+{"key":"stage0.p95_ms","value":19.682346,"unit":"ms","desc":""}
+{"key":"stage0.p99_ms","value":22.261171,"unit":"ms","desc":""}
+{"key":"stage0.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"stage1.target_rps","value":250,"unit":"RPS","desc":""}
+{"key":"stage1.p50_ms","value":16.0005605,"unit":"ms","desc":""}
+{"key":"stage1.p95_ms","value":22.155349249999997,"unit":"ms","desc":""}
+{"key":"stage1.p99_ms","value":27.362514310000012,"unit":"ms","desc":""}
+{"key":"stage1.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"tls_handshake_p50_ms","value":0,"unit":"ms","desc":""}

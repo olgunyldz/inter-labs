@@ -1,0 +1,2 @@
+{"name":"hata oranı","expected":"<= 0.01","actual":"0","pass":true}
+{"name":"p99 kayması (son/ilk)","expected":"<= 1.5","actual":"1.582","pass":false}

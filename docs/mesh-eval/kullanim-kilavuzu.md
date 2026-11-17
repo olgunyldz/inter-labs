@@ -106,7 +106,7 @@ Durumlar:
 | `na` | Uygulanamaz: bu mesh'te yetenek yok (ör. Linkerd'de ingress Gateway API). Neden kaydedilir ve rapora "yetenek yok" olarak girer |
 | `error` | Test yarıda kaldı (altyapı sorunu). `log.txt`'ye bakın, testi yeniden çalıştırın |
 
-Sonuçlar git'e girmez (`.gitignore`). Saklamak veya paylaşmak için `results/` dizinini arşivleyin.
+Sonuçlar ve raporlar (`results/`, `reports/`) git'te tutulur; yeni koşulardan sonra commit edilerek paylaşılır.
 
 ## 6. Rapor
 

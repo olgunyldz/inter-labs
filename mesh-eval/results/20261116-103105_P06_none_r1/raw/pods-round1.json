@@ -1,0 +1,2519 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-76q8f",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4210",
+                "uid": "0364cbed-2bc1-47f3-b6fb-020a4b8eef4c"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-9q6nx",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-9q6nx",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://a782d9a4cb8fffa2578d10af1f2551363619093af6333c85fec537d44dc0055f",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-9q6nx",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.47",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.47"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-bf9hd",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4191",
+                "uid": "0f4ea3c0-3125-4acf-b718-5c02fafa0a17"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-29k4f",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-29k4f",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://ee9fd43aa306b8f4703edbf615b89054585dbf6ac649483419e5d09f02b7812e",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-29k4f",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.44",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.44"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-gvgfs",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4217",
+                "uid": "4ca45423-eb5c-485f-a210-0a59eeac012c"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-p78t9",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-p78t9",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://81ecf616e94e1dfc1b7cc1a8e47f00fbe61ad753d01ae79e70c87aa1d32918ff",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-p78t9",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.48",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.48"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-hjpmq",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4222",
+                "uid": "a53041ab-23f9-46fd-b18c-d99b62a1c7e6"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-4w8qj",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-4w8qj",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://2c5dfa7ce39bfd01f0de3dec386c0bf6a65bda2248ff4a0dafa92785853c6e2c",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-4w8qj",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.46",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.46"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-jchh7",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4228",
+                "uid": "98c80fd0-6d97-4e8b-a82a-f7848a0b3d25"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-djvb6",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-djvb6",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://e2e3d40e6f87a879669a5565c3491ef005e658f0188a835c8226fa8f67dd4095",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-djvb6",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.49",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.49"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-jrv24",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4195",
+                "uid": "e2574da5-4b4a-4a45-a10d-b56870359d01"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-vnn8q",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-vnn8q",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://fe46cbcb001ca38387251afe99471f41e0216b1fbdedd9d77c9f69ffdd2bd000",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-vnn8q",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.45",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.45"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-prx67",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4225",
+                "uid": "6411d4a7-8b8c-41f2-9c4a-cccd0458b452"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-9vl8w",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-9vl8w",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://f67ffd37ae7f25ad3f05cab964a918981ee4f4b888c4dd7375283aef53240700",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-9vl8w",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.50",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.50"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-sqx26",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4238",
+                "uid": "8156880b-77d7-4e32-b83e-4f640acaa03a"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-bhqng",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-bhqng",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://8e499b2bfdc3c83401f11920ac759726f7d3d979fc2323e508004c106cf6d5d6",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-bhqng",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.53",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.53"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-x2zlb",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4236",
+                "uid": "c1bdde2e-d604-495e-8360-82a56aa3b0fb"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-tq8ld",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-tq8ld",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://607ab543416b3f559e2b4bb8bacd8108f6962310da65cb05d71ddf5c0d8695b8",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-tq8ld",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.51",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.51"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-11-16T07:31:05Z",
+                "generateName": "scaler-99c6c49f7-",
+                "generation": 1,
+                "labels": {
+                    "app": "scaler",
+                    "pod-template-hash": "99c6c49f7"
+                },
+                "name": "scaler-99c6c49f7-zf9vn",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "scaler-99c6c49f7",
+                        "uid": "288475d7-8dc1-45a1-a59f-b8e23107cebd"
+                    }
+                ],
+                "resourceVersion": "4241",
+                "uid": "c52f2b64-d86d-41b5-a651-d93b4f7c0da8"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NAME",
+                                "value": "scaler"
+                            }
+                        ],
+                        "image": "mesh-eval/chainsvc:0.1.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "app",
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": 9090,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 1,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-65lcn",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "cluster-a-worker",
+                "nodeSelector": {
+                    "mesh-eval.role": "app"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "catalog",
+                "serviceAccountName": "catalog",
+                "terminationGracePeriodSeconds": 1,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "mesh-eval.role",
+                        "operator": "Equal",
+                        "value": "app"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-65lcn",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "allocatedResources": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                },
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:06Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-11-16T07:31:05Z",
+                        "observedGeneration": 1,
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "allocatedResources": {
+                            "cpu": "10m",
+                            "memory": "16Mi"
+                        },
+                        "containerID": "containerd://da56942d0b91f8352be21f9bf474e038aed75ac872c7f54d107dc3e49581de68",
+                        "image": "docker.io/mesh-eval/chainsvc:0.1.0",
+                        "imageID": "docker.io/library/import-2026-11-16@sha256:1d6680aaf75bb5b3730c1df37ce36d8d4e131d542436df1944a36a4526c3dfcc",
+                        "lastState": {},
+                        "name": "app",
+                        "ready": true,
+                        "resources": {
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "16Mi"
+                            }
+                        },
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-11-16T07:31:06Z"
+                            }
+                        },
+                        "user": {
+                            "linux": {
+                                "gid": 0,
+                                "supplementalGroups": [
+                                    0
+                                ],
+                                "uid": 65532
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-65lcn",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.28.20.8",
+                "hostIPs": [
+                    {
+                        "ip": "172.28.20.8"
+                    }
+                ],
+                "observedGeneration": 1,
+                "phase": "Running",
+                "podIP": "10.20.2.52",
+                "podIPs": [
+                    {
+                        "ip": "10.20.2.52"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "resources": {
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "startTime": "2026-11-16T07:31:05Z"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

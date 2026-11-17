@@ -1,0 +1,16 @@
+{"key":"stage0.target_rps","value":100,"unit":"RPS","desc":""}
+{"key":"stage0.p50_ms","value":13.720499,"unit":"ms","desc":""}
+{"key":"stage0.p95_ms","value":18.528564,"unit":"ms","desc":""}
+{"key":"stage0.p99_ms","value":20.952314,"unit":"ms","desc":""}
+{"key":"stage0.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"stage1.target_rps","value":250,"unit":"RPS","desc":""}
+{"key":"stage1.p50_ms","value":16.729244,"unit":"ms","desc":""}
+{"key":"stage1.p95_ms","value":24.295253,"unit":"ms","desc":""}
+{"key":"stage1.p99_ms","value":31.108244,"unit":"ms","desc":""}
+{"key":"stage1.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"stage2.target_rps","value":400,"unit":"RPS","desc":""}
+{"key":"stage2.p50_ms","value":35.325163,"unit":"ms","desc":""}
+{"key":"stage2.p95_ms","value":71.992133,"unit":"ms","desc":""}
+{"key":"stage2.p99_ms","value":103.00860856,"unit":"ms","desc":""}
+{"key":"stage2.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"tls_handshake_p50_ms","value":0,"unit":"ms","desc":""}

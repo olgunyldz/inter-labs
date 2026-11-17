@@ -1,0 +1,7 @@
+{"name":"mesh dışı namespace -> order [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"mesh'ten çıkarılmış pod (gateway SA) -> order [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"host ağı (node) -> order pod IP [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"rogue -> order pod IP (Service'i atlayarak) [503]","expected":"ret","actual":"ret","pass":true}
+{"name":"rogue + sahte Istio kimlik başlığı (XFCC) -> order [403]","expected":"ret","actual":"ret","pass":true}
+{"name":"rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [403]","expected":"ret","actual":"ret","pass":true}
+{"name":"rogue -> Envoy yapılandırma dökümü (15000/config_dump) [000]","expected":"ret","actual":"ret","pass":true}

@@ -1,0 +1,1 @@
+timeout/retry/outlier detection için L7 proxy gerekir (istio-ambient); politikasız ölçümler kaydedildi

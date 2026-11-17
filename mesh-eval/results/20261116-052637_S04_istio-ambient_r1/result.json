@@ -1,0 +1,20 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794795997,
+  "end": 1794796018,
+  "duration_s": 21,
+  "na_reason": "L7 (path/method) yetki için waypoint gerekir; gözlenen davranış bulgu olarak kaydedildi",
+  "checks": [],
+  "metrics": [
+    {
+      "key": "probes_ok_without_fix",
+      "value": 1,
+      "unit": "bool",
+      "desc": "kural tek başına uygulanınca pod'lar sağlıklı mı"
+    }
+  ],
+  "findings": [
+    "Ambient L4 (waypoint'siz): path/method içeren kural ztunnel'de uygulanamaz. Gözlenen: GET/=000 GET/api/orders=000 GET/admin=000 POST/=000 (zincir: çalışıyor). L7 kural için waypoint gerekir."
+  ]
+}

@@ -1,0 +1,1 @@
+istio intermediate cluster-a

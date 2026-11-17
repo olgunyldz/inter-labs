@@ -1,0 +1,2 @@
+{"name":"base: yürürlüğe girme süresi","expected":"<= 30","actual":"0.18","pass":true}
+{"name":"scaled: yürürlüğe girme süresi","expected":"<= 30","actual":"0.16","pass":true}

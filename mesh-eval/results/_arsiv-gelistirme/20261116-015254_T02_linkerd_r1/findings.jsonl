@@ -1,0 +1,2 @@
+"linkerd: gRPC (HTTP/2 kalıcı bağlantı) trafiği istek bazlı dağıtılmıyor: 3 pod'dan 2 tanesi trafik aldı, en yüklü pod payı 0.513. Bağlantı bazlı (L4) dengeleme."
+"linkerd: protokol ipucu olmayan server-first TCP bağlantısında ilk bayt 10006 ms (protokol algılama beklemesi). Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı."

@@ -1,0 +1,6 @@
+  [31m[x][0m mesh dışı namespace -> order [200]: beklenen=ret gerçekleşen=izin
+  [31m[x][0m mesh'ten çıkarılmış pod (gateway SA) -> order [200]: beklenen=ret gerçekleşen=izin
+  [31m[x][0m host ağı (node) -> order pod IP [200]: beklenen=ret gerçekleşen=izin
+  [31m[x][0m rogue -> order pod IP (Service'i atlayarak) [200]: beklenen=ret gerçekleşen=izin
+  [31m[x][0m rogue + sahte Istio kimlik başlığı (XFCC) -> order [200]: beklenen=ret gerçekleşen=izin
+  [31m[x][0m rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [200]: beklenen=ret gerçekleşen=izin

@@ -1,0 +1,2 @@
+{"key":"base.deny_s","value":1.14,"unit":"sn","desc":"kural uygulandı -> erişim kesildi (medyan)"}
+{"key":"base.allow_s","value":0.12,"unit":"sn","desc":"kural kaldırıldı -> erişim açıldı (medyan)"}

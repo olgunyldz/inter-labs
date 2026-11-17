@@ -1,0 +1,1 @@
+"linkerd: endpoint kuralı tek başına kubelet sağlık kontrollerini (/ready) engelledi; order pod'ları NotReady oldu. Probe yolları için ek kural gerekiyor (policies/linkerd-probes.yaml)."

@@ -1,0 +1,79 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794868447,
+  "end": 1794868589,
+  "duration_s": 142,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "tüm servisler için en az L4 metrik",
+      "expected": ">= 8",
+      "actual": "8",
+      "pass": true
+    },
+    {
+      "name": "trace Tempo'da bulundu",
+      "expected": "var",
+      "actual": "var",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "services_l7_metrics",
+      "value": 8,
+      "unit": "/8",
+      "desc": "istek/başarı/gecikme metriği olan servis"
+    },
+    {
+      "key": "services_l4_metrics",
+      "value": 0,
+      "unit": "/8",
+      "desc": "TCP (bağlantı/bayt) metriği olan servis"
+    },
+    {
+      "key": "mesh_p99_ms",
+      "value": 1586.8395278818236,
+      "unit": "ms",
+      "desc": "mesh'in gateway için ölçtüğü p99"
+    },
+    {
+      "key": "k6_p99_ms",
+      "value": 1850.7185417199998,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "latency_accuracy_ratio",
+      "value": 0.86,
+      "unit": "kat",
+      "desc": "mesh p99 / k6 p99 (histogram kova çözünürlüğü dahil)"
+    },
+    {
+      "key": "trace.spans",
+      "value": 31,
+      "unit": "span",
+      "desc": ""
+    },
+    {
+      "key": "trace.services",
+      "value": 17,
+      "unit": "adet",
+      "desc": "trace'teki servis adı sayısı"
+    },
+    {
+      "key": "trace.mesh_spans",
+      "value": 9,
+      "unit": "adet",
+      "desc": "mesh proxy'lerinin ürettiği servis adları"
+    },
+    {
+      "key": "access_log",
+      "value": 1,
+      "unit": "bool",
+      "desc": "proxy erişim logu üretebildi"
+    }
+  ],
+  "findings": []
+}

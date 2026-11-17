@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794827348,
+  "end": 1794827456,
+  "duration_s": 108,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "pod kaybında hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "failed_requests",
+      "value": 0,
+      "unit": "istek",
+      "desc": "toplam başarısız istek"
+    },
+    {
+      "key": "error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "p99_ms",
+      "value": 16.762081049999974,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "max_ms",
+      "value": 24.641049,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": []
+}

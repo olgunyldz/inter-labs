@@ -1,0 +1,9 @@
+{"key":"base.deny_s","value":0.12,"unit":"sn","desc":"kural uygulandı -> erişim kesildi (medyan)"}
+{"key":"base.allow_s","value":0.23,"unit":"sn","desc":"kural kaldırıldı -> erişim açıldı (medyan)"}
+{"key":"scale_services","value":120,"unit":"adet","desc":""}
+{"key":"control.mem_before_mib","value":78.0,"unit":"MiB","desc":""}
+{"key":"control.mem_after_mib","value":240.7,"unit":"MiB","desc":""}
+{"key":"control.mem_growth_mib","value":162.7,"unit":"MiB","desc":"N servis eklenince kontrol düzlemi bellek artışı"}
+{"key":"sidecar.mem_per_container_before_mib","value":36.34,"unit":"MiB","desc":""}
+{"key":"sidecar.mem_per_container_after_mib","value":54.12,"unit":"MiB","desc":""}
+{"key":"sidecar.mem_per_container_growth_mib","value":17.78,"unit":"MiB","desc":"shop'taki her proxy'nin, N servis eklenince bellek artışı"}

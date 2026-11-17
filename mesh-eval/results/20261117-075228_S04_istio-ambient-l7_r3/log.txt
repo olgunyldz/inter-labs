@@ -1,0 +1,11 @@
+    probes_ok_without_fix = 1 bool
+    converge_s = 21 sn
+  [32m[ok][0m zincir çalışıyor (gateway GET / -> order) (=ok)
+  [32m[ok][0m tüm shop pod'ları sağlıklı (=ok)
+  [32m[ok][0m gateway: GET / [200] (=izin)
+  [32m[ok][0m gateway: GET /api/orders [200] (=izin)
+  [32m[ok][0m gateway: GET /admin [403] (=ret)
+  [32m[ok][0m gateway: POST / [403] (=ret)
+  [32m[ok][0m gateway: DELETE /api/x [403] (=ret)
+  [32m[ok][0m rogue: GET / [403] (=ret)
+    deny_http_code = 403 kod

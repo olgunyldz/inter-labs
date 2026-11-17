@@ -1,0 +1,52 @@
+{
+  "test": {
+    "id": "P07",
+    "name": "Politika yayılma süresi ve kontrol düzlemi ölçeği",
+    "category": "performans",
+    "purpose": "Bir erişim kuralı değiştiğinde ne kadar sürede yürürlüğe girdiğini ölçmek; cluster'daki servis sayısı arttığında kontrol düzleminin ve proxy'lerin kaynak tüketiminin nasıl büyüdüğünü göstermek (3.000 servislik prod için ölçeklenme göstergesi).\n",
+    "method": "(1) probe-rogue -> order erişimini kesen kural uygulanır; erişimin kesildiği an (pod içinden 100 ms aralıkla yoklama) ölçülür; kural kaldırılır, erişimin geri geldiği an ölçülür (3 tekrar, medyan). Mesh yoksa NetworkPolicy, mesh'lerde mesh'in yetki politikası kullanılır. (2) Ayrı bir mesh'li namespace'e N servis (1 replika) eklenir; kontrol düzlemi ve shop proxy'lerinin belleği öncesi/sonrası kıyaslanır. (3) Ölçüm (1) N servis varken tekrarlanır.\n",
+    "components": [
+      "mesh kontrol düzlemi (istiod / linkerd-destination)",
+      "proxy'ler",
+      "kube-network-policies (none)"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "profiles": {
+      "quick": "N = 30 servis",
+      "full": "N = 120 servis"
+    },
+    "outputs": [
+      "deny_s",
+      "allow_s",
+      "scaled.deny_s",
+      "scaled.allow_s",
+      "control.mem_growth_mib",
+      "sidecar.mem_per_container_growth_mib"
+    ],
+    "pass_criteria": "Kural 30 sn içinde yürürlüğe girer ve kaldırıldığında erişim geri gelir"
+  },
+  "mesh": "istio-sidecar",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-223531-2939011",
+  "repeat": 3,
+  "start": 1794866646,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "4b7a9dd",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794866921
+}

@@ -1,0 +1,22 @@
+
+[1;34m==> A) yavaş bağımlılık: pricing isteklerinin %20'si 1 sn[0m
+    A.none.p50_ms = 13.9875635 ms
+    A.none.p99_ms = 1017.0380136800001 ms
+    A.none.error_rate = 0 oran
+    A.none.amplification = 1.001 kat
+    A.policy.p50_ms = 13.752505 ms
+    A.policy.p99_ms = 380.621467 ms
+    A.policy.error_rate = 0.007776913676258193 oran
+    A.policy.amplification = 1.000 kat
+  [32m[ok][0m A: politikayla p99 (ms) (380.621467 <= 1000)
+
+[1;34m==> B) hatalı replika: 2 sağlam + 1 sürekli 503[0m
+    B.none.p50_ms = 12.836352 ms
+    B.none.p99_ms = 20.81834 ms
+    B.none.error_rate = 0.3320742139762249 oran
+    B.none.amplification = 0.667 kat
+    B.policy.p50_ms = 12.926655499999999 ms
+    B.policy.p99_ms = 20.821449490000006 ms
+    B.policy.error_rate = 0.0035555555555555557 oran
+    B.policy.amplification = 0.997 kat
+  [32m[ok][0m B: outlier detection ile hata oranı (politikasızın yarısı) (0.0035555555555555557 <= 0.166037)

@@ -1,0 +1,85 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794841017,
+  "end": 1794841688,
+  "duration_s": 671,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "veri düzlemi yeni sürümde",
+      "expected": "1.31.4",
+      "actual": "1.31.4",
+      "pass": true
+    },
+    {
+      "name": "güncelleme sırasında hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0",
+      "pass": true
+    },
+    {
+      "name": "güncelleme sonrası zincir çalışıyor",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "from_version",
+      "value": 0,
+      "unit": "-",
+      "desc": "1.30.8"
+    },
+    {
+      "key": "to_version",
+      "value": 0,
+      "unit": "-",
+      "desc": "1.31.4"
+    },
+    {
+      "key": "upgrade_duration_s",
+      "value": 58,
+      "unit": "sn",
+      "desc": "güncelleme komutlarının toplam süresi"
+    },
+    {
+      "key": "steps",
+      "value": 4,
+      "unit": "adım",
+      "desc": ""
+    },
+    {
+      "key": "restarted_pods",
+      "value": 0,
+      "unit": "adet",
+      "desc": "güncelleme için yeniden başlatılan uygulama pod'u"
+    },
+    {
+      "key": "failed_requests",
+      "value": 0,
+      "unit": "istek",
+      "desc": ""
+    },
+    {
+      "key": "error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "p99_ms",
+      "value": 17.853721,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "max_ms",
+      "value": 48.383362,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": []
+}

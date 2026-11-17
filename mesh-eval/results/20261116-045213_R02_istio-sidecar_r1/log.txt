@@ -1,0 +1,8 @@
+    method = 0 -
+    observed_error_rate = 0.10242168407020662 oran
+    p50_ms = 14.074147 ms
+    p90_ms = 21.887429 ms
+    p95_ms = 213.518568 ms
+  [32m[ok][0m gözlenen hata oranı >= 0.07 (0.10242168407020662 >= 0.07)
+  [32m[ok][0m gözlenen hata oranı <= 0.13 (0.10242168407020662 <= 0.13)
+  [32m[ok][0m gecikme enjeksiyonu görünüyor (p95 ms) (213.518568 >= 200)

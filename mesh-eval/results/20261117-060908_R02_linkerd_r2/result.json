@@ -1,0 +1,63 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794884948,
+  "end": 1794885094,
+  "duration_s": 146,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "gözlenen hata oranı >= 0.07",
+      "expected": ">= 0.07",
+      "actual": "0.09732522289809183",
+      "pass": true
+    },
+    {
+      "name": "gözlenen hata oranı <= 0.13",
+      "expected": "<= 0.13",
+      "actual": "0.09732522289809183",
+      "pass": true
+    },
+    {
+      "name": "gecikme enjeksiyonu görünüyor (p95 ms)",
+      "expected": ">= 200",
+      "actual": "207.979439",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "method",
+      "value": 1,
+      "unit": "-",
+      "desc": "HTTPRoute ağırlıklı yönlendirme + hatalı backend"
+    },
+    {
+      "key": "observed_error_rate",
+      "value": 0.09732522289809183,
+      "unit": "oran",
+      "desc": "gateway'de gözlenen hata oranı (hedef 0.10)"
+    },
+    {
+      "key": "p50_ms",
+      "value": 13.218588,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "p90_ms",
+      "value": 21.290024,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "p95_ms",
+      "value": 207.979439,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": [
+    "Linkerd'de yerleşik hata enjeksiyonu yok; hatalı/yavaş backend'ler kurulup HTTPRoute ağırlığıyla yönlendirilerek yapıldı (ek dağıtım ve bakım gerektirir, gecikme/hata ayrı ayrı oranlanamaz)."
+  ]
+}

@@ -1,0 +1,9 @@
+{"key":"replicas","value":30,"unit":"adet","desc":""}
+{"key":"rounds","value":3,"unit":"tur","desc":""}
+{"key":"round1.all_ready_s","value":4.82,"unit":"sn","desc":""}
+{"key":"round2.all_ready_s","value":4.97,"unit":"sn","desc":""}
+{"key":"round3.all_ready_s","value":4.61,"unit":"sn","desc":""}
+{"key":"ready_p50_s","value":3,"unit":"sn","desc":"pod oluşturma -> Ready (medyan)"}
+{"key":"ready_p95_s","value":4,"unit":"sn","desc":""}
+{"key":"ready_max_s","value":5,"unit":"sn","desc":""}
+{"key":"all_ready_s","value":4.82,"unit":"sn","desc":"N pod'un tamamı hazır (medyan tur)"}

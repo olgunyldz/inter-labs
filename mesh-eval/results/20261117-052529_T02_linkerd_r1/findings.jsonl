@@ -1,0 +1,1 @@
+"linkerd: protokol ipucu (appProtocol) olmayan server-first TCP portunda ilk bayt 10005 ms sonra geldi — mesh istemcinin önce veri göndermesini bekliyor (protokol algılama). İpucuyla 4 ms. Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı (Oracle, MSSQL, SMTP vb.)."

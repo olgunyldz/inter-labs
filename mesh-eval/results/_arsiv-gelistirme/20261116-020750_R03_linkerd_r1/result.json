@@ -1,0 +1,11 @@
+{
+  "status": "error",
+  "exit_code": 1,
+  "start": 1794784070,
+  "end": 1794784400,
+  "duration_s": 330,
+  "na_reason": null,
+  "checks": [],
+  "metrics": [],
+  "findings": []
+}

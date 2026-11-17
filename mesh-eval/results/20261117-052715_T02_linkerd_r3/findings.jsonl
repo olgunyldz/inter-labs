@@ -1,0 +1,2 @@
+"linkerd: gRPC (HTTP/2 kalıcı bağlantı) trafiği istek bazlı dağıtılmıyor: 3 pod'dan 2 tanesi trafik aldı, en yüklü pod payı 0.567. Bağlantı bazlı (L4) dengeleme."
+"linkerd: protokol ipucu (appProtocol) olmayan server-first TCP portunda ilk bayt 10004 ms sonra geldi — mesh istemcinin önce veri göndermesini bekliyor (protokol algılama). İpucuyla 4 ms. Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı (Oracle, MSSQL, SMTP vb.)."

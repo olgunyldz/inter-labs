@@ -1,0 +1,47 @@
+{
+  "test": {
+    "id": "T01",
+    "name": "Kademeli yayın — ağırlıklı yönlendirme, başlık bazlı yönlendirme, trafik yansıtma",
+    "category": "trafik",
+    "purpose": "Yeni sürümü (canary) kullanıcıların küçük bir kısmına açabilmek, belirli istekleri (başlık) yeni sürüme yönlendirebilmek ve gerçek trafiği yeni sürüme kopyalayıp (mirroring) cevabı kullanmadan deneyebilmek. Tüm mesh'lerde aynı standart (Gateway API HTTPRoute, GAMMA) kullanılır.\n",
+    "method": "catalog'un v2 sürümü ayrı deployment olarak açılır (catalog-v1 / catalog-v2 servisleri). (1) %90/%10 ağırlık: 400 istekte v2 oranı ölçülür. (2) \"x-canary: true\" başlıklı istekler %100 v2. (3) Tüm trafik v1'e giderken v2'ye yansıtılır: cevaplar v1, v2'ye gelen istek sayısı ölçülür. Mesh yoksa yalnızca replika sayısıyla orantılı dağılım mümkündür (referans).\n",
+    "components": [
+      "Gateway API HTTPRoute (GAMMA)",
+      "Istio (sidecar / waypoint)",
+      "Linkerd",
+      "chainsvc v1/v2"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "weighted.v2_share",
+      "header.v2_share",
+      "mirror.supported",
+      "mirror.v2_received"
+    ],
+    "pass_criteria": "Ağırlıklı yönlendirmede v2 payı %10 ± 5 puan, başlıklı isteklerin tamamı v2"
+  },
+  "mesh": "istio-ambient",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-141719-2939011",
+  "repeat": 2,
+  "start": 1794837215,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "47c45b9",
+    "uncommitted_files": 0
+  },
+  "status": "na",
+  "end": 1794837219
+}

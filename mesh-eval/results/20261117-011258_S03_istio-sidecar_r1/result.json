@@ -1,0 +1,79 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794867178,
+  "end": 1794867199,
+  "duration_s": 21,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "zincir çalışıyor (8 servis, tüm kenarlar yetkili)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "uçtan uca erişim (ingress kimliği yetkili)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "tüm shop pod'ları sağlıklı",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "gateway kimliği -> order [200]",
+      "expected": "izin",
+      "actual": "izin",
+      "pass": true
+    },
+    {
+      "name": "rogue kimliği -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue kimliği -> gateway [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "yatay geçiş: gateway -> catalog [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "kimlik taklidi (etiket=gateway, sa=rogue) -> order [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "mesh dışı namespace -> order [000]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "policy_objects",
+      "value": 10,
+      "unit": "adet",
+      "desc": "uygulanan politika nesnesi sayısı"
+    },
+    {
+      "key": "deny_http_code",
+      "value": 200,
+      "unit": "kod",
+      "desc": "reddedilen isteğin cevabı (403 = L7 ret, 000 = bağlantı reddi)"
+    }
+  ],
+  "findings": []
+}

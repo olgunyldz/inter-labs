@@ -1,0 +1,1 @@
+ipuçlu: 3 2 3  ipuçsuz: fail fail fail

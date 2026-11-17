@@ -1,0 +1,49 @@
+{
+  "test": {
+    "id": "T02",
+    "name": "Protokol desteği — gRPC yük dağılımı, server-first TCP, veri tabanı trafiği",
+    "category": "trafik",
+    "purpose": "Prod'daki protokollerin mesh'ten sorunsuz geçtiğini göstermek: (1) gRPC / HTTP2'de istek bazlı yük dağılımı (kube-proxy bağlantı bazlı dağıtır, uzun ömürlü bağlantı tek pod'a yapışır); (2) bağlantıyı önce sunucunun konuştuğu protokoller (SMTP, MySQL benzeri; Oracle/MSSQL/Kafka gibi TCP protokolleri için gösterge) — protokol algılama gecikmesi; (3) Redis / Postgres TCP trafiği.\n",
+    "method": "(1) fraud 3 replikaya çıkarılır; payment'a 300 istek atılır (payment -> fraud gRPC, kalıcı bağlantı); cevaplardaki fraud pod IP'lerinin dağılımı ölçülür. (2) banner servisine (bağlanınca sunucu yazar) protokol ipucu olan (appProtocol: tcp) ve olmayan port üzerinden bağlanılıp ilk baytın gelme süresi ölçülür. (3) data cluster'ındaki Redis'e PING, Postgres'e TCP bağlantısı.\n",
+    "components": [
+      "chainsvc gRPC",
+      "socat (banner)",
+      "data cluster Redis/Postgres",
+      "mesh protokol algılama"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "grpc.pods_used",
+      "grpc.max_share",
+      "banner.hint_ms",
+      "banner.nohint_ms",
+      "redis_ok",
+      "postgres_ok"
+    ],
+    "pass_criteria": "Redis/Postgres erişimi çalışır, protokol ipuçlu server-first bağlantı < 1 sn"
+  },
+  "mesh": "linkerd",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261117-024526-2939011",
+  "repeat": 3,
+  "start": 1794882435,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "b246cdf",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794882487
+}

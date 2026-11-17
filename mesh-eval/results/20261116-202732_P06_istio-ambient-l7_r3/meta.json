@@ -1,0 +1,51 @@
+{
+  "test": {
+    "id": "P06",
+    "name": "Pod başlangıç süresi ve ölçeklenme hızı",
+    "category": "performans",
+    "purpose": "Mesh'in yeni pod'ların hazır olma süresine etkisini ölçmek (sidecar enjeksiyonu, proxy başlatma, sertifika alma). Ani ölçeklenmede (HPA) ne kadar gecikme eklediğini gösterir.\n",
+    "method": "shop namespace'inde (mesh'li) bağımsız bir test deployment'ı 0'dan N replikaya ölçeklenir. Her pod için oluşturulma -> Ready süresi ve tüm pod'ların hazır olma süresi ölçülür. İmajlar node'da önceden bulunur (indirme süresi ölçüme girmez).\n",
+    "components": [
+      "kube-apiserver",
+      "kubelet",
+      "mesh enjektörü / CNI",
+      "chainsvc"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "profiles": {
+      "quick": "10 replika x 1 tur",
+      "full": "30 replika x 3 tur"
+    },
+    "outputs": [
+      "ready_p50_s",
+      "ready_p95_s",
+      "ready_max_s",
+      "all_ready_s"
+    ],
+    "pass_criteria": "Tüm pod'lar 120 sn içinde hazır"
+  },
+  "mesh": "istio-ambient-l7",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-181310-2939011",
+  "repeat": 3,
+  "start": 1794850052,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "ddbb6b5",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794850079
+}

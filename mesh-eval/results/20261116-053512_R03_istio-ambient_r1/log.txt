@@ -1,0 +1,11 @@
+
+[1;34m==> pod siliniyor: order-5cdf848bb4-l5t27[0m
+
+[1;34m==> pod siliniyor: catalog-788f864b79-7km56[0m
+
+[1;34m==> pod siliniyor: fraud-85855886cb-6vcjt[0m
+    failed_requests = 180 istek
+    error_rate = 0.009000900090009001 oran
+    p99_ms = 17.67008406 ms
+    max_ms = 51.455789 ms
+  [32m[ok][0m pod kaybında hata oranı (0.009000900090009001 <= 0.01)

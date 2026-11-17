@@ -1,0 +1,2 @@
+    baseline.v2_share = 0.338 oran
+  [33m[!][0m uygulanamaz: L7 yönlendirme için mesh L7 proxy'si gerekir (istio-ambient); yalnızca replika oranında dağılım (v2 payı 0.338)

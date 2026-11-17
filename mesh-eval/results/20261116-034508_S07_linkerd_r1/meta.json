@@ -1,0 +1,47 @@
+{
+  "test": {
+    "id": "S07",
+    "name": "Dış çıkış (egress) whitelisting",
+    "category": "güvenlik",
+    "purpose": "Servislerin yalnızca izinli dış adreslere (FQDN) çıkabilmesini sağlamak; prod'daki ayrı dış çıkış zone'unun cluster içi karşılığı. Hangi mesh'in FQDN bazlı egress kısıtı yapabildiğini göstermek.\n",
+    "method": "Cluster dışında (lab-app segmenti) iki HTTPS sunucusu: izinli allowed.ext.test, izinsiz denied.ext.test (adlar cluster DNS'inde; internet bağımlılığı yok). Mesh'e göre yöntem: none: NetworkPolicy (yalnızca IP bazlı, DNS'ten çözülen IP'ler); istio-sidecar: Sidecar kaynağı REGISTRY_ONLY + ServiceEntry; istio-ambient(-l7): ServiceEntry (ztunnel'de REGISTRY_ONLY yok — gözlenen davranış kaydedilir); linkerd: EgressNetwork (trafficPolicy: Deny) + TLSRoute.\n",
+    "components": [
+      "NetworkPolicy",
+      "Istio Sidecar/ServiceEntry",
+      "Linkerd EgressNetwork",
+      "CoreDNS hosts",
+      "nginx dış hedefleri"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "allowed_ok",
+      "denied_blocked",
+      "method"
+    ],
+    "pass_criteria": "İzinli hedef açık, izinsiz hedef kapalı"
+  },
+  "mesh": "linkerd",
+  "profile": "quick",
+  "session": "dogrulama-quick",
+  "invocation": "20261116-032826-1237077",
+  "repeat": 1,
+  "start": 1794789908,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "02eb4d7",
+    "uncommitted_files": 0
+  },
+  "status": "fail",
+  "end": 1794789923
+}

@@ -97,8 +97,8 @@ mesh-eval/
   tests/<ID>/               test.yaml (tanım) + run.sh (çalıştırıcı) + policies/
   tests/k6/load.js          ortak yük script'i
   report/                   generate.py (rapor), docs.py (test dokümanı), scorecard.yaml, static.yaml
-  results/                  test koşuları (git dışı)
-  reports/                  üretilen raporlar (git dışı)
+  results/                  test koşuları (her koşu ayrı dizin, git'te)
+  reports/                  üretilen raporlar (git'te)
   .tools/ .state/           indirilen CLI'lar, PKI, aktif profil (git dışı)
 docs/mesh-eval/             kurulum, envanter, test senaryoları, kullanım kılavuzu
 ```

@@ -1,0 +1,11 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794838732,
+  "end": 1794838732,
+  "duration_s": 0,
+  "na_reason": "fault injection L7 proxy gerektirir; ambient L4 (waypoint'siz) profilde yok",
+  "checks": [],
+  "metrics": [],
+  "findings": []
+}

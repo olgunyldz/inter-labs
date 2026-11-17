@@ -1,0 +1,18 @@
+
+[1;34m==> Yayılma süresi (mevcut ölçek)[0m
+    base.deny_s = 0.34 sn
+    base.allow_s = 0.27 sn
+  [32m[ok][0m base: yürürlüğe girme süresi (0.34 <= 30)
+
+[1;34m==> Ölçek: 120 ek servis[0m
+  [32m[ok][0m 120 servis hazır
+    scale_services = 120 adet
+    control.mem_before_mib = 64.5 MiB
+    control.mem_after_mib = 69.2 MiB
+    control.mem_growth_mib = 4.7 MiB
+    ztunnel.mem_growth_mib = 12.0 MiB
+
+[1;34m==> Yayılma süresi (120 ek servisle)[0m
+    scaled.deny_s = 0.25 sn
+    scaled.allow_s = 0.23 sn
+  [32m[ok][0m scaled: yürürlüğe girme süresi (0.25 <= 30)

@@ -1,0 +1,8 @@
+    replicas = 10 adet
+    rounds = 1 tur
+    round1.all_ready_s = 1.57 sn
+    ready_p50_s = 1 sn
+    ready_p95_s = 1 sn
+    ready_max_s = 1 sn
+    all_ready_s = 1.57 sn
+  [32m[ok][0m tüm turlar tamamlandı (=1)

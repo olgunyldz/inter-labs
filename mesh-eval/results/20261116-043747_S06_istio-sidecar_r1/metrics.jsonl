@@ -1,0 +1,1 @@
+{"key":"proxy_metrics_exposed","value":1,"unit":"bool","desc":"rogue başka pod'un proxy metriklerini okuyabildi mi (http://10.20.1.29:15020/stats/prometheus -> 200)"}

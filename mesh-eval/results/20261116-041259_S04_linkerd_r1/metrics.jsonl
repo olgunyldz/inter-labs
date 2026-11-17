@@ -1,0 +1,2 @@
+{"key":"probes_ok_without_fix","value":0,"unit":"bool","desc":"kural tek başına uygulanınca pod'lar sağlıklı mı"}
+{"key":"deny_http_code","value":404,"unit":"kod","desc":"reddedilen endpoint'in cevabı"}

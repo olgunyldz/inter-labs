@@ -1,0 +1,46 @@
+{
+  "test": {
+    "id": "O02",
+    "name": "Metrik maliyeti — seri sayısı ve alım hızı",
+    "category": "gözlem",
+    "purpose": "Mesh metriklerinin izleme altyapısına (Prometheus) getirdiği gizli maliyeti ölçmek: aktif zaman serisi sayısı ve saniyede alınan örnek sayısı. Prod'da 3.000 servise projeksiyonun girdisi.\n",
+    "method": "60 sn 100 RPS yükten sonra bench cluster'ından (bu mesh profili etiketiyle) gelen aktif seri sayısı toplam ve mesh'e ait metrik aileleri (istio_*, envoy_*, linkerd proxy işleri) olarak ayrılır; agent'ın remote-write örnek hızı ölçülür. Mesh'siz profil referanstır.\n",
+    "components": [
+      "Prometheus agent (bench)",
+      "Prometheus (mgmt)",
+      "mesh metrik uçları"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "series_total",
+      "series_mesh",
+      "series_mesh_per_pod",
+      "samples_per_s"
+    ],
+    "pass_criteria": "Ölçüm tamamlanır (bilgi amaçlı)"
+  },
+  "mesh": "istio-ambient",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-141719-2939011",
+  "repeat": 3,
+  "start": 1794837894,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "47c45b9",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794837989
+}

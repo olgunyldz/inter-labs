@@ -1,0 +1,18 @@
+    cert_ttl_h = 24 saat
+  [32m[ok][0m sertifika kurumsal ara CA'dan (AKI = ara CA SKI) (=AEAB24289F9CC7F91CD4CB126AC3591C6B697397)
+  [32m[ok][0m sertifika ömrü (saat) (24 <= 24)
+  [32m[ok][0m kimlik (SAN) (=var)
+
+[1;34m==> Yük altında ara CA rotasyonu[0m
+  [33m[!][0m BULGU: istio-ambient-l7: yeni ara CA otomatik yüklenmedi; kontrol düzleminin yeniden başlatılması gerekti.
+
+[1;34m==> ambient: ztunnel DaemonSet yeniden başlatılıyor (yük altında)[0m
+  [33m[!][0m BULGU: istio-ambient-l7: CA rotasyonunda yeni pod bile eski ara CA'nın sertifikasını kullandı (ztunnel kimlik başına önbellekte tutuyor). Yeni CA'nın devreye girmesi için ztunnel DaemonSet'inin yeniden başlatılması gerekti; bu sırada node'daki tüm pod'ların trafiği etkilenir.
+    rotation.needed_restart = 1 bool
+    rotation.ztunnel_restart = 1 bool
+  [32m[ok][0m rotasyon: yeni pod yeni ara CA'dan sertifika aldı (=D9DD84ABB6D5E968560B5EA3F7C9032D0BBB23A6)
+  [32m[ok][0m rotasyon: eski ve yeni sertifikalı pod'lar konuşuyor (zincir) (=ok)
+    rotation.error_rate = 0.08487639201854937 oran
+    rotation.p99_ms = 10000.2314604 ms
+  [33m[!][0m BULGU: istio-ambient-l7: CA rotasyonu için gereken ztunnel yeniden başlatması yük altında kesinti yarattı: hata oranı %8.5, 2599 başarısız istek, p99 10000 ms. Waypoint üzerinden geçen tüneller node proxy'si yeniden başlarken kopuyor.
+  [31m[x][0m rotasyon sırasında hata oranı: 0.08487639201854937 > 0.01

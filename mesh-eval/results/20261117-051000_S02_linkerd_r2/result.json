@@ -1,0 +1,105 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794881400,
+  "end": 1794881442,
+  "duration_s": 42,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "zincir çalışıyor (8 servis)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "uçtan uca erişim (edge -> ingress -> gateway)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "tüm shop pod'ları sağlıklı",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "gateway rolü -> order [200]",
+      "expected": "izin",
+      "actual": "izin",
+      "pass": true
+    },
+    {
+      "name": "yetkisiz pod -> order [504]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "yetkisiz pod -> catalog [504]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "başka namespace -> order [000]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "yatay geçiş: gateway -> catalog [504]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "ortak kimlik üzerinden NetworkPolicy atlatılamıyor (20 deneme)",
+      "expected": "0",
+      "actual": "0",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "naive.chain_ok",
+      "value": 1,
+      "unit": "bool",
+      "desc": "standart kurallarla zincir çalışıyor"
+    },
+    {
+      "key": "naive.e2e_ok",
+      "value": 1,
+      "unit": "bool",
+      "desc": ""
+    },
+    {
+      "key": "naive.pods_ready",
+      "value": 1,
+      "unit": "bool",
+      "desc": "standart kurallarla pod'lar sağlıklı (probe'lar geçiyor)"
+    },
+    {
+      "key": "mesh_specific_rules",
+      "value": 0,
+      "unit": "adet",
+      "desc": ""
+    },
+    {
+      "key": "impostor_access",
+      "value": 1,
+      "unit": "bool",
+      "desc": "etiketi taklit eden pod order'a erişebildi mi"
+    },
+    {
+      "key": "shared_identity_bypass",
+      "value": 0,
+      "unit": "/20",
+      "desc": "aynı SA'yı paylaşan izinli pod bağlıyken yetkisiz pod'un geçen isteği"
+    }
+  ],
+  "findings": [
+    "NetworkPolicy etiket bazlıdır: shop.role=gateway etiketini taşıyan farklı kimlikli bir pod order'a erişebildi (HTTP 200). Kimlik bazlı kural için mesh yetki politikası gerekir (S03)."
+  ]
+}

@@ -1,0 +1,2 @@
+"istio-ambient: 0/8 servis için L7 (istek, başarı oranı, gecikme) metriği var; diğerleri için yalnızca TCP metrikleri. Altın metrikler için L7 proxy (waypoint) gerekir."
+"istio-ambient: trace yalnızca uygulamanın ürettiği span'lardan oluştu; mesh proxy'leri span üretmedi (servisler: catalog,fraud,gateway,inventory,ledger,order,payment,pricing)."

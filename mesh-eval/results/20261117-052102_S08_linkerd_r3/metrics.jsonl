@@ -1,0 +1,5 @@
+{"key":"cert_ttl_h","value":24,"unit":"saat","desc":"iş yükü sertifikası geçerlilik süresi"}
+{"key":"rotation.needed_restart","value":1,"unit":"bool","desc":"yeni CA için kontrol düzlemi yeniden başlatıldı mı"}
+{"key":"rotation.ztunnel_restart","value":0,"unit":"bool","desc":"yeni CA için ztunnel yeniden başlatıldı mı (ambient)"}
+{"key":"rotation.error_rate","value":0.00035003500350035,"unit":"oran","desc":"rotasyon sırasında hata oranı"}
+{"key":"rotation.p99_ms","value":26.328566759999987,"unit":"ms","desc":""}

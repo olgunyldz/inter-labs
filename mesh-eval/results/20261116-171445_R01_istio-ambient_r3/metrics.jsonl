@@ -1,0 +1,6 @@
+{"key":"A.none.p50_ms","value":11.804772,"unit":"ms","desc":""}
+{"key":"A.none.p99_ms","value":1014.88880524,"unit":"ms","desc":""}
+{"key":"A.none.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"B.none.p50_ms","value":10.955762,"unit":"ms","desc":""}
+{"key":"B.none.p99_ms","value":17.841645,"unit":"ms","desc":""}
+{"key":"B.none.error_rate","value":0,"unit":"oran","desc":""}

@@ -1,0 +1,2 @@
+  [33m[!][0m BULGU: Linkerd küme girişi (north-south) için Gateway API uygulaması sunmuyor; ingress-nginx'in yerine ayrı bir ürün (ör. Envoy Gateway, Contour) seçilip mesh'e dahil edilmesi gerekir. Kayıtlı GatewayClass: 
+  [33m[!][0m uygulanamaz: Linkerd'de ingress Gateway API uygulaması yok

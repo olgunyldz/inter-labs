@@ -1,0 +1,1 @@
+  [33m[!][0m uygulanamaz: cluster'dan internete erişim yok (example.com) — test yapılamaz

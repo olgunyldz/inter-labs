@@ -1,0 +1,16 @@
+{"key":"A.none.p50_ms","value":13.62918,"unit":"ms","desc":""}
+{"key":"A.none.p99_ms","value":1016.93881337,"unit":"ms","desc":""}
+{"key":"A.none.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"A.none.amplification","value":1.014,"unit":"kat","desc":"pricing'e gelen / gateway'e gelen istek"}
+{"key":"A.policy.p50_ms","value":13.689917,"unit":"ms","desc":""}
+{"key":"A.policy.p99_ms","value":458.456945,"unit":"ms","desc":""}
+{"key":"A.policy.error_rate","value":0.009221197644706143,"unit":"oran","desc":""}
+{"key":"A.policy.amplification","value":1.266,"unit":"kat","desc":"pricing'e gelen / gateway'e gelen istek"}
+{"key":"B.none.p50_ms","value":12.227762,"unit":"ms","desc":""}
+{"key":"B.none.p99_ms","value":19.33498,"unit":"ms","desc":""}
+{"key":"B.none.error_rate","value":0.6115987112543051,"unit":"oran","desc":""}
+{"key":"B.none.amplification","value":1.012,"unit":"kat","desc":"pricing'e gelen / gateway'e gelen istek"}
+{"key":"B.policy.p50_ms","value":12.752777,"unit":"ms","desc":""}
+{"key":"B.policy.p99_ms","value":19.539398,"unit":"ms","desc":""}
+{"key":"B.policy.error_rate","value":0.0019997778024663927,"unit":"oran","desc":""}
+{"key":"B.policy.amplification","value":1.027,"unit":"kat","desc":"pricing'e gelen / gateway'e gelen istek"}

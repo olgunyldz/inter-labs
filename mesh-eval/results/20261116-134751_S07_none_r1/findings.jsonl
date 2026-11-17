@@ -1,0 +1,1 @@
+"Mesh'siz egress kısıtı yalnızca IP bazlı yapılabilir: hedefin IP'si değiştiğinde (CDN, bulut servisleri) kural bozulur ve aynı IP'yi paylaşan başka adresler de açılır."

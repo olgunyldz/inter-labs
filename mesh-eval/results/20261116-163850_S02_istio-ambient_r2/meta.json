@@ -1,0 +1,47 @@
+{
+  "test": {
+    "id": "S02",
+    "name": "Servisler arası whitelisting — NetworkPolicy (L3/L4)",
+    "category": "güvenlik",
+    "purpose": "Kubernetes NetworkPolicy ile servisler arası izin listesinin (varsayılan ret + zincir kuralları) her mesh ile birlikte doğru çalıştığını ve mesh'e özel ek kural gerekip gerekmediğini göstermek. Etiket bazlı kuralların \"kimlik taklidi\"ne açık olduğunu kanıtlamak.\n",
+    "method": "(1) Standart kural seti (mesh'ten habersiz) uygulanır; zincir, uçtan uca erişim ve pod sağlığı kontrol edilir (mesh ile uyumsuzluk bulgusu). (2) Gerekiyorsa mesh'e uyarlanmış ek kurallar uygulanır. (3) İzin/ret matrisi: izinli kenarlar açık, yetkisiz pod, başka namespace ve yatay geçiş kapalı olmalı. (4) Etiketi \"gateway\" olan ama kimliği farklı bir pod (impostor) order'a erişmeye çalışır. (5) Impostor bağlıyken, onunla aynı ServiceAccount'u paylaşan yetkisiz pod 20 istek dener (ortak kimlik atlatması).\n",
+    "components": [
+      "kindnet / kube-network-policies (NetworkPolicy motoru)",
+      "netshoot istemcileri"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "naive.chain",
+      "naive.e2e",
+      "naive.ready",
+      "matris kontrolleri",
+      "impostor_access",
+      "shared_identity_bypass"
+    ],
+    "pass_criteria": "Uyarlanmış kurallarla izin/ret matrisinin tamamı beklendiği gibi"
+  },
+  "mesh": "istio-ambient",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-141719-2939011",
+  "repeat": 2,
+  "start": 1794836330,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "47c45b9",
+    "uncommitted_files": 0
+  },
+  "status": "fail",
+  "end": 1794836388
+}

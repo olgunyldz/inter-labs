@@ -1,0 +1,48 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794814631,
+  "end": 1794814776,
+  "duration_s": 145,
+  "na_reason": "timeout/retry/outlier detection için L7 proxy gerekir (none); politikasız ölçümler kaydedildi",
+  "checks": [],
+  "metrics": [
+    {
+      "key": "A.none.p50_ms",
+      "value": 11.177637,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.none.p99_ms",
+      "value": 1014.31900556,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.none.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "B.none.p50_ms",
+      "value": 10.3639035,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.none.p99_ms",
+      "value": 17.374891369999993,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.none.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    }
+  ],
+  "findings": []
+}

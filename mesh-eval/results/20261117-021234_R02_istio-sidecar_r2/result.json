@@ -1,0 +1,61 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794870754,
+  "end": 1794870896,
+  "duration_s": 142,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "gözlenen hata oranı >= 0.07",
+      "expected": ">= 0.07",
+      "actual": "0.09849179235063744",
+      "pass": true
+    },
+    {
+      "name": "gözlenen hata oranı <= 0.13",
+      "expected": "<= 0.13",
+      "actual": "0.09849179235063744",
+      "pass": true
+    },
+    {
+      "name": "gecikme enjeksiyonu görünüyor (p95 ms)",
+      "expected": ">= 200",
+      "actual": "214.001648",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "method",
+      "value": 0,
+      "unit": "-",
+      "desc": "Istio VirtualService fault (yerleşik)"
+    },
+    {
+      "key": "observed_error_rate",
+      "value": 0.09849179235063744,
+      "unit": "oran",
+      "desc": "gateway'de gözlenen hata oranı (hedef 0.10)"
+    },
+    {
+      "key": "p50_ms",
+      "value": 14.559132,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "p90_ms",
+      "value": 209.700538,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "p95_ms",
+      "value": 214.001648,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": []
+}

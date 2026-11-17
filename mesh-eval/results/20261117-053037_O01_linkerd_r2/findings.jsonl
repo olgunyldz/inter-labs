@@ -1,0 +1,2 @@
+"linkerd-jaeger eklentisi kurulamadı: Cannot accept flags before Linkerd extension name\nerror: no objects passed to apply"
+"linkerd: trace yalnızca uygulamanın ürettiği span'lardan oluştu; mesh proxy'leri span üretmedi (servisler: catalog,fraud,gateway,inventory,ledger,order,payment,pricing)."

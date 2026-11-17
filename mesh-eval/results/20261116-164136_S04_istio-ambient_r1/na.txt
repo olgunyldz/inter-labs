@@ -1,0 +1,1 @@
+L7 (path/method) yetki için waypoint gerekir; gözlenen davranış bulgu olarak kaydedildi

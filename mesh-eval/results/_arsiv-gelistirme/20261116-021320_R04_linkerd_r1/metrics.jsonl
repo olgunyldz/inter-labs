@@ -1,0 +1,4 @@
+{"key":"A.new_pod_created","value":1,"unit":"bool","desc":"kontrol düzlemi yokken yeni pod oluşturulabildi"}
+{"key":"A.new_pod_ready","value":1,"unit":"bool","desc":""}
+{"key":"A.new_pod_meshed","value":0,"unit":"bool","desc":"yeni pod mesh'e dahil (proxy / ambient yönlendirme)"}
+{"key":"A.new_pod_serving","value":0,"unit":"bool","desc":"yeni pod mesh içinden trafik alabiliyor"}

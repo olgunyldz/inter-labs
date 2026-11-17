@@ -1,0 +1,1 @@
+"istio-sidecar: varsayılan proxy CPU isteğiyle (100m) 120 ek servis lab'daki app node'una (12 çekirdek ayrılabilir) sığmadı; pod'lar Pending kaldı. Ölçek testi için ek pod'larda proxy isteği 5m'ye indirildi. Prod'da bu ayrılan kapasite, kullanılmasa da node sayısını belirler (projeksiyondaki ayrılan çekirdek kalemi)."

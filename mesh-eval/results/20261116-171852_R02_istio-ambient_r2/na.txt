@@ -1,0 +1,1 @@
+fault injection L7 proxy gerektirir; ambient L4 (waypoint'siz) profilde yok

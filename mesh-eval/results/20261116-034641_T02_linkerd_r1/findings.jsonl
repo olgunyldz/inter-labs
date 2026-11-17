@@ -1,0 +1,1 @@
+"linkerd: protokol ipucu olmayan server-first TCP bağlantısında ilk bayt 10006 ms (protokol algılama beklemesi). Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı."

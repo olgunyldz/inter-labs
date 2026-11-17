@@ -1,0 +1,14 @@
+    naive.chain_ok = 1 bool
+    naive.e2e_ok = 1 bool
+    naive.pods_ready = 1 bool
+    mesh_specific_rules = 0 adet
+  [32m[ok][0m zincir çalışıyor (8 servis) (=ok)
+  [32m[ok][0m uçtan uca erişim (edge -> ingress -> gateway) (=ok)
+  [32m[ok][0m tüm shop pod'ları sağlıklı (=ok)
+  [32m[ok][0m gateway rolü -> order [200] (=izin)
+  [32m[ok][0m yetkisiz pod -> order [504] (=ret)
+  [32m[ok][0m yetkisiz pod -> catalog [504] (=ret)
+  [32m[ok][0m başka namespace -> order [000] (=ret)
+  [32m[ok][0m yatay geçiş: gateway -> catalog [504] (=ret)
+    impostor_access = 1 bool
+  [33m[!][0m BULGU: NetworkPolicy etiket bazlıdır: shop.role=gateway etiketini taşıyan farklı kimlikli bir pod order'a erişebildi (HTTP 200). Kimlik bazlı kural için mesh yetki politikası gerekir (S03).

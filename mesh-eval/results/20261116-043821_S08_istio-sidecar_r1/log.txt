@@ -1,0 +1,13 @@
+    cert_ttl_h = 24 saat
+  [32m[ok][0m sertifika kurumsal ara CA'dan (AKI = ara CA SKI) (=DC731C17126A99789DC15B3F18A8CB4DF1F14EAD)
+  [32m[ok][0m sertifika ömrü (saat) (24 <= 24)
+  [32m[ok][0m kimlik (SAN) (=var)
+
+[1;34m==> Yük altında ara CA rotasyonu[0m
+  [33m[!][0m BULGU: istio-sidecar: yeni ara CA otomatik yüklenmedi; kontrol düzleminin yeniden başlatılması gerekti.
+    rotation.needed_restart = 1 bool
+  [32m[ok][0m rotasyon: yeni pod yeni ara CA'dan sertifika aldı (=F1634C8734A40D3522A63D36525C408D8F660996)
+  [32m[ok][0m rotasyon: eski ve yeni sertifikalı pod'lar konuşuyor (zincir) (=ok)
+    rotation.error_rate = 0.0030856391319743033 oran
+    rotation.p99_ms = 5452.428618599968 ms
+  [32m[ok][0m rotasyon sırasında hata oranı (0.0030856391319743033 <= 0.01)

@@ -1,0 +1,1 @@
+cluster'dan internete erişim yok (example.com) — test yapılamaz

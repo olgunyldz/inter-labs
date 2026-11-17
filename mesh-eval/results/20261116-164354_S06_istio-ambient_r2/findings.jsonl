@@ -1,0 +1,1 @@
+"istio-ambient: aynı node'un host ağından pod IP'sine düz (mTLS'siz) istek, zorunlu mTLS ve yetki politikasına rağmen kabul edildi (HTTP 200). Mesh, node'dan gelen trafiği (kubelet sağlık kontrolleri için) muaf tutuyor; hostNetwork pod'ları ve node üzerindeki ajanlar politikayı atlayabilir. Prod'da hostNetwork kullanımı Pod Security ile kısıtlanmalı."

@@ -1,0 +1,18 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794826143,
+  "end": 1794826146,
+  "duration_s": 3,
+  "na_reason": "L7 yönlendirme için mesh L7 proxy'si gerekir (none); yalnızca replika oranında dağılım (v2 payı 0.268)",
+  "checks": [],
+  "metrics": [
+    {
+      "key": "baseline.v2_share",
+      "value": 0.268,
+      "unit": "oran",
+      "desc": "kural yokken v2 payı (3 replikadan 1'i -> ~0.33)"
+    }
+  ],
+  "findings": []
+}

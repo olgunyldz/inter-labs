@@ -1,0 +1,42 @@
+{
+  "test": {
+    "id": "S05",
+    "name": "Giriş noktasında endpoint bazlı erişim kısıtı (DMZ ingress)",
+    "category": "güvenlik",
+    "purpose": "Dışarıya açık bir endpoint'in (ör. /admin) yalnızca izinli kaynak IP'lerinden erişilebilir olmasını DMZ katmanında sağlamak; istemci IP'sinin sahte X-Forwarded-For başlığıyla taklit edilemediğini kanıtlamak. Mesh'ten bağımsızdır (DMZ cluster'larında mesh yok); her profilde aynı sonuç beklenir.\n",
+    "method": "dmz-a ve dmz-b'de shop.localtest.me/admin için whitelist-source-range kuralı tanımlanır. (1) İzinsiz aralık: /admin 403, / 200. (2) Sahte X-Forwarded-For ile /admin hâlâ 403. (3) Edge segmenti (lab-edge) izinli yapılınca /admin 200. İstemci IP'si edge LB'den PROXY protocol ile gelir.\n",
+    "components": [
+      "HAProxy edge LB (PROXY protocol)",
+      "DMZ ingress-nginx x2"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "outputs": [
+      "matris kontrolleri"
+    ],
+    "pass_criteria": "Tüm kontroller beklendiği gibi"
+  },
+  "mesh": "none",
+  "profile": "quick",
+  "session": "dogrulama-quick",
+  "invocation": "20261116-101835-2681776",
+  "repeat": 1,
+  "start": 1794814453,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "6f13cdb",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794814472
+}

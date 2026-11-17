@@ -1,0 +1,51 @@
+{
+  "test": {
+    "id": "P02",
+    "name": "Sabit uzun yük (soak) — kararlılık ve sızıntı",
+    "category": "performans",
+    "purpose": "Uzun süre sabit yük altında gecikmenin kayıp kaymadığını (drift) ve proxy'lerin bellek kullanımının büyümediğini (sızıntı) göstermek.\n",
+    "method": "k6 sabit hızla yük verir; süre dört eşit çeyreğe bölünür. İlk ve son çeyreğin p99'u ile rol bazında bellek kullanımı kıyaslanır.\n",
+    "components": [
+      "k6",
+      "fake-service zinciri",
+      "cAdvisor",
+      "Prometheus"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "profiles": {
+      "quick": "200 RPS x 2 dk",
+      "full": "300 RPS x 20 dk"
+    },
+    "outputs": [
+      "p50_ms",
+      "p99_ms",
+      "error_rate",
+      "p99_drift (son/ilk çeyrek)",
+      "<rol>.mem_growth_mib"
+    ],
+    "pass_criteria": "Hata oranı < %1 ve p99 kayması < 1.5x"
+  },
+  "mesh": "linkerd",
+  "profile": "quick",
+  "session": "adhoc-20261116",
+  "repeat": 1,
+  "start": 1794782541,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "d77427e",
+    "uncommitted_files": 4
+  },
+  "status": "fail",
+  "end": 1794782693
+}

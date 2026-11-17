@@ -1,0 +1,52 @@
+{
+  "test": {
+    "id": "P01",
+    "name": "Kademeli yük — gecikme ve kırılma noktası",
+    "category": "performans",
+    "purpose": "Artan istek hızında (RPS) servis zincirinin gecikmesini (p50/p95/p99) ve hata oranını ölçmek; sistemin bozulmaya başladığı noktayı (kırılma noktası) bulmak. Mesh'siz referansla kıyaslanınca mesh'in gecikme ve kapasite maliyetini verir.\n",
+    "method": "k6 (loadgen node'u, mesh içinde) gateway'e sabit hızlı (constant-arrival-rate) aşamalarla yük verir. Her aşama ayrı ölçülür. Her aşamada rol bazında CPU/bellek (cAdvisor; node toplamı dahil) ve mesh'in servis başına gecikmesi kaydedilir. İki kırılma noktası raporlanır: SLO noktası (p99 <= 100 ms, hata < %1, hedef hızın >= %95'i) ve doyma noktası (hata < %1, hız >= %95).\n",
+    "components": [
+      "k6",
+      "chainsvc zinciri (8 servis)",
+      "Prometheus (mgmt)",
+      "cAdvisor",
+      "mesh metrikleri"
+    ],
+    "meshes": [
+      "all"
+    ],
+    "profiles": {
+      "quick": "100,300,600,900 RPS x 30 sn",
+      "full": "100,250,500,750,1000,1250,1500,2000 RPS x 60 sn"
+    },
+    "outputs": [
+      "stage<i>.p50_ms/p95_ms/p99_ms, stage<i>.rps, stage<i>.error_rate",
+      "stage<i>.<rol>.cpu_cores / mem_mib",
+      "knee_slo_rps, knee_sat_rps (kırılma noktaları), hop.<servis>.p50_ms",
+      "post_overload_healthy (aşırı yükten 30 sn sonra kendiliğinden toparlandı mı)"
+    ],
+    "pass_criteria": "İlk aşamada hata oranı < %1 (sistem düşük yükte sağlıklı)"
+  },
+  "mesh": "linkerd",
+  "profile": "quick",
+  "session": "dogrulama-quick",
+  "invocation": "20261116-032826-1237077",
+  "repeat": 1,
+  "start": 1794788906,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "02eb4d7",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794789121
+}

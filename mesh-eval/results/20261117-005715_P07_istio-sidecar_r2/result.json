@@ -1,0 +1,18 @@
+{
+  "status": "error",
+  "exit_code": 1,
+  "start": 1794866235,
+  "end": 1794866646,
+  "duration_s": 411,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "base: başlangıçta erişim açık",
+      "expected": "200",
+      "actual": "200",
+      "pass": true
+    }
+  ],
+  "metrics": [],
+  "findings": []
+}

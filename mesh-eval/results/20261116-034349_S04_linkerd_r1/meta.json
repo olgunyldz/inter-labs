@@ -1,0 +1,46 @@
+{
+  "test": {
+    "id": "S04",
+    "name": "Endpoint bazlı erişim kısıtı (L7 — path / method)",
+    "category": "güvenlik",
+    "purpose": "Bir servisin yalnızca belirli endpoint'lerinin, belirli kimliklere ve HTTP metotlarına açık olmasını sağlamak (ör. /admin kapalı, yalnızca GET). Mesh içinde endpoint bazlı whitelisting.\n",
+    "method": "order servisi için kural: yalnızca gateway kimliği, yalnızca GET, yalnızca \"/\" ve \"/api/*\". /admin, POST, DELETE ve başka kimlik reddedilmeli. Önce kural tek başına uygulanır; kubelet sağlık kontrollerini bozuyorsa (bulgu) gerekli ek kural eklenir. Ambient L4 (waypoint'siz) profilde L7 kural uygulanamaz; gözlenen davranış kaydedilir.\n",
+    "components": [
+      "Istio AuthorizationPolicy (sidecar / waypoint)",
+      "Linkerd HTTPRoute + AuthorizationPolicy"
+    ],
+    "meshes": [
+      "istio-sidecar",
+      "istio-ambient",
+      "istio-ambient-l7",
+      "linkerd"
+    ],
+    "outputs": [
+      "matris kontrolleri",
+      "probe_fix_needed"
+    ],
+    "pass_criteria": "İzinli endpoint'ler açık, diğerleri reddedilir, zincir çalışır"
+  },
+  "mesh": "linkerd",
+  "profile": "quick",
+  "session": "dogrulama-quick",
+  "invocation": "20261116-032826-1237077",
+  "repeat": 1,
+  "start": 1794789829,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "02eb4d7",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794789871
+}

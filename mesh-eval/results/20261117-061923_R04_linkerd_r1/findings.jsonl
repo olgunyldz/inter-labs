@@ -1,0 +1,1 @@
+"linkerd: kontrol düzlemi yokken yeni pod mesh'e GİRMEDEN açıldı (proxy'siz). Zorunlu mTLS altında bu pod diğer servislerle konuşamaz / güvenlik açığı oluşturur."

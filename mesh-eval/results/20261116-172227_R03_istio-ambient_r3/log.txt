@@ -1,0 +1,11 @@
+
+[1;34m==> pod siliniyor: order-7b7b468f97-sdwfv[0m
+
+[1;34m==> pod siliniyor: catalog-6854776475-h57bc[0m
+
+[1;34m==> pod siliniyor: fraud-5b44fbd59b-cw44r[0m
+    failed_requests = 0 istek
+    error_rate = 0 oran
+    p99_ms = 17.886210320000007 ms
+    max_ms = 41.803757 ms
+  [32m[ok][0m pod kaybında hata oranı (0 <= 0.01)

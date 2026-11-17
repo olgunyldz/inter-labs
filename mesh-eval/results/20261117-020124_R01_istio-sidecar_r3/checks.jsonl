@@ -1,0 +1,2 @@
+{"name":"A: politikayla p99 (ms)","expected":"<= 1000","actual":"465.999126","pass":true}
+{"name":"B: outlier detection ile hata oranı (politikasızın yarısı)","expected":"<= 0.167481","actual":"0.005777135873791801","pass":true}

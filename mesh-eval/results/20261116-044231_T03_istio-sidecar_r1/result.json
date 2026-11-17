@@ -1,0 +1,37 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794793351,
+  "end": 1794793358,
+  "duration_s": 7,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "Gateway hazır (Programmed)",
+      "expected": "1",
+      "actual": "1",
+      "pass": true
+    },
+    {
+      "name": "HTTPRoute kabul edildi",
+      "expected": "1",
+      "actual": "1",
+      "pass": true
+    },
+    {
+      "name": "mesh dışından Gateway üzerinden zincir (8 servis)",
+      "expected": "8",
+      "actual": "8",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "p50_ms",
+      "value": 15.05,
+      "unit": "ms",
+      "desc": "Gateway üzerinden zincir gecikmesi (medyan, 50 istek)"
+    }
+  ],
+  "findings": []
+}

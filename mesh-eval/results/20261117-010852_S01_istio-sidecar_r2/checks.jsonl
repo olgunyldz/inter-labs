@@ -1,0 +1,3 @@
+{"name":"mesh dışından düz HTTP -> order [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"kontrol: yakalama çalışıyor (düz metin kontrol işareti görüldü)","expected":">= 1","actual":"9","pass":true}
+{"name":"ağ üzerinde trafik şifreli","expected":"evet","actual":"evet","pass":true}

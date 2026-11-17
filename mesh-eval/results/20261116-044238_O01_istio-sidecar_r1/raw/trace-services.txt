@@ -1,0 +1,1 @@
+catalog,catalog.shop,fraud,fraud.shop,gateway,gateway.shop,inventory,inventory.shop,ledger,ledger.shop,order,order.shop,payment,payment.shop,pricing,pricing.shop,probe-gateway.shop

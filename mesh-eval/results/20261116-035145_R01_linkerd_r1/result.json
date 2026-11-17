@@ -1,0 +1,123 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794790305,
+  "end": 1794790627,
+  "duration_s": 322,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "A: politikayla p99 (ms)",
+      "expected": "<= 1000",
+      "actual": "456.8061037199998",
+      "pass": true
+    },
+    {
+      "name": "B: outlier detection ile hata oranı (politikasızın yarısı)",
+      "expected": "<= 0.289678",
+      "actual": "0.003749062734316421",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "A.none.p50_ms",
+      "value": 13.414516,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.none.p99_ms",
+      "value": 1016.4052008799999,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.none.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "A.none.amplification",
+      "value": 0.992,
+      "unit": "kat",
+      "desc": "pricing'e gelen / gateway'e gelen istek"
+    },
+    {
+      "key": "A.policy.p50_ms",
+      "value": 13.422260000000001,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.policy.p99_ms",
+      "value": 456.8061037199998,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.policy.error_rate",
+      "value": 0.00875,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "A.policy.amplification",
+      "value": 1.249,
+      "unit": "kat",
+      "desc": "pricing'e gelen / gateway'e gelen istek"
+    },
+    {
+      "key": "B.none.p50_ms",
+      "value": 12.06965,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.none.p99_ms",
+      "value": 18.892532,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.none.error_rate",
+      "value": 0.5793551612096975,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "B.none.amplification",
+      "value": 1.012,
+      "unit": "kat",
+      "desc": "pricing'e gelen / gateway'e gelen istek"
+    },
+    {
+      "key": "B.policy.p50_ms",
+      "value": 12.545831,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.policy.p99_ms",
+      "value": 19.48848,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.policy.error_rate",
+      "value": 0.003749062734316421,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "B.policy.amplification",
+      "value": 1.027,
+      "unit": "kat",
+      "desc": "pricing'e gelen / gateway'e gelen istek"
+    }
+  ],
+  "findings": [
+    "linkerd: 3 replikadan 1'i sürekli hata verirken uçtan uca hata oranı %58 (replika oranına göre beklenen ~%33). Hızlı hata dönen replika yük dengeleyici tarafından tercih ediliyor; outlier detection / failure accrual olmadan hatalı pod trafiği çeker."
+  ]
+}

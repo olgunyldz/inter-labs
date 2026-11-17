@@ -1,0 +1,1 @@
+"istio-ambient-l7: en yüksek aşamadan sonra servis zinciri kendiliğinden toparlanmadı (30 sn sonra hâlâ 5xx); yeniden başlatma gerekti. Mesh'siz referansla kıyaslanmalı."

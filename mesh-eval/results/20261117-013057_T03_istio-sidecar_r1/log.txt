@@ -1,0 +1,4 @@
+  [32m[ok][0m Gateway hazır (Programmed) (=1)
+  [32m[ok][0m HTTPRoute kabul edildi (=1)
+  [32m[ok][0m mesh dışından Gateway üzerinden zincir (8 servis) (=8)
+    p50_ms = 14.10 ms

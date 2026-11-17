@@ -1,0 +1,5 @@
+{"key":"method","value":0,"unit":"-","desc":"Istio VirtualService fault (yerleşik)"}
+{"key":"observed_error_rate","value":0.09686736280826483,"unit":"oran","desc":"gateway'de gözlenen hata oranı (hedef 0.10)"}
+{"key":"p50_ms","value":13.6414,"unit":"ms","desc":""}
+{"key":"p90_ms","value":208.389388,"unit":"ms","desc":""}
+{"key":"p95_ms","value":212.275846,"unit":"ms","desc":""}

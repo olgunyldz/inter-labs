@@ -1,0 +1,1108 @@
+{
+ "generated": "2026-11-16T01:53:38.938591",
+ "sessions": [
+  "adhoc-20261116"
+ ],
+ "versions": {
+  "istio": "1.31.4",
+  "linkerd": "edge-26.11.2",
+  "k6": "grafana/k6:2.4.0",
+  "app": "nicholasjackson/fake-service:v0.26.2",
+  "gateway_api": "v1.6.1",
+  "kubernetes": "v1.37.0",
+  "kind": "v0.33.0",
+  "ingress_nginx_chart": "4.15.1"
+ },
+ "results": {
+  "P01/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "stages": 4,
+    "stage_duration_s": 30,
+    "stage0.target_rps": 100,
+    "stage0.rps": 100.0,
+    "stage0.p50_ms": 4.804078,
+    "stage0.p95_ms": 7.814934,
+    "stage0.p99_ms": 8.820323,
+    "stage0.p999_ms": 10.687168000000261,
+    "stage0.error_rate": 0,
+    "stage0.dropped": 0,
+    "stage0.start": 1794781781,
+    "stage0.end": 1794781811,
+    "stage0.app.cpu_cores": 0.24321728009190258,
+    "stage0.app.mem_mib": 125.0,
+    "stage0.app.containers": 16,
+    "stage0.sidecar.cpu_cores": 0.2327221567704524,
+    "stage0.sidecar.mem_mib": 88.4,
+    "stage0.sidecar.containers": 21,
+    "stage0.control.cpu_cores": 0.000887118293959593,
+    "stage0.control.mem_mib": 90.5,
+    "stage0.control.containers": 9,
+    "stage0.ingress.cpu_cores": 0.001318296079441134,
+    "stage0.ingress.mem_mib": 44.2,
+    "stage0.ingress.containers": 2,
+    "stage0.loadgen.cpu_cores": 0.050263004643110086,
+    "stage0.loadgen.mem_mib": 35.7,
+    "stage0.loadgen.containers": 2,
+    "stage1.target_rps": 300,
+    "stage1.rps": 300.0,
+    "stage1.p50_ms": 5.898044,
+    "stage1.p95_ms": 14.721248,
+    "stage1.p99_ms": 48.893152,
+    "stage1.p999_ms": 102.50034400000526,
+    "stage1.error_rate": 0,
+    "stage1.dropped": 0,
+    "stage1.start": 1794781816,
+    "stage1.end": 1794781846,
+    "stage1.app.cpu_cores": 0.679741293755549,
+    "stage1.app.mem_mib": 127.0,
+    "stage1.app.containers": 16,
+    "stage1.sidecar.cpu_cores": 0.5715428182955866,
+    "stage1.sidecar.mem_mib": 97.8,
+    "stage1.sidecar.containers": 21,
+    "stage1.control.cpu_cores": 0.004215656654015009,
+    "stage1.control.mem_mib": 77.5,
+    "stage1.control.containers": 9,
+    "stage1.ingress.cpu_cores": 0.0009692866328769253,
+    "stage1.ingress.mem_mib": 44.3,
+    "stage1.ingress.containers": 2,
+    "stage1.loadgen.cpu_cores": 0.1316806670784435,
+    "stage1.loadgen.mem_mib": 42.7,
+    "stage1.loadgen.containers": 2,
+    "hop.pricing.p50_ms": 1.3762376237623761,
+    "hop.gateway.p50_ms": 4.2911360163015795,
+    "hop.banner.p50_ms": 0.5,
+    "hop.catalog.p50_ms": 0.5681475903614458,
+    "hop.ledger.p50_ms": 0.5751434034416826,
+    "hop.payment.p50_ms": 1.8796483136350535,
+    "hop.order.p50_ms": 3.28852616418627,
+    "hop.inventory.p50_ms": 1.9916475597772683,
+    "hop.fraud.p50_ms": 0.8,
+    "stage2.target_rps": 600,
+    "stage2.rps": 447.3,
+    "stage2.p50_ms": 4225.059283500001,
+    "stage2.p95_ms": 8184.929873049999,
+    "stage2.p99_ms": 9347.405562529999,
+    "stage2.p999_ms": 9997.698658556012,
+    "stage2.error_rate": 0.001043374571471158,
+    "stage2.dropped": 4583,
+    "stage2.start": 1794781851,
+    "stage2.end": 1794781881,
+    "stage2.app.cpu_cores": 1.2252490501226767,
+    "stage2.app.mem_mib": 626.8,
+    "stage2.app.containers": 16,
+    "stage2.sidecar.cpu_cores": 1.239715230971388,
+    "stage2.sidecar.mem_mib": 507.5,
+    "stage2.sidecar.containers": 21,
+    "stage2.control.cpu_cores": 0.00705173366469457,
+    "stage2.control.mem_mib": 77.7,
+    "stage2.control.containers": 9,
+    "stage2.ingress.cpu_cores": 0,
+    "stage2.ingress.mem_mib": 44.1,
+    "stage2.ingress.containers": 2,
+    "stage2.loadgen.cpu_cores": 0,
+    "stage2.loadgen.mem_mib": 543.9,
+    "stage2.loadgen.containers": 2,
+    "stage3.target_rps": 900,
+    "stage3.rps": 463.7,
+    "stage3.p50_ms": 6696.404289,
+    "stage3.p95_ms": 9876.7626855,
+    "stage3.p99_ms": 10000.829384699999,
+    "stage3.p999_ms": 10001.71523374,
+    "stage3.error_rate": 0.042268708216519305,
+    "stage3.dropped": 13089,
+    "stage3.start": 1794781886,
+    "stage3.end": 1794781916,
+    "stage3.app.cpu_cores": 1.1685081380637703,
+    "stage3.app.mem_mib": 940.7,
+    "stage3.app.containers": 16,
+    "stage3.sidecar.cpu_cores": 0.9213009383268287,
+    "stage3.sidecar.mem_mib": 790.7,
+    "stage3.sidecar.containers": 21,
+    "stage3.control.cpu_cores": 0.00670321887921282,
+    "stage3.control.mem_mib": 77.6,
+    "stage3.control.containers": 9,
+    "stage3.ingress.cpu_cores": 0.002517895396121318,
+    "stage3.ingress.mem_mib": 44.1,
+    "stage3.ingress.containers": 2,
+    "stage3.loadgen.cpu_cores": 0,
+    "stage3.loadgen.mem_mib": 775.9,
+    "stage3.loadgen.containers": 2,
+    "knee_rps": 100
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "ilk aşama hata oranı",
+     "expected": "<= 0.01",
+     "actual": "0",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-012938_P01_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794781778,
+   "end": 1794781952
+  },
+  "P04/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "stage0.target_rps": 100,
+    "stage0.p50_ms": 6.151653,
+    "stage0.p95_ms": 9.356564399999998,
+    "stage0.p99_ms": 11.16035912999998,
+    "stage0.error_rate": 0,
+    "stage1.target_rps": 250,
+    "stage1.p50_ms": 6.861718,
+    "stage1.p95_ms": 12.321731,
+    "stage1.p99_ms": 22.003076,
+    "stage1.error_rate": 0,
+    "tls_handshake_p50_ms": 0
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "ilk aşama hata oranı",
+     "expected": "<= 0.01",
+     "actual": "0",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-013625_P04_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794782185,
+   "end": 1794782254
+  },
+  "P06/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "replicas": 10,
+    "rounds": 1,
+    "round1.all_ready_s": 4.68,
+    "ready_p50_s": 4,
+    "ready_p95_s": 4,
+    "ready_max_s": 4,
+    "all_ready_s": 4.68
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "tüm turlar tamamlandı",
+     "expected": "1",
+     "actual": "1",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-013734_P06_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794782254,
+   "end": 1794782260
+  },
+  "P07/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "base.deny_s": 0.18,
+    "base.allow_s": 0.13,
+    "scale_services": 30,
+    "control.mem_before_mib": 77.9,
+    "control.mem_after_mib": 89.0,
+    "control.mem_growth_mib": 11.1,
+    "sidecar.mem_per_container_before_mib": 6.87,
+    "sidecar.mem_per_container_after_mib": 5.74,
+    "sidecar.mem_per_container_growth_mib": -1.12,
+    "scaled.deny_s": 0.16,
+    "scaled.allow_s": 0.13
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "base: yürürlüğe girme süresi",
+     "expected": "<= 30",
+     "actual": "0.18",
+     "pass": true
+    },
+    {
+     "name": "scaled: yürürlüğe girme süresi",
+     "expected": "<= 30",
+     "actual": "0.16",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-013740_P07_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794782260,
+   "end": 1794782350
+  },
+  "P05/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "rate_rps": 250,
+    "idle.app.cpu_cores": 0.020622626783218714,
+    "idle.app.mem_mib": 216.4,
+    "idle.app.containers": 26,
+    "idle.sidecar.cpu_cores": 0.01239083475461225,
+    "idle.sidecar.mem_mib": 166.2,
+    "idle.sidecar.containers": 29,
+    "idle.control.cpu_cores": 0.0035873459458107613,
+    "idle.control.mem_mib": 87.9,
+    "idle.control.containers": 8,
+    "idle.ingress.cpu_cores": 0.001471880872762356,
+    "idle.ingress.mem_mib": 48.8,
+    "idle.ingress.containers": 2,
+    "idle.node_app.cpu_cores": 0.13437730387916838,
+    "idle.node_app.mem_mib": 944.9,
+    "idle.node_app.containers": 1,
+    "idle.node_loadgen.cpu_cores": 0.01678228708516592,
+    "idle.node_loadgen.mem_mib": 163.3,
+    "idle.node_loadgen.containers": 1,
+    "idle.node_control.cpu_cores": 0.24471633399866977,
+    "idle.node_control.mem_mib": 2032.2,
+    "idle.node_control.containers": 1,
+    "load.app.cpu_cores": 1.0745172985760925,
+    "load.app.mem_mib": 225.8,
+    "load.app.containers": 26,
+    "load.sidecar.cpu_cores": 0.9660380814919373,
+    "load.sidecar.mem_mib": 169.0,
+    "load.sidecar.containers": 29,
+    "load.control.cpu_cores": 0.0063953259753532915,
+    "load.control.mem_mib": 86.5,
+    "load.control.containers": 8,
+    "load.ingress.cpu_cores": 0.0017311057578721142,
+    "load.ingress.mem_mib": 48.8,
+    "load.ingress.containers": 2,
+    "load.loadgen.cpu_cores": 0.2338995925494761,
+    "load.loadgen.mem_mib": 30.4,
+    "load.loadgen.containers": 1,
+    "load.node_app.cpu_cores": 2.2062522582756015,
+    "load.node_app.mem_mib": 945.2,
+    "load.node_app.containers": 1,
+    "load.node_loadgen.cpu_cores": 0.26048865452677245,
+    "load.node_loadgen.mem_mib": 200.9,
+    "load.node_loadgen.containers": 1,
+    "load.node_control.cpu_cores": 0.3524432357003508,
+    "load.node_control.mem_mib": 2100.7,
+    "load.node_control.containers": 1,
+    "load.error_rate": 0,
+    "load.p50_ms": 6.135305,
+    "load.p99_ms": 30.987324,
+    "load.rps": 250.0,
+    "req.app.cpu_cores": 0.8,
+    "req.app.mem_mib": 512.0,
+    "req.sidecar.cpu_cores": 0,
+    "req.sidecar.mem_mib": 0,
+    "req.control.cpu_cores": 0,
+    "req.control.mem_mib": 0,
+    "shop_pods": 19,
+    "dataplane.cpu_cores": 0.966038,
+    "dataplane.cpu_per_1k_rps": 3.8642,
+    "dataplane.mem_idle_mib": 166.2,
+    "dataplane.mem_per_pod_mib": 8.75,
+    "node_overhead_cores": 0.166,
+    "derived.req_cpu_per_pod": 0.0,
+    "derived.req_mem_per_pod": 0.0,
+    "derived.cpu_per_1k_hops": 0.483019
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "yük altında hata oranı",
+     "expected": "<= 0.01",
+     "actual": "0",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-013910_P05_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794782350,
+   "end": 1794782541
+  },
+  "P02/linkerd": {
+   "status": "fail",
+   "metrics": {
+    "rate_rps": 200,
+    "duration_s": 120,
+    "q0.p99_ms": 9.940841,
+    "q0.p50_ms": 4.861333,
+    "q1.p99_ms": 9.982895,
+    "q1.p50_ms": 4.906175,
+    "q2.p99_ms": 18.830193,
+    "q2.p50_ms": 5.88546,
+    "q3.p99_ms": 15.7291,
+    "q3.p50_ms": 6.038156,
+    "p50_ms": 5.4166255,
+    "p99_ms": 13.654319170000008,
+    "error_rate": 0,
+    "p99_drift": 1.582,
+    "app.mem_first_mib": 225.9,
+    "app.mem_last_mib": 224.0,
+    "app.mem_growth_mib": -1.9,
+    "sidecar.mem_first_mib": 168.8,
+    "sidecar.mem_last_mib": 168.3,
+    "sidecar.mem_growth_mib": -0.5,
+    "control.mem_first_mib": 82.6,
+    "control.mem_last_mib": 82.6,
+    "control.mem_growth_mib": 0.0,
+    "load.app.cpu_cores": 0.7685777495221546,
+    "load.app.mem_mib": 224.7,
+    "load.app.containers": 16,
+    "load.sidecar.cpu_cores": 0.7003928603553836,
+    "load.sidecar.mem_mib": 168.4,
+    "load.sidecar.containers": 19,
+    "load.control.cpu_cores": 0.0048635021207448,
+    "load.control.mem_mib": 82.5,
+    "load.control.containers": 8,
+    "load.ingress.cpu_cores": 0.0016142802843860083,
+    "load.ingress.mem_mib": 48.7,
+    "load.ingress.containers": 2,
+    "load.loadgen.cpu_cores": 0.18160395678581473,
+    "load.loadgen.mem_mib": 36.0,
+    "load.loadgen.containers": 2,
+    "load.node_app.cpu_cores": 1.6023563092378683,
+    "load.node_app.mem_mib": 939.8,
+    "load.node_app.containers": 1,
+    "load.node_loadgen.cpu_cores": 0.20544535891426394,
+    "load.node_loadgen.mem_mib": 205.8,
+    "load.node_loadgen.containers": 1,
+    "load.node_control.cpu_cores": 0.31189414111194186,
+    "load.node_control.mem_mib": 2034.3,
+    "load.node_control.containers": 1
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "hata oranı",
+     "expected": "<= 0.01",
+     "actual": "0",
+     "pass": true
+    },
+    {
+     "name": "p99 kayması (son/ilk)",
+     "expected": "<= 1.5",
+     "actual": "1.582",
+     "pass": false
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-014221_P02_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794782541,
+   "end": 1794782693
+  },
+  "P03/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "spike_rps": 700,
+    "spike_duration_s": 20,
+    "before.p50_ms": 4.843693,
+    "before.p99_ms": 9.036544,
+    "before.error_rate": 0,
+    "before.dropped": 0,
+    "spike.p50_ms": 1546.6504205,
+    "spike.p99_ms": 3349.2685611899997,
+    "spike.error_rate": 0,
+    "spike.dropped": 2098,
+    "after.p50_ms": 5.422643,
+    "after.p99_ms": 818.3540542599972,
+    "after.error_rate": 0,
+    "after.dropped": 66,
+    "recovery_s": 5
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "sıçrama sonrası hata oranı",
+     "expected": "<= 0.01",
+     "actual": "0",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-014453_P03_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794782693,
+   "end": 1794782835
+  },
+  "S01/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "marker_packets": 0,
+    "control_packets": 6
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "mesh dışından düz HTTP -> order [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "kontrol: yakalama çalışıyor (düz metin kontrol işareti görüldü)",
+     "expected": ">= 1",
+     "actual": "6",
+     "pass": true
+    },
+    {
+     "name": "ağ üzerinde trafik şifreli",
+     "expected": "evet",
+     "actual": "evet",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-014926_S01_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794782966,
+   "end": 1794782977
+  },
+  "S02/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "naive.chain_ok": 1,
+    "naive.e2e_ok": 1,
+    "naive.pods_ready": 1,
+    "mesh_specific_rules": 0,
+    "impostor_access": 1
+   },
+   "spread": {},
+   "findings": [
+    "NetworkPolicy etiket bazlıdır: shop.role=gateway etiketini taşıyan farklı kimlikli bir pod order'a erişebildi (HTTP 200). Kimlik bazlı kural için mesh yetki politikası gerekir (S03)."
+   ],
+   "checks": [
+    {
+     "name": "zincir çalışıyor (8 servis)",
+     "expected": "ok",
+     "actual": "ok",
+     "pass": true
+    },
+    {
+     "name": "uçtan uca erişim (edge -> ingress -> gateway)",
+     "expected": "ok",
+     "actual": "ok",
+     "pass": true
+    },
+    {
+     "name": "tüm shop pod'ları sağlıklı",
+     "expected": "ok",
+     "actual": "ok",
+     "pass": true
+    },
+    {
+     "name": "gateway rolü -> order [200]",
+     "expected": "izin",
+     "actual": "izin",
+     "pass": true
+    },
+    {
+     "name": "yetkisiz pod -> order [504]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "yetkisiz pod -> catalog [504]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "başka namespace -> order [000]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "yatay geçiş: gateway -> catalog [504]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-014937_S02_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794782977,
+   "end": 1794783015
+  },
+  "S03/linkerd": {
+   "status": "fail",
+   "metrics": {
+    "policy_objects": 27,
+    "deny_http_code": 403
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "zincir çalışıyor (8 servis, tüm kenarlar yetkili)",
+     "expected": "ok",
+     "actual": "hata",
+     "pass": false
+    },
+    {
+     "name": "uçtan uca erişim (ingress kimliği yetkili)",
+     "expected": "ok",
+     "actual": "hata",
+     "pass": false
+    },
+    {
+     "name": "tüm shop pod'ları sağlıklı",
+     "expected": "ok",
+     "actual": "ok",
+     "pass": true
+    },
+    {
+     "name": "gateway kimliği -> order [500]",
+     "expected": "izin",
+     "actual": "ret",
+     "pass": false
+    },
+    {
+     "name": "rogue kimliği -> order [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "rogue kimliği -> gateway [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "yatay geçiş: gateway -> catalog [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "kimlik taklidi (etiket=gateway, sa=rogue) -> order [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "mesh dışı namespace -> order [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-015015_S03_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794783015,
+   "end": 1794783039
+  },
+  "S04/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "probes_ok_without_fix": 0,
+    "deny_http_code": 404
+   },
+   "spread": {},
+   "findings": [
+    "linkerd: endpoint kuralı tek başına kubelet sağlık kontrollerini (/ready) engelledi; order pod'ları NotReady oldu. Probe yolları için ek kural gerekiyor (policies/linkerd-probes.yaml)."
+   ],
+   "checks": [
+    {
+     "name": "zincir çalışıyor (gateway GET / -> order)",
+     "expected": "ok",
+     "actual": "ok",
+     "pass": true
+    },
+    {
+     "name": "tüm shop pod'ları sağlıklı",
+     "expected": "ok",
+     "actual": "ok",
+     "pass": true
+    },
+    {
+     "name": "gateway: GET / [200]",
+     "expected": "izin",
+     "actual": "izin",
+     "pass": true
+    },
+    {
+     "name": "gateway: GET /api/orders [200]",
+     "expected": "izin",
+     "actual": "izin",
+     "pass": true
+    },
+    {
+     "name": "gateway: GET /admin [404]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "gateway: POST / [404]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "gateway: DELETE /api/x [404]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "rogue: GET / [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-015039_S04_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794783039,
+   "end": 1794783080
+  },
+  "S05/linkerd": {
+   "status": "fail",
+   "metrics": {
+    "allowed_cidr": 0
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "izinsiz kaynak: /admin",
+     "expected": "403",
+     "actual": ",403",
+     "pass": false
+    },
+    {
+     "name": "izinsiz kaynak: / (kısıtsız)",
+     "expected": "200",
+     "actual": ",200",
+     "pass": false
+    },
+    {
+     "name": "sahte X-Forwarded-For (izinli IP taklidi): /admin",
+     "expected": "403",
+     "actual": ",403",
+     "pass": false
+    },
+    {
+     "name": "izinli kaynak (edge segmenti): /admin",
+     "expected": "200",
+     "actual": ",403",
+     "pass": false
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-015120_S05_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794783080,
+   "end": 1794783097
+  },
+  "S06/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "admin_port_15000": 0,
+    "admin_port_4191": 0
+   },
+   "spread": {},
+   "findings": [],
+   "checks": [
+    {
+     "name": "mesh dışı namespace -> order [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "mesh'ten çıkarılmış pod (gateway SA) -> order [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "host ağı (node) -> order pod IP [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "rogue -> order pod IP (Service'i atlayarak) [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "rogue + sahte Istio kimlik başlığı (XFCC) -> order [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    },
+    {
+     "name": "rogue -> linkerd-proxy admin (4191) [403]",
+     "expected": "ret",
+     "actual": "ret",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-015137_S06_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794783097,
+   "end": 1794783119
+  },
+  "S07/linkerd": {
+   "status": "na",
+   "metrics": {},
+   "spread": {},
+   "findings": [],
+   "checks": [],
+   "repeats": 1,
+   "na_reason": "cluster'dan internete erişim yok (example.com) — test yapılamaz",
+   "runs": [
+    "20261116-015159_S07_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794783119,
+   "end": 1794783120
+  },
+  "S08/linkerd": {
+   "status": "error",
+   "metrics": {},
+   "spread": {},
+   "findings": [],
+   "checks": [],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-015200_S08_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794783120,
+   "end": 1794783121
+  },
+  "T01/linkerd": {
+   "status": "pass",
+   "metrics": {
+    "baseline.v2_share": 0.325,
+    "weighted.v2_share": 0.085,
+    "header.v2_share": 1.0,
+    "mirror.v2_share_in_responses": 0.098,
+    "mirror.v2_received": 0,
+    "mirror.supported": 0
+   },
+   "spread": {},
+   "findings": [
+    "linkerd: trafik yansıtma (RequestMirror) çalışmadı: v2'ye 0 istek ulaştı (beklenen ~400). Route durumu: Accepted=True:Accepted ResolvedRefs=True:ResolvedRefs"
+   ],
+   "checks": [
+    {
+     "name": "ağırlıklı: v2 payı >= 0.05",
+     "expected": ">= 0.05",
+     "actual": "0.085",
+     "pass": true
+    },
+    {
+     "name": "ağırlıklı: v2 payı <= 0.15",
+     "expected": "<= 0.15",
+     "actual": "0.085",
+     "pass": true
+    },
+    {
+     "name": "başlık bazlı: tüm istekler v2",
+     "expected": "1.000",
+     "actual": "1.000",
+     "pass": true
+    }
+   ],
+   "repeats": 1,
+   "na_reason": null,
+   "runs": [
+    "20261116-015201_T01_linkerd_r1"
+   ],
+   "session": "adhoc-20261116",
+   "profile": "quick",
+   "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+   },
+   "start": 1794783121,
+   "end": 1794783174
+  }
+ },
+ "scorecard": {
+  "total": {
+   "linkerd": 0.923611111111111
+  },
+  "categories": {
+   "performans": {
+    "linkerd": 0.9166666666666666
+   },
+   "maliyet": {
+    "linkerd": 1.0
+   },
+   "guvenlik": {
+    "linkerd": 0.7777777777777778
+   },
+   "dayaniklilik": {},
+   "trafik": {
+    "linkerd": 1.0
+   },
+   "gozlem": {},
+   "operasyon": {}
+  }
+ },
+ "projection": {
+  "linkerd": {
+   "dp_mem_gib": 51.21901939655172,
+   "dp_cpu_cores": 14.49057,
+   "req_cpu_cores": 0.0,
+   "req_mem_gib": 0.0,
+   "ctl_mem_gib": 1.16845703125,
+   "sidecar_growth_gib": 0.0,
+   "series_m": 0.0,
+   "node_eq_used": 0.905660625,
+   "node_eq_req": 0.0
+  }
+ },
+ "assumptions": {
+  "Servis": 3000,
+  "Servis başına replika": 3.0,
+  "Pod": 9000,
+  "Node başına pod": 30.0,
+  "Node": 300,
+  "Node boyutu": "16 vCPU / 64 GB",
+  "Toplam servisler arası istek hızı": "30000 RPS",
+  "Waypoint başına servis (ambient L7)": 10,
+  "Waypoint": 300
+ }
+}

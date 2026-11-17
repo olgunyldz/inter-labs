@@ -1,0 +1,2 @@
+{"name":"hata oranı","expected":"<= 0.01","actual":"0","pass":true}
+{"name":"son çeyrek p99 (ms) kayma sınırı içinde","expected":"<= 26.889","actual":"16.834506","pass":true}

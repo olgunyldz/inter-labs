@@ -1,0 +1,5 @@
+
+[1;34m==> A) yavaş bağımlılık: pricing isteklerinin %20'si 1 sn[0m
+    A.none.p50_ms = 11.904789 ms
+    A.none.p99_ms = 1014.872033 ms
+    A.none.error_rate = 0 oran

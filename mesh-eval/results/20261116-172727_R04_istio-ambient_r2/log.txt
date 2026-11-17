@@ -1,0 +1,19 @@
+
+[1;34m==> A) kontrol düzlemi kaybı[0m
+  [32m[ok][0m kontrol düzlemi kapalı: istiod
+    A.new_pod_created = 1 bool
+    A.new_pod_ready = 1 bool
+    A.new_pod_meshed = 1 bool
+    A.new_pod_serving = 0 bool
+  [33m[!][0m BULGU: istio-ambient: kontrol düzlemi yokken yeni pod mesh'e girdi ama trafik alamadı (kimlik/yapılandırma dağıtılamadı).
+  [32m[ok][0m kontrol düzlemi geri geldi
+    A.error_rate = 0 oran
+    A.failed_requests = 0 istek
+    A.p99_ms = 18.037915 ms
+  [32m[ok][0m A: kontrol düzlemi kaybında mevcut trafik hata oranı (0 <= 0.01)
+
+[1;34m==> B) ztunnel yeniden başlaması (app node'u)[0m
+    B.ztunnel_restart_s = 26 sn
+    B.failed_requests = 0 istek
+    B.error_rate = 0 oran
+    B.pods_on_node = 19 adet

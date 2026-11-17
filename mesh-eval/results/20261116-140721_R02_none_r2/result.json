@@ -1,0 +1,11 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794827241,
+  "end": 1794827241,
+  "duration_s": 0,
+  "na_reason": "bu test none profilinde tanımlı değil (test.yaml: meshes)",
+  "checks": [],
+  "metrics": [],
+  "findings": []
+}

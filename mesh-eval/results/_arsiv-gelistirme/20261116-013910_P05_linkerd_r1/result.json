@@ -1,0 +1,391 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794782350,
+  "end": 1794782541,
+  "duration_s": 191,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "yük altında hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "rate_rps",
+      "value": 250,
+      "unit": "RPS",
+      "desc": ""
+    },
+    {
+      "key": "idle.app.cpu_cores",
+      "value": 0.020622626783218714,
+      "unit": "çekirdek",
+      "desc": "app ortalama CPU"
+    },
+    {
+      "key": "idle.app.mem_mib",
+      "value": 216.4,
+      "unit": "MiB",
+      "desc": "app ortalama bellek"
+    },
+    {
+      "key": "idle.app.containers",
+      "value": 26,
+      "unit": "adet",
+      "desc": "app konteyner sayısı"
+    },
+    {
+      "key": "idle.sidecar.cpu_cores",
+      "value": 0.01239083475461225,
+      "unit": "çekirdek",
+      "desc": "sidecar ortalama CPU"
+    },
+    {
+      "key": "idle.sidecar.mem_mib",
+      "value": 166.2,
+      "unit": "MiB",
+      "desc": "sidecar ortalama bellek"
+    },
+    {
+      "key": "idle.sidecar.containers",
+      "value": 29,
+      "unit": "adet",
+      "desc": "sidecar konteyner sayısı"
+    },
+    {
+      "key": "idle.control.cpu_cores",
+      "value": 0.0035873459458107613,
+      "unit": "çekirdek",
+      "desc": "control ortalama CPU"
+    },
+    {
+      "key": "idle.control.mem_mib",
+      "value": 87.9,
+      "unit": "MiB",
+      "desc": "control ortalama bellek"
+    },
+    {
+      "key": "idle.control.containers",
+      "value": 8,
+      "unit": "adet",
+      "desc": "control konteyner sayısı"
+    },
+    {
+      "key": "idle.ingress.cpu_cores",
+      "value": 0.001471880872762356,
+      "unit": "çekirdek",
+      "desc": "ingress ortalama CPU"
+    },
+    {
+      "key": "idle.ingress.mem_mib",
+      "value": 48.8,
+      "unit": "MiB",
+      "desc": "ingress ortalama bellek"
+    },
+    {
+      "key": "idle.ingress.containers",
+      "value": 2,
+      "unit": "adet",
+      "desc": "ingress konteyner sayısı"
+    },
+    {
+      "key": "idle.node_app.cpu_cores",
+      "value": 0.13437730387916838,
+      "unit": "çekirdek",
+      "desc": "node_app ortalama CPU"
+    },
+    {
+      "key": "idle.node_app.mem_mib",
+      "value": 944.9,
+      "unit": "MiB",
+      "desc": "node_app ortalama bellek"
+    },
+    {
+      "key": "idle.node_app.containers",
+      "value": 1,
+      "unit": "adet",
+      "desc": "node_app konteyner sayısı"
+    },
+    {
+      "key": "idle.node_loadgen.cpu_cores",
+      "value": 0.01678228708516592,
+      "unit": "çekirdek",
+      "desc": "node_loadgen ortalama CPU"
+    },
+    {
+      "key": "idle.node_loadgen.mem_mib",
+      "value": 163.3,
+      "unit": "MiB",
+      "desc": "node_loadgen ortalama bellek"
+    },
+    {
+      "key": "idle.node_loadgen.containers",
+      "value": 1,
+      "unit": "adet",
+      "desc": "node_loadgen konteyner sayısı"
+    },
+    {
+      "key": "idle.node_control.cpu_cores",
+      "value": 0.24471633399866977,
+      "unit": "çekirdek",
+      "desc": "node_control ortalama CPU"
+    },
+    {
+      "key": "idle.node_control.mem_mib",
+      "value": 2032.2,
+      "unit": "MiB",
+      "desc": "node_control ortalama bellek"
+    },
+    {
+      "key": "idle.node_control.containers",
+      "value": 1,
+      "unit": "adet",
+      "desc": "node_control konteyner sayısı"
+    },
+    {
+      "key": "load.app.cpu_cores",
+      "value": 1.0745172985760925,
+      "unit": "çekirdek",
+      "desc": "app ortalama CPU"
+    },
+    {
+      "key": "load.app.mem_mib",
+      "value": 225.8,
+      "unit": "MiB",
+      "desc": "app ortalama bellek"
+    },
+    {
+      "key": "load.app.containers",
+      "value": 26,
+      "unit": "adet",
+      "desc": "app konteyner sayısı"
+    },
+    {
+      "key": "load.sidecar.cpu_cores",
+      "value": 0.9660380814919373,
+      "unit": "çekirdek",
+      "desc": "sidecar ortalama CPU"
+    },
+    {
+      "key": "load.sidecar.mem_mib",
+      "value": 169.0,
+      "unit": "MiB",
+      "desc": "sidecar ortalama bellek"
+    },
+    {
+      "key": "load.sidecar.containers",
+      "value": 29,
+      "unit": "adet",
+      "desc": "sidecar konteyner sayısı"
+    },
+    {
+      "key": "load.control.cpu_cores",
+      "value": 0.0063953259753532915,
+      "unit": "çekirdek",
+      "desc": "control ortalama CPU"
+    },
+    {
+      "key": "load.control.mem_mib",
+      "value": 86.5,
+      "unit": "MiB",
+      "desc": "control ortalama bellek"
+    },
+    {
+      "key": "load.control.containers",
+      "value": 8,
+      "unit": "adet",
+      "desc": "control konteyner sayısı"
+    },
+    {
+      "key": "load.ingress.cpu_cores",
+      "value": 0.0017311057578721142,
+      "unit": "çekirdek",
+      "desc": "ingress ortalama CPU"
+    },
+    {
+      "key": "load.ingress.mem_mib",
+      "value": 48.8,
+      "unit": "MiB",
+      "desc": "ingress ortalama bellek"
+    },
+    {
+      "key": "load.ingress.containers",
+      "value": 2,
+      "unit": "adet",
+      "desc": "ingress konteyner sayısı"
+    },
+    {
+      "key": "load.loadgen.cpu_cores",
+      "value": 0.2338995925494761,
+      "unit": "çekirdek",
+      "desc": "loadgen ortalama CPU"
+    },
+    {
+      "key": "load.loadgen.mem_mib",
+      "value": 30.4,
+      "unit": "MiB",
+      "desc": "loadgen ortalama bellek"
+    },
+    {
+      "key": "load.loadgen.containers",
+      "value": 1,
+      "unit": "adet",
+      "desc": "loadgen konteyner sayısı"
+    },
+    {
+      "key": "load.node_app.cpu_cores",
+      "value": 2.2062522582756015,
+      "unit": "çekirdek",
+      "desc": "node_app ortalama CPU"
+    },
+    {
+      "key": "load.node_app.mem_mib",
+      "value": 945.2,
+      "unit": "MiB",
+      "desc": "node_app ortalama bellek"
+    },
+    {
+      "key": "load.node_app.containers",
+      "value": 1,
+      "unit": "adet",
+      "desc": "node_app konteyner sayısı"
+    },
+    {
+      "key": "load.node_loadgen.cpu_cores",
+      "value": 0.26048865452677245,
+      "unit": "çekirdek",
+      "desc": "node_loadgen ortalama CPU"
+    },
+    {
+      "key": "load.node_loadgen.mem_mib",
+      "value": 200.9,
+      "unit": "MiB",
+      "desc": "node_loadgen ortalama bellek"
+    },
+    {
+      "key": "load.node_loadgen.containers",
+      "value": 1,
+      "unit": "adet",
+      "desc": "node_loadgen konteyner sayısı"
+    },
+    {
+      "key": "load.node_control.cpu_cores",
+      "value": 0.3524432357003508,
+      "unit": "çekirdek",
+      "desc": "node_control ortalama CPU"
+    },
+    {
+      "key": "load.node_control.mem_mib",
+      "value": 2100.7,
+      "unit": "MiB",
+      "desc": "node_control ortalama bellek"
+    },
+    {
+      "key": "load.node_control.containers",
+      "value": 1,
+      "unit": "adet",
+      "desc": "node_control konteyner sayısı"
+    },
+    {
+      "key": "load.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "load.p50_ms",
+      "value": 6.135305,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "load.p99_ms",
+      "value": 30.987324,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "load.rps",
+      "value": 250.0,
+      "unit": "RPS",
+      "desc": ""
+    },
+    {
+      "key": "req.app.cpu_cores",
+      "value": 0.8,
+      "unit": "çekirdek",
+      "desc": "ayrılan CPU (requests)"
+    },
+    {
+      "key": "req.app.mem_mib",
+      "value": 512.0,
+      "unit": "MiB",
+      "desc": "ayrılan bellek (requests)"
+    },
+    {
+      "key": "req.sidecar.cpu_cores",
+      "value": 0,
+      "unit": "çekirdek",
+      "desc": "ayrılan CPU (requests)"
+    },
+    {
+      "key": "req.sidecar.mem_mib",
+      "value": 0,
+      "unit": "MiB",
+      "desc": "ayrılan bellek (requests)"
+    },
+    {
+      "key": "req.control.cpu_cores",
+      "value": 0,
+      "unit": "çekirdek",
+      "desc": "ayrılan CPU (requests)"
+    },
+    {
+      "key": "req.control.mem_mib",
+      "value": 0,
+      "unit": "MiB",
+      "desc": "ayrılan bellek (requests)"
+    },
+    {
+      "key": "shop_pods",
+      "value": 19,
+      "unit": "adet",
+      "desc": ""
+    },
+    {
+      "key": "dataplane.cpu_cores",
+      "value": 0.966038,
+      "unit": "çekirdek",
+      "desc": "yük altında veri düzlemi CPU"
+    },
+    {
+      "key": "dataplane.cpu_per_1k_rps",
+      "value": 3.8642,
+      "unit": "çekirdek",
+      "desc": "1000 RPS (giriş) başına veri düzlemi CPU"
+    },
+    {
+      "key": "dataplane.mem_idle_mib",
+      "value": 166.2,
+      "unit": "MiB",
+      "desc": "boşta veri düzlemi belleği"
+    },
+    {
+      "key": "dataplane.mem_per_pod_mib",
+      "value": 8.75,
+      "unit": "MiB",
+      "desc": "uygulama pod'u başına veri düzlemi belleği (boşta)"
+    },
+    {
+      "key": "node_overhead_cores",
+      "value": 0.166,
+      "unit": "çekirdek",
+      "desc": "servis node'unda app+proxy dışı CPU (kernel ağ, kubelet...)"
+    }
+  ],
+  "findings": []
+}

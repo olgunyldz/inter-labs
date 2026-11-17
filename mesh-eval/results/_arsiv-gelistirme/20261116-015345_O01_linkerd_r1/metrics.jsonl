@@ -1,0 +1,9 @@
+{"key":"services_l7_metrics","value":8,"unit":"/8","desc":"istek/başarı/gecikme metriği olan servis"}
+{"key":"services_l4_metrics","value":8,"unit":"/8","desc":"TCP (bağlantı/bayt) metriği olan servis"}
+{"key":"mesh_p99_ms","value":9.555936920222635,"unit":"ms","desc":"mesh'in gateway için ölçtüğü p99"}
+{"key":"k6_p99_ms","value":9.284137320000003,"unit":"ms","desc":""}
+{"key":"latency_accuracy_ratio","value":1.03,"unit":"kat","desc":"mesh p99 / k6 p99 (histogram kova çözünürlüğü dahil)"}
+{"key":"trace.spans","value":17,"unit":"span","desc":""}
+{"key":"trace.services","value":8,"unit":"adet","desc":"trace'teki servis adı sayısı"}
+{"key":"trace.mesh_spans","value":0,"unit":"adet","desc":"mesh proxy'lerinin ürettiği servis adları"}
+{"key":"access_log","value":0,"unit":"bool","desc":"proxy erişim logu üretebildi"}

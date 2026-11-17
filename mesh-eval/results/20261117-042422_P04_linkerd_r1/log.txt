@@ -1,0 +1,17 @@
+    stage0.target_rps = 100 RPS
+    stage0.p50_ms = 13.683708 ms
+    stage0.p95_ms = 18.626687 ms
+    stage0.p99_ms = 20.934154 ms
+    stage0.error_rate = 0 oran
+    stage1.target_rps = 250 RPS
+    stage1.p50_ms = 16.58016 ms
+    stage1.p95_ms = 25.7767197 ms
+    stage1.p99_ms = 49.51399010000001 ms
+    stage1.error_rate = 0 oran
+    stage2.target_rps = 400 RPS
+    stage2.p50_ms = 40.91449 ms
+    stage2.p95_ms = 101.29635379999985 ms
+    stage2.p99_ms = 151.99418956 ms
+    stage2.error_rate = 0 oran
+    tls_handshake_p50_ms = 0 ms
+  [32m[ok][0m ilk aşama hata oranı (0 <= 0.01)

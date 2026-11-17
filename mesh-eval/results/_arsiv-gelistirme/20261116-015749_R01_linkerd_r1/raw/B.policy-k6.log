@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "k6" in pod "k6-r01-b.policy-3294" is waiting to start: PodInitializing

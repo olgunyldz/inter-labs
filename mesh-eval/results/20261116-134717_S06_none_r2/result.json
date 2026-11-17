@@ -1,0 +1,48 @@
+{
+  "status": "fail",
+  "exit_code": 0,
+  "start": 1794826037,
+  "end": 1794826054,
+  "duration_s": 17,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "mesh dışı namespace -> order [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "mesh'ten çıkarılmış pod (gateway SA) -> order [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "host ağı (node) -> order pod IP [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "rogue -> order pod IP (Service'i atlayarak) [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "rogue + sahte Istio kimlik başlığı (XFCC) -> order [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    },
+    {
+      "name": "rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [200]",
+      "expected": "ret",
+      "actual": "izin",
+      "pass": false
+    }
+  ],
+  "metrics": [],
+  "findings": []
+}

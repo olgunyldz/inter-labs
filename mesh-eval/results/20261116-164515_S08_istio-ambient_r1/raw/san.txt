@@ -1,0 +1,1 @@
+URI:spiffe://cluster.local/ns/shop/sa/order

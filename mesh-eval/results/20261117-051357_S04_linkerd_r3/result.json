@@ -1,0 +1,81 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794881637,
+  "end": 1794881679,
+  "duration_s": 42,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "zincir çalışıyor (gateway GET / -> order)",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "tüm shop pod'ları sağlıklı",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    },
+    {
+      "name": "gateway: GET / [200]",
+      "expected": "izin",
+      "actual": "izin",
+      "pass": true
+    },
+    {
+      "name": "gateway: GET /api/orders [200]",
+      "expected": "izin",
+      "actual": "izin",
+      "pass": true
+    },
+    {
+      "name": "gateway: GET /admin [404]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "gateway: POST / [404]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "gateway: DELETE /api/x [404]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    },
+    {
+      "name": "rogue: GET / [403]",
+      "expected": "ret",
+      "actual": "ret",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "probes_ok_without_fix",
+      "value": 0,
+      "unit": "bool",
+      "desc": "kural tek başına uygulanınca pod'lar sağlıklı mı"
+    },
+    {
+      "key": "converge_s",
+      "value": 20,
+      "unit": "sn",
+      "desc": "kural uygulandıktan sonra tüm proxy'lerde tutarlı ret (yaklaşık, 20 sn ilk bekleme dahil)"
+    },
+    {
+      "key": "deny_http_code",
+      "value": 404,
+      "unit": "kod",
+      "desc": "reddedilen endpoint'in cevabı"
+    }
+  ],
+  "findings": [
+    "linkerd: endpoint kuralı tek başına kubelet sağlık kontrollerini (/ready) engelledi; order pod'ları NotReady oldu. Probe yolları için ek kural gerekiyor (policies/linkerd-probes.yaml)."
+  ]
+}

@@ -1,0 +1,11 @@
+    policy_objects = 10 adet
+  [32m[ok][0m zincir çalışıyor (8 servis, tüm kenarlar yetkili) (=ok)
+  [32m[ok][0m uçtan uca erişim (ingress kimliği yetkili) (=ok)
+  [32m[ok][0m tüm shop pod'ları sağlıklı (=ok)
+  [32m[ok][0m gateway kimliği -> order [200] (=izin)
+  [32m[ok][0m rogue kimliği -> order [403] (=ret)
+  [32m[ok][0m rogue kimliği -> gateway [403] (=ret)
+  [32m[ok][0m yatay geçiş: gateway -> catalog [403] (=ret)
+  [32m[ok][0m kimlik taklidi (etiket=gateway, sa=rogue) -> order [403] (=ret)
+  [32m[ok][0m mesh dışı namespace -> order [000] (=ret)
+    deny_http_code = 403 kod

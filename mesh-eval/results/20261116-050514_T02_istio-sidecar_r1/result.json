@@ -1,0 +1,57 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794794714,
+  "end": 1794794797,
+  "duration_s": 83,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "server-first (ipuçlu) ilk bayt (ms)",
+      "expected": "<= 1000",
+      "actual": "3",
+      "pass": true
+    },
+    {
+      "name": "Redis PING",
+      "expected": "+PONG",
+      "actual": "+PONG",
+      "pass": true
+    },
+    {
+      "name": "Postgres TCP bağlantısı",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "grpc.pods_used",
+      "value": 3,
+      "unit": "adet",
+      "desc": "3 fraud pod'undan trafik alan"
+    },
+    {
+      "key": "grpc.max_share",
+      "value": 0.377,
+      "unit": "oran",
+      "desc": "en çok yük alan pod'un payı (ideal 0.33)"
+    },
+    {
+      "key": "banner.hint_ms",
+      "value": 3,
+      "unit": "ms",
+      "desc": "appProtocol: tcp ile ilk bayt süresi"
+    },
+    {
+      "key": "banner.nohint_ms",
+      "value": null,
+      "unit": "ms",
+      "desc": "protokol ipucu olmadan ilk bayt süresi"
+    }
+  ],
+  "findings": [
+    "istio-sidecar: protokol ipucu olmayan server-first TCP bağlantısında ilk bayt gelmedi ms (protokol algılama beklemesi). Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı."
+  ]
+}

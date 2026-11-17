@@ -1,0 +1,23 @@
+
+[1;34m==> A) yavaş bağımlılık: pricing isteklerinin %20'si 1 sn[0m
+    A.none.p50_ms = 13.414516 ms
+    A.none.p99_ms = 1016.4052008799999 ms
+    A.none.error_rate = 0 oran
+    A.none.amplification = 0.992 kat
+    A.policy.p50_ms = 13.422260000000001 ms
+    A.policy.p99_ms = 456.8061037199998 ms
+    A.policy.error_rate = 0.00875 oran
+    A.policy.amplification = 1.249 kat
+  [32m[ok][0m A: politikayla p99 (ms) (456.8061037199998 <= 1000)
+
+[1;34m==> B) hatalı replika: 2 sağlam + 1 sürekli 503[0m
+    B.none.p50_ms = 12.06965 ms
+    B.none.p99_ms = 18.892532 ms
+    B.none.error_rate = 0.5793551612096975 oran
+    B.none.amplification = 1.012 kat
+  [33m[!][0m BULGU: linkerd: 3 replikadan 1'i sürekli hata verirken uçtan uca hata oranı %58 (replika oranına göre beklenen ~%33). Hızlı hata dönen replika yük dengeleyici tarafından tercih ediliyor; outlier detection / failure accrual olmadan hatalı pod trafiği çeker.
+    B.policy.p50_ms = 12.545831 ms
+    B.policy.p99_ms = 19.48848 ms
+    B.policy.error_rate = 0.003749062734316421 oran
+    B.policy.amplification = 1.027 kat
+  [32m[ok][0m B: outlier detection ile hata oranı (politikasızın yarısı) (0.003749062734316421 <= 0.289678)

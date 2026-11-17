@@ -1,0 +1,1 @@
+ambient: FQDN bazlı egress reddi mesh tarafından yapılamıyor (izinsiz hedef HTTP 200)

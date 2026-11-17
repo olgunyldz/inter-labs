@@ -1,0 +1,7 @@
+
+[1;34m==> pod siliniyor: order-d4c59cf9f-sm7nt[0m
+
+[1;34m==> pod siliniyor: catalog-76c6598cbd-bd9xs[0m
+
+[1;34m==> pod siliniyor: fraud-68474d59df-f6w4j[0m
+  [31m[x][0m k6 zaman aşımı (240 sn): k6-r03-failover-30429

@@ -1,0 +1,57 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794882329,
+  "end": 1794882382,
+  "duration_s": 53,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "server-first (ipuçlu) ilk bayt (ms)",
+      "expected": "<= 1000",
+      "actual": "4",
+      "pass": true
+    },
+    {
+      "name": "Redis PING",
+      "expected": "+PONG",
+      "actual": "+PONG",
+      "pass": true
+    },
+    {
+      "name": "Postgres TCP bağlantısı",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "grpc.pods_used",
+      "value": 3,
+      "unit": "adet",
+      "desc": "3 fraud pod'undan trafik alan"
+    },
+    {
+      "key": "grpc.max_share",
+      "value": 0.447,
+      "unit": "oran",
+      "desc": "en çok yük alan pod'un payı (ideal 0.33)"
+    },
+    {
+      "key": "banner.hint_ms",
+      "value": 4,
+      "unit": "ms",
+      "desc": "appProtocol: tcp ile ilk bayt süresi"
+    },
+    {
+      "key": "banner.nohint_ms",
+      "value": 10005,
+      "unit": "ms",
+      "desc": "protokol ipucu olmadan ilk bayt süresi"
+    }
+  ],
+  "findings": [
+    "linkerd: protokol ipucu (appProtocol) olmayan server-first TCP portunda ilk bayt 10005 ms sonra geldi — mesh istemcinin önce veri göndermesini bekliyor (protokol algılama). İpucuyla 4 ms. Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı (Oracle, MSSQL, SMTP vb.)."
+  ]
+}

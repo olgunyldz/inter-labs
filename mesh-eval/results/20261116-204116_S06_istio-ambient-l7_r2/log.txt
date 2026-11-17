@@ -1,0 +1,8 @@
+  [32m[ok][0m mesh dışı namespace -> order [000] (=ret)
+  [32m[ok][0m mesh'ten çıkarılmış pod (gateway SA) -> order [000] (=ret)
+  [31m[x][0m host ağı (node) -> order pod IP [200]: beklenen=ret gerçekleşen=izin
+  [33m[!][0m BULGU: istio-ambient-l7: aynı node'un host ağından pod IP'sine düz (mTLS'siz) istek, zorunlu mTLS ve yetki politikasına rağmen kabul edildi (HTTP 200). Mesh, node'dan gelen trafiği (kubelet sağlık kontrolleri için) muaf tutuyor; hostNetwork pod'ları ve node üzerindeki ajanlar politikayı atlayabilir. Prod'da hostNetwork kullanımı Pod Security ile kısıtlanmalı.
+  [32m[ok][0m rogue -> order pod IP (Service'i atlayarak) [000] (=ret)
+  [32m[ok][0m rogue + sahte Istio kimlik başlığı (XFCC) -> order [403] (=ret)
+  [32m[ok][0m rogue + sahte Linkerd kimlik başlığı (l5d-client-id) -> order [403] (=ret)
+    proxy_metrics_exposed = 0 bool

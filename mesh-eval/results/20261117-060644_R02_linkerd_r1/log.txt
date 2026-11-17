@@ -1,0 +1,9 @@
+  [33m[!][0m BULGU: Linkerd'de yerleşik hata enjeksiyonu yok; hatalı/yavaş backend'ler kurulup HTTPRoute ağırlığıyla yönlendirilerek yapıldı (ek dağıtım ve bakım gerektirir, gecikme/hata ayrı ayrı oranlanamaz).
+    method = 1 -
+    observed_error_rate = 0.09891666666666667 oran
+    p50_ms = 13.193088 ms
+    p90_ms = 24.42827270000003 ms
+    p95_ms = 208.5227389 ms
+  [32m[ok][0m gözlenen hata oranı >= 0.07 (0.09891666666666667 >= 0.07)
+  [32m[ok][0m gözlenen hata oranı <= 0.13 (0.09891666666666667 <= 0.13)
+  [32m[ok][0m gecikme enjeksiyonu görünüyor (p95 ms) (208.5227389 >= 200)

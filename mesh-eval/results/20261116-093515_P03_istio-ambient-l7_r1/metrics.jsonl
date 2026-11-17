@@ -1,0 +1,15 @@
+{"key":"spike_rps","value":700,"unit":"RPS","desc":""}
+{"key":"spike_duration_s","value":20,"unit":"sn","desc":""}
+{"key":"before.p50_ms","value":13.8039505,"unit":"ms","desc":""}
+{"key":"before.p99_ms","value":22.215890819999995,"unit":"ms","desc":""}
+{"key":"before.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"before.dropped","value":0,"unit":"istek","desc":""}
+{"key":"spike.p50_ms","value":2139.403304,"unit":"ms","desc":""}
+{"key":"spike.p99_ms","value":3593.4243124000004,"unit":"ms","desc":""}
+{"key":"spike.error_rate","value":0.0001784758165268606,"unit":"oran","desc":""}
+{"key":"spike.dropped","value":2794,"unit":"istek","desc":""}
+{"key":"after.p50_ms","value":14.168508,"unit":"ms","desc":""}
+{"key":"after.p99_ms","value":1152.4849918800053,"unit":"ms","desc":""}
+{"key":"after.error_rate","value":0,"unit":"oran","desc":""}
+{"key":"after.dropped","value":89,"unit":"istek","desc":""}
+{"key":"recovery_s","value":5,"unit":"sn","desc":"sıçrama bitiminden p99 <= 2x taban'a dönüşe kadar"}

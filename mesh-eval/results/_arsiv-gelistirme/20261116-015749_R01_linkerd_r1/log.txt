@@ -1,0 +1,22 @@
+
+[1;34m==> A) yavaş bağımlılık: pricing isteklerinin %20'si 1 sn[0m
+Warning: metadata.name: this is used in the Pod's hostname, which can result in surprising behavior; a DNS label is recommended: [must not contain dots]
+    A.none.p50_ms = 5.044733 ms
+    A.none.p99_ms = 1004.12188406 ms
+    A.none.error_rate = 0.19984992496248125 oran
+    A.none.amplification = 1.003 kat
+Warning: metadata.name: this is used in the Pod's hostname, which can result in surprising behavior; a DNS label is recommended: [must not contain dots]
+    A.policy.p50_ms = 5.146539 ms
+    A.policy.p99_ms = 444.36592220999995 ms
+    A.policy.error_rate = 0.00725 oran
+    A.policy.amplification = 1.259 kat
+  [32m[ok][0m A: politikayla p99 (ms) (444.36592220999995 <= 1000)
+
+[1;34m==> B) hatalı replika: 2 sağlam + 1 sürekli 503[0m
+Warning: metadata.name: this is used in the Pod's hostname, which can result in surprising behavior; a DNS label is recommended: [must not contain dots]
+    B.none.p50_ms = 4.8112475 ms
+    B.none.p99_ms = 9.235531339999998 ms
+    B.none.error_rate = 0.51275 oran
+    B.none.amplification = 1.009 kat
+Warning: metadata.name: this is used in the Pod's hostname, which can result in surprising behavior; a DNS label is recommended: [must not contain dots]
+  [31m[x][0m k6 zaman aşımı (220 sn): k6-r01-b.policy-3294

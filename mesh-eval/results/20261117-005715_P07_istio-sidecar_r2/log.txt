@@ -1,0 +1,6 @@
+
+[1;34m==> Yayılma süresi (mevcut ölçek)[0m
+  [32m[ok][0m base: başlangıçta erişim açık (=200)
+
+[1;34m==> Ölçek: 120 ek servis[0m
+error: timed out waiting for the condition

@@ -1,0 +1,1 @@
+"istio-sidecar: proxy metrik ucu (http://10.20.1.40:15020/stats/prometheus) yetkisiz bir pod'dan okunabiliyor (servis adları, istek sayıları sızar). Prod'da NetworkPolicy ile yalnızca izleme sistemine açılmalı."

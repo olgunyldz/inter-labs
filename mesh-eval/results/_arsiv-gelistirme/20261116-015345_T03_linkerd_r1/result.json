@@ -1,0 +1,13 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794783225,
+  "end": 1794783225,
+  "duration_s": 0,
+  "na_reason": "Linkerd'de ingress Gateway API uygulaması yok",
+  "checks": [],
+  "metrics": [],
+  "findings": [
+    "Linkerd küme girişi (north-south) için Gateway API uygulaması sunmuyor; ingress-nginx'in yerine ayrı bir ürün (ör. Envoy Gateway, Contour) seçilip mesh'e dahil edilmesi gerekir. Kayıtlı GatewayClass: gatewayclass.gateway.networking.k8s.io/istio,gatewayclass.gateway.networking.k8s.io/istio-remote,gatewayclass.gateway.networking.k8s.io/istio-waypoint"
+  ]
+}

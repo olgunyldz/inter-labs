@@ -1,0 +1,6 @@
+{"name":"sertifika kurumsal ara CA'dan (AKI = ara CA SKI)","expected":"5786FE6CBF058EB6391B9B680F4983603AF26B0E","actual":"5786FE6CBF058EB6391B9B680F4983603AF26B0E","pass":true}
+{"name":"sertifika ömrü (saat)","expected":"<= 24","actual":"24","pass":true}
+{"name":"kimlik (SAN)","expected":"var","actual":"var","pass":true}
+{"name":"rotasyon: yeni pod yeni ara CA'dan sertifika aldı","expected":"BA8CEC668F8063075FCFA453FF7CA08231C2A2A8","actual":"BA8CEC668F8063075FCFA453FF7CA08231C2A2A8","pass":true}
+{"name":"rotasyon: eski ve yeni sertifikalı pod'lar konuşuyor (zincir)","expected":"ok","actual":"ok","pass":true}
+{"name":"rotasyon sırasında hata oranı","expected":"<= 0.01","actual":"0.0019515612489991994","pass":true}

@@ -1,0 +1,121 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794812085,
+  "end": 1794812384,
+  "duration_s": 299,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "A: politikayla p99 (ms)",
+      "expected": "<= 1000",
+      "actual": "383.075356",
+      "pass": true
+    },
+    {
+      "name": "B: outlier detection ile hata oranı (politikasızın yarısı)",
+      "expected": "<= 0.162959",
+      "actual": "0.008247938015496127",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "A.none.p50_ms",
+      "value": 14.061938000000001,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.none.p99_ms",
+      "value": 1017.66628899,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.none.error_rate",
+      "value": 0,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "A.none.amplification",
+      "value": 1.001,
+      "unit": "kat",
+      "desc": "pricing'e gelen / gateway'e gelen istek"
+    },
+    {
+      "key": "A.policy.p50_ms",
+      "value": 14.056818,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.policy.p99_ms",
+      "value": 383.075356,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "A.policy.error_rate",
+      "value": 0.0069982504373906525,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "A.policy.amplification",
+      "value": 0.999,
+      "unit": "kat",
+      "desc": "pricing'e gelen / gateway'e gelen istek"
+    },
+    {
+      "key": "B.none.p50_ms",
+      "value": 12.887946,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.none.p99_ms",
+      "value": 21.261268,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.none.error_rate",
+      "value": 0.32591852036990754,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "B.none.amplification",
+      "value": 0.675,
+      "unit": "kat",
+      "desc": "pricing'e gelen / gateway'e gelen istek"
+    },
+    {
+      "key": "B.policy.p50_ms",
+      "value": 13.08714,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.policy.p99_ms",
+      "value": 20.550408,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "B.policy.error_rate",
+      "value": 0.008247938015496127,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "B.policy.amplification",
+      "value": 0.991,
+      "unit": "kat",
+      "desc": "pricing'e gelen / gateway'e gelen istek"
+    }
+  ],
+  "findings": []
+}

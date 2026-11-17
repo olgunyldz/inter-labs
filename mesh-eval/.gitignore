@@ -1,5 +1,3 @@
 .tools/
 .state/
-results/
-reports/
 config.local.env

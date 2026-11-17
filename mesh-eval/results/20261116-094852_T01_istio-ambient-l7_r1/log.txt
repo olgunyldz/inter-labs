@@ -1,0 +1,10 @@
+    baseline.v2_share = 0.343 oran
+    weighted.v2_share = 0.092 oran
+  [32m[ok][0m ağırlıklı: v2 payı >= 0.05 (0.092 >= 0.05)
+  [32m[ok][0m ağırlıklı: v2 payı <= 0.15 (0.092 <= 0.15)
+    header.v2_share = 1.000 oran
+  [32m[ok][0m başlık bazlı: tüm istekler v2 (=1.000)
+    mirror.v2_share_in_responses = 0.000 oran
+    mirror.v2_received = 0 istek
+    mirror.supported = 0 bool
+  [33m[!][0m BULGU: istio-ambient-l7: trafik yansıtma (RequestMirror) çalışmadı: v2'ye 0 istek ulaştı (beklenen ~400). Route durumu: Accepted=True:Accepted ResolvedRefs=True:ResolvedRefs

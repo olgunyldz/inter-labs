@@ -1,0 +1,9 @@
+{"key":"from_version","value":0,"unit":"-","desc":"1.30.8"}
+{"key":"to_version","value":0,"unit":"-","desc":"1.31.4"}
+{"key":"upgrade_duration_s","value":86,"unit":"sn","desc":"güncelleme komutlarının toplam süresi"}
+{"key":"steps","value":5,"unit":"adım","desc":""}
+{"key":"restarted_pods","value":1,"unit":"adet","desc":"güncelleme için yeniden başlatılan uygulama pod'u"}
+{"key":"failed_requests","value":2,"unit":"istek","desc":""}
+{"key":"error_rate","value":0.00003174804749507905,"unit":"oran","desc":""}
+{"key":"p99_ms","value":21.006505100000002,"unit":"ms","desc":""}
+{"key":"max_ms","value":104.804848,"unit":"ms","desc":""}

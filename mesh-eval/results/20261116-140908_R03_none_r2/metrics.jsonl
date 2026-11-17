@@ -1,0 +1,4 @@
+{"key":"failed_requests","value":0,"unit":"istek","desc":"toplam başarısız istek"}
+{"key":"error_rate","value":0,"unit":"oran","desc":""}
+{"key":"p99_ms","value":16.762081049999974,"unit":"ms","desc":""}
+{"key":"max_ms","value":24.641049,"unit":"ms","desc":""}

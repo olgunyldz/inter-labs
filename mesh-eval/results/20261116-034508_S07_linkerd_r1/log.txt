@@ -1,0 +1,4 @@
+    allowed_http_code = 000 kod
+    denied_http_code = 000 kod
+  [31m[x][0m izinli dış hedef (allowed.ext.test): beklenen=açık gerçekleşen=kapalı
+  [32m[ok][0m izinsiz dış hedef (denied.ext.test) (=kapalı)

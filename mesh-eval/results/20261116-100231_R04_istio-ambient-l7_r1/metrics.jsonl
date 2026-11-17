@@ -1,0 +1,11 @@
+{"key":"A.new_pod_created","value":1,"unit":"bool","desc":"kontrol düzlemi yokken yeni pod oluşturulabildi"}
+{"key":"A.new_pod_ready","value":1,"unit":"bool","desc":""}
+{"key":"A.new_pod_meshed","value":1,"unit":"bool","desc":"yeni pod mesh'e dahil (proxy / ambient yönlendirme)"}
+{"key":"A.new_pod_serving","value":0,"unit":"bool","desc":"yeni pod mesh içinden trafik alabiliyor"}
+{"key":"A.error_rate","value":0.011525832607384575,"unit":"oran","desc":"kontrol düzlemi kaybı boyunca mevcut trafikte hata oranı"}
+{"key":"A.failed_requests","value":172,"unit":"istek","desc":""}
+{"key":"A.p99_ms","value":1599.6001733600071,"unit":"ms","desc":""}
+{"key":"B.ztunnel_restart_s","value":26,"unit":"sn","desc":"ztunnel pod'unun yeniden hazır olma süresi"}
+{"key":"B.failed_requests","value":2,"unit":"istek","desc":"ztunnel yeniden başlarken başarısız istek"}
+{"key":"B.error_rate","value":0.00022222222222222223,"unit":"oran","desc":""}
+{"key":"B.pods_on_node","value":20,"unit":"adet","desc":"aynı ztunnel'e bağlı pod sayısı (etki alanı)"}

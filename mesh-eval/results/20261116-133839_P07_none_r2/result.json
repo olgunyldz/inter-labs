@@ -1,0 +1,31 @@
+{
+  "status": "error",
+  "exit_code": 1,
+  "start": 1794825519,
+  "end": 1794825541,
+  "duration_s": 22,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "base: yürürlüğe girme süresi",
+      "expected": "<= 30",
+      "actual": "1.14",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "base.deny_s",
+      "value": 1.14,
+      "unit": "sn",
+      "desc": "kural uygulandı -> erişim kesildi (medyan)"
+    },
+    {
+      "key": "base.allow_s",
+      "value": 0.12,
+      "unit": "sn",
+      "desc": "kural kaldırıldı -> erişim açıldı (medyan)"
+    }
+  ],
+  "findings": []
+}

@@ -1,0 +1,9 @@
+{"name":"zincir çalışıyor (8 servis, tüm kenarlar yetkili)","expected":"ok","actual":"ok","pass":true}
+{"name":"uçtan uca erişim (ingress kimliği yetkili)","expected":"ok","actual":"ok","pass":true}
+{"name":"tüm shop pod'ları sağlıklı","expected":"ok","actual":"ok","pass":true}
+{"name":"gateway kimliği -> order [200]","expected":"izin","actual":"izin","pass":true}
+{"name":"rogue kimliği -> order [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"rogue kimliği -> gateway [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"yatay geçiş: gateway -> catalog [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"kimlik taklidi (etiket=gateway, sa=rogue) -> order [000]","expected":"ret","actual":"ret","pass":true}
+{"name":"mesh dışı namespace -> order [000]","expected":"ret","actual":"ret","pass":true}

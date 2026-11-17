@@ -1,0 +1,12 @@
+    from_version = 0 -
+    to_version = 0 -
+
+[1;34m==> Hazırlık: istio-sidecar 1.30.8 sürümüyle yeniden kuruluyor[0m
+
+[1;34m==> Mevcut mesh bileşenleri kaldırılıyor[0m
+  [32m[ok][0m temizlendi
+
+[1;34m==> Istio 1.30.8 kuruluyor (sidecar)[0m
+  [32m[ok][0m Gateway API CRD'leri v1.6.1
+  [32m[ok][0m plug-in CA (cacerts) yüklendi
+Error: unable to continue with install: ValidatingWebhookConfiguration "istiod-default-validator" in namespace "" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "istio-base": current value is "istiod-1-31-4"

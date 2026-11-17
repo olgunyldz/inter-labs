@@ -1,0 +1,85 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794887423,
+  "end": 1794888135,
+  "duration_s": 712,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "veri düzlemi yeni sürümde",
+      "expected": "edge-26.11.2",
+      "actual": "edge-26.11.2",
+      "pass": true
+    },
+    {
+      "name": "güncelleme sırasında hata oranı",
+      "expected": "<= 0.01",
+      "actual": "0.00026682379623556095",
+      "pass": true
+    },
+    {
+      "name": "güncelleme sonrası zincir çalışıyor",
+      "expected": "ok",
+      "actual": "ok",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "from_version",
+      "value": 0,
+      "unit": "-",
+      "desc": "edge-26.10.2"
+    },
+    {
+      "key": "to_version",
+      "value": 0,
+      "unit": "-",
+      "desc": "edge-26.11.2"
+    },
+    {
+      "key": "upgrade_duration_s",
+      "value": 103,
+      "unit": "sn",
+      "desc": "güncelleme komutlarının toplam süresi"
+    },
+    {
+      "key": "steps",
+      "value": 4,
+      "unit": "adım",
+      "desc": ""
+    },
+    {
+      "key": "restarted_pods",
+      "value": 19,
+      "unit": "adet",
+      "desc": "güncelleme için yeniden başlatılan uygulama pod'u"
+    },
+    {
+      "key": "failed_requests",
+      "value": 24,
+      "unit": "istek",
+      "desc": ""
+    },
+    {
+      "key": "error_rate",
+      "value": 0.00026682379623556095,
+      "unit": "oran",
+      "desc": ""
+    },
+    {
+      "key": "p99_ms",
+      "value": 23.121943019999957,
+      "unit": "ms",
+      "desc": ""
+    },
+    {
+      "key": "max_ms",
+      "value": 2927.393614,
+      "unit": "ms",
+      "desc": ""
+    }
+  ],
+  "findings": []
+}

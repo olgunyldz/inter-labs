@@ -1,0 +1,3 @@
+{"name":"sertifika kurumsal ara CA'dan (AKI = ara CA SKI)","expected":"87E96D70C147FA95E075E4DCA0190BA24447E6CC","actual":"87E96D70C147FA95E075E4DCA0190BA24447E6CC","pass":true}
+{"name":"sertifika ömrü (saat)","expected":"<= 24","actual":"24","pass":true}
+{"name":"kimlik (SAN)","expected":"var","actual":"var","pass":true}

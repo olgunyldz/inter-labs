@@ -1,0 +1,13 @@
+{
+  "status": "na",
+  "exit_code": 0,
+  "start": 1794882487,
+  "end": 1794882487,
+  "duration_s": 0,
+  "na_reason": "Linkerd'de ingress Gateway API uygulaması yok",
+  "checks": [],
+  "metrics": [],
+  "findings": [
+    "Linkerd küme girişi (north-south) için Gateway API uygulaması sunmuyor; ingress-nginx'in yerine ayrı bir ürün (ör. Envoy Gateway, Contour) seçilip mesh'e dahil edilmesi gerekir. Kayıtlı GatewayClass: "
+  ]
+}

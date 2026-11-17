@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "exit_code": 0,
+  "start": 1794881679,
+  "end": 1794881699,
+  "duration_s": 20,
+  "na_reason": null,
+  "checks": [
+    {
+      "name": "izinsiz kaynak: /admin",
+      "expected": "403",
+      "actual": "403",
+      "pass": true
+    },
+    {
+      "name": "izinsiz kaynak: / (kısıtsız)",
+      "expected": "200",
+      "actual": "200",
+      "pass": true
+    },
+    {
+      "name": "sahte X-Forwarded-For (izinli IP taklidi): /admin",
+      "expected": "403",
+      "actual": "403",
+      "pass": true
+    },
+    {
+      "name": "izinli kaynak (172.28.10.1): /admin",
+      "expected": "200",
+      "actual": "200",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "key": "client_ip",
+      "value": 0,
+      "unit": "-",
+      "desc": "DMZ'nin gördüğü istemci IP'si: 172.28.10.1"
+    }
+  ],
+  "findings": []
+}

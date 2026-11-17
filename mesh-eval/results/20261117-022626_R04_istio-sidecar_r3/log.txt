@@ -1,0 +1,13 @@
+
+[1;34m==> A) kontrol düzlemi kaybı[0m
+  [32m[ok][0m kontrol düzlemi kapalı: istiod
+    A.new_pod_created = 0 bool
+    A.new_pod_ready = 0 bool
+    A.new_pod_meshed = 0 bool
+    A.new_pod_serving = 0 bool
+  [33m[!][0m BULGU: istio-sidecar: kontrol düzlemi yokken yeni pod oluşturulamadı (enjeksiyon webhook'u hata veriyor: Error creating: Internal error occurred: failed calling webhook "namespace.sidecar-injector.istio.io": failed to call webhook: Post "https://istiod.istio-system.svc:443/inject?timeout=10s": dial tcp 1). Ölçeklenme ve yeniden başlatmalar durur.
+  [32m[ok][0m kontrol düzlemi geri geldi
+    A.error_rate = 0 oran
+    A.failed_requests = 0 istek
+    A.p99_ms = 23.822085 ms
+  [32m[ok][0m A: kontrol düzlemi kaybında mevcut trafik hata oranı (0 <= 0.01)

@@ -1,0 +1,6 @@
+  [31m[x][0m mesh dışından düz HTTP -> order [200]: beklenen=ret gerçekleşen=izin
+    marker_packets = 40 paket
+    control_packets = 6 paket
+  [32m[ok][0m kontrol: yakalama çalışıyor (düz metin kontrol işareti görüldü) (6 >= 1)
+  [31m[x][0m ağ üzerinde trafik şifreli: beklenen=evet gerçekleşen=hayır
+  [33m[!][0m BULGU: Servisler arası trafik ağda düz metin: başlıklar ve gövde node üzerinde okunabiliyor (40 paket).

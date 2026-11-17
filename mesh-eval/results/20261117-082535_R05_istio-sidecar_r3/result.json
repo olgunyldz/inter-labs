@@ -1,0 +1,24 @@
+{
+  "status": "error",
+  "exit_code": 1,
+  "start": 1794893135,
+  "end": 1794893136,
+  "duration_s": 1,
+  "na_reason": null,
+  "checks": [],
+  "metrics": [
+    {
+      "key": "from_version",
+      "value": 0,
+      "unit": "-",
+      "desc": "1.30.8"
+    },
+    {
+      "key": "to_version",
+      "value": 0,
+      "unit": "-",
+      "desc": "1.31.4"
+    }
+  ],
+  "findings": []
+}

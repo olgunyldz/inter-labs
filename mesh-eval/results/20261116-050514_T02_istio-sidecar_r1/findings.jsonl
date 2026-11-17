@@ -1,0 +1,1 @@
+"istio-sidecar: protokol ipucu olmayan server-first TCP bağlantısında ilk bayt gelmedi ms (protokol algılama beklemesi). Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı."

@@ -1,0 +1,44 @@
+    from_version = 0 -
+    to_version = 0 -
+
+[1;34m==> Hazırlık: istio-sidecar 1.30.8 sürümüyle yeniden kuruluyor[0m
+
+[1;34m==> Mevcut mesh bileşenleri kaldırılıyor[0m
+  [32m[ok][0m temizlendi
+
+[1;34m==> Istio 1.30.8 kuruluyor (sidecar)[0m
+  [32m[ok][0m Gateway API CRD'leri v1.6.1
+  [32m[ok][0m plug-in CA (cacerts) yüklendi
+  [32m[ok][0m istiod
+
+[1;34m==> Uygulama mesh'e alınıyor: istio-sidecar[0m
+  [32m[ok][0m PeerAuthentication STRICT (shop)
+  [32m[ok][0m ingress-nginx (cluster-a) yeniden yapılandırıldı
+  [32m[ok][0m shop: 19 pod çalışıyor
+  [32m[ok][0m eski sürüm hazır (1.30.8)
+
+[1;34m==> Güncelleme: 1.30.8 -> 1.31.4[0m
+
+[1;34m==> adım 1: istio-base (CRD) güncelle[0m
+
+[1;34m==> adım 2: yeni revizyonlu istiod (1-31-4) kur[0m
+
+[1;34m==> adım 3: varsayılan enjeksiyon etiketini yeni revizyona taşı[0m
+
+[1;34m==> adım 4: uygulama deployment'larını sırayla yeniden başlat[0m
+
+[1;34m==> adım 5: ingress-nginx'i yeniden başlat[0m
+
+[1;34m==> adım 6: eski istiod'u kaldır[0m
+    upgrade_duration_s = 124 sn
+    steps = 6 adım
+    restarted_pods = 19 adet
+  [32m[ok][0m veri düzlemi yeni sürümde (=1.31.4)
+
+[1;34m==> k6 bitişi bekleniyor[0m
+    failed_requests = 88 istek
+    error_rate = 0.000977864699084363 oran
+    p99_ms = 39.15149616999982 ms
+    max_ms = 254.169715 ms
+  [32m[ok][0m güncelleme sırasında hata oranı (0.000977864699084363 <= 0.01)
+  [32m[ok][0m güncelleme sonrası zincir çalışıyor (=ok)

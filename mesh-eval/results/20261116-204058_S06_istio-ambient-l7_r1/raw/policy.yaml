@@ -1,0 +1,83 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-nothing, namespace: shop }
+spec: {}
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-from-waypoint, namespace: shop }
+spec:
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/waypoint"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-gateway, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: gateway }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/loadgen/sa/k6","cluster.local/ns/ingress-nginx/sa/ingress-nginx","cluster.local/ns/shop/sa/gateway"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-order, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: order }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/gateway"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-inventory, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: inventory }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/order"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-payment, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: payment }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/order"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-pricing, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: pricing }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/inventory"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-catalog, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: catalog }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/pricing"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-fraud, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: fraud }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/payment"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-ledger, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: ledger }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/fraud"] } }] }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: allow-banner, namespace: shop }
+spec:
+  targetRefs: [{ kind: Service, group: "", name: banner }]
+  action: ALLOW
+  rules: [{ from: [{ source: { principals: ["cluster.local/ns/shop/sa/gateway"] } }] }]

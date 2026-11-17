@@ -1,0 +1,54 @@
+{
+  "test": {
+    "id": "O03",
+    "name": "Operasyon envanteri — karmaşıklık ve ayrıcalık",
+    "category": "operasyon",
+    "purpose": "Mesh'in işletme yükünü nesnel göstergelerle kaydetmek: CRD sayısı, kontrol düzlemi ve node ajanı bileşenleri, kullanılan imajlar, webhook'lar, uygulama pod'una eklenen konteynerler, ayrıcalıklı (NET_ADMIN / privileged) gereksinimler, kurulum süresi ve tanılama aracının sonucu.\n",
+    "method": "Kurulu mesh'in Kubernetes nesneleri sayılır; istioctl analyze / linkerd check çalıştırılır.",
+    "components": [
+      "kubectl",
+      "istioctl",
+      "linkerd CLI"
+    ],
+    "meshes": [
+      "istio-sidecar",
+      "istio-ambient",
+      "istio-ambient-l7",
+      "linkerd"
+    ],
+    "outputs": [
+      "crds",
+      "control_plane_pods",
+      "node_agents",
+      "images",
+      "webhooks",
+      "added_containers_per_pod",
+      "privileged_components",
+      "install_s",
+      "diag_issues"
+    ],
+    "pass_criteria": "Tanılama aracında hata yok"
+  },
+  "mesh": "istio-ambient",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-141719-2939011",
+  "repeat": 3,
+  "start": 1794837991,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "47c45b9",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794837993
+}

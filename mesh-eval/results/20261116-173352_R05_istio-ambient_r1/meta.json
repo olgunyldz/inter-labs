@@ -1,0 +1,50 @@
+{
+  "test": {
+    "id": "R05",
+    "name": "Yük altında kesintisiz mesh güncellemesi",
+    "category": "dayanıklılık",
+    "purpose": "Mesh sürüm güncellemesinin (yılda birkaç kez zorunlu) iş trafiğini kesip kesmediğini, ne kadar sürdüğünü ve hangi adımları gerektirdiğini ölçmek. Sidecar ile ambient arasındaki en büyük operasyonel fark beklenen kalem.\n",
+    "method": "Mesh bir önceki sürümle (Istio 1.30.x / Linkerd bir önceki edge) yeniden kurulur, uygulama mesh'e alınır. 150 RPS sabit yük sürerken hedef sürüme güncellenir: sidecar: revizyonlu (canary) kontrol düzlemi + varsayılan etiketin taşınması + tüm deployment'ların sırayla yeniden başlatılması; ambient: helm ile yerinde güncelleme (base, istiod, istio-cni, ztunnel); linkerd: linkerd upgrade + deployment'ların yeniden başlatılması. Güncelleme süresi, adım sayısı, yeniden başlatılan pod sayısı ve başarısız istekler ölçülür.\n",
+    "components": [
+      "helm / istioctl / linkerd CLI",
+      "k6",
+      "tüm veri düzlemi"
+    ],
+    "meshes": [
+      "istio-sidecar",
+      "istio-ambient",
+      "istio-ambient-l7",
+      "linkerd"
+    ],
+    "outputs": [
+      "upgrade_duration_s",
+      "steps",
+      "restarted_pods",
+      "failed_requests",
+      "error_rate"
+    ],
+    "pass_criteria": "Güncelleme sırasında hata oranı < %1 ve sonunda tüm proxy'ler yeni sürümde"
+  },
+  "mesh": "istio-ambient",
+  "profile": "full",
+  "session": "degerlendirme-1",
+  "invocation": "20261116-141719-2939011",
+  "repeat": 1,
+  "start": 1794839632,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "mesh-eval/chainsvc:0.1.0",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "47c45b9",
+    "uncommitted_files": 0
+  },
+  "status": "pass",
+  "end": 1794840331
+}

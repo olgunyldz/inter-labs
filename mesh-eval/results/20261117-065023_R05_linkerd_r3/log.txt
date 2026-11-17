@@ -1,0 +1,42 @@
+    from_version = 0 -
+    to_version = 0 -
+
+[1;34m==> Hazırlık: linkerd edge-26.10.2 sürümüyle yeniden kuruluyor[0m
+
+[1;34m==> Mevcut mesh bileşenleri kaldırılıyor[0m
+  [32m[ok][0m temizlendi
+
+[1;34m==> Linkerd edge-26.10.2 kuruluyor[0m
+  [32m[ok][0m Gateway API CRD'leri v1.6.1
+Rendering Linkerd CRDs...
+Next, run `linkerd install | kubectl apply -f -` to install the control plane.
+
+  [32m[ok][0m linkerd control plane (linkerd check geçti)
+
+[1;34m==> Uygulama mesh'e alınıyor: linkerd[0m
+  [32m[ok][0m Linkerd: Prometheus agent mesh'e alındı (metrik toplama kimlikli)
+  [32m[ok][0m ingress-nginx (cluster-a) yeniden yapılandırıldı
+  [32m[ok][0m shop: 19 pod çalışıyor
+  [32m[ok][0m eski sürüm hazır (edge-26.10.2)
+
+[1;34m==> Güncelleme: edge-26.10.2 -> edge-26.11.2[0m
+
+[1;34m==> adım 1: linkerd CRD'leri[0m
+
+[1;34m==> adım 2: linkerd kontrol düzlemi[0m
+
+[1;34m==> adım 3: uygulama deployment'larını sırayla yeniden başlat (yeni proxy)[0m
+
+[1;34m==> adım 4: ingress-nginx'i yeniden başlat[0m
+    upgrade_duration_s = 103 sn
+    steps = 4 adım
+    restarted_pods = 19 adet
+  [32m[ok][0m veri düzlemi yeni sürümde (=edge-26.11.2)
+
+[1;34m==> k6 bitişi bekleniyor[0m
+    failed_requests = 24 istek
+    error_rate = 0.00026682379623556095 oran
+    p99_ms = 23.121943019999957 ms
+    max_ms = 2927.393614 ms
+  [32m[ok][0m güncelleme sırasında hata oranı (0.00026682379623556095 <= 0.01)
+  [32m[ok][0m güncelleme sonrası zincir çalışıyor (=ok)

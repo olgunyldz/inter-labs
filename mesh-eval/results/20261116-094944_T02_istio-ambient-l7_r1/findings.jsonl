@@ -1,0 +1,1 @@
+"istio-ambient-l7: protokol ipucu (appProtocol) olmayan server-first TCP portunda sunucunun ilk baytı 20 sn içinde hiç gelmedi (bağlantı kullanılamaz) — mesh istemcinin önce veri göndermesini bekliyor (protokol algılama). İpucuyla 2 ms. Prod'da tüm TCP portlarına appProtocol / opaque port tanımı zorunlu olmalı (Oracle, MSSQL, SMTP vb.)."

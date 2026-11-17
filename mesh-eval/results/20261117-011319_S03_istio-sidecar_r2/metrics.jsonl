@@ -1,0 +1,2 @@
+{"key":"policy_objects","value":10,"unit":"adet","desc":"uygulanan politika nesnesi sayısı"}
+{"key":"deny_http_code","value":403,"unit":"kod","desc":"reddedilen isteğin cevabı (403 = L7 ret, 000 = bağlantı reddi)"}

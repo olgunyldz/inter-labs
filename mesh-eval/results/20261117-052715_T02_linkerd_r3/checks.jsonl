@@ -1,0 +1,3 @@
+{"name":"server-first (ipuçlu) ilk bayt (ms)","expected":"<= 1000","actual":"4","pass":true}
+{"name":"Redis PING","expected":"+PONG","actual":"+PONG","pass":true}
+{"name":"Postgres TCP bağlantısı","expected":"ok","actual":"ok","pass":true}

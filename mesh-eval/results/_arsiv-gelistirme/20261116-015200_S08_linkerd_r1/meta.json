@@ -1,0 +1,49 @@
+{
+  "test": {
+    "id": "S08",
+    "name": "Sertifika yönetimi — kurumsal CA, ömür, yük altında CA rotasyonu",
+    "category": "güvenlik",
+    "purpose": "İş yükü sertifikalarının bizim (kurumsal) CA'mızdan imzalandığını, kısa ömürlü olduğunu ve otomatik yenilendiğini; ara CA (issuer) yük altında değiştirildiğinde trafik kesilmediğini göstermek. Prod'da Vault gibi kurumsal CA ile entegrasyonun lab karşılığı.\n",
+    "method": "(1) order pod'unun iş yükü sertifikası mesh aracıyla alınır (istioctl / linkerd identity): veren CA, geçerlilik süresi, SPIFFE kimliği. (2) 200 RPS sabit yük altında, aynı kök CA ile yeni bir ara CA üretilip mesh'e verilir; order yeniden başlatılır. Yeni pod'un sertifikası yeni ara CA'dan gelmeli, eski ve yeni sertifikalı pod'lar konuşabilmeli, yükte hata oluşmamalı.\n",
+    "components": [
+      "mesh CA (istiod / linkerd-identity)",
+      "plug-in CA (lib/pki.sh)",
+      "k6"
+    ],
+    "meshes": [
+      "istio-sidecar",
+      "istio-ambient",
+      "istio-ambient-l7",
+      "linkerd"
+    ],
+    "outputs": [
+      "cert_ttl_h",
+      "issuer_cn",
+      "rotation.error_rate",
+      "rotation.new_issuer_ok",
+      "rotation.needed_restart"
+    ],
+    "pass_criteria": "Sertifika kurumsal ara CA'dan, ömür <= 24 sa, rotasyonda hata oranı < %1 ve yeni issuer"
+  },
+  "mesh": "linkerd",
+  "profile": "quick",
+  "session": "adhoc-20261116",
+  "repeat": 1,
+  "start": 1794783120,
+  "versions": {
+    "istio": "1.31.4",
+    "linkerd": "edge-26.11.2",
+    "k6": "grafana/k6:2.4.0",
+    "app": "nicholasjackson/fake-service:v0.26.2",
+    "gateway_api": "v1.6.1",
+    "kubernetes": "v1.37.0",
+    "kind": "v0.33.0",
+    "ingress_nginx_chart": "4.15.1"
+  },
+  "git": {
+    "commit": "d77427e",
+    "uncommitted_files": 4
+  },
+  "status": "error",
+  "end": 1794783121
+}

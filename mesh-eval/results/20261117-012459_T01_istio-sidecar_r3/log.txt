@@ -1,0 +1,10 @@
+    baseline.v2_share = 0.312 oran
+    weighted.v2_share = 0.098 oran
+  [32m[ok][0m ağırlıklı: v2 payı >= 0.05 (0.098 >= 0.05)
+  [32m[ok][0m ağırlıklı: v2 payı <= 0.15 (0.098 <= 0.15)
+    header.v2_share = 1.000 oran
+  [32m[ok][0m başlık bazlı: tüm istekler v2 (=1.000)
+    mirror.v2_share_in_responses = 0.000 oran
+    mirror.v2_received = 384 istek
+    mirror.supported = 1 bool
+  [32m[ok][0m yansıtma: cevaplar v1 (=0.000)

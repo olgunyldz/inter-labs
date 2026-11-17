@@ -65,12 +65,12 @@ istio_uninstall() {
   local r
   for r in $(hb list -n istio-system -q 2>/dev/null); do hb uninstall "$r" -n istio-system --wait >/dev/null 2>&1 || true; done
   kb delete namespace istio-system --ignore-not-found --wait=true >/dev/null 2>&1 || true
-  kb get crd -o name | grep -E 'istio\.io' | xargs -r kb delete >/dev/null 2>&1 || true
+  kb get crd -o name | grep -E 'istio\.io' | while read -r o; do kb delete "$o" --ignore-not-found >/dev/null 2>&1 || true; done
   kb delete mutatingwebhookconfiguration,validatingwebhookconfiguration -l app=sidecar-injector --ignore-not-found >/dev/null 2>&1 || true
   # revision/tag ile oluşan webhook'lar (ör. istiod-default-validator, istio-revision-tag-default) helm
   # kaldırmasında geride kalabilir ve sonraki istio-base kurulumunu engeller
   kb get mutatingwebhookconfiguration,validatingwebhookconfiguration -o name 2>/dev/null \
-    | grep -E '/(istio|istiod)-' | xargs -r kb delete --ignore-not-found >/dev/null 2>&1 || true
+    | grep -E '/(istio|istiod)-' | while read -r o; do kb delete "$o" --ignore-not-found >/dev/null 2>&1 || true; done
 }
 
 # --- Linkerd ----------------------------------------------------------------
@@ -97,7 +97,7 @@ linkerd_uninstall() {
     lk uninstall 2>/dev/null | kb delete --ignore-not-found -f - >/dev/null 2>&1 || true
   fi
   kb delete namespace linkerd --ignore-not-found --wait=true >/dev/null 2>&1 || true
-  kb get crd -o name | grep -E 'linkerd\.io' | xargs -r kb delete >/dev/null 2>&1 || true
+  kb get crd -o name | grep -E 'linkerd\.io' | while read -r o; do kb delete "$o" --ignore-not-found >/dev/null 2>&1 || true; done
 }
 
 # --- Uygulamayı mesh'e alma -------------------------------------------------
